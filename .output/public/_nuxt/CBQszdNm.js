@@ -1,0 +1,1 @@
+import{x as t}from"./DhQxYYl2.js";function s(){const{$api:e}=t();return{create(r){return e("/orders",{method:"POST",body:r})},getMyOrders(r){return e("/orders/me",{params:r})},findById(r){return e(`/orders/${r}`)}}}export{s as u};

@@ -1,0 +1,1 @@
+import{x as u}from"./DhQxYYl2.js";function s(){const{$api:t}=u();return{findAll(r){return t("/products",{params:r})},findBySlug(r){return t(`/products/slug/${r}`)},findById(r){return t(`/products/${r}`)},getCategories(){return t("/products/categories/all")}}}export{s as u};
