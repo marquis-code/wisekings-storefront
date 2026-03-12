@@ -112,6 +112,7 @@ declare global {
   const useCurrency: typeof import('../../composables/useCurrency').useCurrency
   const useError: typeof import('../../node_modules/nuxt/dist/app/composables/error').useError
   const useFetch: typeof import('../../node_modules/nuxt/dist/app/composables/fetch').useFetch
+  const useFirebase: typeof import('../../composables/useFirebase').useFirebase
   const useHead: typeof import('../../node_modules/nuxt/dist/app/composables/head').useHead
   const useHeadSafe: typeof import('../../node_modules/nuxt/dist/app/composables/head').useHeadSafe
   const useHydration: typeof import('../../node_modules/nuxt/dist/app/composables/hydrate').useHydration
@@ -128,7 +129,6 @@ declare global {
   const useModel: typeof import('vue').useModel
   const useNuxtApp: typeof import('../../node_modules/nuxt/dist/app/nuxt').useNuxtApp
   const useNuxtData: typeof import('../../node_modules/nuxt/dist/app/composables/asyncData').useNuxtData
-  const useNuxtDevTools: typeof import('../../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools').useNuxtDevTools
   const usePreviewMode: typeof import('../../node_modules/nuxt/dist/app/composables/preview').usePreviewMode
   const useReferral: typeof import('../../composables/useReferral').useReferral
   const useRequestEvent: typeof import('../../node_modules/nuxt/dist/app/composables/ssr').useRequestEvent
@@ -316,6 +316,7 @@ declare module 'vue' {
     readonly useCurrency: UnwrapRef<typeof import('../../composables/useCurrency')['useCurrency']>
     readonly useError: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/error')['useError']>
     readonly useFetch: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/fetch')['useFetch']>
+    readonly useFirebase: UnwrapRef<typeof import('../../composables/useFirebase')['useFirebase']>
     readonly useHead: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/head')['useHead']>
     readonly useHeadSafe: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/head')['useHeadSafe']>
     readonly useHydration: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/hydrate')['useHydration']>
@@ -332,7 +333,6 @@ declare module 'vue' {
     readonly useModel: UnwrapRef<typeof import('vue')['useModel']>
     readonly useNuxtApp: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/nuxt')['useNuxtApp']>
     readonly useNuxtData: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/asyncData')['useNuxtData']>
-    readonly useNuxtDevTools: UnwrapRef<typeof import('../../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools')['useNuxtDevTools']>
     readonly usePreviewMode: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/preview')['usePreviewMode']>
     readonly useReferral: UnwrapRef<typeof import('../../composables/useReferral')['useReferral']>
     readonly useRequestEvent: UnwrapRef<typeof import('../../node_modules/nuxt/dist/app/composables/ssr')['useRequestEvent']>

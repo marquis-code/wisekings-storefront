@@ -98,6 +98,7 @@
 import { ref } from 'vue'
 import { useLogin } from '@/composables/modules/auth/useLogin'
 import { useAuthState } from '@/composables/useAuthState'
+import { useFirebase } from '@/composables/useFirebase'
 
 definePageMeta({ layout: 'auth' })
 
@@ -105,10 +106,10 @@ const route = useRoute()
 const email = ref('')
 const password = ref('')
 const showPassword = ref(false)
+const socialLoading = ref(false)
 const { loading, login, socialLogin } = useLogin()
 const { setAuth } = useAuthState()
-const { $fbAuth, $googleProvider } = useNuxtApp() as any
-const { signInWithPopup } = await import('firebase/auth')
+const { initFirebase } = useFirebase()
 
 async function handleLogin() {
   const res = await login({ email: email.value, password: password.value })
@@ -120,16 +121,24 @@ async function handleLogin() {
 }
 
 async function handleSocialLogin() {
+  socialLoading.value = true;
   try {
-    const result = await signInWithPopup($fbAuth, $googleProvider)
+    const firebase = await initFirebase();
+    if (!firebase) return; // Silent return if not on client
+    
+    const { signInWithPopup } = await import('firebase/auth')
+    const result = await signInWithPopup(firebase.fbAuth, firebase.googleProvider)
     const idToken = await result.user.getIdToken()
     const res = await socialLogin(idToken)
+    
     if (res?.data) {
       setAuth(res.data.user, res.data.tokens)
       navigateTo((route.query.redirect as string) || '/')
     }
   } catch (error: any) {
     console.error('Social login error:', error)
+  } finally {
+    socialLoading.value = false;
   }
 }
 </script>

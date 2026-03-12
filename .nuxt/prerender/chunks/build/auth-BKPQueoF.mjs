@@ -1,4 +1,4 @@
-import { G as GATEWAY_ENDPOINT } from './useCustomToast-CwIASTqq.mjs';
+import { G as GATEWAY_ENDPOINT } from './useCustomToast-DxEFbjY8.mjs';
 
 const auth_api = {
   login: (payload) => GATEWAY_ENDPOINT.post("/auth/login", payload),

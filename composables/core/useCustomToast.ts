@@ -1,7 +1,7 @@
 
 
 // src/composables/core/useCustomToast.ts
-import { ref, shallowRef, onMounted, createApp, h } from 'vue'
+import { ref, shallowRef, onMounted, h } from 'vue'
 import ToastComponent from '@/components/core/Toast.vue'
 
 type ToastType = 'success' | 'error' | 'warning' | 'info'
@@ -19,19 +19,26 @@ let toastInstance: any = null
 
 export const useCustomToast = () => {
   // Initialize toast on first call
-  if (!toastApp && typeof window !== 'undefined') {
-    // Create container
-    const toastContainer = document.createElement('div')
-    toastContainer.id = 'toast-container'
-    document.body.appendChild(toastContainer)
-    
-    // Create app instance
-    toastApp = createApp(ToastComponent)
-    toastInstance = toastApp.mount('#toast-container')
+  const ensureToastInitialized = async () => {
+    if (!toastApp && typeof window !== 'undefined') {
+      const { createApp } = await import('vue');
+      // Create container
+      const toastContainer = document.createElement('div')
+      toastContainer.id = 'toast-container'
+      document.body.appendChild(toastContainer)
+      
+      // Create app instance
+      toastApp = createApp(ToastComponent)
+      toastInstance = toastApp.mount('#toast-container')
+    }
   }
   
   // Show toast function
-  const showToast = (options: ToastOptions) => {
+  const showToast = async (options: ToastOptions) => {
+    if (typeof window === 'undefined') return;
+    
+    await ensureToastInitialized();
+    
     if (!toastInstance) {
       console.error('Toast component not initialized')
       return

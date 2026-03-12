@@ -108,6 +108,7 @@ import { ref, reactive } from 'vue'
 import { useRegister } from '@/composables/modules/auth/useRegister'
 import { useLogin } from '@/composables/modules/auth/useLogin'
 import { useAuthState } from '@/composables/useAuthState'
+import { useFirebase } from '@/composables/useFirebase'
 
 definePageMeta({ layout: 'auth' })
 
@@ -118,8 +119,7 @@ const socialLoading = ref(false)
 const { loading, register } = useRegister()
 const { socialLogin } = useLogin()
 const { setAuth } = useAuthState()
-const { $fbAuth, $googleProvider } = useNuxtApp() as any
-const { signInWithPopup } = await import('firebase/auth')
+const { initFirebase } = useFirebase()
 
 async function handleRegister() {
   const res = await register(form)
@@ -137,9 +137,14 @@ async function handleRegister() {
 async function handleSocialLogin() {
   socialLoading.value = true;
   try {
-    const result = await signInWithPopup($fbAuth, $googleProvider)
+    const firebase = await initFirebase();
+    if (!firebase) return; // Silent return if not on client
+    
+    const { signInWithPopup } = await import('firebase/auth')
+    const result = await signInWithPopup(firebase.fbAuth, firebase.googleProvider)
     const idToken = await result.user.getIdToken()
     const res = await socialLogin(idToken)
+    
     if (res?.data) {
       setAuth(res.data.user, res.data.tokens)
       navigateTo((route.query.redirect as string) || '/')

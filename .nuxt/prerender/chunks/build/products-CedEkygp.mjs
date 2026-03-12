@@ -1,4 +1,4 @@
-import { G as GATEWAY_ENDPOINT } from './useCustomToast-CwIASTqq.mjs';
+import { G as GATEWAY_ENDPOINT } from './useCustomToast-DxEFbjY8.mjs';
 
 const products_api = {
   get: (params) => GATEWAY_ENDPOINT.get("/products", { params }),

@@ -55,12 +55,15 @@ export default defineNuxtConfig({
         },
     },
     nitro: {
-    prerender: {
-      routes: ['/', '/404.html'],
-      ignore: ['/dynamic-routes', '/api'],
-      failOnError: false
-    }
-  },
+        prerender: {
+            routes: ['/', '/404.html'],
+            ignore: ['/dynamic-routes', '/api'],
+            failOnError: false
+        }
+    },
+    build: {
+        transpile: ['firebase', 'firebase/app', 'firebase/auth']
+    },
     googleFonts: {
     families: {
       "Inter": [400, 500, 600, 700],
