@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     modules: ['@nuxtjs/tailwindcss', '@nuxt/icon', '@nuxtjs/i18n'],
     runtimeConfig: {
         public: {
-            apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000/api/v1',
+            apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://wisekings-backend-hq.onrender.com/api/v1',
             firebaseApiKey: process.env.NUXT_PUBLIC_FIREBASE_API_KEY,
             firebaseAuthDomain: process.env.NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
             firebaseProjectId: process.env.NUXT_PUBLIC_FIREBASE_PROJECT_ID,
