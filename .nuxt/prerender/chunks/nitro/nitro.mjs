@@ -845,7 +845,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "7266755f-5179-456f-a692-0f29a46c5509",
+    "buildId": "467ba8b9-794d-470f-91d8-ed92b3ab8297",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -873,7 +873,7 @@ const _inlineRuntimeConfig = {
     }
   },
   "public": {
-    "apiBase": "http://localhost:3000/api/v1",
+    "apiBase": "https://wisekings-backend-hq.onrender.com/api/v1",
     "firebaseApiKey": "AIzaSyCB2EgW-gzp-ligTcb1NiqdSm_HmIKa2PU",
     "firebaseAuthDomain": "wisekings-fe40a.firebaseapp.com",
     "firebaseProjectId": "wisekings-fe40a",
@@ -1928,7 +1928,7 @@ const _mHd4hMNgU8RTbMvuEo_Fbn8_O5jnH9iV40lo5T7T5kY = defineNitroPlugin(async (ni
     const localeSegment = detector.route(event.path);
     const pathLocale = isSupportedLocale(localeSegment) && localeSegment || void 0;
     const path = (pathLocale && url.pathname.slice(pathLocale.length + 1)) ?? url.pathname;
-    if (!url.pathname.includes("/_i18n/5wPl1z6y") && !isExistingNuxtRoute(path)) {
+    if (!url.pathname.includes("/_i18n/7eCF7hRq") && !isExistingNuxtRoute(path)) {
       return;
     }
     const resolved = resolveRedirectPath(event, path, pathLocale, ctx.vueI18nOptions.defaultLocale, detector);
