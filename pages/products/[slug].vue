@@ -9,8 +9,8 @@
           <div v-else class="w-full h-full flex items-center justify-center"><Icon name="lucide:image" class="w-16 h-16 text-gray-300" /></div>
         </div>
         <div v-if="product.images?.length > 1" class="flex gap-2 mt-4">
-          <button v-for="(img, i) in product.images as any" :key="i" @click="selectedImage = i"
-            :class="['w-16 h-16 rounded-xl overflow-hidden border-2 transition-all', i === selectedImage ? 'border-gray-900' : 'border-transparent hover:border-gray-300']">
+          <button v-for="(img, i) in (product.images as any[])" :key="i" @click="selectedImage = (i as number)"
+            :class="['w-16 h-16 rounded-xl overflow-hidden border-2 transition-all', (i as number) === selectedImage ? 'border-gray-900' : 'border-transparent hover:border-gray-300']">
             <img :src="img" class="w-full h-full object-cover" />
           </button>
         </div>
@@ -48,18 +48,38 @@
         </div>
       </div>
     </div>
+    <!-- Related Products -->
+    <section v-if="recommendations.length" class="mt-20 border-t border-gray-100 pt-16">
+      <h2 class="text-2xl font-black text-gray-900 mb-8">Related Snacks You'll Love</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <NuxtLink v-for="p in recommendations" :key="p._id" :to="`/products/${p.slug}`" class="group">
+          <div class="aspect-square bg-gray-50 rounded-3xl overflow-hidden mb-3 border border-gray-100 group-hover:shadow-lg transition-all duration-300">
+            <img v-if="p.images?.[0]" :src="p.images[0]" :alt="p.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          </div>
+          <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-600 transition-colors line-clamp-1">{{ p.name }}</h3>
+          <p class="text-sm font-extrabold text-[#033958] mt-1">{{ formatPrice(p.price) }}</p>
+        </NuxtLink>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Product } from '~/types'
 import { useFetchProductBySlug } from '@/composables/modules/products/useFetchProductBySlug'
+import { useFetchRecommendations } from '@/composables/modules/products/useFetchRecommendations'
+import { useCurrency } from '@/composables/useCurrency'
+import { useCustomToast } from '@/composables/core/useCustomToast'
 
 const route = useRoute()
 const { addItem } = useCart()
-const toast = useToast()
+const { showToast } = useCustomToast()
+const { trackAddToCart } = useAnalytics()
 
 const { product, loading, fetchProduct } = useFetchProductBySlug()
+const { recommendations, fetchRecommendations } = useFetchRecommendations()
+const { formatPrice } = useCurrency()
+
 const selectedImage = ref(0)
 const qty = ref(1)
 
@@ -71,9 +91,20 @@ const savings = computed(() => {
 function handleAdd() {
   if (product.value) {
     addItem(product.value, qty.value)
-    toast.success('Added to cart', `${product.value.name} × ${qty.value}`)
+    trackAddToCart(product.value)
+    showToast({
+      title: 'Success',
+      message: `${product.value.name} × ${qty.value} added to cart`,
+      toastType: 'success'
+    })
   }
 }
+
+watch(product, (newVal) => {
+  if (newVal?._id) {
+    fetchRecommendations(newVal._id)
+  }
+}, { immediate: true })
 
 onMounted(() => {
   fetchProduct(route.params.slug as string)

@@ -8,9 +8,19 @@ export default defineNuxtPlugin(() => {
         onRequest({ options }) {
             const token = authState.accessToken.value
             if (token) {
-                options.headers = { ...options.headers, Authorization: `Bearer ${token}` } as HeadersInit
+                options.headers = { ...options.headers, Authorization: `Bearer ${token}` }
             }
+
+            const locale = useI18n()?.locale?.value || 'en'
+            const currency = useState('selected_currency').value || 'NGN'
+
+            options.headers = {
+                ...options.headers,
+                'x-locale': locale,
+                'x-currency': currency,
+            } as any
         },
+        async onResponse({ response }) { },
         async onResponseError({ response }) {
             if (response.status === 401) {
                 const refreshed = await authState.refresh()

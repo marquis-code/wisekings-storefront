@@ -1,35 +1,52 @@
-import { ref, readonly } from 'vue'
 
-export interface CustomToast {
-  id: string
+
+// src/composables/core/useCustomToast.ts
+import { ref, shallowRef, onMounted, createApp, h } from 'vue'
+import ToastComponent from '@/components/core/Toast.vue'
+
+type ToastType = 'success' | 'error' | 'warning' | 'info'
+
+interface ToastOptions {
   title: string
-  message?: string
-  toastType: 'success' | 'error' | 'warning' | 'info'
+  message: string
+  toastType: ToastType
   duration?: number
 }
 
-const toasts = ref<CustomToast[]>([])
+// Create a singleton instance
+let toastApp: any = null
+let toastInstance: any = null
 
 export const useCustomToast = () => {
-  const showToast = (toast: Omit<CustomToast, 'id'>) => {
-    const id = Math.random().toString(36).substring(2, 9)
-    const newToast = { ...toast, id }
-    toasts.value.push(newToast)
-
-    if (toast.duration !== 0) {
-      setTimeout(() => {
-        removeToast(id)
-      }, toast.duration || 5000)
+  // Initialize toast on first call
+  if (!toastApp && typeof window !== 'undefined') {
+    // Create container
+    const toastContainer = document.createElement('div')
+    toastContainer.id = 'toast-container'
+    document.body.appendChild(toastContainer)
+    
+    // Create app instance
+    toastApp = createApp(ToastComponent)
+    toastInstance = toastApp.mount('#toast-container')
+  }
+  
+  // Show toast function
+  const showToast = (options: ToastOptions) => {
+    if (!toastInstance) {
+      console.error('Toast component not initialized')
+      return
     }
+    
+    const { title, message, toastType, duration = 5000 } = options
+    
+    // Map toastType to the type expected by the component
+    const type = toastType as ToastType
+    
+    // Call the exposed method
+    return toastInstance.showToast(title, message, type, duration)
   }
-
-  const removeToast = (id: string) => {
-    toasts.value = toasts.value.filter((t) => t.id !== id)
-  }
-
+  
   return {
-    toasts: readonly(toasts),
-    showToast,
-    removeToast,
+    showToast
   }
 }

@@ -1,0 +1,23 @@
+const resource = {
+  "welcome": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "Bienvenue chez WiseKings" } },
+  "premium_products": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "Achetez des produits haut de gamme chez WiseKings. Qualit\xE9 garantie." } },
+  "shop_now": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "Achetez maintenant" } },
+  "categories": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "Cat\xE9gories" } },
+  "featured_products": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "Produits vedettes" } },
+  "auth": {
+    "login": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "Connexion" } },
+    "signup": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "S'inscrire" } },
+    "logout": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "D\xE9connexion" } },
+    "email": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "Adresse e-mail" } },
+    "password": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "Mot de passe" } }
+  },
+  "footer": {
+    "about": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "\xC0 propos" } },
+    "contact": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "Contact" } },
+    "merchants": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "Marchands" } },
+    "partners": { "t": 0, "b": { "t": 2, "i": [{ "t": 3 }], "s": "Partenaires" } }
+  }
+};
+
+export { resource as default };
+//# sourceMappingURL=fr--Hqhnjz8.mjs.map

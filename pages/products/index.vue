@@ -1,26 +1,53 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="min-h-screen bg-white">
+    <!-- Hero -->
+    <section class="relative h-[45vh] min-h-[400px] flex items-center overflow-hidden bg-gray-950">
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="https://images.unsplash.com/photo-1559181567-c3190ca9959b?q=80&w=2000&auto=format&fit=crop" 
+          class="w-full h-full object-cover opacity-50 animate-ken-burns"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
+      </div>
+      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full relative z-10 pt-20">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 bg-white/10 text-white/90 px-4 py-2 rounded-full text-[10px] font-black tracking-widest uppercase backdrop-blur-md border border-white/20 mb-6 font-sans">
+             <Icon name="lucide:shopping-bag" size="14" class="text-amber-400" />
+             The Full Collection
+          </div>
+          <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none mb-4">
+            Shop the<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">Royal Vault</span>
+          </h1>
+          <p class="text-lg text-white/60 font-medium">Explore our meticulously curated selection of premium Nigerian snacks.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="flex flex-col md:flex-row gap-8">
       <!-- Sidebar filters -->
-      <aside class="w-full md:w-56 flex-shrink-0">
-        <h2 class="text-lg font-bold text-gray-900 mb-4">Filters</h2>
-        <div class="space-y-4">
-          <div>
-            <label class="label">Category</label>
-            <select v-model="categoryFilter" class="input" @change="page = 1; handleFetch()">
-              <option value="">All</option>
-              <option v-for="c in categories" :key="c._id" :value="c._id">{{ c.name }}</option>
-            </select>
+      <aside class="w-full md:w-64 flex-shrink-0 space-y-8">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 rounded-lg bg-[#033958]/5 flex items-center justify-center text-[#033958]">
+            <Icon name="lucide:sliders-horizontal" size="18" />
           </div>
-          <div>
-            <label class="label">Sort by</label>
-            <select v-model="sortBy" class="input" @change="handleFetch()">
-              <option value="">Default</option>
-              <option value="price-asc">Price: Low → High</option>
-              <option value="price-desc">Price: High → Low</option>
-              <option value="name">Name</option>
-            </select>
-          </div>
+          <h2 class="text-xl font-black text-gray-950 tracking-tight">Refine Manifest</h2>
+        </div>
+
+        <div class="space-y-6">
+          <CoreSelectInput 
+            v-model="categoryFilter" 
+            label="Product Category"
+            :options="categoryOptions"
+            @update:model-value="page = 1; handleFetch()"
+          />
+
+          <CoreSelectInput 
+            v-model="sortBy" 
+            label="Sort Archive By"
+            :options="sortOptions"
+            @update:model-value="handleFetch()"
+          />
         </div>
       </aside>
 
@@ -53,6 +80,7 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 </template>
 
@@ -68,6 +96,21 @@ const page = ref(1)
 const search = ref('')
 const categoryFilter = ref('')
 const sortBy = ref('')
+
+const categoryOptions = computed(() => {
+  const options = categories.value.map(c => ({
+    label: c.name,
+    value: c._id
+  }))
+  return [{ label: 'All Categories', value: '' }, ...options]
+})
+
+const sortOptions = [
+  { label: 'Default Sorting', value: '' },
+  { label: 'Price: Low to High', value: 'price-asc' },
+  { label: 'Price: High to Low', value: 'price-desc' },
+  { label: 'A-Z Name', value: 'name' },
+]
 
 const totalPages = computed(() => Math.ceil(total.value / 12))
 
@@ -90,3 +133,14 @@ onMounted(async () => {
   handleFetch()
 })
 </script>
+
+<style>
+@keyframes ken-burns {
+  0% { transform: scale(1) translate(0); }
+  50% { transform: scale(1.1) translate(-1%, -1%); }
+  100% { transform: scale(1.2) translate(-2%, -2%); }
+}
+.animate-ken-burns {
+  animation: ken-burns 30s ease-in-out infinite alternate;
+}
+</style>

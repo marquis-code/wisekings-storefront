@@ -32,5 +32,18 @@ export const useInitializePayment = () => {
         }
     }
 
-    return { loading, initializePaystack, initializeStripe }
+    const initializePayment = async (payload: any) => {
+        loading.value = true
+        try {
+            const res = await payments_api.initializePayment(payload) as any
+            return res
+        } catch (err: any) {
+            showToast({ title: "Error", message: err.message || "Payment initialization failed", toastType: "error" })
+            return null
+        } finally {
+            loading.value = false
+        }
+    }
+
+    return { loading, initializePaystack, initializeStripe, initializePayment }
 }

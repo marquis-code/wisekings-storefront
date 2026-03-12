@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 py-8">
     <h1 class="text-2xl font-bold text-gray-900 mb-6">Shopping Cart</h1>
     <div v-if="items.length === 0" class="text-center py-20">
       <Icon name="lucide:shopping-bag" class="w-12 h-12 mx-auto text-gray-300 mb-4" />
@@ -27,7 +27,7 @@
       </div>
       <div class="border-t border-gray-200 pt-4 space-y-3">
         <div class="flex justify-between text-lg font-bold"><span>Total</span><span>₦{{ totalPrice.toLocaleString() }}</span></div>
-        <NuxtLink to="/checkout" class="btn-primary w-full btn-lg">Proceed to Checkout</NuxtLink>
+        <button @click="handleCheckout" class="btn-primary w-full btn-lg">Proceed to Checkout</button>
         <NuxtLink to="/products" class="btn-secondary w-full">Continue Shopping</NuxtLink>
       </div>
     </div>
@@ -36,4 +36,19 @@
 
 <script setup lang="ts">
 const { items, totalPrice, updateQuantity, removeItem } = useCart()
+const { trackEvent } = useAnalytics()
+
+function handleCheckout() {
+  trackEvent('begin_checkout', {
+    value: totalPrice.value,
+    currency: 'USD',
+    items: items.value.map(item => ({
+      item_id: item.productId,
+      item_name: item.name,
+      price: item.price,
+      quantity: item.quantity
+    }))
+  })
+  navigateTo('/checkout')
+}
 </script>
