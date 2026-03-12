@@ -54,6 +54,13 @@ export default defineNuxtConfig({
             fallbackLocale: 'en',
         },
     },
+    nitro: {
+    prerender: {
+      routes: ['/', '/404.html'],
+      ignore: ['/dynamic-routes', '/api'],
+      failOnError: false
+    }
+  },
     googleFonts: {
     families: {
       "Inter": [400, 500, 600, 700],
