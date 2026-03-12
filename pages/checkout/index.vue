@@ -31,41 +31,56 @@
           <!-- Fulfillment Toggle -->
           <div class="space-y-6">
             <h2 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Fulfillment Method</h2>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <button 
                 type="button" 
                 @click="deliveryMethod = 'pickup'"
-                class="p-6 rounded-[32px] border-2 transition-all flex flex-col items-center gap-4 group"
+                class="p-4 rounded-[28px] border-2 transition-all flex flex-col items-center gap-3 group"
                 :class="deliveryMethod === 'pickup' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
               >
-                <div class="w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="deliveryMethod === 'pickup' ? 'bg-[#033958] text-white shadow-xl shadow-[#033958]/20' : 'bg-white text-gray-400'">
-                  <Icon name="lucide:store" class="w-6 h-6" />
+                <div class="w-10 h-10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="deliveryMethod === 'pickup' ? 'bg-[#033958] text-white shadow-xl shadow-[#033958]/20' : 'bg-white text-gray-400'">
+                  <Icon name="lucide:store" class="w-5 h-5" />
                 </div>
                 <div class="text-center">
-                  <p class="text-xs font-black uppercase tracking-widest" :class="deliveryMethod === 'pickup' ? 'text-[#033958]' : 'text-gray-400'">Store Pickup</p>
-                  <p class="text-[10px] font-medium text-gray-400 mt-1">Ready in 2 hours · Free</p>
+                  <p class="text-[10px] font-black uppercase tracking-widest" :class="deliveryMethod === 'pickup' ? 'text-[#033958]' : 'text-gray-400'">Pickup</p>
+                  <p class="text-[9px] font-medium text-gray-400 mt-0.5 line-clamp-1">at Lagos Store</p>
                 </div>
               </button>
 
               <button 
                 type="button" 
-                @click="deliveryMethod = 'delivery'"
-                class="p-6 rounded-[32px] border-2 transition-all flex flex-col items-center gap-4 group"
-                :class="deliveryMethod === 'delivery' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
+                @click="deliveryMethod = 'waybill'"
+                class="p-4 rounded-[28px] border-2 transition-all flex flex-col items-center gap-3 group"
+                :class="deliveryMethod === 'waybill' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
               >
-                <div class="w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="deliveryMethod === 'delivery' ? 'bg-amber-500 text-white shadow-xl shadow-amber-500/20' : 'bg-white text-gray-400'">
-                  <Icon name="lucide:truck" class="w-6 h-6" />
+                <div class="w-10 h-10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="deliveryMethod === 'waybill' ? 'bg-[#033958] text-white shadow-xl shadow-[#033958]/20' : 'bg-white text-gray-400'">
+                  <Icon name="lucide:package" class="w-5 h-5" />
                 </div>
                 <div class="text-center">
-                  <p class="text-xs font-black uppercase tracking-widest" :class="deliveryMethod === 'delivery' ? 'text-amber-600' : 'text-gray-400'">Home Delivery</p>
-                  <p class="text-[10px] font-medium text-gray-400 mt-1">We bring it to you · Calculated</p>
+                  <p class="text-[10px] font-black uppercase tracking-widest" :class="deliveryMethod === 'waybill' ? 'text-amber-600' : 'text-gray-400'">Waybill</p>
+                  <p class="text-[9px] font-medium text-gray-400 mt-0.5 line-clamp-1">Outside Lagos</p>
+                </div>
+              </button>
+
+              <button 
+                type="button" 
+                @click="deliveryMethod = 'lagos_dispatch'"
+                class="p-4 rounded-[28px] border-2 transition-all flex flex-col items-center gap-3 group"
+                :class="deliveryMethod === 'lagos_dispatch' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
+              >
+                <div class="w-10 h-10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="deliveryMethod === 'lagos_dispatch' ? 'bg-amber-500 text-white shadow-xl shadow-amber-500/20' : 'bg-white text-gray-400'">
+                  <Icon name="lucide:truck" class="w-5 h-5" />
+                </div>
+                <div class="text-center">
+                  <p class="text-[10px] font-black uppercase tracking-widest" :class="deliveryMethod === 'lagos_dispatch' ? 'text-amber-600' : 'text-gray-400'">Dispatch</p>
+                  <p class="text-[9px] font-medium text-gray-400 mt-0.5 line-clamp-1">Within Lagos</p>
                 </div>
               </button>
             </div>
           </div>
 
           <!-- Shipping Details -->
-          <div v-if="deliveryMethod === 'delivery'" class="space-y-6">
+          <div v-if="deliveryMethod !== 'pickup'" class="space-y-6">
             <h2 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Shipping Destination</h2>
             <div class="p-8 bg-gray-50 rounded-[40px] border border-gray-100 space-y-6">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -86,7 +101,7 @@
                   <input 
                     id="addressAutocomplete"
                     v-model="address.address" 
-                    placeholder="Enter your street address in Lagos..." 
+                    :placeholder="deliveryMethod === 'waybill' ? 'Enter delivery address...' : 'Enter your street address in Lagos...'" 
                     class="w-full pl-12 pr-5 py-4 bg-white border border-gray-100 rounded-2xl text-xs font-bold text-gray-900 focus:ring-4 focus:ring-[#033958]/5 focus:border-[#033958] outline-none transition-all" 
                     required 
                   />
@@ -95,7 +110,7 @@
                   <Icon name="lucide:loader-2" class="w-3 h-3 animate-spin text-amber-500" />
                   <span class="text-[10px] font-black uppercase tracking-widest text-amber-600">Calculating distance pricing...</span>
                 </div>
-                <p v-else-if="distanceInfo" class="text-[10px] font-black uppercase tracking-widest text-emerald-600 mt-2 ml-2 flex items-center gap-2">
+                <p v-else-if="distanceInfo && deliveryMethod === 'lagos_dispatch'" class="text-[10px] font-black uppercase tracking-widest text-emerald-600 mt-2 ml-2 flex items-center gap-2">
                   <Icon name="lucide:check-circle" size="12" />
                   Distance: {{ distanceInfo.distanceKm }}km detected
                 </p>
@@ -104,10 +119,11 @@
               <div class="grid grid-cols-2 gap-6">
                 <div class="space-y-2">
                   <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">City</label>
-                  <input v-model="address.city" class="w-full px-5 py-4 bg-gray-100 border border-gray-200 rounded-2xl text-xs font-bold text-gray-400 cursor-not-allowed" readonly required />
+                  <input v-model="address.city" class="w-full px-5 py-4 bg-white border border-gray-100 rounded-2xl text-xs font-bold text-gray-900 focus:ring-4 focus:ring-[#033958]/5 focus:border-[#033958] outline-none transition-all" required />
                 </div>
                 <div class="space-y-2">
-                  <input v-model="address.state" class="w-full px-5 py-4 bg-gray-100 border border-gray-200 rounded-2xl text-xs font-bold text-gray-400 cursor-not-allowed" readonly required />
+                  <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">State / Province</label>
+                  <input v-model="address.state" class="w-full px-5 py-4 bg-white border border-gray-100 rounded-2xl text-xs font-bold text-gray-900 focus:ring-4 focus:ring-[#033958]/5 focus:border-[#033958] outline-none transition-all" required />
                 </div>
               </div>
             </div>
@@ -148,7 +164,7 @@
               </div>
               
               <div class="flex justify-between items-center text-xs">
-                <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Shipping ({{ deliveryMethod }})</span>
+                <span class="text-[10px] font-black uppercase tracking-widest text-amber-400">Shipping ({{ deliveryMethod.replace('_', ' ') }})</span>
                 <span class="font-black text-amber-400">₦{{ shippingFee.toLocaleString() }}</span>
               </div>
 
@@ -189,18 +205,29 @@
               </div>
             </div>
 
-            <button 
-              @click="handleCheckout" 
-              class="w-full py-6 bg-white hover:bg-amber-500 text-[#033958] rounded-[32px] font-black text-xs uppercase tracking-[0.2em] transition-all active:scale-[0.98] shadow-2xl flex items-center justify-center gap-3 disabled:opacity-50"
-              :disabled="submitting || (deliveryMethod === 'delivery' && !distanceInfo)"
-            >
-              <Icon v-if="submitting" name="lucide:loader-2" class="w-4 h-4 animate-spin text-[#033958]" />
-              <template v-else>
-                Authorize Payment
-                <Icon name="lucide:shield-check" class="w-4 h-4" />
-              </template>
-            </button>
-            <p v-if="deliveryMethod === 'delivery' && !distanceInfo" class="text-[9px] font-bold text-white/30 text-center uppercase tracking-widest italic">Please set delivery address to calculate fee</p>
+            <div class="space-y-4">
+              <button 
+                @click="handleCheckout" 
+                class="w-full py-6 bg-white hover:bg-amber-500 text-[#033958] rounded-[32px] font-black text-xs uppercase tracking-[0.2em] transition-all active:scale-[0.98] shadow-2xl flex items-center justify-center gap-3 disabled:opacity-50"
+                :disabled="submitting || (deliveryMethod === 'lagos_dispatch' && !distanceInfo)"
+              >
+                <Icon v-if="submitting" name="lucide:loader-2" class="w-4 h-4 animate-spin text-[#033958]" />
+                <template v-else>
+                  Authorize Payment
+                  <Icon name="lucide:shield-check" class="w-4 h-4" />
+                </template>
+              </button>
+
+              <button 
+                @click="handleWhatsAppOrder" 
+                class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-[32px] font-black text-[10px] uppercase tracking-[0.3em] transition-all active:scale-[0.98] flex items-center justify-center gap-3"
+              >
+                <Icon name="lucide:message-circle" class="w-4 h-4" />
+                Order via WhatsApp
+              </button>
+            </div>
+            
+            <p v-if="deliveryMethod === 'lagos_dispatch' && !distanceInfo" class="text-[9px] font-bold text-white/30 text-center uppercase tracking-widest italic">Please set delivery address to calculate fee</p>
           </div>
         </div>
       </aside>
@@ -232,8 +259,18 @@ const pointsToRedeem = ref(0)
 const redeemPoints = ref(false)
 const address = ref({ fullName: user.value?.fullName || '', phone: user.value?.phone || '', address: '', city: '', state: '', country: 'Nigeria', zipCode: '', lat: 0, lng: 0 })
 
-// Handle Google Maps Autocomplete
-onMounted(() => {
+const whatsappNumber = ref('')
+
+onMounted(async () => {
+  // Fetch global settings for WhatsApp
+  try {
+    const res = await GATEWAY_ENDPOINT.get('/settings') as any
+    whatsappNumber.value = res.data?.whatsappNumber || res.whatsappNumber || '2348147626501'
+  } catch (e) {
+    console.error('Failed to load whatsapp number', e)
+    whatsappNumber.value = '2348147626501'
+  }
+
   if (typeof google === 'undefined') return
   
   const input = document.getElementById('addressAutocomplete') as HTMLInputElement
@@ -256,8 +293,10 @@ onMounted(() => {
       if (comp.types.includes('administrative_area_level_1')) address.value.state = comp.long_name
     })
 
-    // Calculate dynamic fee
-    calculateFee(address.value.lat, address.value.lng)
+    // Calculate dynamic fee if in lagos_dispatch mode
+    if (deliveryMethod.value === 'lagos_dispatch') {
+        calculateFee(address.value.lat, address.value.lng, 'lagos_dispatch')
+    }
   })
 })
 
@@ -266,10 +305,31 @@ watch(deliveryMethod, (val) => {
   if (val === 'pickup') {
     shippingFee.value = 0
     distanceInfo.value = null
-  } else if (address.value.lat && address.value.lng) {
-    calculateFee(address.value.lat, address.value.lng)
+  } else if (val === 'waybill') {
+    calculateFee(0, 0, 'waybill')
+  } else if (val === 'lagos_dispatch' && address.value.lat && address.value.lng) {
+    calculateFee(address.value.lat, address.value.lng, 'lagos_dispatch')
   }
 })
+
+function handleWhatsAppOrder() {
+  const itemsList = items.value.map(i => `• ${i.name} (x${i.quantity}) - ₦${(i.price * i.quantity).toLocaleString()}`).join('\n')
+  const total = totalPrice.value + shippingFee.value - (redeemPoints.value ? pointsToRedeem.value : 0)
+  
+  const message = encodeURIComponent(
+    `*NEW SNACK MANIFEST (ORDER)*\n\n` +
+    `*Items:*\n${itemsList}\n\n` +
+    `*Delivery Method:* ${deliveryMethod.value.replace('_', ' ').toUpperCase()}\n` +
+    `*Shipping Fee:* ₦${shippingFee.value.toLocaleString()}\n` +
+    `*Grand Total:* ₦${total.toLocaleString()}\n\n` +
+    `*Customer Details:*\n` +
+    `Name: ${address.value.fullName || 'Not specified'}\n` +
+    `Phone: ${address.value.phone || 'Not specified'}\n` +
+    `Address: ${address.value.address || 'Pickup'}`
+  )
+
+  window.open(`https://wa.me/${whatsappNumber.value}?text=${message}`, '_blank')
+}
 
 async function handleCheckout() {
   const finalAmount = totalPrice.value + shippingFee.value - (redeemPoints.value ? pointsToRedeem.value : 0)

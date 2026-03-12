@@ -65,13 +65,32 @@
       <button 
         type="submit" 
         class="w-full bg-[#033958] hover:bg-[#022a45] text-white font-bold py-4 rounded-2xl shadow-xl shadow-[#033958]/10 active:scale-[0.98] transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:pointer-events-none"
-        :disabled="loading"
+        :disabled="loading || socialLoading"
       >
         <span v-if="loading">Creating account...</span>
         <template v-else>
           Create Account
           <Icon name="lucide:user-plus" size="18" class="group-hover:translate-x-1 transition-transform" />
         </template>
+      </button>
+
+      <div class="relative py-4">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-200"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-2 bg-white text-gray-500 font-medium">Or continue with</span>
+        </div>
+      </div>
+
+      <button 
+        type="button" 
+        @click="handleSocialLogin"
+        class="w-full bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-bold py-4 rounded-2xl shadow-sm active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:pointer-events-none"
+        :disabled="loading || socialLoading"
+      >
+        <Icon name="logos:google-icon" size="20" />
+        <span>Continue with Google</span>
       </button>
 
       <div class="pt-2 text-center">
@@ -87,6 +106,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useRegister } from '@/composables/modules/auth/useRegister'
+import { useLogin } from '@/composables/modules/auth/useLogin'
 import { useAuthState } from '@/composables/useAuthState'
 
 definePageMeta({ layout: 'auth' })
@@ -94,8 +114,12 @@ definePageMeta({ layout: 'auth' })
 const route = useRoute()
 const form = reactive({ fullName: '', email: '', phone: '', password: '' })
 const showPassword = ref(false)
+const socialLoading = ref(false)
 const { loading, register } = useRegister()
+const { socialLogin } = useLogin()
 const { setAuth } = useAuthState()
+const { $fbAuth, $googleProvider } = useNuxtApp() as any
+const { signInWithPopup } = await import('firebase/auth')
 
 async function handleRegister() {
   const res = await register(form)
@@ -107,6 +131,23 @@ async function handleRegister() {
       setAuth(data.user, data.tokens)
       navigateTo((route.query.redirect as string) || '/')
     }
+  }
+}
+
+async function handleSocialLogin() {
+  socialLoading.value = true;
+  try {
+    const result = await signInWithPopup($fbAuth, $googleProvider)
+    const idToken = await result.user.getIdToken()
+    const res = await socialLogin(idToken)
+    if (res?.data) {
+      setAuth(res.data.user, res.data.tokens)
+      navigateTo((route.query.redirect as string) || '/')
+    }
+  } catch (error: any) {
+    console.error('Social login error:', error)
+  } finally {
+    socialLoading.value = false;
   }
 }
 </script>

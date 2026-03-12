@@ -6,10 +6,10 @@ export const useShipping = () => {
     const shippingFee = ref(0)
     const distanceInfo = ref<any>(null)
 
-    const calculateFee = async (lat: number, lng: number) => {
+    const calculateFee = async (lat: number, lng: number, method: string = 'lagos_dispatch') => {
         loading.value = true
         try {
-            const res = await GATEWAY_ENDPOINT.get('/shipping/calculate', { params: { lat, lng } }) as any
+            const res = await GATEWAY_ENDPOINT.get('/shipping/calculate', { params: { lat, lng, method } }) as any
             const data = res.data || res
             shippingFee.value = data.fee
             distanceInfo.value = data
@@ -22,5 +22,15 @@ export const useShipping = () => {
         }
     }
 
-    return { loading, shippingFee, distanceInfo, calculateFee }
+    const getShippingConfig = async () => {
+        try {
+            const res = await GATEWAY_ENDPOINT.get('/shipping/config') as any
+            return res.data || res
+        } catch (error) {
+            console.error('Fetch shipping config error:', error)
+            return null
+        }
+    }
+
+    return { loading, shippingFee, distanceInfo, calculateFee, getShippingConfig }
 }
