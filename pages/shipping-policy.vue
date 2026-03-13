@@ -18,30 +18,38 @@
           We strive to deliver your favourite snacks with speed and care. Our global logistics network ensures that your order reaches you in perfect condition.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">1. Order Processing</h2>
-        <p class="text-gray-600 mb-6">
-          All orders are processed within 1-2 business days. Orders are not shipped or delivered on weekends or holidays. If we are experiencing a high volume of orders, shipments may be delayed by a few days.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">1. Processing Your Order</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+          We aim to get your snacks to you as fast as possible. Most orders are processed and ready for shipment within 1 to 2 business days.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">2. Shipping Rates & Delivery Estimates</h2>
-        <p class="text-gray-600 mb-6 font-bold">Standard Delivery (3-5 business days):</p>
-        <ul class="list-disc pl-6 text-gray-600 mb-6">
-          <li>Orders over ₦50,000: FREE</li>
-          <li>Orders under ₦50,000: ₦2,500 flat rate</li>
-        </ul>
-        <p class="text-gray-600 mb-6 font-bold">Express Delivery (1-2 business days):</p>
-        <ul class="list-disc pl-6 text-gray-600 mb-8">
-          <li>All orders: ₦5,000</li>
-        </ul>
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">2. Shipping Options</h2>
+        <div class="space-y-6 mb-8">
+           <div class="p-6 bg-white border border-gray-100 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex items-center gap-4 mb-2">
+                 <Icon name="lucide:truck" class="text-amber-500 w-6 h-6" />
+                 <h3 class="text-lg font-black text-gray-900">Standard Delivery (3-5 Days)</h3>
+              </div>
+              <p class="text-sm text-gray-500 font-medium">Free for orders over <strong class="text-gray-900">₦50,000</strong>. For orders under this amount, a flat rate of ₦2,500 applies.</p>
+           </div>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">3. Shipment Confirmation & Order Tracking</h2>
-        <p class="text-gray-600 mb-6">
-          You will receive a Shipment Confirmation email once your order has shipped containing your tracking number(s). The tracking number will be active within 24 hours.
+           <div class="p-6 bg-gray-900 text-white rounded-3xl shadow-xl">
+              <div class="flex items-center gap-4 mb-2">
+                 <Icon name="lucide:zap" class="text-amber-400 w-6 h-6" />
+                 <h3 class="text-lg font-black uppercase tracking-tighter">Express Delivery (1-2 Days)</h3>
+              </div>
+              <p class="text-sm text-white/60 font-medium">Need it faster? Get priority shipping for a flat fee of <strong class="text-white">₦5,000</strong>.</p>
+           </div>
+        </div>
+
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">3. Tracking Your Shipment</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+          Once your order ships, we'll send you an email with a tracking link so you can follow its progress right to your door.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">4. International Shipping</h2>
-        <p class="text-gray-600 mb-12">
-          We currently ship to select international locations. Customs, duties, and taxes are the responsibility of the customer. Shipping rates for international orders are calculated at checkout.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-12 tracking-tight uppercase">4. International Delivery</h2>
+        <p class="text-gray-600 mb-12 font-medium">
+          We are currently expanding our international shipping. Please note that custom duties or taxes may apply depending on your location.
         </p>
 
         <div class="p-10 bg-gray-50 rounded-[2.5rem] border border-gray-100 italic text-gray-500 text-center text-sm">

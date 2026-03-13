@@ -49,7 +49,7 @@
       </div>
 
       <div class="flex items-center space-x-2 px-1">
-        <input id="remember" type="checkbox" class="w-4 h-4 rounded border-gray-300 text-[#033958] focus:ring-[#033958] cursor-pointer">
+        <input id="remember" type="checkbox" class="custom-checkbox">
         <label for="remember" class="text-sm font-medium text-gray-600 cursor-pointer select-none">Remember for 30 days</label>
       </div>
 

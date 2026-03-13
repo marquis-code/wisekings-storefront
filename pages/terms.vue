@@ -18,29 +18,29 @@
           By accessing or using WiseKings, you agree to be bound by these Terms of Service. Please read them carefully.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">1. Acceptance of Terms</h2>
-        <p class="text-gray-600 mb-6">
-          WiseKings provides an e-commerce and administrative platform. By using any part of the platform, you agree to these terms. If you do not agree, you may not use our services.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">1. Using Our Website</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+          By visiting or shopping on WiseKings, you agree to follow these simple rules. Our goal is to provide a safe and reliable marketplace for everyone.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">2. User Responsibilities</h2>
-        <p class="text-gray-600 mb-6">
-          You are responsible for maintaining the confidentiality of your account and password. You agree to provide accurate, current, and complete information during the registration process.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">2. Your Account</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+          You are responsible for keeping your account login details private. Please make sure the info you provide is accurate. We reserve the right to suspend accounts that violate our community standards.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">3. Intellectual Property</h2>
-        <p class="text-gray-600 mb-6">
-          All content on WiseKings, including text, graphics, logos, and software, is the property of WiseKings or its content suppliers and is protected by international copyright laws.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">3. Our Content</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+          The design, images, and text on this site belong to WiseKings. Please do not copy or use them without our permission.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">4. Limitation of Liability</h2>
-        <p class="text-gray-600 mb-6">
-          WiseKings shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of the platform.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">4. Liability</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+          We work hard to keep everything running smoothly, but we cannot be held responsible for issues beyond our control or minor errors in site content.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">5. Governing Law</h2>
-        <p class="text-gray-600 mb-12">
-          These terms are governed by and construed in accordance with the laws of the jurisdiction in which WiseKings operates, without regard to its conflict of law principles.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-12 tracking-tight uppercase">5. Applicable Rules</h2>
+        <p class="text-gray-600 mb-12 font-medium">
+          These terms are governed by the local laws where we operate. If any issues arise, we prefer to resolve them through friendly discussion first.
         </p>
 
         <div class="p-8 bg-gray-900 rounded-3xl text-white flex flex-col md:flex-row items-center justify-between gap-6">

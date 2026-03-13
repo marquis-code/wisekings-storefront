@@ -56,7 +56,7 @@
       </div>
 
       <div class="flex items-start space-x-2 px-1">
-        <input id="terms" type="checkbox" required class="mt-1 w-4 h-4 rounded border-gray-300 text-[#033958] focus:ring-[#033958] cursor-pointer">
+        <input id="terms" type="checkbox" required class="custom-checkbox">
         <label for="terms" class="text-sm font-medium text-gray-600 cursor-pointer select-none leading-relaxed">
           I agree to the <NuxtLink to="/terms" class="text-[#033958] font-bold hover:underline">Terms of Service</NuxtLink> and <NuxtLink to="/privacy" class="text-[#033958] font-bold hover:underline">Privacy Policy</NuxtLink>.
         </label>

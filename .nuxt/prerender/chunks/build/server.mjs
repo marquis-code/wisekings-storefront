@@ -448,7 +448,7 @@ const _routes = [
   {
     name: "cart",
     path: "/cart",
-    component: () => import('./cart-v4-kXlZX.mjs')
+    component: () => import('./cart-B5Cmk_UY.mjs')
   },
   {
     name: "about",
@@ -459,18 +459,18 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-Chf7JgaT.mjs')
+    component: () => import('./index-D_tNtejb.mjs')
   },
   {
     name: "login",
     path: "/login",
     meta: __nuxt_page_meta$6 || {},
-    component: () => import('./login-9GvYXvkA.mjs')
+    component: () => import('./login-tDHG9qT0.mjs')
   },
   {
     name: "terms",
     path: "/terms",
-    component: () => import('./terms-CM39Bn1m.mjs')
+    component: () => import('./terms-DMrRLyFE.mjs')
   },
   {
     name: "offers",
@@ -480,18 +480,18 @@ const _routes = [
   {
     name: "contact",
     path: "/contact",
-    component: () => import('./contact-CP3Sfd0O.mjs')
+    component: () => import('./contact-BaUh55kG.mjs')
   },
   {
     name: "privacy",
     path: "/privacy",
-    component: () => import('./privacy-BrLaaBYG.mjs')
+    component: () => import('./privacy-wPWGyEl2.mjs')
   },
   {
     name: "register",
     path: "/register",
     meta: __nuxt_page_meta$5 || {},
-    component: () => import('./register-Cx6i3rCw.mjs')
+    component: () => import('./register-jSZENeup.mjs')
   },
   {
     name: "categories",
@@ -507,17 +507,17 @@ const _routes = [
   {
     name: "return-policy",
     path: "/return-policy",
-    component: () => import('./return-policy-DcMUOgPs.mjs')
+    component: () => import('./return-policy-1Y52mwNu.mjs')
   },
   {
     name: "checkout",
     path: "/checkout",
-    component: () => import('./index-Cz4blni8.mjs')
+    component: () => import('./index-BbNWlwP2.mjs')
   },
   {
     name: "products",
     path: "/products",
-    component: () => import('./index-B9Az_dUk.mjs')
+    component: () => import('./index-CdqP8Ki9.mjs')
   },
   {
     name: "account-profile",
@@ -533,12 +533,12 @@ const _routes = [
   {
     name: "products-slug",
     path: "/products/:slug()",
-    component: () => import('./_slug_-Bn4H4Db-.mjs')
+    component: () => import('./_slug_-B3uNylFy.mjs')
   },
   {
     name: "shipping-policy",
     path: "/shipping-policy",
-    component: () => import('./shipping-policy-DcecYpbO.mjs')
+    component: () => import('./shipping-policy-DKmkaMGV.mjs')
   },
   {
     name: "account-security",
@@ -549,7 +549,7 @@ const _routes = [
   {
     name: "checkout-success",
     path: "/checkout/success",
-    component: () => import('./success-DMhGh9AC.mjs')
+    component: () => import('./success-BWqgrJpZ.mjs')
   },
   {
     name: "account-orders-id",
@@ -1934,7 +1934,7 @@ function createNuxtI18nContext(nuxt, vueI18n, defaultLocale) {
       return;
     }
     const headers = getLocaleConfig(locale)?.cacheable ? {} : { "Cache-Control": "no-cache" };
-    const messages = await $fetch(`${"/_i18n/gG2W-FZs"}/${locale}/messages.json`, { headers });
+    const messages = await $fetch(`${"/_i18n/WptoAFfg"}/${locale}/messages.json`, { headers });
     for (const k of Object.keys(messages)) {
       i18n.mergeLocaleMessage(k, messages[k]);
     }
@@ -6915,7 +6915,7 @@ const i18n_EI7LsD1KYQADczz5hrChviGQCdVM8yUkvFEZLJpmnvM = /* @__PURE__ */ defineN
     {
       localeConfigs.value = useRequestEvent().context.nuxtI18n?.localeConfigs || {};
     }
-    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/gG2W-FZs"}/${locale}/messages.json`));
+    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/WptoAFfg"}/${locale}/messages.json`));
     const i18n = createI18n(optionsI18n);
     const detectors = useDetectors(useRequestEvent(nuxt), useI18nDetection(nuxt), nuxt);
     const ctx = createNuxtI18nContext(nuxt, i18n, optionsI18n.defaultLocale);
@@ -7153,8 +7153,8 @@ const plugins = [
 ];
 const layouts = {
   account: defineAsyncComponent(() => import('./account-B_YEpb9j.mjs').then((m) => m.default || m)),
-  auth: defineAsyncComponent(() => import('./auth-CffTc6g4.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-DRoB0rf8.mjs').then((m) => m.default || m))
+  auth: defineAsyncComponent(() => import('./auth-Uw2ICTKG.mjs').then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import('./default-DYrDFpaj.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({

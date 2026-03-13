@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-32 lg:px-8 py-8">
     <div v-if="loading" class="text-center py-20"><Icon name="lucide:loader-2" class="w-8 h-8 animate-spin mx-auto text-gray-400" /></div>
     <div v-else-if="product" class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
       <!-- Images -->

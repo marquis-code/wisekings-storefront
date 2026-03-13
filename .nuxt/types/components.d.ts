@@ -14,6 +14,7 @@ type HydrationStrategies = {
 type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }> & T
 
 interface _GlobalComponents {
+  CoreAddressAutocomplete: typeof import("../../components/core/AddressAutocomplete.vue")['default']
   CoreAnimatedInput: typeof import("../../components/core/AnimatedInput.vue")['default']
   CoreConfirmModal: typeof import("../../components/core/ConfirmModal.vue")['default']
   CoreCurrencySwitcher: typeof import("../../components/core/CurrencySwitcher.vue")['default']
@@ -50,6 +51,7 @@ interface _GlobalComponents {
   Html: typeof import("../../node_modules/nuxt/dist/head/runtime/components")['Html']
   Body: typeof import("../../node_modules/nuxt/dist/head/runtime/components")['Body']
   NuxtIsland: typeof import("../../node_modules/nuxt/dist/app/components/nuxt-island")['default']
+  LazyCoreAddressAutocomplete: LazyComponent<typeof import("../../components/core/AddressAutocomplete.vue")['default']>
   LazyCoreAnimatedInput: LazyComponent<typeof import("../../components/core/AnimatedInput.vue")['default']>
   LazyCoreConfirmModal: LazyComponent<typeof import("../../components/core/ConfirmModal.vue")['default']>
   LazyCoreCurrencySwitcher: LazyComponent<typeof import("../../components/core/CurrencySwitcher.vue")['default']>

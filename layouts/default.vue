@@ -2,7 +2,7 @@
   <div class="min-h-screen flex flex-col font-sans selection:bg-[#033958]/10 selection:text-[#033958]">
     <!-- Header -->
     <!-- Header -->
-    <header :class="['fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-[100] transition-all duration-500 rounded-[2rem]', isScrolled ? 'bg-white/80 backdrop-blur-2xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.1)] py-3' : 'bg-transparent py-5']">
+    <header :class="['fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-[100] transition-all duration-500 rounded-[2rem]', shouldShowSolidHeader ? 'bg-white/80 backdrop-blur-2xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.1)] py-3' : 'bg-transparent py-5']">
       <div class="px-8 lg:px-12 flex items-center justify-between">
         <!-- Brand -->
         <NuxtLink to="/" class="flex items-center gap-3 group shrink-0">
@@ -21,7 +21,7 @@
             :key="link.path" 
             :to="link.path"
             :class="[
-              route.path === link.path ? 'text-amber-500' : (isScrolled ? 'text-gray-900' : 'text-white'),
+              route.path === link.path ? 'text-amber-500' : (shouldShowSolidHeader ? 'text-gray-900' : 'text-white'),
               'text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:text-amber-500 relative group/link'
             ]"
           >
@@ -33,23 +33,23 @@
         <!-- Right Actions -->
         <div class="flex items-center gap-6">
           <NuxtLink to="/cart" class="relative group">
-            <div :class="['w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-500', isScrolled ? 'bg-gray-100 text-gray-900 group-hover:bg-[#033958] group-hover:text-white' : 'bg-white/10 text-white group-hover:bg-white']">
+            <div :class="['w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-500', shouldShowSolidHeader ? 'bg-gray-100 text-gray-900 group-hover:bg-[#033958] group-hover:text-white' : 'bg-white/10 text-white group-hover:bg-white']">
                <Icon name="lucide:shopping-bag" size="20" />
             </div>
             <span v-if="totalItems > 0" class="absolute -top-1 -right-1 w-5 h-5 bg-amber-500 text-white text-[10px] rounded-full flex items-center justify-center font-black border-2 border-white shadow-lg">{{ totalItems }}</span>
           </NuxtLink>
 
-          <NuxtLink v-if="isAuthenticated" to="/account" :class="['hidden sm:flex items-center justify-center w-11 h-11 rounded-2xl transition-all duration-500', isScrolled ? 'bg-gray-900 text-white hover:bg-[#033958]' : 'bg-white/10 text-white hover:bg-white/20']">
+          <NuxtLink v-if="isAuthenticated" to="/account" :class="['hidden sm:flex items-center justify-center w-11 h-11 rounded-2xl transition-all duration-500', shouldShowSolidHeader ? 'bg-gray-900 text-white hover:bg-[#033958]' : 'bg-white/10 text-white hover:bg-white/20']">
             <Icon name="lucide:user" size="20" />
           </NuxtLink>
-          <NuxtLink v-else to="/login" :class="['hidden sm:flex px-8 py-3 text-[10px] font-black uppercase tracking-[0.2em] rounded-2xl transition-all duration-500 shadow-xl overflow-hidden relative group', isScrolled ? 'bg-gray-950 text-white hover:bg-[#033958]' : 'bg-white text-gray-950 hover:bg-amber-400']">
+          <NuxtLink v-else to="/login" :class="['hidden sm:flex px-8 py-3 text-[10px] font-black uppercase tracking-[0.2em] rounded-2xl transition-all duration-500 shadow-xl overflow-hidden relative group', shouldShowSolidHeader ? 'bg-gray-950 text-white hover:bg-[#033958]' : 'bg-white text-gray-950 hover:bg-amber-400']">
             <span class="relative z-10 transition-colors duration-500">Sign in</span>
           </NuxtLink>
 
           <!-- Mobile Toggle -->
           <button 
             @click="isMobileMenuOpen = !isMobileMenuOpen"
-            :class="['lg:hidden w-11 h-11 flex items-center justify-center rounded-2xl transition-all duration-500', isScrolled ? 'bg-gray-100 text-gray-950' : 'bg-white/10 text-white']"
+            :class="['lg:hidden w-11 h-11 flex items-center justify-center rounded-2xl transition-all duration-500', shouldShowSolidHeader ? 'bg-gray-100 text-gray-950' : 'bg-white/10 text-white']"
           >
             <Icon :name="isMobileMenuOpen ? 'lucide:x' : 'lucide:menu'" size="24" />
           </button>
@@ -108,9 +108,9 @@
               Experience the future of premium shopping. Quality products, seamless delivery, and a community of satisfied royalty.
             </p>
             <div class="flex items-center gap-4">
-              <a href="#" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:instagram" class="w-5 h-5" /></a>
-              <a href="#" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:twitter" class="w-5 h-5" /></a>
-              <a href="#" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:facebook" class="w-5 h-5" /></a>
+              <a href="https://www.instagram.com/wisekingsproducts/" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:instagram" class="w-5 h-5" /></a>
+              <a href="https://x.com/WisekingsS" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:twitter" class="w-5 h-5" /></a>
+              <a href="https://web.facebook.com/profile.php?id=61583785186822" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:facebook" class="w-5 h-5" /></a>
             </div>
           </div>
           
@@ -145,12 +145,12 @@
           <div class="lg:col-span-5 border-t border-gray-100 pt-8 -mb-4">
             <h4 class="text-gray-950 font-black text-sm uppercase tracking-widest mb-6">Join Our Network</h4>
             <div class="flex flex-col sm:flex-row gap-4">
-              <a href="http://localhost:3002" target="_blank" class="flex items-center gap-3 bg-emerald-50 border border-emerald-100 text-emerald-700 px-5 py-3.5 rounded-2xl font-bold text-sm hover:bg-emerald-100 hover:shadow-md transition-all group">
+              <a href="https://merchants.wisekings.ng/" target="_blank" class="flex items-center gap-3 bg-emerald-50 border border-emerald-100 text-emerald-700 px-5 py-3.5 rounded-2xl font-bold text-sm hover:bg-emerald-100 hover:shadow-md transition-all group">
                 <Icon name="lucide:store" size="20" />
                 Become a Merchant
                 <Icon name="lucide:external-link" size="14" class="ml-auto opacity-50 group-hover:opacity-100 transition-opacity" />
               </a>
-              <a href="http://localhost:3003" target="_blank" class="flex items-center gap-3 bg-orange-50 border border-orange-100 text-orange-700 px-5 py-3.5 rounded-2xl font-bold text-sm hover:bg-orange-100 hover:shadow-md transition-all group">
+              <a href="https://partners.wisekings.ng/" target="_blank" class="flex items-center gap-3 bg-orange-50 border border-orange-100 text-orange-700 px-5 py-3.5 rounded-2xl font-bold text-sm hover:bg-orange-100 hover:shadow-md transition-all group">
                 <Icon name="lucide:handshake" size="20" />
                 Partner With Us
                 <Icon name="lucide:external-link" size="14" class="ml-auto opacity-50 group-hover:opacity-100 transition-opacity" />
@@ -184,6 +184,27 @@ const route = useRoute()
 
 const isMobileMenuOpen = ref(false)
 const isScrolled = ref(false)
+
+const solidBackgroundPages = [
+  '/contact', 
+  '/cart', 
+  '/checkout', 
+  '/login', 
+  '/register', 
+  '/about', 
+  '/privacy', 
+  '/terms', 
+  '/shipping-policy', 
+  '/return-policy', 
+  '/account',
+  '/products/', // Product detail pages
+  '/offers'
+]
+
+const shouldShowSolidHeader = computed(() => {
+  if (isScrolled.value) return true
+  return solidBackgroundPages.some(p => route.path.startsWith(p) && route.path !== '/')
+})
 
 // Scroll listener for floating effect
 if (process.client) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-20">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-32">
     <div class="flex flex-col lg:flex-row gap-16">
       <!-- Checkout Form -->
       <div class="flex-1 space-y-12">
@@ -94,27 +94,27 @@
                 </div>
               </div>
 
-              <div class="space-y-2 relative">
-                <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Street Address</label>
-                <div class="relative group">
-                  <Icon name="lucide:map-pin" size="18" class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#033958] transition-colors" />
-                  <input 
-                    id="addressAutocomplete"
-                    v-model="address.address" 
-                    :placeholder="deliveryMethod === 'waybill' ? 'Enter delivery address...' : 'Enter your street address in Lagos...'" 
-                    class="w-full pl-12 pr-5 py-4 bg-white border border-gray-100 rounded-2xl text-xs font-bold text-gray-900 focus:ring-4 focus:ring-[#033958]/5 focus:border-[#033958] outline-none transition-all" 
-                    required 
-                  />
-                </div>
-                <div v-if="calculatingFee" class="flex items-center gap-2 mt-2 ml-2">
-                  <Icon name="lucide:loader-2" class="w-3 h-3 animate-spin text-amber-500" />
-                  <span class="text-[10px] font-black uppercase tracking-widest text-amber-600">Calculating distance pricing...</span>
-                </div>
-                <p v-else-if="distanceInfo && deliveryMethod === 'lagos_dispatch'" class="text-[10px] font-black uppercase tracking-widest text-emerald-600 mt-2 ml-2 flex items-center gap-2">
-                  <Icon name="lucide:check-circle" size="12" />
-                  Distance: {{ distanceInfo.distanceKm }}km detected
-                </p>
+              <CoreAddressAutocomplete 
+                v-model="address.address"
+                :label="'Street Address'"
+                :placeholder="deliveryMethod === 'waybill' ? 'Enter delivery address...' : 'Enter your street address in Lagos...'"
+                :required="true"
+                @place-changed="(data) => {
+                  address.address = data.address
+                  address.lat = data.lat
+                  address.lng = data.lng
+                  address.city = data.city
+                  address.state = data.state
+                }"
+              />
+              <div v-if="calculatingFee" class="flex items-center gap-2 mt-2 ml-2">
+                <Icon name="lucide:loader-2" class="w-3 h-3 animate-spin text-amber-500" />
+                <span class="text-[10px] font-black uppercase tracking-widest text-amber-600">Calculating distance pricing...</span>
               </div>
+              <p v-else-if="distanceInfo && deliveryMethod === 'lagos_dispatch'" class="text-[10px] font-black uppercase tracking-widest text-emerald-600 mt-2 ml-2 flex items-center gap-2">
+                <Icon name="lucide:check-circle" size="12" />
+                Distance: {{ distanceInfo.distanceKm }}km detected
+              </p>
 
               <div class="grid grid-cols-2 gap-6">
                 <div class="space-y-2">
@@ -259,45 +259,24 @@ const pointsToRedeem = ref(0)
 const redeemPoints = ref(false)
 const address = ref({ fullName: user.value?.fullName || '', phone: user.value?.phone || '', address: '', city: '', state: '', country: 'Nigeria', zipCode: '', lat: 0, lng: 0 })
 
+// Add debounced watch for address changes to trigger fee calc
+watch(address, (newVal) => {
+  if (deliveryMethod.value === 'lagos_dispatch' && newVal.lat && newVal.lng) {
+    calculateFee(newVal.lat, newVal.lng, 'lagos_dispatch')
+  }
+}, { deep: true })
+
 const whatsappNumber = ref('')
 
 onMounted(async () => {
   // Fetch global settings for WhatsApp
   try {
     const res = await GATEWAY_ENDPOINT.get('/settings') as any
-    whatsappNumber.value = res.data?.whatsappNumber || res.whatsappNumber || '2348147626501'
+    whatsappNumber.value = res.data?.whatsappNumber || res.whatsappNumber || '2348023225019'
   } catch (e) {
     console.error('Failed to load whatsapp number', e)
-    whatsappNumber.value = '2348147626501'
+    whatsappNumber.value = '2348023225019'
   }
-
-  if (typeof google === 'undefined') return
-  
-  const input = document.getElementById('addressAutocomplete') as HTMLInputElement
-  const autocomplete = new google.maps.places.Autocomplete(input, {
-    componentRestrictions: { country: 'NG' },
-    fields: ['address_components', 'geometry', 'formatted_address'],
-  })
-
-  autocomplete.addListener('place_changed', () => {
-    const place = autocomplete.getPlace()
-    if (!place.geometry || !place.geometry.location) return
-
-    address.value.address = place.formatted_address || ''
-    address.value.lat = place.geometry.location.lat()
-    address.value.lng = place.geometry.location.lng()
-
-    // Parse city/state
-    place.address_components?.forEach((comp: any) => {
-      if (comp.types.includes('locality')) address.value.city = comp.long_name
-      if (comp.types.includes('administrative_area_level_1')) address.value.state = comp.long_name
-    })
-
-    // Calculate dynamic fee if in lagos_dispatch mode
-    if (deliveryMethod.value === 'lagos_dispatch') {
-        calculateFee(address.value.lat, address.value.lng, 'lagos_dispatch')
-    }
-  })
 })
 
 // Watch delivery method to reset fee if pickup

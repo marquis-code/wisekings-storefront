@@ -21,7 +21,7 @@
         <div class="absolute bottom-1/4 -right-20 w-80 h-80 bg-amber-500/20 rounded-full blur-[150px] animate-pulse-slow"></div>
       </div>
 
-      <div class="max-w-7xl mx-auto px-8 lg:px-12 w-full relative z-10 lg:pt-20">
+      <div class="max-w-7xl mx-auto px-8 lg:px-12 w-full relative z-10 pt-44">
         <div class="max-w-3xl">
           <transition name="slide-up" mode="out-in">
             <div :key="currentSlide" class="space-y-8">

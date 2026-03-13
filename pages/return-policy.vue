@@ -18,32 +18,29 @@
           We want you to be completely satisfied with your purchase. If you are not satisfied, we are here to help.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">1. Return Eligibility</h2>
-        <p class="text-gray-600 mb-6">
-          To be eligible for a return, your item must be unused, in the same condition that you received it, and in its original packaging. As we deal with perishable goods, returns must be initiated within 48 hours of delivery.
-        </p>
-
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">2. Non-Returnable Items</h2>
-        <p class="text-gray-600 mb-6">
-          The following items cannot be returned:
-        </p>
-        <ul class="list-disc pl-6 text-gray-600 mb-8 space-y-2">
-          <li>Items that have been opened or tampered with.</li>
-          <li>Items purchased during a "Final Sale" or clearance event.</li>
-          <li>Customized gift boxes.</li>
-        </ul>
-
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">3. Refunds</h2>
-        <p class="text-gray-600 mb-6">
-          Once we receive your item, we will inspect it and notify you that we have received your returned item. We will immediately notify you of the status of your refund after inspecting the item.
-        </p>
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">1. Returns & Exchanges</h2>
         <p class="text-gray-600 mb-6 font-medium">
-          If your return is approved, we will initiate a refund to your original method of payment (or WiseKings Wallet credit, per your choice). You will receive the credit within 5-10 business days.
+          We want you to love your purchase. If something isn't right, returns must be started within <strong class="text-gray-900">48 hours</strong> of delivery, as we deal with fresh food products.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">4. Return Shipping</h2>
-        <p class="text-gray-600 mb-10">
-          You will be responsible for paying for your own shipping costs for returning your item. Shipping costs are non-refundable.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">2. Condition of Items</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+           To be eligible for a refund, items must be unopened and in their original packaging with all seals intact. We cannot accept returns for items that have been opened or used.
+        </p>
+
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">3. What Can't Be Returned</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+          Items bought during clearance sales, personalized gift boxes, and custom snack packs cannot be returned or exchanged.
+        </p>
+
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">4. Refunds</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+           Once we receive and check your return, we will process your refund. You can choose to have it sent back to your original payment method or added as credit to your <strong class="text-[#033958]">WiseKings Wallet</strong>. This usually takes 5-10 business days.
+        </p>
+
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-10 tracking-tight uppercase">5. Return Shipping</h2>
+        <p class="text-gray-600 mb-10 font-medium">
+          You will need to cover the shipping costs for returning items. We recommend using a shipping service that provides tracking to ensure it reaches us safely.
         </p>
 
         <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 flex items-center justify-between">

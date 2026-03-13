@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex bg-white font-inter">
     <!-- Left Side: Image and Branding -->
-    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+    <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden sticky top-0 h-screen">
       <div class="absolute inset-0 z-0 bg-black">
         <img 
           src="@/assets/images/hero5.jpg" 

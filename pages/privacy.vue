@@ -19,33 +19,42 @@
         </p>
 
         <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">1. Information We Collect</h2>
-        <p class="text-gray-600 mb-6">
-          We collect information you provide directly to us (such as when you create an account, make a purchase, or contact support) and through automated means (such as cookies and analytics).
+        <p class="text-gray-600 mb-6 font-medium">
+          We collect information that helps us provide you with a better shopping experience. This includes:
         </p>
-        <ul class="list-disc pl-6 text-gray-600 mb-8 space-y-2">
-          <li>Account data: Name, email, phone number, and password.</li>
-          <li>Transactional data: Payment details and order history.</li>
-          <li>Technical data: IP address, browser type, and usage patterns.</li>
+        <ul class="list-none pl-0 text-gray-600 mb-8 space-y-4">
+          <li class="flex items-start gap-3">
+            <Icon name="lucide:user" class="text-amber-500 shrink-0 mt-1" />
+            <span><strong class="text-gray-900">Personal Details:</strong> Your name, email address, and phone number when you create an account.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <Icon name="lucide:shopping-cart" class="text-amber-500 shrink-0 mt-1" />
+            <span><strong class="text-gray-900">Order Information:</strong> Your payment details and delivery address to process your purchases.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <Icon name="lucide:monitor" class="text-amber-500 shrink-0 mt-1" />
+            <span><strong class="text-gray-900">Usage Data:</strong> Basic technical info like your IP address and browser type to improve our website.</span>
+          </li>
         </ul>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">2. How we use your data</h2>
-        <p class="text-gray-600 mb-6">
-          We use your data to provide, maintain, and improve our services, including processing transactions and communicating with you about your orders.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">2. How We Use Your Information</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+          We use your data strictly to manage your orders, provide customer support, and send you important updates about your purchases. We do not sell your personal information to third parties.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">3. Data Security</h2>
-        <p class="text-gray-600 mb-6">
-          We implement industry-standard security measures to protect your data from unauthorized access, loss, or misuse. This includes SSL encryption for all data transmissions.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">3. Keeping Your Data Safe</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+          We use standard security measures, including encryption, to protect your information. Our team regularly monitors our systems to ensure your data remains secure.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">4. Your Rights</h2>
-        <p class="text-gray-600 mb-6">
-          You have the right to access, correct, or delete your personal data. You can manage these settings through your account profile or by contacting our data protection officer.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">4. Your Choice</h2>
+        <p class="text-gray-600 mb-6 font-medium">
+          You are in control of your data. You can view, update, or request to delete your personal information at any time through your account settings or by reaching out to us.
         </p>
 
-        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">5. Contact Us</h2>
-        <p class="text-gray-600 mb-10">
-          If you have any questions about this Privacy Policy, please contact us at privacy@wisekings.systems.
+        <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">5. Contact Our Team</h2>
+        <p class="text-gray-600 mb-10 font-medium">
+          If you have any questions about how we handle your privacy, please email us at <a href="mailto:privacy@wisekings.systems" class="text-[#033958] font-bold underline">privacy@wisekings.systems</a>.
         </p>
 
         <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 flex items-center justify-between">

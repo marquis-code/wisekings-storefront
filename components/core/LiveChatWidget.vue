@@ -65,36 +65,103 @@
                </div>
             </div>
             
-            <div 
-              v-for="(msg, i) in messages" 
-              :key="i"
-              :class="['flex w-full', msg.senderId === currentUserId ? 'justify-end' : 'justify-start']"
-            >
-              <div 
-                :class="[
-                  'max-w-[80%] p-4 rounded-3xl text-sm font-medium shadow-sm',
-                  msg.senderId === currentUserId ? 'bg-[#033958] text-white rounded-tr-none' : 'bg-white text-gray-800 rounded-tl-none border border-gray-100'
-                ]"
-              >
-                {{ msg.content }}
-                <div :class="['text-[10px] mt-1 opacity-50', msg.senderId === currentUserId ? 'text-white' : 'text-gray-400']">
-                  {{ formatTime(msg.createdAt) }}
-                </div>
-              </div>
-            </div>
-            
-            <div v-if="isTyping" class="flex justify-start">
-               <div class="bg-white px-4 py-3 rounded-2xl rounded-tl-none border border-gray-100 flex gap-1">
-                 <div class="w-1.5 h-1.5 bg-[#033958]/30 rounded-full animate-bounce"></div>
-                 <div class="w-1.5 h-1.5 bg-[#033958]/30 rounded-full animate-bounce [animation-delay:0.2s]"></div>
-                 <div class="w-1.5 h-1.5 bg-[#033958]/30 rounded-full animate-bounce [animation-delay:0.4s]"></div>
-               </div>
-            </div>
+            <template v-for="(msg, i) in messages" :key="msg._id || i">
+                    <div :class="['flex w-full mb-3', isSentByMe(msg) ? 'justify-end' : 'justify-start']">
+                        <div :class="['max-w-[85%] flex flex-col', isSentByMe(msg) ? 'items-end' : 'items-start']">
+                            <!-- Sender name for received messages -->
+                            <span v-if="!isSentByMe(msg)" class="text-[10px] uppercase font-bold text-slate-500 mb-1 ml-2 tracking-wider">
+                                {{ getSenderName(msg) }} {{ getSenderRole(msg) }}
+                            </span>
+                            
+                            <div :class="[
+                                'relative px-4 py-2.5 rounded-2xl shadow-sm transition-all duration-300',
+                                isSentByMe(msg) 
+                                    ? 'bg-[#033958] text-white rounded-br-none' 
+                                    : getSenderRole(msg).includes('Admin') 
+                                        ? 'bg-emerald-50 text-emerald-900 border border-emerald-100 rounded-bl-none'
+                                        : 'bg-indigo-50 text-indigo-900 border border-indigo-100 rounded-bl-none'
+                            ]">
+                                <!-- Media Rendering -->
+                                <div v-if="msg.attachments?.length > 0" class="mb-2 max-w-[250px] overflow-hidden rounded-xl">
+                                    <template v-for="(att, aIdx) in msg.attachments" :key="aIdx">
+                                        <img v-if="msg.type === 'image' || msg.type === 'gif' || msg.type === 'sticker'" :src="att" class="w-full object-cover cursor-pointer hover:opacity-90 max-h-48" @click="previewMedia = att" />
+                                        <video v-else-if="msg.type === 'video'" :src="att" controls class="w-full"></video>
+                                        <audio v-else-if="msg.type === 'audio'" :src="att" controls class="w-full"></audio>
+                                        <a v-else :href="att" target="_blank" class="flex flex-col gap-2 p-3 bg-black/5 rounded-lg text-inherit hover:bg-black/10 transition-colors border border-white/10">
+                                            <div class="flex items-center gap-3">
+                                                <Icon name="lucide:file-text" size="24" class="shrink-0" />
+                                                <div class="min-w-0 text-left">
+                                                    <p class="text-[12px] font-bold truncate">Document Attachment</p>
+                                                    <p class="text-[9px] opacity-60 uppercase font-black">Click to view/download</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </template>
+                                </div>
+
+                                <!-- Video Link Preview -->
+                                <div v-if="msg.type === 'text' && containsVideoLink(msg.content)" class="mb-2 rounded-xl overflow-hidden border border-black/10 bg-black/5">
+                                   <div class="p-2 flex items-center gap-2 bg-[#033958]/10">
+                                      <Icon name="lucide:video" size="14" class="text-[#033958]" />
+                                      <span class="text-[10px] font-bold text-[#033958] uppercase">Video Preview</span>
+                                   </div>
+                                   <iframe v-if="getYoutubeId(msg.content)" :src="`https://www.youtube.com/embed/${getYoutubeId(msg.content)}`" class="w-full aspect-video border-none" allowfullscreen></iframe>
+                                </div>
+
+                                <p class="text-sm font-medium leading-relaxed whitespace-pre-wrap">{{ msg.content }}</p>
+                                <div :class="['flex items-center gap-1 mt-1 justify-end', isSentByMe(msg) ? 'text-white/60' : 'text-slate-400']">
+                                    <span class="text-[9px] font-bold">{{ formatTime(msg.createdAt) }}</span>
+                                    <Icon v-if="isSentByMe(msg)" name="lucide:check-check" class="w-3 h-3" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+          </div>
+
+          <!-- Attachment Preview -->
+          <div v-if="pendingAttachmentUrl" class="px-6 py-2 bg-blue-50 flex items-center justify-between border-t border-blue-100">
+             <div class="flex items-center gap-3">
+                <img v-if="pendingAttachmentType === 'image'" :src="pendingAttachmentUrl" class="w-10 h-10 rounded object-cover" />
+                <Icon v-else name="lucide:file" class="text-blue-600" />
+                <span class="text-[10px] font-bold text-blue-800">Ready to send...</span>
+             </div>
+             <button @click="clearPendingAttachment" class="text-blue-600 hover:text-blue-800"><Icon name="lucide:x" size="14" /></button>
           </div>
 
           <!-- Input Area -->
-          <div class="p-6 bg-white border-t border-gray-100">
-            <div class="relative flex items-center gap-3">
+            <!-- Typing Indicator -->
+            <div v-if="isTyping" class="px-6 py-2 bg-slate-50 border-t border-slate-100 flex items-center gap-2">
+                <div class="flex gap-1">
+                    <span class="w-1 h-1 bg-emerald-500 rounded-full animate-bounce"></span>
+                    <span class="w-1 h-1 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                    <span class="w-1 h-1 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                </div>
+                <span class="text-[10px] italic text-slate-500">{{ typersDisplay }}</span>
+            </div>
+          <div class="p-6 bg-white border-t border-gray-100 relative">
+            <!-- Emoji Picker Popover -->
+            <div v-if="showEmojiPicker" class="absolute bottom-full left-6 mb-2 bg-white rounded-3xl shadow-2xl border border-gray-100 p-4 w-[280px] grid grid-cols-6 gap-2 z-[200] animate-in slide-in-from-bottom-2 duration-300">
+               <button v-for="emoji in commonEmojis" :key="emoji" @click="addEmoji(emoji)" class="w-8 h-8 flex items-center justify-center hover:bg-gray-50 rounded-lg text-xl transition-all hover:scale-125">{{ emoji }}</button>
+            </div>
+
+            <div class="relative flex items-center gap-2">
+              <button 
+                @click="showEmojiPicker = !showEmojiPicker"
+                class="w-10 h-10 bg-gray-50 text-gray-400 rounded-xl flex items-center justify-center hover:text-amber-500 transition-all"
+              >
+                <Icon name="lucide:smile" size="18" />
+              </button>
+              <button 
+                @click="triggerFileInput" 
+                :disabled="isUploading"
+                class="w-10 h-10 bg-gray-50 text-gray-400 rounded-xl flex items-center justify-center hover:text-[#033958] transition-all"
+              >
+                <Icon v-if="!isUploading" name="lucide:paperclip" size="18" />
+                <Icon v-else name="lucide:loader-2" size="18" class="animate-spin" />
+              </button>
+              <input type="file" ref="fileInput" class="hidden" @change="handleFileUpload" />
+              
               <input 
                 v-model="newMessage"
                 @keypress.enter="handleSend"
@@ -104,7 +171,8 @@
               />
               <button 
                 @click="handleSend"
-                class="absolute right-2 w-10 h-10 bg-[#033958] text-white rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#033958]/20"
+                :disabled="(!newMessage.trim() && !pendingAttachmentUrl) || isUploading"
+                class="absolute right-2 w-10 h-10 bg-[#033958] text-white rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#033958]/20 disabled:opacity-50"
               >
                 <Icon name="lucide:send" size="18" />
               </button>
@@ -118,29 +186,126 @@
 </template>
 
 <script setup lang="ts">
-const { messages, connect, sendMessage, sendTyping, isTyping } = useChat()
-const { user, isAuthenticated } = useAuthState()
+const {
+  messages,
+  isConnected,
+  isTyping,
+  typersDisplay,
+  connect,
+  sendMessage,
+  sendTyping
+} = useChat()
+
+const userState = useAuthState()
+const { user, isAuthenticated } = userState
 const route = useRoute()
-const currentUserId = computed(() => user.value?._id || 'guest')
 
 const isOpen = ref(false)
 const newMessage = ref('')
 const unreadCount = ref(0)
 const messageContainer = ref<HTMLElement | null>(null)
+const previewMedia = ref<string | null>(null)
 
-function toggleChat() {
-  isOpen.value = !isOpen
+// Attachment State
+const isUploading = ref(false)
+const pendingAttachmentUrl = ref<string | null>(null)
+const pendingAttachmentType = ref<string>('text')
+const fileInput = ref<HTMLInputElement | null>(null)
+
+function triggerFileInput() {
+  fileInput.value?.click()
+}
+
+async function handleFileUpload(event: Event) {
+  const target = event.target as HTMLInputElement
+  if (!target.files?.length) return
+  const file = target.files[0]
+  
+  isUploading.value = true
+  try {
+     const url = await useChat().uploadChatFile(file)
+     
+     pendingAttachmentUrl.value = url
+     if (file.type === 'image/gif') pendingAttachmentType.value = 'gif'
+     else if (file.type.startsWith('image/')) pendingAttachmentType.value = 'image'
+     else if (file.type.startsWith('video/')) pendingAttachmentType.value = 'video'
+     else if (file.type.startsWith('audio/')) pendingAttachmentType.value = 'audio'
+     else pendingAttachmentType.value = 'document'
+     
+  } catch (err) {
+     console.error('Upload failed', err)
+  } finally {
+     isUploading.value = false
+  }
+}
+
+function clearPendingAttachment() {
+  pendingAttachmentUrl.value = null
+  pendingAttachmentType.value = 'text'
+  if (fileInput.value) fileInput.value.value = ''
+}
+
+const activeConversationId = ref<string | null>(null)
+
+async function toggleChat() {
+  isOpen.value = !isOpen.value
+  console.log('[WIDGET] toggleChat:', { isOpen: isOpen.value, isAuthenticated: isAuthenticated.value, userId: user.value?._id })
   if (isOpen.value && isAuthenticated.value) {
     unreadCount.value = 0
-    connect() 
+    
+    // Fetch or create support conversation
+    try {
+      const config = useRuntimeConfig()
+      const referralCookie = useCookie('wk_referral')
+      console.log('[WIDGET] Creating/fetching support conversation...', { apiBase: config.public.apiBase, referrer: referralCookie.value })
+      const res = await $fetch<any>(`${config.public.apiBase}/chat/conversations`, {
+        method: 'POST',
+        body: { 
+          type: 'support',
+          referrer: referralCookie.value
+        },
+        headers: {
+          Authorization: `Bearer ${useAuthState().accessToken.value}`
+        }
+      })
+      console.log('[WIDGET] Conversation response:', JSON.stringify(res?.data || res, null, 2))
+      if (res.data?._id) {
+        activeConversationId.value = res.data._id
+        console.log('[WIDGET] Active conversation ID:', activeConversationId.value)
+        console.log('[WIDGET] Participants:', res.data.participants)
+        connect(res.data._id)
+        
+        // Fetch message history
+        const msgRes = await $fetch<any>(`${config.public.apiBase}/chat/conversations/${res.data._id}/messages`, {
+          headers: {
+            Authorization: `Bearer ${useAuthState().accessToken.value}`
+          }
+        })
+        console.log('[WIDGET] Message history loaded:', msgRes.data?.length || 0, 'messages')
+        if (msgRes.data) {
+          messages.value = msgRes.data
+        }
+      } else {
+        console.error('[WIDGET] ❌ No conversation ID in response!')
+      }
+    } catch (err) {
+      console.error('[WIDGET] ❌ Failed to initialize support chat:', err)
+    }
+    
     nextTick(() => scrollToBottom())
   }
 }
 
 function handleSend() {
-  if (!newMessage.value.trim()) return
-  sendMessage('support-default', newMessage.value) // Using a default support room for now
+  if ((!newMessage.value.trim() && !pendingAttachmentUrl.value) || !activeConversationId.value) return
+  
+  const content = newMessage.value.trim() || (pendingAttachmentType.value !== 'text' ? `Sent a ${pendingAttachmentType.value}` : '')
+  const type = pendingAttachmentType.value === 'document' ? 'document' : pendingAttachmentType.value
+  const attachments = pendingAttachmentUrl.value ? [pendingAttachmentUrl.value] : []
+  
+  sendMessage(activeConversationId.value, content, type, attachments)
   newMessage.value = ''
+  clearPendingAttachment()
   scrollToBottom()
 }
 
@@ -151,9 +316,48 @@ function quickMessage(text: string) {
 
 let typingTimeout: any = null
 function handleTyping() {
-  sendTyping('support-default', true)
+  if (!activeConversationId.value) return
+  sendTyping(activeConversationId.value, true)
   if (typingTimeout) clearTimeout(typingTimeout)
-  typingTimeout = setTimeout(() => sendTyping('support-default', false), 2000)
+  typingTimeout = setTimeout(() => {
+    if (activeConversationId.value) sendTyping(activeConversationId.value, false)
+  }, 2000)
+}
+
+function isSentByMe(msg: any) {
+  const senderId = String(msg.senderId?._id || msg.senderId || '')
+  const myId = String(user.value?._id || user.value?.id || '')
+  return !!senderId && senderId === myId
+}
+
+function getSenderName(msg: any) {
+  if (isSentByMe(msg)) return 'You'
+  return msg.senderId?.fullName || msg.senderId?.email || 'Support'
+}
+
+function getSenderRole(msg: any) {
+  if (isSentByMe(msg)) return ''
+  const role = msg.senderId?.userType || 'admin'
+  return `(${role.charAt(0).toUpperCase() + role.slice(1)})`
+}
+
+const showEmojiPicker = ref(false)
+const commonEmojis = ['👋', '😊', '👍', '❤️', '🔥', '🙌', '✨', '👑', '😋', '📦', '🚚', '💡', '✅', '❌', '❓', '💬', '🌟', '🙏']
+
+function addEmoji(emoji: string) {
+  newMessage.value += emoji
+  showEmojiPicker.value = false
+}
+
+function containsVideoLink(content: string) {
+  if (!content) return false
+  return content.includes('youtube.com/watch') || content.includes('youtu.be/') || content.includes('vimeo.com/')
+}
+
+function getYoutubeId(content: string) {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = content.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
 }
 
 function scrollToBottom() {
@@ -167,8 +371,9 @@ function formatTime(date: any) {
 }
 
 watch(messages, () => {
-  if (!isOpen.value) unreadCount.value++
-  nextTick(() => scrollToBottom())
+    console.log('[WIDGET] Messages updated:', messages.value.length)
+    if (!isOpen.value) unreadCount.value++
+    nextTick(() => scrollToBottom())
 }, { deep: true })
 </script>
 
