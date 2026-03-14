@@ -43,7 +43,9 @@
 </template>
 
 <script setup lang="ts">
-const selectedCurrency = ref('NGN')
+import { useCurrency } from '@/composables/useCurrency'
+
+const { selectedCurrency, setCurrency } = useCurrency()
 const currencies = [
   { code: 'NGN', symbol: '₦', name: 'Naira' },
   { code: 'USD', symbol: '$', name: 'US Dollar' },
@@ -57,11 +59,8 @@ const currentCurrencyCode = computed(() => selectedCurrency.value)
 const currentCurrencySymbol = computed(() => currencies.find(c => c.code === selectedCurrency.value)?.symbol || '')
 
 function selectCurrency(curr: any) {
-  selectedCurrency.value = curr.code
-  localStorage.setItem('selected_currency', curr.code)
+  setCurrency(curr.code)
   isOpen.value = false
-  // Emitting or triggering global state change
-  window.dispatchEvent(new CustomEvent('currency-changed', { detail: curr.code }))
 }
 
 onMounted(() => {

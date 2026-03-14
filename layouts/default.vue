@@ -43,7 +43,7 @@
             <Icon name="lucide:user" size="20" />
           </NuxtLink>
           <NuxtLink v-else to="/login" :class="['hidden sm:flex px-8 py-3 text-[10px] font-black uppercase tracking-[0.2em] rounded-2xl transition-all duration-500 shadow-xl overflow-hidden relative group', shouldShowSolidHeader ? 'bg-gray-950 text-white hover:bg-[#033958]' : 'bg-white text-gray-950 hover:bg-amber-400']">
-            <span class="relative z-10 transition-colors duration-500">Sign in</span>
+            <span class="relative z-10 transition-colors duration-500">{{ $t('common.sign_in') }}</span>
           </NuxtLink>
 
           <!-- Mobile Toggle -->
@@ -72,17 +72,17 @@
             
             <div class="pt-8 mt-4 border-t border-gray-100 grid grid-cols-2 gap-4">
               <div class="p-5 bg-gray-50 rounded-2xl flex flex-col gap-3">
-                <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Global Reach</span>
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">{{ $t('common.global_reach') }}</span>
                 <CoreLanguageSwitcher class="scale-90 origin-left" />
               </div>
               <div class="p-5 bg-gray-50 rounded-2xl flex flex-col gap-3">
-                <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">Pricing</span>
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">{{ $t('common.pricing') }}</span>
                 <CoreCurrencySwitcher class="scale-90 origin-left" />
               </div>
             </div>
 
             <div v-if="!isAuthenticated" class="pt-6">
-              <NuxtLink to="/login" class="flex items-center justify-center w-full py-5 bg-[#033958] text-white text-[12px] font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-[#033958]/20">Enter the Kingdom</NuxtLink>
+              <NuxtLink to="/login" class="flex items-center justify-center w-full py-5 bg-[#033958] text-white text-[12px] font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-[#033958]/20">{{ $t('common.enter_kingdom') }}</NuxtLink>
             </div>
           </div>
         </div>
@@ -101,11 +101,9 @@
           <div class="lg:col-span-2 space-y-6">
             <NuxtLink to="/" class="flex items-center gap-3">
                <img src="@/assets/images/logo.jpg" class="h-10 w-auto" alt="Logo" />
-              <!-- <div class="w-10 h-10 rounded-xl bg-[#033958] flex items-center justify-center text-white text-base font-black">WK</div>
-              <span class="text-xl font-black text-gray-900 tracking-tight">WiseKings</span> -->
             </NuxtLink>
             <p class="text-gray-500 text-base leading-relaxed max-w-sm font-medium">
-              Experience the future of premium shopping. Quality products, seamless delivery, and a community of satisfied royalty.
+              {{ $t('common.experience_future') }}
             </p>
             <div class="flex items-center gap-4">
               <a href="https://www.instagram.com/wisekingsproducts/" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:instagram" class="w-5 h-5" /></a>
@@ -115,44 +113,44 @@
           </div>
           
           <div>
-            <h4 class="text-gray-950 font-black text-sm uppercase tracking-widest mb-6">Discovery</h4>
+            <h4 class="text-gray-950 font-black text-sm uppercase tracking-widest mb-6">{{ $t('common.discovery') }}</h4>
             <div class="space-y-4 text-sm font-bold">
-              <NuxtLink to="/products" class="block text-gray-500 hover:text-gray-950 transition-colors">All Products</NuxtLink>
-              <NuxtLink to="/categories" class="block text-gray-500 hover:text-gray-950 transition-colors">Categories</NuxtLink>
-              <NuxtLink to="/offers" class="block text-gray-500 hover:text-gray-950 transition-colors">Special Offers</NuxtLink>
+              <NuxtLink to="/products" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('featured_products') }}</NuxtLink>
+              <NuxtLink to="/categories" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('categories') }}</NuxtLink>
+              <NuxtLink to="/offers" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('common.special_offers') }}</NuxtLink>
             </div>
           </div>
           
           <div>
-            <h4 class="text-gray-950 font-black text-sm uppercase tracking-widest mb-6">Support</h4>
+            <h4 class="text-gray-950 font-black text-sm uppercase tracking-widest mb-6">{{ $t('footer.contact') }}</h4>
             <div class="space-y-4 text-sm font-bold">
-              <NuxtLink to="/account/orders" class="block text-gray-500 hover:text-gray-950 transition-colors">Order Tracking</NuxtLink>
-              <NuxtLink to="/shipping-policy" class="block text-gray-500 hover:text-gray-950 transition-colors">Shipping Policy</NuxtLink>
-              <NuxtLink to="/return-policy" class="block text-gray-500 hover:text-gray-950 transition-colors">Return Policy</NuxtLink>
+              <NuxtLink to="/account/orders" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('common.order_tracking') }}</NuxtLink>
+              <NuxtLink to="/shipping-policy" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('common.shipping_policy') }}</NuxtLink>
+              <NuxtLink to="/return-policy" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('common.return_policy') }}</NuxtLink>
             </div>
           </div>
           
           <div>
-            <h4 class="text-gray-950 font-black text-sm uppercase tracking-widest mb-6">Company</h4>
+            <h4 class="text-gray-950 font-black text-sm uppercase tracking-widest mb-6">{{ $t('common.company_info') }}</h4>
             <div class="space-y-4 text-sm font-bold">
-              <NuxtLink to="/about" class="block text-gray-500 hover:text-gray-950 transition-colors">Our Story</NuxtLink>
-              <NuxtLink to="/contact" class="block text-gray-500 hover:text-gray-950 transition-colors">Contact Us</NuxtLink>
-              <NuxtLink to="/privacy" class="block text-gray-500 hover:text-gray-950 transition-colors">Privacy Policy</NuxtLink>
-              <NuxtLink to="/terms" class="block text-gray-500 hover:text-gray-950 transition-colors">Terms of Service</NuxtLink>
+              <NuxtLink to="/about" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('common.our_story') }}</NuxtLink>
+              <NuxtLink to="/contact" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('common.contact_us') }}</NuxtLink>
+              <NuxtLink to="/privacy" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('common.privacy_policy') }}</NuxtLink>
+              <NuxtLink to="/terms" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('common.terms_of_service') }}</NuxtLink>
             </div>
           </div>
 
           <div class="lg:col-span-5 border-t border-gray-100 pt-8 -mb-4">
-            <h4 class="text-gray-950 font-black text-sm uppercase tracking-widest mb-6">Join Our Network</h4>
+            <h4 class="text-gray-950 font-black text-sm uppercase tracking-widest mb-6">{{ $t('common.join_network') }}</h4>
             <div class="flex flex-col sm:flex-row gap-4">
               <a href="https://merchants.wisekings.ng/" target="_blank" class="flex items-center gap-3 bg-emerald-50 border border-emerald-100 text-emerald-700 px-5 py-3.5 rounded-2xl font-bold text-sm hover:bg-emerald-100 hover:shadow-md transition-all group">
                 <Icon name="lucide:store" size="20" />
-                Become a Merchant
+                {{ $t('common.become_merchant') }}
                 <Icon name="lucide:external-link" size="14" class="ml-auto opacity-50 group-hover:opacity-100 transition-opacity" />
               </a>
               <a href="https://partners.wisekings.ng/" target="_blank" class="flex items-center gap-3 bg-orange-50 border border-orange-100 text-orange-700 px-5 py-3.5 rounded-2xl font-bold text-sm hover:bg-orange-100 hover:shadow-md transition-all group">
                 <Icon name="lucide:handshake" size="20" />
-                Partner With Us
+                {{ $t('common.partner_with_us') }}
                 <Icon name="lucide:external-link" size="14" class="ml-auto opacity-50 group-hover:opacity-100 transition-opacity" />
               </a>
             </div>
@@ -177,9 +175,11 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
 const { isAuthenticated } = useAuthState()
 const { totalItems } = useCart()
 const { captureFromUrl } = useReferral()
+const { fetchRates } = useCurrency()
 const route = useRoute()
 
 const isMobileMenuOpen = ref(false)
@@ -218,14 +218,17 @@ watch(() => route.fullPath, () => {
   isMobileMenuOpen.value = false
 })
 
-const navLinks = [
-  { name: 'Shop', path: '/products' },
-  { name: 'Categories', path: '/categories' },
-  { name: 'Special Offers', path: '/offers' },
-  { name: 'Our Story', path: '/about' },
-]
+const navLinks = computed(() => [
+  { name: t('common.nav.shop'), path: '/products' },
+  { name: t('common.nav.categories'), path: '/categories' },
+  { name: t('common.nav.offers'), path: '/offers' },
+  { name: t('common.nav.story'), path: '/about' },
+])
 
-onMounted(() => captureFromUrl())
+onMounted(() => {
+  captureFromUrl()
+  fetchRates()
+})
 </script>
 
 <style>

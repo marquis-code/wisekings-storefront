@@ -18,12 +18,12 @@
 
       <!-- Details -->
       <div class="flex flex-col">
-        <NuxtLink to="/products" class="text-sm text-gray-400 hover:text-gray-600 mb-2">← Back to shop</NuxtLink>
+        <NuxtLink to="/products" class="text-sm text-gray-400 hover:text-gray-600 mb-2">{{ $t('common.back_to_shop') }}</NuxtLink>
         <h1 class="text-3xl font-bold text-gray-900">{{ product.name }}</h1>
         <div class="flex items-center gap-3 mt-3">
-          <span class="text-2xl font-bold text-gray-900">₦{{ product.price.toLocaleString() }}</span>
-          <span v-if="product.compareAtPrice" class="text-lg text-gray-400 line-through">₦{{ product.compareAtPrice.toLocaleString() }}</span>
-          <span v-if="product.compareAtPrice" class="badge bg-red-50 text-red-600 text-xs">Save {{ savings }}%</span>
+          <span class="text-2xl font-bold text-gray-900">{{ formatPrice(product.price) }}</span>
+          <span v-if="product.compareAtPrice" class="text-lg text-gray-400 line-through">{{ formatPrice(product.compareAtPrice) }}</span>
+          <span v-if="product.compareAtPrice" class="badge bg-red-50 text-red-600 text-xs">{{ $t('common.save') }} {{ savings }}%</span>
         </div>
         <p class="text-gray-600 mt-4 leading-relaxed">{{ product.description }}</p>
 
@@ -34,14 +34,14 @@
             <button @click="qty++" class="w-10 h-10 flex items-center justify-center text-gray-600 hover:text-gray-900"><Icon name="lucide:plus" class="w-4 h-4" /></button>
           </div>
           <button @click="handleAdd" class="btn-primary btn-lg flex-1">
-            <Icon name="lucide:shopping-bag" class="w-5 h-5" /> Add to Cart
+            <Icon name="lucide:shopping-bag" class="w-5 h-5" /> {{ $t('common.add_to_cart') }}
           </button>
         </div>
-        <p v-else class="mt-6 text-red-600 font-medium">Out of stock</p>
+        <p v-else class="mt-6 text-red-600 font-medium">{{ $t('common.out_of_stock') }}</p>
 
         <div class="mt-8 space-y-3 border-t border-gray-200 pt-6">
           <div v-if="product.sku" class="flex justify-between text-sm"><span class="text-gray-400">SKU</span><span class="text-gray-700">{{ product.sku }}</span></div>
-          <div class="flex justify-between text-sm"><span class="text-gray-400">Category</span><span class="text-gray-700">{{ typeof product.category === 'object' ? (product.category as any)?.name : '—' }}</span></div>
+          <div class="flex justify-between text-sm"><span class="text-gray-400">{{ $t('common.category') }}</span><span class="text-gray-700">{{ typeof product.category === 'object' ? (product.category as any)?.name : '—' }}</span></div>
           <div v-if="product.tags?.length" class="flex gap-2 flex-wrap mt-2">
             <span v-for="tag in product.tags" :key="tag" class="px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-600">{{ tag }}</span>
           </div>
@@ -50,7 +50,7 @@
     </div>
     <!-- Related Products -->
     <section v-if="recommendations.length" class="mt-20 border-t border-gray-100 pt-16">
-      <h2 class="text-2xl font-black text-gray-900 mb-8">Related Snacks You'll Love</h2>
+      <h2 class="text-2xl font-black text-gray-900 mb-8">{{ $t('common.related_snacks') }}</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
         <NuxtLink v-for="p in recommendations" :key="p._id" :to="`/products/${p.slug}`" class="group">
           <div class="aspect-square bg-gray-50 rounded-3xl overflow-hidden mb-3 border border-gray-100 group-hover:shadow-lg transition-all duration-300">
@@ -78,7 +78,8 @@ const { trackAddToCart } = useAnalytics()
 
 const { product, loading, fetchProduct } = useFetchProductBySlug()
 const { recommendations, fetchRecommendations } = useFetchRecommendations()
-const { formatPrice } = useCurrency()
+const { locale } = useI18n()
+const { selectedCurrency, formatPrice } = useCurrency()
 
 const selectedImage = ref(0)
 const qty = ref(1)
@@ -100,6 +101,14 @@ function handleAdd() {
   }
 }
 
+async function refreshData() {
+  await fetchProduct(route.params.slug as string)
+}
+
+watch([locale, selectedCurrency], () => {
+    refreshData()
+})
+
 watch(product, (newVal) => {
   if (newVal?._id) {
     fetchRecommendations(newVal._id)
@@ -107,7 +116,7 @@ watch(product, (newVal) => {
 }, { immediate: true })
 
 onMounted(() => {
-  fetchProduct(route.params.slug as string)
+  refreshData()
 })
 
 useHead(() => ({

@@ -27,28 +27,28 @@
             <div :key="currentSlide" class="space-y-8">
               <div class="inline-flex items-center gap-3 bg-white/10 text-white/90 px-6 py-2.5 rounded-full text-xs font-black tracking-widest uppercase backdrop-blur-md border border-white/20">
                 <Icon :name="slides[currentSlide].icon" size="18" class="text-amber-400" />
-                {{ slides[currentSlide].badge }}
+                {{ $t(slides[currentSlide].badge) }}
               </div>
               
               <h1 class="text-5xl md:text-8xl font-black text-white tracking-tighter leading-[0.9] drop-shadow-2xl">
-                {{ slides[currentSlide].title.split(',')[0] }}<br/>
+                {{ $t(slides[currentSlide].title).split(',')[0] }}<br/>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-amber-400">
-                  {{ slides[currentSlide].title.split(',')[1] || '' }}
+                  {{ $t(slides[currentSlide].title).split(',')[1] || '' }}
                 </span>
               </h1>
 
               <p class="text-lg md:text-2xl text-white/60 max-w-xl font-medium leading-relaxed">
-                {{ slides[currentSlide].subtitle }}
+                {{ $t(slides[currentSlide].subtitle) }}
               </p>
 
               <div class="flex flex-col sm:flex-row gap-5 pt-4">
                 <NuxtLink :to="slides[currentSlide].cta.link" class="bg-white text-gray-950 px-10 py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest hover:bg-amber-400 transition-all shadow-2xl flex items-center gap-4 justify-center group/btn">
-                  {{ slides[currentSlide].cta.text }}
+                  {{ $t(slides[currentSlide].cta.text) }}
                   <Icon name="lucide:chevron-right" size="18" class="group-hover/btn:translate-x-1 transition-transform" />
                 </NuxtLink>
                 <NuxtLink to="/categories" class="bg-white/5 backdrop-blur-xl text-white px-10 py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest border border-white/10 hover:bg-white/10 transition-all flex items-center gap-4 justify-center">
                   <Icon name="lucide:aperture" size="20" class="text-amber-400" />
-                  Explore Luxury
+                  {{ $t('explore_luxury') }}
                 </NuxtLink>
               </div>
             </div>
@@ -85,9 +85,9 @@
     <!-- Categories -->
     <section class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-16">
       <div class="flex items-center justify-between mb-8">
-        <h2 class="text-2xl font-extrabold text-gray-900">Shop by Category</h2>
+        <h2 class="text-2xl font-extrabold text-gray-900">{{ $t('shop_by_category') }}</h2>
         <NuxtLink to="/categories" class="text-sm font-bold text-[#033958] hover:underline flex items-center gap-1">
-          View all <Icon name="lucide:arrow-right" size="14" />
+          {{ $t('view_all') }} <Icon name="lucide:arrow-right" size="14" />
         </NuxtLink>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -175,9 +175,9 @@
     <!-- Featured Products -->
     <section class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-16">
       <div class="flex items-center justify-between mb-8">
-        <h2 class="text-2xl font-extrabold text-gray-900">Featured Snacks</h2>
+        <h2 class="text-2xl font-extrabold text-gray-900">{{ $t('featured_snacks') }}</h2>
         <NuxtLink to="/products" class="text-sm font-bold text-[#033958] hover:underline flex items-center gap-1">
-          View all <Icon name="lucide:arrow-right" size="14" />
+          {{ $t('view_all') }} <Icon name="lucide:arrow-right" size="14" />
         </NuxtLink>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
@@ -188,12 +188,12 @@
           </div>
           <h3 class="text-sm font-bold text-gray-900 group-hover:text-[#033958] transition-colors line-clamp-1">{{ p.name }}</h3>
           <div class="flex items-center gap-2 mt-1">
-            <span class="text-sm font-extrabold text-gray-900">₦{{ p.price?.toLocaleString() }}</span>
-            <span v-if="p.compareAtPrice" class="text-xs text-gray-400 line-through">₦{{ p.compareAtPrice?.toLocaleString() }}</span>
+            <span class="text-sm font-extrabold text-gray-900">{{ formatPrice(p.price) }}</span>
+            <span v-if="p.compareAtPrice" class="text-xs text-gray-400 line-through">{{ formatPrice(p.compareAtPrice) }}</span>
           </div>
         </NuxtLink>
       </div>
-      <div v-if="products.length === 0" class="text-center py-12 text-gray-400">Loading products...</div>
+      <div v-if="products.length === 0" class="text-center py-12 text-gray-400">{{ $t('loading_products') }}</div>
     </section>
 
     <!-- Holiday Banner -->
@@ -225,7 +225,7 @@
         <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Join the WiseKings Community</h2>
         <p class="text-gray-400 mb-10 max-w-md mx-auto text-lg">Earn commissions, sell products, or become a partner. Your journey starts here.</p>
         <div class="flex justify-center gap-4 flex-col sm:flex-row">
-          <NuxtLink to="/register" class="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-2xl font-bold text-lg shadow-lg transition-all">Create Account</NuxtLink>
+          <NuxtLink to="/register" class="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-2xl font-bold text-lg shadow-lg transition-all">{{ $t('auth.create_account') }}</NuxtLink>
           <a href="http://localhost:3002" target="_blank" class="bg-emerald-600 text-white hover:bg-emerald-700 px-8 py-4 rounded-2xl font-bold text-lg shadow-lg transition-all flex items-center gap-2 justify-center">
             <Icon name="lucide:store" size="18" /> Become a Merchant
           </a>
@@ -236,17 +236,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import type { Product, Category } from '~/types'
 import { useFetchProducts } from '@/composables/modules/products/useFetchProducts'
 import { useFetchCategories } from '@/composables/modules/products/useFetchCategories'
 import { marketing_api } from '@/api_factory/modules/marketing'
+import { useCurrency } from '@/composables/useCurrency'
 import hero1 from "@/assets/images/hero1.jpg"
 import hero2 from "@/assets/images/hero2.jpg"
 import hero3 from "@/assets/images/hero5.jpg" 
 
 const { products, fetchProducts } = useFetchProducts()
 const { categories, fetchCategories } = useFetchCategories()
+const { locale } = useI18n()
+const { selectedCurrency, formatPrice } = useCurrency()
 const banners = ref<any[]>([])
 const promotions = ref<any[]>([])
 
@@ -259,25 +262,25 @@ const slides = [
     badge: 'Premium Collection',
     icon: 'lucide:crown',
     image: hero1,
-    title: 'Premium Taste, Delivered Daily',
-    subtitle: 'Discover our artisan snacks crafted for royalty. From gourmet nuts to handcrafted sweets, quality is our promise.',
-    cta: { text: 'Elevate Your Taste', link: '/products' }
+    title: 'premium_taste',
+    subtitle: 'discover_artisan',
+    cta: { text: 'elevate_taste', link: '/products' }
   },
   {
-    badge: 'New Arrivals',
+    badge: 'new_arrivals',
     icon: 'lucide:sparkles',
     image: hero2,
-    title: 'New Flavors, Bold Experiences',
-    subtitle: 'Explore our latest additions — unique spice blends and exotic textures that redefine the snacking experience.',
-    cta: { text: 'Browse New Drops', link: '/products' }
+    title: 'new_flavors',
+    subtitle: 'explore_latest',
+    cta: { text: 'browse_new', link: '/products' }
   },
   {
-    badge: 'Limited Offers',
+    badge: 'limited_offers',
     icon: 'lucide:gem',
     image: hero3,
-    title: 'Exclusive Benefits, Royal Savings',
-    subtitle: 'High-end snacking shouldn\'t be a luxury. Join our membership for exclusive deals and up to 40% off.',
-    cta: { text: 'Claim Your Offer', link: '/offers' }
+    title: 'exclusive_benefits',
+    subtitle: 'discover_artisan',
+    cta: { text: 'claim_offer', link: '/offers' }
   }
 ]
 
@@ -296,14 +299,23 @@ function startCarousel() {
   }, 8000)
 }
 
-onMounted(async () => {
-  startCarousel()
+async function refreshData() {
   await Promise.allSettled([
     fetchProducts({ limit: 8 }),
     fetchCategories(),
     marketing_api.getBanners({ isActive: true, position: 'home' }).then(r => { banners.value = r?.data?.data || r?.data || [] }).catch(() => {}),
     marketing_api.getPromotions({ isActive: true }).then(r => { promotions.value = r?.data?.data || r?.data || [] }).catch(() => {}),
   ])
+}
+
+// Watch for locale or currency changes to refresh data
+watch([locale, selectedCurrency], () => {
+  refreshData()
+})
+
+onMounted(async () => {
+  startCarousel()
+  await refreshData()
 })
 
 onUnmounted(() => { if (slideInterval) clearInterval(slideInterval) })

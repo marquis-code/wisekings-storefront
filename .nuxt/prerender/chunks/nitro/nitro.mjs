@@ -845,7 +845,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "c6c2c8f6-3083-4729-8201-7710b5a5a093",
+    "buildId": "36769a58-e754-4725-98e6-e88ea8aacc97",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -1362,12 +1362,28 @@ var premium_products$2 = "Shop premium products at WiseKings. Quality guaranteed
 var shop_now$2 = "Shop Now";
 var categories$2 = "Categories";
 var featured_products$2 = "Featured Products";
+var shop_by_category$2 = "Shop by Category";
+var view_all$2 = "View all";
+var featured_snacks$2 = "Featured Snacks";
+var loading_products$2 = "Sourcing Products...";
+var explore_luxury$2 = "Explore Luxury";
+var premium_taste$2 = "Premium Taste, Delivered Daily";
+var discover_artisan$2 = "Discover our artisan snacks crafted for royalty. From gourmet nuts to handcrafted sweets, quality is our promise.";
+var elevate_taste$2 = "Elevate Your Taste";
+var new_arrivals$2 = "New Arrivals";
+var new_flavors$2 = "New Flavors, Bold Experiences";
+var explore_latest$2 = "Explore our latest additions — unique spice blends and exotic textures that redefine the snacking experience.";
+var browse_new$2 = "Browse New Drops";
+var limited_offers$2 = "Limited Offers";
+var exclusive_benefits$2 = "Exclusive Benefits, Royal Savings";
+var claim_offer$2 = "Claim Your Offer";
 var auth$2 = {
 	login: "Login",
 	signup: "Sign Up",
 	logout: "Logout",
 	email: "Email Address",
-	password: "Password"
+	password: "Password",
+	create_account: "Create Account"
 };
 var footer$2 = {
 	about: "About Us",
@@ -1375,33 +1391,281 @@ var footer$2 = {
 	merchants: "Merchants",
 	partners: "Partners"
 };
+var common$2 = {
+	currency: "Currency",
+	back_to_shop: "← Back to shop",
+	added_to_cart: "{name} added to cart",
+	sign_in: "Sign in",
+	enter_kingdom: "Enter the Kingdom",
+	global_reach: "Global Reach",
+	pricing: "Pricing",
+	discovery: "Discovery",
+	company_info: "Company",
+	our_story: "Our Story",
+	contact_us: "Contact Us",
+	privacy_policy: "Privacy Policy",
+	terms_of_service: "Terms of Service",
+	order_tracking: "Order Tracking",
+	shipping_policy: "Shipping Policy",
+	return_policy: "Return Policy",
+	special_offers: "Special Offers",
+	join_network: "Join Our Network",
+	become_merchant: "Become a Merchant",
+	partner_with_us: "Partner With Us",
+	experience_future: "Experience the future of premium shopping. Quality products, seamless delivery, and a community of satisfied royalty.",
+	nav: {
+		shop: "Shop",
+		categories: "Categories",
+		offers: "Offers",
+		story: "Story"
+	},
+	category_curation: "Curation",
+	explore_categories: "Explore Categories",
+	browse_curated: "Browse our curated collection of snacks by category. Find your favorites faster.",
+	no_categories: "No categories yet",
+	check_back_soon: "Check back soon — we're adding new snack categories!",
+	explore_collection_btn: "Explore Collection",
+	default_cat_desc: "Discover our exclusively curated selection of premium snacks.",
+	add_to_cart: "Add to Cart",
+	out_of_stock: "Out of stock",
+	save: "Save",
+	related_snacks: "Related Snacks You'll Love",
+	category: "Category",
+	full_collection: "The Full Collection",
+	shop_royal_vault: "Shop the Royal Vault",
+	explore_collection_desc: "Explore our meticulously curated selection of premium Nigerian snacks.",
+	refine_manifest: "Refine Manifest",
+	product_category: "Product Category",
+	sort_archive: "Sort Archive By",
+	search_products: "Search products...",
+	products_count: "{count} products",
+	no_products: "No products found",
+	only_left: "Only {count} left!",
+	prev: "Prev",
+	next: "Next",
+	all_categories: "All Categories",
+	shopping_cart: "Shopping Cart",
+	cart_empty: "Your cart is empty",
+	continue_shopping: "Continue Shopping",
+	per_unit: "Per unit",
+	total: "Total",
+	proceed_checkout: "Proceed to Checkout",
+	checkout: "Checkout",
+	complete_details: "Complete your details to finalize your snacking manifest.",
+	fulfillment_method: "Fulfillment Method",
+	pickup: "Pickup",
+	waybill: "Waybill",
+	dispatch: "Dispatch",
+	outside_lagos: "Outside Lagos",
+	within_lagos: "Within Lagos",
+	at_store: "at Lagos Store",
+	shipping_destination: "Shipping Destination",
+	recipient_name: "Recipient Name",
+	contact_phone: "Contact Phone",
+	city: "City",
+	state: "State / Province",
+	manifest_summary: "Manifest Summary",
+	base_total: "Base Total",
+	grand_total: "Grand Total",
+	authorize_payment: "Authorize Payment",
+	order_whatsapp: "Order via WhatsApp",
+	calculating_fee: "Calculating distance pricing...",
+	distance_detected: "Distance: {distance}km detected",
+	redeem_points: "Redeem Points",
+	remove: "Remove",
+	apply: "Apply",
+	rewards_applied: "Rewards Applied",
+	billing_details: "Billing Details",
+	limited_time_deals: "Limited Time Deals",
+	special_offers_deals: "Special Offers & Deals",
+	save_big_snacks: "Save big on your favourite snacks. Freshly baked deals updated weekly.",
+	todays_deals: "Today's Deals",
+	no_offers: "No offers at the moment",
+	check_back_deals: "Check back soon for deals and promotions!",
+	browse_all_snacks: "Browse All Snacks",
+	off: "{percent}% OFF",
+	sort: {
+		"default": "Default Sorting",
+		price_asc: "Price: Low to High",
+		price_desc: "Price: High to Low",
+		name: "A-Z Name"
+	},
+	direct_transfer: "Direct Bank Transfer",
+	account_name: "Account Name",
+	account_number: "Account Number",
+	bank_name: "Bank Name",
+	upload_proof: "Upload Proof of Payment",
+	confirm_payment_made: "I have made the payment",
+	payment_confirmation_msg: "Payment proof submitted! Redirecting to confirmation...",
+	bank_instruction: "Please transfer the total amount to the account details below and upload your receipt."
+};
 const locale_en_46json_d0918ef1 = {
 	welcome: welcome$2,
 	premium_products: premium_products$2,
 	shop_now: shop_now$2,
 	categories: categories$2,
 	featured_products: featured_products$2,
+	shop_by_category: shop_by_category$2,
+	view_all: view_all$2,
+	featured_snacks: featured_snacks$2,
+	loading_products: loading_products$2,
+	explore_luxury: explore_luxury$2,
+	premium_taste: premium_taste$2,
+	discover_artisan: discover_artisan$2,
+	elevate_taste: elevate_taste$2,
+	new_arrivals: new_arrivals$2,
+	new_flavors: new_flavors$2,
+	explore_latest: explore_latest$2,
+	browse_new: browse_new$2,
+	limited_offers: limited_offers$2,
+	exclusive_benefits: exclusive_benefits$2,
+	claim_offer: claim_offer$2,
 	auth: auth$2,
-	footer: footer$2
+	footer: footer$2,
+	common: common$2
 };
 
 var welcome$1 = "Bienvenue chez WiseKings";
-var premium_products$1 = "Achetez des produits haut de gamme chez WiseKings. Qualité garantie.";
-var shop_now$1 = "Achetez maintenant";
+var premium_products$1 = "Achetez des produits premium chez WiseKings. Qualité garantie.";
+var shop_now$1 = "Acheter maintenant";
 var categories$1 = "Catégories";
 var featured_products$1 = "Produits vedettes";
+var shop_by_category$1 = "Acheter par catégorie";
+var view_all$1 = "Voir tout";
+var featured_snacks$1 = "Snacks vedettes";
+var loading_products$1 = "Recherche de produits...";
+var explore_luxury$1 = "Explorer le luxe";
+var premium_taste$1 = "Goût Premium, Livré Quotidiennement";
+var discover_artisan$1 = "Découvrez nos snacks artisanaux conçus pour la royauté. Des noix gourmandes aux douceurs artisanales, la qualité est notre promesse.";
+var elevate_taste$1 = "Élevez votre goût";
+var new_arrivals$1 = "Nouveautés";
+var new_flavors$1 = "Nouveaux arômes, expériences audacieuses";
+var explore_latest$1 = "Explorez nos derniers ajouts — des mélanges d'épices uniques et des textures exotiques qui redéfinissent l'expérience du grignotage.";
+var browse_new$1 = "Parcourir les nouveautés";
+var limited_offers$1 = "Offres limitées";
+var exclusive_benefits$1 = "Avantages exclusifs, économies royales";
+var claim_offer$1 = "Réclamez votre offre";
 var auth$1 = {
 	login: "Connexion",
 	signup: "S'inscrire",
 	logout: "Déconnexion",
 	email: "Adresse e-mail",
-	password: "Mot de passe"
+	password: "Mot de passe",
+	create_account: "Créer un compte"
 };
 var footer$1 = {
-	about: "À propos",
+	about: "À propos de nous",
 	contact: "Contact",
 	merchants: "Marchands",
 	partners: "Partenaires"
+};
+var common$1 = {
+	currency: "Devise",
+	back_to_shop: "← Retour à la boutique",
+	added_to_cart: "{name} ajouté au panier",
+	sign_in: "Se connecter",
+	enter_kingdom: "Entrer dans le royaume",
+	global_reach: "Portée mondiale",
+	pricing: "Tarification",
+	discovery: "Découverte",
+	company_info: "Entreprise",
+	our_story: "Notre histoire",
+	contact_us: "Contactez-nous",
+	privacy_policy: "Politique de confidentialité",
+	terms_of_service: "Conditions d'utilisation",
+	order_tracking: "Suivi de commande",
+	shipping_policy: "Politique d'expédition",
+	return_policy: "Politique de retour",
+	special_offers: "Offres spéciales",
+	join_network: "Rejoignez notre réseau",
+	become_merchant: "Devenir marchand",
+	partner_with_us: "Devenir partenaire",
+	experience_future: "Découvrez l'avenir du shopping premium. Des produits de qualité, une livraison sans faille et une communauté de royauté satisfaite.",
+	nav: {
+		shop: "Boutique",
+		categories: "Catégories",
+		offers: "Offres",
+		story: "Histoire"
+	},
+	category_curation: "Curation",
+	explore_categories: "Explorer les catégories",
+	browse_curated: "Parcourez notre collection de snacks par catégorie. Trouvez vos favoris plus rapidement.",
+	no_categories: "Aucune catégorie pour le moment",
+	check_back_soon: "Revenez bientôt — nous ajoutons de nouvelles catégories de snacks !",
+	explore_collection_btn: "Explorer la collection",
+	default_cat_desc: "Découvrez notre sélection exclusivement organisée de snacks haut de gamme.",
+	add_to_cart: "Ajouter au panier",
+	out_of_stock: "En rupture de stock",
+	save: "Économisez",
+	related_snacks: "Snacks connexes que vous aimerez",
+	category: "Catégorie",
+	full_collection: "La collection complète",
+	shop_royal_vault: "Achetez dans la voûte royale",
+	explore_collection_desc: "Explorez notre sélection méticuleusement organisée de snacks nigérians haut de gamme.",
+	refine_manifest: "Affiner le manifeste",
+	product_category: "Catégorie de produit",
+	sort_archive: "Trier l'archive par",
+	search_products: "Rechercher des produits...",
+	products_count: "{count} produits",
+	no_products: "Aucun produit trouvé",
+	only_left: "Plus que {count} restants !",
+	prev: "Précédent",
+	next: "Suivant",
+	all_categories: "Toutes les catégories",
+	shopping_cart: "Panier d'achat",
+	cart_empty: "Votre panier est vide",
+	continue_shopping: "Continuer les achats",
+	per_unit: "Par unité",
+	total: "Total",
+	proceed_checkout: "Passer à la caisse",
+	checkout: "Caisse",
+	complete_details: "Complétez vos coordonnées pour finaliser votre manifeste de snacks.",
+	fulfillment_method: "Mode de réalisation",
+	pickup: "Retrait",
+	waybill: "Lettre de voiture",
+	dispatch: "Expédition",
+	outside_lagos: "Hors Lagos",
+	within_lagos: "À Lagos",
+	at_store: "au magasin de Lagos",
+	shipping_destination: "Destination de livraison",
+	recipient_name: "Nom du destinataire",
+	contact_phone: "Téléphone de contact",
+	city: "Ville",
+	state: "État / Province",
+	manifest_summary: "Résumé du manifeste",
+	base_total: "Total de base",
+	grand_total: "Total général",
+	authorize_payment: "Autoriser le paiement",
+	order_whatsapp: "Commander via WhatsApp",
+	calculating_fee: "Calcul du prix de la distance...",
+	distance_detected: "Distance : {distance}km détectée",
+	redeem_points: "Échanger des points",
+	remove: "Supprimer",
+	apply: "Appliquer",
+	rewards_applied: "Récompenses appliquées",
+	billing_details: "Détails de facturation",
+	limited_time_deals: "Offres à durée limitée",
+	special_offers_deals: "Offres spéciales et bonnes affaires",
+	save_big_snacks: "Économisez gros sur vos snacks préférés. Offres fraîches mises à jour chaque semaine.",
+	todays_deals: "Les offres du jour",
+	no_offers: "Aucune offre pour le moment",
+	check_back_deals: "Revenez bientôt pour des offres et des promotions !",
+	browse_all_snacks: "Parcourir tous les snacks",
+	off: "{percent}% de réduction",
+	sort: {
+		"default": "Tri par défaut",
+		price_asc: "Prix : Du moins cher au plus cher",
+		price_desc: "Prix : Du plus cher au moins cher",
+		name: "Nom A-Z"
+	},
+	direct_transfer: "Virement bancaire direct",
+	account_name: "Nom du compte",
+	account_number: "Numéro de compte",
+	bank_name: "Nom de la banque",
+	upload_proof: "Télécharger la preuve de paiement",
+	confirm_payment_made: "J'ai effectué le paiement",
+	payment_confirmation_msg: "Preuve de paiement soumise ! Redirection vers la confirmation...",
+	bank_instruction: "Veuillez transférer le montant total aux coordonnées bancaires ci-dessous et télécharger votre reçu."
 };
 const locale_fr_46json_8ac1e0d3 = {
 	welcome: welcome$1,
@@ -1409,8 +1673,24 @@ const locale_fr_46json_8ac1e0d3 = {
 	shop_now: shop_now$1,
 	categories: categories$1,
 	featured_products: featured_products$1,
+	shop_by_category: shop_by_category$1,
+	view_all: view_all$1,
+	featured_snacks: featured_snacks$1,
+	loading_products: loading_products$1,
+	explore_luxury: explore_luxury$1,
+	premium_taste: premium_taste$1,
+	discover_artisan: discover_artisan$1,
+	elevate_taste: elevate_taste$1,
+	new_arrivals: new_arrivals$1,
+	new_flavors: new_flavors$1,
+	explore_latest: explore_latest$1,
+	browse_new: browse_new$1,
+	limited_offers: limited_offers$1,
+	exclusive_benefits: exclusive_benefits$1,
+	claim_offer: claim_offer$1,
 	auth: auth$1,
-	footer: footer$1
+	footer: footer$1,
+	common: common$1
 };
 
 var welcome = "Bienvenido a WiseKings";
@@ -1418,12 +1698,28 @@ var premium_products = "Compre productos premium en WiseKings. Calidad garantiza
 var shop_now = "Comprar ahora";
 var categories = "Categorías";
 var featured_products = "Productos destacados";
+var shop_by_category = "Comprar por categoría";
+var view_all = "Ver todo";
+var featured_snacks = "Snacks destacados";
+var loading_products = "Buscando productos...";
+var explore_luxury = "Explora el lujo";
+var premium_taste = "Sabor Premium, Entregado Diariamente";
+var discover_artisan = "Descubre nuestros snacks artesanales elaborados para la realeza. Desde frutos secos gourmet hasta dulces artesanales, la calidad es nuestra promesa.";
+var elevate_taste = "Eleva tu sabor";
+var new_arrivals = "Nuevas llegadas";
+var new_flavors = "Nuevos sabores, experiencias audaces";
+var explore_latest = "Explore nuestras últimas incorporaciones: mezclas de especias únicas y texturas exóticas que redefinen la experiencia de merendar.";
+var browse_new = "Ver nuevos lanzamientos";
+var limited_offers = "Ofertas limitadas";
+var exclusive_benefits = "Beneficios exclusivos, ahorros reales";
+var claim_offer = "Reclama tu oferta";
 var auth = {
-	login: "Acceso",
-	signup: "Inscribirse",
+	login: "Iniciar sesión",
+	signup: "Registrarse",
 	logout: "Cerrar sesión",
-	email: "Dirección de correo electrónico",
-	password: "Contraseña"
+	email: "Correo electrónico",
+	password: "Contraseña",
+	create_account: "Crear una cuenta"
 };
 var footer = {
 	about: "Sobre nosotros",
@@ -1431,14 +1727,138 @@ var footer = {
 	merchants: "Comerciantes",
 	partners: "Socios"
 };
+var common = {
+	currency: "Moneda",
+	back_to_shop: "← Volver a la tienda",
+	added_to_cart: "{name} añadido al carrito",
+	sign_in: "Iniciar sesión",
+	enter_kingdom: "Entrar al reino",
+	global_reach: "Alcance global",
+	pricing: "Precios",
+	discovery: "Descubrimiento",
+	company_info: "Empresa",
+	our_story: "Nuestra historia",
+	contact_us: "Contáctenos",
+	privacy_policy: "Política de privacidad",
+	terms_of_service: "Términos de servicio",
+	order_tracking: "Seguimiento de pedidos",
+	shipping_policy: "Política de envío",
+	return_policy: "Política de devolución",
+	special_offers: "Ofertas especiales",
+	join_network: "Únete a nuestra red",
+	become_merchant: "Convertirse en comerciante",
+	partner_with_us: "Socio con nosotros",
+	experience_future: "Experimente el futuro de las compras premium. Productos de calidad, entrega sin problemas y una comunidad de la realeza satisfecha.",
+	nav: {
+		shop: "Tienda",
+		categories: "Categorías",
+		offers: "Ofertas",
+		story: "Historia"
+	},
+	category_curation: "Curación",
+	explore_categories: "Explorar categorías",
+	browse_curated: "Explore nuestra colección seleccionada de snacks por categoría. Encuentre sus favoritos más rápido.",
+	no_categories: "Aún no hay categorías",
+	check_back_soon: "Vuelva pronto — ¡estamos agregando nuevas categorías de snacks!",
+	explore_collection_btn: "Explorar colección",
+	default_cat_desc: "Descubra nuestra selección exclusivamente seleccionada de snacks premium.",
+	add_to_cart: "Añadir al carrito",
+	out_of_stock: "Agotado",
+	save: "Ahorra",
+	related_snacks: "Aperitivos relacionados que le encantarán",
+	category: "Categoría ",
+	full_collection: "La colección completa",
+	shop_royal_vault: "Comprar en la Bóveda Real",
+	explore_collection_desc: "Explore nuestra selección meticulosamente seleccionada de aperitivos nigerianos premium.",
+	refine_manifest: "Refinar el manifiesto",
+	product_category: "Categoría de producto",
+	sort_archive: "Ordenar el archivo por",
+	search_products: "Buscar productos...",
+	products_count: "{count} productos",
+	no_products: "No se han encontrado productos",
+	only_left: "¡Solo quedan {count}!",
+	prev: "Anterior",
+	next: "Siguiente",
+	all_categories: "Todas las categorías",
+	shopping_cart: "Carrito de compras",
+	cart_empty: "Tu carrito está vacío",
+	continue_shopping: "Continuar comprando",
+	per_unit: "Por unidad",
+	total: "Total",
+	proceed_checkout: "Proceder al pago",
+	checkout: "Pagar",
+	complete_details: "Complete sus datos para finalizar su manifiesto de snacks.",
+	fulfillment_method: "Método de cumplimiento",
+	pickup: "Recogida",
+	waybill: "Carta de porte",
+	dispatch: "Despacho",
+	outside_lagos: "Fuera de Lagos",
+	within_lagos: "Dentro de Lagos",
+	at_store: "en la tienda de Lagos",
+	shipping_destination: "Destino de envío",
+	recipient_name: "Nombre del destinatario",
+	contact_phone: "Teléfono de contacto",
+	city: "Ciudad",
+	state: "Estado / Provincia",
+	manifest_summary: "Resumen del manifiesto",
+	base_total: "Total base",
+	grand_total: "Total general",
+	authorize_payment: "Autorizar el pago",
+	order_whatsapp: "Pedir por WhatsApp",
+	calculating_fee: "Calculando precio por distancia...",
+	distance_detected: "Distancia: {distance}km detectados",
+	redeem_points: "Canjear puntos",
+	remove: "Eliminar",
+	apply: "Aplicar",
+	rewards_applied: "Recompensas aplicadas",
+	billing_details: "Detalles de facturación",
+	limited_time_deals: "Ofertas por tiempo limitado",
+	special_offers_deals: "Ofertas y promociones especiales",
+	save_big_snacks: "Ahorre en grande en sus aperitivos favoritos. Ofertas frescas actualizadas semanalmente.",
+	todays_deals: "Ofertas de hoy",
+	no_offers: "No hay ofertas en este momento",
+	check_back_deals: "Vuelva pronto para ver ofertas y promociones.",
+	browse_all_snacks: "Ver todos los aperitivos",
+	off: "{percent}% de DESCUENTO",
+	sort: {
+		"default": "Orden predeterminado",
+		price_asc: "Precio: de menor a mayor",
+		price_desc: "Precio: de mayor a menor",
+		name: "Nombre A-Z"
+	},
+	direct_transfer: "Transferencia bancaria directa",
+	account_name: "Nombre de la cuenta",
+	account_number: "Número de cuenta",
+	bank_name: "Nombre del banco",
+	upload_proof: "Subir comprobante de pago",
+	confirm_payment_made: "He realizado el pago",
+	payment_confirmation_msg: "¡Comprobante de pago enviado! Redirigiendo a la confirmación...",
+	bank_instruction: "Transfiera el importe total a los datos bancarios que figuran a continuación y cargue su recibo."
+};
 const locale_es_46json_296cead9 = {
 	welcome: welcome,
 	premium_products: premium_products,
 	shop_now: shop_now,
 	categories: categories,
 	featured_products: featured_products,
+	shop_by_category: shop_by_category,
+	view_all: view_all,
+	featured_snacks: featured_snacks,
+	loading_products: loading_products,
+	explore_luxury: explore_luxury,
+	premium_taste: premium_taste,
+	discover_artisan: discover_artisan,
+	elevate_taste: elevate_taste,
+	new_arrivals: new_arrivals,
+	new_flavors: new_flavors,
+	explore_latest: explore_latest,
+	browse_new: browse_new,
+	limited_offers: limited_offers,
+	exclusive_benefits: exclusive_benefits,
+	claim_offer: claim_offer,
 	auth: auth,
-	footer: footer
+	footer: footer,
+	common: common
 };
 
 // @ts-nocheck
@@ -1928,7 +2348,7 @@ const _mHd4hMNgU8RTbMvuEo_Fbn8_O5jnH9iV40lo5T7T5kY = defineNitroPlugin(async (ni
     const localeSegment = detector.route(event.path);
     const pathLocale = isSupportedLocale(localeSegment) && localeSegment || void 0;
     const path = (pathLocale && url.pathname.slice(pathLocale.length + 1)) ?? url.pathname;
-    if (!url.pathname.includes("/_i18n/WptoAFfg") && !isExistingNuxtRoute(path)) {
+    if (!url.pathname.includes("/_i18n/-yMhxCJq") && !isExistingNuxtRoute(path)) {
       return;
     }
     const resolved = resolveRedirectPath(event, path, pathLocale, ctx.vueI18nOptions.defaultLocale, detector);

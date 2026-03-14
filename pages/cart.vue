@@ -1,10 +1,10 @@
 <template>
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 py-8">
-    <h1 class="text-2xl font-bold text-gray-900 mb-6">Shopping Cart</h1>
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">{{ $t('common.shopping_cart') }}</h1>
     <div v-if="items.length === 0" class="text-center py-20">
       <Icon name="lucide:shopping-bag" class="w-12 h-12 mx-auto text-gray-300 mb-4" />
-      <p class="text-gray-500 mb-4">Your cart is empty</p>
-      <NuxtLink to="/products" class="btn-primary">Continue Shopping</NuxtLink>
+      <p class="text-gray-500 mb-4">{{ $t('common.cart_empty') }}</p>
+      <NuxtLink to="/products" class="btn-primary">{{ $t('common.continue_shopping') }}</NuxtLink>
     </div>
     <div v-else>
       <div class="space-y-4 mb-8">
@@ -28,7 +28,7 @@
                   <Icon name="lucide:x" class="w-4 h-4" />
                 </button>
               </div>
-              <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Per unit: ₦{{ item.price.toLocaleString() }}</p>
+              <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">{{ $t('common.per_unit') }}: {{ formatPrice(item.price) }}</p>
             </div>
 
             <div class="flex items-center justify-between mt-4">
@@ -44,28 +44,31 @@
               </div>
               
               <!-- Subtotal -->
-              <p class="text-sm font-black text-[#033958]">₦{{ (item.price * item.quantity).toLocaleString() }}</p>
+              <p class="text-sm font-black text-[#033958]">{{ formatPrice(item.price * item.quantity) }}</p>
             </div>
           </div>
         </div>
       </div>
       <div class="border-t border-gray-200 pt-4 space-y-3">
-        <div class="flex justify-between text-lg font-bold"><span>Total</span><span>₦{{ totalPrice.toLocaleString() }}</span></div>
-        <button @click="handleCheckout" class="btn-primary w-full btn-lg">Proceed to Checkout</button>
-        <NuxtLink to="/products" class="btn-secondary w-full">Continue Shopping</NuxtLink>
+        <div class="flex justify-between text-lg font-bold"><span>{{ $t('common.total') }}</span><span>{{ formatPrice(totalPrice) }}</span></div>
+        <button @click="handleCheckout" class="btn-primary w-full btn-lg">{{ $t('common.proceed_checkout') }}</button>
+        <NuxtLink to="/products" class="btn-secondary w-full">{{ $t('common.continue_shopping') }}</NuxtLink>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useCurrency } from '@/composables/useCurrency'
+
 const { items, totalPrice, updateQuantity, removeItem } = useCart()
 const { trackEvent } = useAnalytics()
+const { selectedCurrency, formatPrice } = useCurrency()
 
 function handleCheckout() {
   trackEvent('begin_checkout', {
     value: totalPrice.value,
-    currency: 'USD',
+    currency: selectedCurrency.value,
     items: items.value.map(item => ({
       item_id: item.productId,
       item_name: item.name,

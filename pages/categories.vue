@@ -11,10 +11,10 @@
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full relative z-10 pt-20 text-center">
         <div class="inline-flex items-center gap-2 bg-white/10 text-white/90 px-4 py-2 rounded-full text-[10px] font-black tracking-widest uppercase backdrop-blur-md border border-white/20 mb-6 font-sans mx-auto">
            <Icon name="lucide:grid-3x3" size="14" class="text-amber-400" />
-           Curation
+           {{ $t('common.category_curation') }}
         </div>
-        <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none mb-4">Explore Categories</h1>
-        <p class="text-lg text-white/60 font-medium max-w-2xl mx-auto">Browse our curated collection of snacks by category. Find your favorites faster.</p>
+        <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none mb-4">{{ $t('common.explore_categories') }}</h1>
+        <p class="text-lg text-white/60 font-medium max-w-2xl mx-auto">{{ $t('common.browse_curated') }}</p>
       </div>
     </section>
 
@@ -58,13 +58,13 @@
             <!-- Content Overlay -->
             <div class="absolute inset-x-0 bottom-0 p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
                <h3 class="text-2xl font-black text-white tracking-tight mb-2 uppercase">{{ cat.name }}</h3>
-               <p class="text-white/60 text-xs font-bold uppercase tracking-widest line-clamp-1">Explore Collection</p>
+               <p class="text-white/60 text-xs font-bold uppercase tracking-widest line-clamp-1">{{ $t('common.explore_collection_btn') }}</p>
             </div>
           </div>
           
           <div class="mt-6 px-4 group-hover:translate-x-1 transition-transform duration-500">
             <h3 class="text-xl font-black text-gray-900 leading-none group-hover:text-[#033958] transition-colors uppercase tracking-tight">{{ cat.name }}</h3>
-            <p class="text-sm text-gray-400 mt-2 font-medium line-clamp-2 leading-relaxed">{{ cat.description || 'Discover our exclusively curated selection of premium snacks.' }}</p>
+            <p class="text-sm text-gray-400 mt-2 font-medium line-clamp-2 leading-relaxed">{{ cat.description || $t('common.default_cat_desc') }}</p>
           </div>
         </NuxtLink>
       </div>
@@ -73,21 +73,22 @@
         <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-6">
           <Icon name="lucide:folder-open" size="40" class="text-gray-300" />
         </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">No categories yet</h3>
-        <p class="text-gray-500">Check back soon — we're adding new snack categories!</p>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $t('common.no_categories') }}</h3>
+        <p class="text-gray-500">{{ $t('common.check_back_soon') }}</p>
       </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
 import { products_api } from '@/api_factory/modules/products'
 
+const { locale } = useI18n()
 const categories = ref<any[]>([])
 const loading = ref(true)
 
-onMounted(async () => {
+async function fetchCategories() {
+  loading.value = true
   try {
     const res = await products_api.getCategories()
     categories.value = res?.data?.data || res?.data || []
@@ -96,6 +97,14 @@ onMounted(async () => {
   } finally {
     loading.value = false
   }
+}
+
+watch(locale, () => {
+    fetchCategories()
+})
+
+onMounted(async () => {
+  fetchCategories()
 })
 
 useSeoMeta({

@@ -13,6 +13,13 @@ GATEWAY_ENDPOINT.interceptors.request.use(
     if (typeof document !== 'undefined') {
       const token = document.cookie.split('; ').find(row => row.startsWith('wk_store_token='))?.split('=')[1] || '';
       if (token) config.headers.Authorization = `Bearer ${decodeURIComponent(token)}`;
+
+      // Add i18n and currency headers
+      const locale = localStorage.getItem('nuxt-color-mode') === 'null' ? 'en' : localStorage.getItem('i18n_redirected') || 'en';
+      const currency = localStorage.getItem('wk_currency') || 'NGN';
+      
+      config.headers['x-locale'] = locale;
+      config.headers['x-currency'] = currency;
     }
     return config;
   },
