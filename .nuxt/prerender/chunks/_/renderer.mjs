@@ -374,18 +374,6 @@ const renderer = defineRenderHandler(async (event) => {
 			href: payloadURL
 		} ] }, headEntryOptions);
 	}
-	if (ssrContext["~preloadManifest"] && !NO_SCRIPTS) {
-		ssrContext.head.push({ link: [{
-			rel: "preload",
-			as: "fetch",
-			fetchpriority: "low",
-			crossorigin: "anonymous",
-			href: buildAssetsURL(`builds/meta/${ssrContext.runtimeConfig.app.buildId}.json`)
-		}] }, {
-			...headEntryOptions,
-			tagPriority: "low"
-		});
-	}
 	// 2. Styles
 	if (inlinedStyles.length) {
 		ssrContext.head.push({ style: inlinedStyles });

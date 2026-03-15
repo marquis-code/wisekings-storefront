@@ -60,18 +60,7 @@
         <div v-if="loading" class="text-center py-20 text-gray-400"><Icon name="lucide:loader-2" class="w-8 h-8 animate-spin mx-auto" /></div>
         <div v-else-if="products.length === 0" class="text-center py-20 text-gray-400">{{ $t('common.no_products') }}</div>
         <div v-else class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          <NuxtLink v-for="p in products" :key="p._id" :to="`/products/${p.slug}`" class="group">
-            <div class="aspect-square bg-gray-50 rounded-2xl overflow-hidden mb-3 flex items-center justify-center p-4 border border-gray-100">
-              <img v-if="p.images?.[0]" :src="p.images[0]" :alt="p.name" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
-              <div v-else class="w-full h-full flex items-center justify-center"><Icon name="lucide:image" class="w-10 h-10 text-gray-300" /></div>
-            </div>
-            <h3 class="text-sm font-semibold text-gray-900 line-clamp-1">{{ p.name }}</h3>
-            <div class="flex items-center gap-2 mt-1">
-              <span class="text-sm font-bold text-gray-900">{{ formatPrice(p.price) }}</span>
-              <span v-if="p.compareAtPrice" class="text-xs text-gray-400 line-through">{{ formatPrice(p.compareAtPrice) }}</span>
-            </div>
-            <p v-if="p.stock <= 5 && p.stock > 0" class="text-xs text-amber-600 mt-1">{{ $t('common.only_left', { count: p.stock }) }}</p>
-          </NuxtLink>
+          <ProductCard v-for="p in products" :key="p._id" :product="p" />
         </div>
         <div v-if="totalPages > 1" class="flex justify-center gap-2 mt-8">
           <button @click="page--; handleFetch()" :disabled="page <= 1" class="btn-secondary btn-sm">{{ $t('common.prev') }}</button>

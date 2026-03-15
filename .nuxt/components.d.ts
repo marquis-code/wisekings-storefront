@@ -14,6 +14,7 @@ type HydrationStrategies = {
 type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {}, {}, { hydrated: () => void }> & T
 
 
+export const ProductCard: typeof import("../components/ProductCard.vue")['default']
 export const CoreAddressAutocomplete: typeof import("../components/core/AddressAutocomplete.vue")['default']
 export const CoreAnimatedInput: typeof import("../components/core/AnimatedInput.vue")['default']
 export const CoreConfirmModal: typeof import("../components/core/ConfirmModal.vue")['default']
@@ -52,6 +53,7 @@ export const Head: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Html']
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
+export const LazyProductCard: LazyComponent<typeof import("../components/ProductCard.vue")['default']>
 export const LazyCoreAddressAutocomplete: LazyComponent<typeof import("../components/core/AddressAutocomplete.vue")['default']>
 export const LazyCoreAnimatedInput: LazyComponent<typeof import("../components/core/AnimatedInput.vue")['default']>
 export const LazyCoreConfirmModal: LazyComponent<typeof import("../components/core/ConfirmModal.vue")['default']>

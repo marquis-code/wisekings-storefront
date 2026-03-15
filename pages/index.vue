@@ -42,9 +42,13 @@
               </p>
 
               <div class="flex flex-col sm:flex-row gap-5 pt-4">
-                <NuxtLink :to="slides[currentSlide].cta.link" class="bg-white text-gray-950 px-10 py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest hover:bg-amber-400 transition-all shadow-2xl flex items-center gap-4 justify-center group/btn">
+                <NuxtLink :to="slides[currentSlide].cta.link" class="bg-amber-400 text-gray-950 px-10 py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest hover:bg-white transition-all shadow-2xl flex items-center gap-4 justify-center group/btn">
+                  <Icon name="lucide:shopping-bag" size="18" />
+                  Buy Now
+                  <Icon name="lucide:arrow-right" size="18" class="group-hover/btn:translate-x-1 transition-transform" />
+                </NuxtLink>
+                <NuxtLink :to="slides[currentSlide].cta.link" class="bg-white/10 backdrop-blur-xl text-white px-10 py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest border border-white/20 hover:bg-white/20 transition-all flex items-center gap-4 justify-center">
                   {{ $t(slides[currentSlide].cta.text) }}
-                  <Icon name="lucide:chevron-right" size="18" class="group-hover/btn:translate-x-1 transition-transform" />
                 </NuxtLink>
                 <NuxtLink to="/categories" class="bg-white/5 backdrop-blur-xl text-white px-10 py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest border border-white/10 hover:bg-white/10 transition-all flex items-center gap-4 justify-center">
                   <Icon name="lucide:aperture" size="20" class="text-amber-400" />
@@ -55,18 +59,24 @@
           </transition>
 
           <!-- Navigation Controls -->
-          <div class="flex items-center gap-6 mt-16">
-            <div class="flex gap-3">
-              <button 
-                v-for="(_, i) in slides" 
-                :key="i" 
-                @click="currentSlide = i"
-                :class="['h-1 rounded-full transition-all duration-700', currentSlide === i ? 'bg-amber-400 w-12' : 'bg-white/20 w-6 hover:bg-white/40']"
-              ></button>
+          <div class="flex flex-col sm:flex-row sm:items-center gap-8 mt-16">
+            <div class="flex items-center gap-6">
+              <div class="flex gap-3">
+                <button 
+                  v-for="(_, i) in slides" 
+                  :key="i" 
+                  @click="currentSlide = i"
+                  :class="['h-1 rounded-full transition-all duration-700', currentSlide === i ? 'bg-amber-400 w-12' : 'bg-white/20 w-6 hover:bg-white/40']"
+                ></button>
+              </div>
+              <div class="h-px w-12 bg-white/10"></div>
+              <div class="text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">
+                0{{ currentSlide + 1 }} / 0{{ slides.length }}
+              </div>
             </div>
-            <div class="h-px flex-1 bg-white/10 max-w-[100px]"></div>
-            <div class="text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">
-              0{{ currentSlide + 1 }} / 0{{ slides.length }}
+
+            <div class="sm:ml-auto">
+              <CoreLanguageSwitcher variant="dark" />
             </div>
           </div>
         </div>
@@ -327,17 +337,7 @@
         </NuxtLink>
       </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-        <NuxtLink v-for="p in products" :key="p._id" :to="`/products/${p.slug}`" class="group">
-          <div class="aspect-square bg-gray-50 rounded-3xl overflow-hidden mb-3 border border-gray-100 group-hover:shadow-lg transition-all duration-300 flex items-center justify-center p-4">
-            <img v-if="p.images?.[0]" :src="p.images[0]" :alt="p.name" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
-            <div v-else class="w-full h-full flex items-center justify-center"><Icon name="lucide:image" class="w-10 h-10 text-gray-300" /></div>
-          </div>
-          <h3 class="text-sm font-bold text-gray-900 group-hover:text-[#033958] transition-colors line-clamp-1">{{ p.name }}</h3>
-          <div class="flex items-center gap-2 mt-1">
-            <span class="text-sm font-extrabold text-gray-900">{{ formatPrice(p.price) }}</span>
-            <span v-if="p.compareAtPrice" class="text-xs text-gray-400 line-through">{{ formatPrice(p.compareAtPrice) }}</span>
-          </div>
-        </NuxtLink>
+        <ProductCard v-for="p in products" :key="p._id" :product="p" />
       </div>
       <div v-if="products.length === 0" class="text-center py-12 text-gray-400">{{ $t('loading_products') }}</div>
     </section>

@@ -845,7 +845,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "0b2a4bb7-918b-4000-81d0-bca6f3f69e23",
+    "buildId": "e0399bcf-adc4-4f3c-92c4-48833323d868",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -854,16 +854,6 @@ const _inlineRuntimeConfig = {
     "routeRules": {
       "/__nuxt_error": {
         "cache": false
-      },
-      "/_nuxt/builds/meta/**": {
-        "headers": {
-          "cache-control": "public, max-age=31536000, immutable"
-        }
-      },
-      "/_nuxt/builds/**": {
-        "headers": {
-          "cache-control": "public, max-age=1, immutable"
-        }
       },
       "/_nuxt/**": {
         "headers": {
@@ -908,7 +898,7 @@ const _inlineRuntimeConfig = {
         }
       ],
       "detectBrowserLanguage": {
-        "alwaysRedirect": true,
+        "alwaysRedirect": false,
         "cookieCrossOrigin": false,
         "cookieDomain": "",
         "cookieKey": "i18n_redirected",
@@ -1502,7 +1492,7 @@ var common$2 = {
 	bank_instruction: "Please transfer the total amount to the account details below and upload your receipt.",
 	buy_other_related: "You can also buy other related products"
 };
-const locale_en_46json_d0918ef1 = {
+const locale_en_46json_479328f1 = {
 	welcome: welcome$2,
 	premium_products: premium_products$2,
 	shop_now: shop_now$2,
@@ -1670,7 +1660,7 @@ var common$1 = {
 	payment_confirmation_msg: "Preuve de paiement soumise ! Redirection vers la confirmation...",
 	bank_instruction: "Veuillez transférer le montant total aux coordonnées bancaires ci-dessous et télécharger votre reçu."
 };
-const locale_fr_46json_8ac1e0d3 = {
+const locale_fr_46json_8c51670b = {
 	welcome: welcome$1,
 	premium_products: premium_products$1,
 	shop_now: shop_now$1,
@@ -1838,7 +1828,7 @@ var common = {
 	payment_confirmation_msg: "¡Comprobante de pago enviado! Redirigiendo a la confirmación...",
 	bank_instruction: "Transfiera el importe total a los datos bancarios que figuran a continuación y cargue su recibo."
 };
-const locale_es_46json_296cead9 = {
+const locale_es_46json_9229bc68 = {
 	welcome: welcome,
 	premium_products: premium_products,
 	shop_now: shop_now,
@@ -1873,22 +1863,22 @@ const localeCodes =  [
 const localeLoaders = {
   en: [
     {
-      key: "locale_en_46json_d0918ef1",
-      load: () => Promise.resolve(locale_en_46json_d0918ef1),
+      key: "locale_en_46json_479328f1",
+      load: () => Promise.resolve(locale_en_46json_479328f1),
       cache: true
     }
   ],
   fr: [
     {
-      key: "locale_fr_46json_8ac1e0d3",
-      load: () => Promise.resolve(locale_fr_46json_8ac1e0d3),
+      key: "locale_fr_46json_8c51670b",
+      load: () => Promise.resolve(locale_fr_46json_8c51670b),
       cache: true
     }
   ],
   es: [
     {
-      key: "locale_es_46json_296cead9",
-      load: () => Promise.resolve(locale_es_46json_296cead9),
+      key: "locale_es_46json_9229bc68",
+      load: () => Promise.resolve(locale_es_46json_9229bc68),
       cache: true
     }
   ]
@@ -2351,7 +2341,7 @@ const _mHd4hMNgU8RTbMvuEo_Fbn8_O5jnH9iV40lo5T7T5kY = defineNitroPlugin(async (ni
     const localeSegment = detector.route(event.path);
     const pathLocale = isSupportedLocale(localeSegment) && localeSegment || void 0;
     const path = (pathLocale && url.pathname.slice(pathLocale.length + 1)) ?? url.pathname;
-    if (!url.pathname.includes("/_i18n/EQqc6rxM") && !isExistingNuxtRoute(path)) {
+    if (!url.pathname.includes("/_i18n/8_y4VjGF") && !isExistingNuxtRoute(path)) {
       return;
     }
     const resolved = resolveRedirectPath(event, path, pathLocale, ctx.vueI18nOptions.defaultLocale, detector);
@@ -2382,7 +2372,7 @@ function readAsset (id) {
   return promises.readFile(resolve(serverDir, assets[id].path))
 }
 
-const publicAssetBases = {"/_nuxt/builds/meta/":{"maxAge":31536000},"/_nuxt/builds/":{"maxAge":1},"/_nuxt/":{"maxAge":31536000}};
+const publicAssetBases = {"/_nuxt/":{"maxAge":31536000}};
 
 function isPublicAssetURL(id = '') {
   if (assets[id]) {

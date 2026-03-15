@@ -44,13 +44,13 @@ export default defineNuxtConfig({
             { code: 'fr', iso: 'fr-FR', name: 'Français', file: 'fr.json' },
             { code: 'es', iso: 'es-ES', name: 'Español', file: 'es.json' },
         ],
-        langDir: 'locales',
+        langDir: 'translations',
         defaultLocale: 'en',
         strategy: 'no_prefix',
         detectBrowserLanguage: {
             useCookie: true,
             cookieKey: 'i18n_redirected',
-            alwaysRedirect: true,
+            alwaysRedirect: false,
             fallbackLocale: 'en',
         },
     },
@@ -73,5 +73,8 @@ export default defineNuxtConfig({
         display: "swap",
         preload: true,
     },
+      experimental: {
+    appManifest: false
+  },
     css: ['/assets/font/stylesheet.css', "/assets/css/main.css"],
 })

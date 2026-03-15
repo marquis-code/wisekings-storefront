@@ -159,14 +159,10 @@
         
         <div class="pt-10 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6">
           <p class="text-gray-400 text-xs font-bold">&copy; {{ new Date().getFullYear() }} WiseKings. Engineered for Royals.</p>
-          <!-- <div class="flex items-center gap-6">
-            <Icon name="lucide:credit-card" class="w-6 h-6 text-gray-200" />
-            <span class="w-px h-4 bg-gray-100"></span>
-            <div class="flex items-center gap-2">
-              <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-              <span class="text-gray-400 text-[10px] font-bold uppercase tracking-tighter">Systems Operational</span>
-            </div>
-          </div> -->
+          <div class="flex items-center gap-4">
+            <CoreLanguageSwitcher variant="light" />
+            <CoreCurrencySwitcher variant="light" />
+          </div>
         </div>
       </div>
     </footer>
