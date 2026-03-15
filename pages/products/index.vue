@@ -26,7 +26,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="flex flex-col md:flex-row gap-8">
       <!-- Sidebar filters -->
-      <aside class="w-full md:w-64 flex-shrink-0 space-y-8">
+      <aside class="w-full md:w-64 flex-shrink-0 space-y-8 order-2 md:order-1">
         <div class="flex items-center gap-3 mb-6">
           <div class="w-8 h-8 rounded-lg bg-[#033958]/5 flex items-center justify-center text-[#033958]">
             <Icon name="lucide:sliders-horizontal" size="18" />
@@ -52,7 +52,7 @@
       </aside>
 
       <!-- Products grid -->
-      <div class="flex-1">
+      <div class="flex-1 order-1 md:order-2">
         <div class="flex items-center justify-between mb-6">
           <input v-model="search" type="text" :placeholder="$t('common.search_products')" class="input max-w-xs" @input="debouncedFetch" />
           <p class="text-sm text-gray-400">{{ $t('common.products_count', { count: total }) }}</p>
