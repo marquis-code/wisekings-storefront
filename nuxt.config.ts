@@ -4,14 +4,14 @@ export default defineNuxtConfig({
     modules: ['@nuxtjs/tailwindcss', '@nuxt/icon', '@nuxtjs/i18n'],
     runtimeConfig: {
         public: {
-            apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://wisekings-backend-hq.onrender.com/api/v1',
-            firebaseApiKey: process.env.NUXT_PUBLIC_FIREBASE_API_KEY,
-            firebaseAuthDomain: process.env.NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-            firebaseProjectId: process.env.NUXT_PUBLIC_FIREBASE_PROJECT_ID,
-            firebaseStorageBucket: process.env.NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-            firebaseMessagingSenderId: process.env.NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-            firebaseAppId: process.env.NUXT_PUBLIC_FIREBASE_APP_ID,
-            firebaseMeasurementId: process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+            apiBase: process.env.VITE_API_BASE || process.env.NUXT_PUBLIC_API_BASE || 'http://localhost:3000/api/v1',
+            firebaseApiKey: process.env.VITE_FIREBASE_API_KEY || process.env.NUXT_PUBLIC_FIREBASE_API_KEY,
+            firebaseAuthDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN || process.env.NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+            firebaseProjectId: process.env.VITE_FIREBASE_PROJECT_ID || process.env.NUXT_PUBLIC_FIREBASE_PROJECT_ID,
+            firebaseStorageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET || process.env.NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+            firebaseMessagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || process.env.NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+            firebaseAppId: process.env.VITE_FIREBASE_APP_ID || process.env.NUXT_PUBLIC_FIREBASE_APP_ID,
+            firebaseMeasurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID || process.env.NUXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
         },
     },
     app: {
@@ -29,7 +29,7 @@ export default defineNuxtConfig({
             ],
             script: [
                 {
-                    src: `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY || '' || ''}&libraries=places`,
+                    src: `https://maps.googleapis.com/maps/api/js?key=AIzaSyCa0Rx0TJ9BGkQ9NC23BZc51zCql_Xrhs0&libraries=places`,
                     async: true,
                     defer: true,
                 },

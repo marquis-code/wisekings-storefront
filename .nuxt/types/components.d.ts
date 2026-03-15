@@ -25,6 +25,7 @@ interface _GlobalComponents {
   CorePhoneInput: typeof import("../../components/core/PhoneInput.vue")['default']
   CoreSelectInput: typeof import("../../components/core/SelectInput.vue")['default']
   CoreToast: typeof import("../../components/core/Toast.vue")['default']
+  CoreWhatsAppWidget: typeof import("../../components/core/WhatsAppWidget.vue")['default']
   NuxtWelcome: typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue")['default']
   NuxtLayout: typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
   NuxtErrorBoundary: typeof import("../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']
@@ -62,6 +63,7 @@ interface _GlobalComponents {
   LazyCorePhoneInput: LazyComponent<typeof import("../../components/core/PhoneInput.vue")['default']>
   LazyCoreSelectInput: LazyComponent<typeof import("../../components/core/SelectInput.vue")['default']>
   LazyCoreToast: LazyComponent<typeof import("../../components/core/Toast.vue")['default']>
+  LazyCoreWhatsAppWidget: LazyComponent<typeof import("../../components/core/WhatsAppWidget.vue")['default']>
   LazyNuxtWelcome: LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
   LazyNuxtLayout: LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>
   LazyNuxtErrorBoundary: LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']>

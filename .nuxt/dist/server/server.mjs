@@ -410,7 +410,7 @@ function getRouteRules(arg) {
     return {};
   }
 }
-const __nuxt_page_meta$8 = { layout: "auth" };
+const __nuxt_page_meta$8 = { layout: false };
 const __nuxt_page_meta$7 = { layout: "default" };
 const __nuxt_page_meta$6 = { layout: "auth" };
 const __nuxt_page_meta$5 = { layout: "auth" };
@@ -424,39 +424,39 @@ const _routes = [
     name: "otp",
     path: "/otp",
     meta: __nuxt_page_meta$8 || {},
-    component: () => import("./_nuxt/otp-B7kmMOI0.js")
+    component: () => import("./_nuxt/otp-BGn8kxVm.js")
   },
   {
     name: "cart",
     path: "/cart",
-    component: () => import("./_nuxt/cart-B56FDVrh.js")
+    component: () => import("./_nuxt/cart-B6c10SHw.js")
   },
   {
     name: "about",
     path: "/about",
     meta: __nuxt_page_meta$7 || {},
-    component: () => import("./_nuxt/about-CHdfX9Fq.js")
+    component: () => import("./_nuxt/about-CWszzwLO.js")
   },
   {
     name: "index",
     path: "/",
-    component: () => import("./_nuxt/index-DRfZheta.js")
+    component: () => import("./_nuxt/index-Caf7HNOT.js")
   },
   {
     name: "login",
     path: "/login",
     meta: __nuxt_page_meta$6 || {},
-    component: () => import("./_nuxt/login-Bdbd9kBm.js")
+    component: () => import("./_nuxt/login-BT9uIZth.js")
   },
   {
     name: "terms",
     path: "/terms",
-    component: () => import("./_nuxt/terms-Dsfb1iCH.js")
+    component: () => import("./_nuxt/terms-BpNzV5ah.js")
   },
   {
     name: "offers",
     path: "/offers",
-    component: () => import("./_nuxt/offers-BUcWHcp2.js")
+    component: () => import("./_nuxt/offers-Dhuns3Kk.js")
   },
   {
     name: "contact",
@@ -472,18 +472,18 @@ const _routes = [
     name: "register",
     path: "/register",
     meta: __nuxt_page_meta$5 || {},
-    component: () => import("./_nuxt/register-GV481VaP.js")
+    component: () => import("./_nuxt/register-hK0Bnia6.js")
   },
   {
     name: "categories",
     path: "/categories",
-    component: () => import("./_nuxt/categories-BADnt8v4.js")
+    component: () => import("./_nuxt/categories-1xjp-rxI.js")
   },
   {
     name: "account",
     path: "/account",
     meta: __nuxt_page_meta$4 || {},
-    component: () => import("./_nuxt/index-BqymlBwe.js")
+    component: () => import("./_nuxt/index-CLrK-3Bo.js")
   },
   {
     name: "return-policy",
@@ -493,18 +493,18 @@ const _routes = [
   {
     name: "checkout",
     path: "/checkout",
-    component: () => import("./_nuxt/index-fc661aAq.js")
+    component: () => import("./_nuxt/index-okB9VXwr.js")
   },
   {
     name: "products",
     path: "/products",
-    component: () => import("./_nuxt/index-BrEvc_ON.js")
+    component: () => import("./_nuxt/index-BV9ifTqa.js")
   },
   {
     name: "account-profile",
     path: "/account/profile",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import("./_nuxt/profile-B1Az9s5c.js")
+    component: () => import("./_nuxt/profile-ETdd5XuE.js")
   },
   {
     name: "forgot-password",
@@ -514,12 +514,12 @@ const _routes = [
   {
     name: "products-slug",
     path: "/products/:slug()",
-    component: () => import("./_nuxt/_slug_-DBTM69x_.js")
+    component: () => import("./_nuxt/_slug_-ju9RqWuq.js")
   },
   {
     name: "shipping-policy",
     path: "/shipping-policy",
-    component: () => import("./_nuxt/shipping-policy-BY_LDsWU.js")
+    component: () => import("./_nuxt/shipping-policy-Ce-nqpId.js")
   },
   {
     name: "account-security",
@@ -536,13 +536,13 @@ const _routes = [
     name: "account-orders-id",
     path: "/account/orders/:id()",
     meta: __nuxt_page_meta$1 || {},
-    component: () => import("./_nuxt/_id_-BhJLFXHX.js")
+    component: () => import("./_nuxt/_id_-C6Rc5Kc_.js")
   },
   {
     name: "account-orders",
     path: "/account/orders",
     meta: __nuxt_page_meta || {},
-    component: () => import("./_nuxt/index-C0s0eNtn.js")
+    component: () => import("./_nuxt/index-DB77Pxni.js")
   }
 ];
 const _wrapInTransition = (props, children) => {
@@ -1375,7 +1375,7 @@ const localeLoaders = {
     {
       key: "locale_en_46json_d0918ef1",
       load: () => import(
-        "./_nuxt/en-farKaAEc.js"
+        "./_nuxt/en-DhaGmBhm.js"
         /* webpackChunkName: "locale_en_46json_d0918ef1" */
       ),
       cache: true
@@ -1921,7 +1921,7 @@ function createNuxtI18nContext(nuxt, vueI18n, defaultLocale) {
       return;
     }
     const headers = getLocaleConfig(locale)?.cacheable ? {} : { "Cache-Control": "no-cache" };
-    const messages = await $fetch(`${"/_i18n/-yMhxCJq"}/${locale}/messages.json`, { headers });
+    const messages = await $fetch(`${"/_i18n/7_PsjcFA"}/${locale}/messages.json`, { headers });
     for (const k of Object.keys(messages)) {
       i18n.mergeLocaleMessage(k, messages[k]);
     }
@@ -6913,7 +6913,7 @@ const i18n_EI7LsD1KYQADczz5hrChviGQCdVM8yUkvFEZLJpmnvM = /* @__PURE__ */ defineN
     {
       localeConfigs.value = useRequestEvent().context.nuxtI18n?.localeConfigs || {};
     }
-    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/-yMhxCJq"}/${locale}/messages.json`));
+    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/7_PsjcFA"}/${locale}/messages.json`));
     const i18n = createI18n(optionsI18n);
     const detectors = useDetectors(useRequestEvent(nuxt), useI18nDetection(nuxt), nuxt);
     const ctx = createNuxtI18nContext(nuxt, i18n, optionsI18n.defaultLocale);
@@ -7153,9 +7153,9 @@ const plugins = [
   ssg_detect_IpHCGcQQ_IR5Rl99qyukWoMA9fJGfuTYyoksTzy81cs
 ];
 const layouts = {
-  account: defineAsyncComponent(() => import("./_nuxt/account-J4nzgAXx.js").then((m) => m.default || m)),
-  auth: defineAsyncComponent(() => import("./_nuxt/auth-DYsh4_kt.js").then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import("./_nuxt/default-CsXYj3ty.js").then((m) => m.default || m))
+  account: defineAsyncComponent(() => import("./_nuxt/account-ClYXR9IR.js").then((m) => m.default || m)),
+  auth: defineAsyncComponent(() => import("./_nuxt/auth-CI8HsHFw.js").then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import("./_nuxt/default-DI6T6Ce5.js").then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({

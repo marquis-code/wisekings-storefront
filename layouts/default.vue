@@ -22,7 +22,7 @@
             :to="link.path"
             :class="[
               route.path === link.path ? 'text-amber-500' : (shouldShowSolidHeader ? 'text-gray-900' : 'text-white'),
-              'text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:text-amber-500 relative group/link'
+              'text-sm font-black uppercase tracking-[0.2em] transition-all hover:text-amber-500 relative group/link'
             ]"
           >
             {{ link.name }}
@@ -33,8 +33,8 @@
         <!-- Right Actions -->
         <div class="flex items-center gap-6">
           <NuxtLink to="/cart" class="relative group">
-            <div :class="['w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-500', shouldShowSolidHeader ? 'bg-gray-100 text-gray-900 group-hover:bg-[#033958] group-hover:text-white' : 'bg-white/10 text-white group-hover:bg-white']">
-               <Icon name="lucide:shopping-bag" size="20" />
+            <div :class="['w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-500', shouldShowSolidHeader ? 'bg-gray-100 text-gray-900 group-hover:bg-[#033958] group-hover:text-white/50 ' : 'bg-white/10 text-white group-hover:bg-white/60']">
+               <Icon name="lucide:shopping-cart" size="25" />
             </div>
             <span v-if="totalItems > 0" class="absolute -top-1 -right-1 w-5 h-5 bg-amber-500 text-white text-[10px] rounded-full flex items-center justify-center font-black border-2 border-white shadow-lg">{{ totalItems }}</span>
           </NuxtLink>
@@ -170,6 +170,7 @@
         </div>
       </div>
     </footer>
+    <CoreWhatsAppWidget />
     <CoreLiveChatWidget />
   </div>
 </template>

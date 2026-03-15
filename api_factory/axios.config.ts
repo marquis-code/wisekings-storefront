@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const GATEWAY_ENDPOINT = axios.create({
-  baseURL: "https://wisekings-backend-hq.onrender.com/api/v1",
+  baseURL: "http://localhost:3000/api/v1",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -11,7 +11,10 @@ const GATEWAY_ENDPOINT = axios.create({
 GATEWAY_ENDPOINT.interceptors.request.use(
   (config) => {
     if (typeof document !== 'undefined') {
-      const token = document.cookie.split('; ').find(row => row.startsWith('wk_store_token='))?.split('=')[1] || '';
+      let token = document.cookie.split('; ').find(row => row.startsWith('wk_store_token='))?.split('=')[1] || '';
+      if (!token) {
+        token = localStorage.getItem('wk_store_token') || '';
+      }
       if (token) config.headers.Authorization = `Bearer ${decodeURIComponent(token)}`;
 
       // Add i18n and currency headers

@@ -95,13 +95,15 @@
         "checkout": "Checkout",
         "complete_details": "Complete your details to finalize your snacking manifest.",
         "fulfillment_method": "Fulfillment Method",
-        "pickup": "Pickup",
-        "waybill": "Waybill",
-        "dispatch": "Dispatch",
-        "outside_lagos": "Outside Lagos",
-        "within_lagos": "Within Lagos",
-        "at_store": "at Lagos Store",
+        "waybill": "Waybill (Outside Lagos)",
+        "dispatch": "Dispatch (Within Lagos)",
+        "outside_lagos": "Waybill (Outside Lagos)",
+        "within_lagos": "Dispatch (Within Lagos)",
+        "at_store": "Store Pickup",
+        "lagos_dispatch": "Dispatch (Within Lagos)",
+        "pickup": "Store Pickup",
         "shipping_destination": "Shipping Destination",
+        "shipping": "Shipping",
         "recipient_name": "Recipient Name",
         "contact_phone": "Contact Phone",
         "city": "City",
@@ -139,6 +141,7 @@
         "upload_proof": "Upload Proof of Payment",
         "confirm_payment_made": "I have made the payment",
         "payment_confirmation_msg": "Payment proof submitted! Redirecting to confirmation...",
-        "bank_instruction": "Please transfer the total amount to the account details below and upload your receipt."
+        "bank_instruction": "Please transfer the total amount to the account details below and upload your receipt.",
+        "buy_other_related": "You can also buy other related products"
     }
 }

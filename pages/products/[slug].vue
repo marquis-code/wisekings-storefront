@@ -4,8 +4,8 @@
     <div v-else-if="product" class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
       <!-- Images -->
       <div>
-        <div class="aspect-square bg-gray-100 rounded-3xl overflow-hidden">
-          <img v-if="product.images?.[selectedImage]" :src="product.images[selectedImage]" :alt="product.name" class="w-full h-full object-cover" />
+        <div class="aspect-square bg-gray-50 rounded-3xl overflow-hidden flex items-center justify-center border border-gray-100 p-8">
+          <img v-if="product.images?.[selectedImage]" :src="product.images[selectedImage]" :alt="product.name" class="w-full h-full object-contain" />
           <div v-else class="w-full h-full flex items-center justify-center"><Icon name="lucide:image" class="w-16 h-16 text-gray-300" /></div>
         </div>
         <div v-if="product.images?.length > 1" class="flex gap-2 mt-4">
@@ -50,11 +50,14 @@
     </div>
     <!-- Related Products -->
     <section v-if="recommendations.length" class="mt-20 border-t border-gray-100 pt-16">
-      <h2 class="text-2xl font-black text-gray-900 mb-8">{{ $t('common.related_snacks') }}</h2>
+      <div class="mb-8">
+        <h2 class="text-2xl font-black text-gray-900">{{ $t('common.related_snacks') }}</h2>
+        <p class="text-gray-500 font-medium text-sm mt-1">{{ $t('common.buy_other_related') }}</p>
+      </div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
         <NuxtLink v-for="p in recommendations" :key="p._id" :to="`/products/${p.slug}`" class="group">
-          <div class="aspect-square bg-gray-50 rounded-3xl overflow-hidden mb-3 border border-gray-100 group-hover:shadow-lg transition-all duration-300">
-            <img v-if="p.images?.[0]" :src="p.images[0]" :alt="p.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <div class="aspect-square bg-gray-50 rounded-3xl overflow-hidden mb-3 border border-gray-100 group-hover:shadow-lg transition-all duration-300 flex items-center justify-center p-4">
+            <img v-if="p.images?.[0]" :src="p.images[0]" :alt="p.name" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
           </div>
           <h3 class="text-sm font-bold text-gray-900 group-hover:text-brand-600 transition-colors line-clamp-1">{{ p.name }}</h3>
           <p class="text-sm font-extrabold text-[#033958] mt-1">{{ formatPrice(p.price) }}</p>

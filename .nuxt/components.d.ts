@@ -25,6 +25,7 @@ export const CorePasswordInput: typeof import("../components/core/PasswordInput.
 export const CorePhoneInput: typeof import("../components/core/PhoneInput.vue")['default']
 export const CoreSelectInput: typeof import("../components/core/SelectInput.vue")['default']
 export const CoreToast: typeof import("../components/core/Toast.vue")['default']
+export const CoreWhatsAppWidget: typeof import("../components/core/WhatsAppWidget.vue")['default']
 export const NuxtWelcome: typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']
 export const NuxtLayout: typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']
 export const NuxtErrorBoundary: typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']
@@ -62,6 +63,7 @@ export const LazyCorePasswordInput: LazyComponent<typeof import("../components/c
 export const LazyCorePhoneInput: LazyComponent<typeof import("../components/core/PhoneInput.vue")['default']>
 export const LazyCoreSelectInput: LazyComponent<typeof import("../components/core/SelectInput.vue")['default']>
 export const LazyCoreToast: LazyComponent<typeof import("../components/core/Toast.vue")['default']>
+export const LazyCoreWhatsAppWidget: LazyComponent<typeof import("../components/core/WhatsAppWidget.vue")['default']>
 export const LazyNuxtWelcome: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/welcome.vue")['default']>
 export const LazyNuxtLayout: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-layout")['default']>
 export const LazyNuxtErrorBoundary: LazyComponent<typeof import("../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue")['default']>

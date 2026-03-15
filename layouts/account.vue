@@ -52,6 +52,8 @@
         </div>
       </main>
     </div>
+    <CoreWhatsAppWidget />
+    <CoreLiveChatWidget />
   </div>
 </template>
 

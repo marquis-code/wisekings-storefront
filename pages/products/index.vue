@@ -4,7 +4,7 @@
     <section class="relative h-[45vh] min-h-[400px] flex items-center overflow-hidden bg-gray-950">
       <div class="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1559181567-c3190ca9959b?q=80&w=2000&auto=format&fit=crop" 
+          src="@/assets/images/fresh2.jpg" 
           class="w-full h-full object-cover opacity-50 animate-ken-burns"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
@@ -61,8 +61,8 @@
         <div v-else-if="products.length === 0" class="text-center py-20 text-gray-400">{{ $t('common.no_products') }}</div>
         <div v-else class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           <NuxtLink v-for="p in products" :key="p._id" :to="`/products/${p.slug}`" class="group">
-            <div class="aspect-square bg-gray-100 rounded-2xl overflow-hidden mb-3">
-              <img v-if="p.images?.[0]" :src="p.images[0]" :alt="p.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div class="aspect-square bg-gray-50 rounded-2xl overflow-hidden mb-3 flex items-center justify-center p-4 border border-gray-100">
+              <img v-if="p.images?.[0]" :src="p.images[0]" :alt="p.name" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
               <div v-else class="w-full h-full flex items-center justify-center"><Icon name="lucide:image" class="w-10 h-10 text-gray-300" /></div>
             </div>
             <h3 class="text-sm font-semibold text-gray-900 line-clamp-1">{{ p.name }}</h3>
@@ -102,7 +102,15 @@ const categoryFilter = ref('')
 const sortBy = ref('')
 
 const categoryOptions = computed(() => {
-  const options = categories.value.map(c => ({
+  const desired = ['plantain chips', 'potato chips', 'popcorn']
+  const options = [...categories.value].sort((a, b) => {
+    const aIdx = desired.indexOf(a.name.toLowerCase())
+    const bIdx = desired.indexOf(b.name.toLowerCase())
+    if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx
+    if (aIdx !== -1) return -1
+    if (bIdx !== -1) return 1
+    return a.name.localeCompare(b.name)
+  }).map(c => ({
     label: c.name,
     value: c._id
   }))
@@ -125,10 +133,20 @@ function debouncedFetch() {
 }
 
 async function handleFetch() {
-  const params: any = { page: page.value, limit: 12, search: search.value || undefined, category: categoryFilter.value || undefined }
-  if (sortBy.value === 'price-asc') { params.sortBy = 'price'; params.sortOrder = 'asc' }
-  else if (sortBy.value === 'price-desc') { params.sortBy = 'price'; params.sortOrder = 'desc' }
-  else if (sortBy.value === 'name') { params.sortBy = 'name'; params.sortOrder = 'asc' }
+  const categoryId = typeof categoryFilter.value === 'object' ? (categoryFilter.value as any).value : categoryFilter.value
+  const sortValue = typeof sortBy.value === 'object' ? (sortBy.value as any).value : sortBy.value
+
+  const params: any = { 
+    page: page.value, 
+    limit: 12, 
+    search: search.value || undefined, 
+    category: categoryId || undefined 
+  }
+  
+  if (sortValue === 'price-asc') { params.sortBy = 'price'; params.sortOrder = 'asc' }
+  else if (sortValue === 'price-desc') { params.sortBy = 'price'; params.sortOrder = 'desc' }
+  else if (sortValue === 'name') { params.sortBy = 'name'; params.sortOrder = 'asc' }
+  
   await fetchProducts(params)
 }
 

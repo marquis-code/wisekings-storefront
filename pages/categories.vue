@@ -3,7 +3,7 @@
     <section class="relative h-[45vh] min-h-[400px] flex items-center overflow-hidden bg-gray-950">
       <div class="absolute inset-0 z-0">
         <img 
-          src="https://images.unsplash.com/photo-1511381939415-e44015466834?q=80&w=2000&auto=format&fit=crop" 
+          src="@/assets/images/fresh1.jpg" 
           class="w-full h-full object-cover opacity-50 animate-ken-burns" 
         />
         <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>

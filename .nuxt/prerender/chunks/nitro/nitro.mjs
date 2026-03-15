@@ -845,7 +845,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "36769a58-e754-4725-98e6-e88ea8aacc97",
+    "buildId": "11a217c6-951e-4446-b9fb-5d59f4e4973b",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -1453,13 +1453,15 @@ var common$2 = {
 	checkout: "Checkout",
 	complete_details: "Complete your details to finalize your snacking manifest.",
 	fulfillment_method: "Fulfillment Method",
-	pickup: "Pickup",
-	waybill: "Waybill",
-	dispatch: "Dispatch",
-	outside_lagos: "Outside Lagos",
-	within_lagos: "Within Lagos",
-	at_store: "at Lagos Store",
+	waybill: "Waybill (Outside Lagos)",
+	dispatch: "Dispatch (Within Lagos)",
+	outside_lagos: "Waybill (Outside Lagos)",
+	within_lagos: "Dispatch (Within Lagos)",
+	at_store: "Store Pickup",
+	lagos_dispatch: "Dispatch (Within Lagos)",
+	pickup: "Store Pickup",
 	shipping_destination: "Shipping Destination",
+	shipping: "Shipping",
 	recipient_name: "Recipient Name",
 	contact_phone: "Contact Phone",
 	city: "City",
@@ -1497,7 +1499,8 @@ var common$2 = {
 	upload_proof: "Upload Proof of Payment",
 	confirm_payment_made: "I have made the payment",
 	payment_confirmation_msg: "Payment proof submitted! Redirecting to confirmation...",
-	bank_instruction: "Please transfer the total amount to the account details below and upload your receipt."
+	bank_instruction: "Please transfer the total amount to the account details below and upload your receipt.",
+	buy_other_related: "You can also buy other related products"
 };
 const locale_en_46json_d0918ef1 = {
 	welcome: welcome$2,
@@ -2140,7 +2143,7 @@ function findBrowserLocale(locales, browserLocales) {
   return matchedLocales.sort(compareBrowserLocale).at(0)?.code ?? "";
 }
 
-const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"description","content":"Shop premium products at WiseKings. Quality guaranteed."}],"link":[{"rel":"preconnect","href":"https://fonts.googleapis.com"},{"rel":"preconnect","href":"https://fonts.gstatic.com","crossorigin":""},{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"}],"style":[],"script":[{"src":"https://maps.googleapis.com/maps/api/js?key=&libraries=places","async":true,"defer":true}],"noscript":[],"title":"WiseKings — Premium Products"};
+const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"name":"description","content":"Shop premium products at WiseKings. Quality guaranteed."}],"link":[{"rel":"preconnect","href":"https://fonts.googleapis.com"},{"rel":"preconnect","href":"https://fonts.gstatic.com","crossorigin":""},{"rel":"stylesheet","href":"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"}],"style":[],"script":[{"src":"https://maps.googleapis.com/maps/api/js?key=AIzaSyCa0Rx0TJ9BGkQ9NC23BZc51zCql_Xrhs0&libraries=places","async":true,"defer":true}],"noscript":[],"title":"WiseKings — Premium Products"};
 
 const appRootTag = "div";
 
@@ -2348,7 +2351,7 @@ const _mHd4hMNgU8RTbMvuEo_Fbn8_O5jnH9iV40lo5T7T5kY = defineNitroPlugin(async (ni
     const localeSegment = detector.route(event.path);
     const pathLocale = isSupportedLocale(localeSegment) && localeSegment || void 0;
     const path = (pathLocale && url.pathname.slice(pathLocale.length + 1)) ?? url.pathname;
-    if (!url.pathname.includes("/_i18n/-yMhxCJq") && !isExistingNuxtRoute(path)) {
+    if (!url.pathname.includes("/_i18n/7_PsjcFA") && !isExistingNuxtRoute(path)) {
       return;
     }
     const resolved = resolveRedirectPath(event, path, pathLocale, ctx.vueI18nOptions.defaultLocale, detector);
