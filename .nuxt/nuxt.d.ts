@@ -1,5 +1,5 @@
-/// <reference types="@nuxtjs/tailwindcss" />
 /// <reference types="@nuxt/icon" />
+/// <reference types="@nuxtjs/tailwindcss" />
 /// <reference types="@nuxt/devtools" />
 /// <reference types="@nuxtjs/i18n" />
 /// <reference types="@nuxt/telemetry" />

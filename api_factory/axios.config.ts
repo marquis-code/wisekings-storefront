@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const GATEWAY_ENDPOINT = axios.create({
-  baseURL: "http://localhost:3000/api/v1",
+  baseURL: "https://wisekings-backend-hq.onrender.com/api/v1",
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -20,7 +20,7 @@ GATEWAY_ENDPOINT.interceptors.request.use(
       // Add i18n and currency headers
       const locale = localStorage.getItem('nuxt-color-mode') === 'null' ? 'en' : localStorage.getItem('i18n_redirected') || 'en';
       const currency = localStorage.getItem('wk_currency') || 'NGN';
-      
+
       config.headers['x-locale'] = locale;
       config.headers['x-currency'] = currency;
     }

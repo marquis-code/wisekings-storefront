@@ -1,1 +1,0 @@
-import{G as e}from"./RtwpdYqR.js";const o={get:t=>e.get("/products",{params:t}),getBySlug:t=>e.get(`/products/slug/${t}`),getById:t=>e.get(`/products/${t}`),getCategories:()=>e.get("/products/categories/all")};export{o as p};
