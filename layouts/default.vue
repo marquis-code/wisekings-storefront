@@ -32,11 +32,15 @@
 
         <!-- Right Actions -->
         <div class="flex items-center gap-6">
-          <NuxtLink to="/cart" class="relative group">
+          <NuxtLink to="/cart" class="relative group flex items-center gap-2">
             <div :class="['w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-500', shouldShowSolidHeader ? 'bg-gray-100 text-gray-900 group-hover:bg-[#033958] group-hover:text-white/50 ' : 'bg-white/10 text-white group-hover:bg-white/60']">
-               <Icon name="lucide:shopping-cart" size="25" />
+               <Icon name="lucide:shopping-cart" size="22" />
             </div>
-            <span v-if="totalItems > 0" class="absolute -top-1 -right-1 w-5 h-5 bg-amber-500 text-white text-[10px] rounded-full flex items-center justify-center font-black border-2 border-white shadow-lg">{{ totalItems }}</span>
+            <div v-if="totalItems > 0" class="hidden sm:flex flex-col">
+              <span :class="['text-[10px] font-black uppercase tracking-widest leading-none', shouldShowSolidHeader ? 'text-gray-950' : 'text-white']">{{ totalItems }} {{ totalItems === 1 ? 'Item' : 'Items' }}</span>
+              <span class="text-[9px] font-bold text-amber-500 uppercase tracking-tight mt-0.5">In Cart</span>
+            </div>
+            <span v-if="totalItems > 0" class="absolute -top-1 -right-1 w-5 h-5 bg-amber-500 text-white text-[10px] rounded-full flex items-center justify-center font-black border-2 border-white shadow-lg sm:hidden">{{ totalItems }}</span>
           </NuxtLink>
 
           <NuxtLink v-if="isAuthenticated" to="/account" :class="['hidden sm:flex items-center justify-center w-11 h-11 rounded-2xl transition-all duration-500', shouldShowSolidHeader ? 'bg-gray-900 text-white hover:bg-[#033958]' : 'bg-white/10 text-white hover:bg-white/20']">

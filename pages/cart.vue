@@ -10,8 +10,8 @@
       <div class="space-y-4 mb-8">
         <div v-for="item in items" :key="item.productId" class="flex gap-4 p-4 sm:p-5 border border-gray-100 rounded-[2rem] bg-white shadow-sm hover:shadow-md transition-all group relative">
           <!-- Image -->
-          <div class="w-24 h-24 sm:w-28 sm:h-28 bg-gray-50 rounded-2xl overflow-hidden flex-shrink-0 border border-gray-50">
-            <img v-if="item.image" :src="item.image" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+          <div class="w-24 h-24 sm:w-28 sm:h-28 bg-gray-50 rounded-2xl overflow-hidden flex-shrink-0 border border-gray-50 flex items-center justify-center p-2">
+            <img v-if="item.image" :src="item.image" class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-500" />
             <div v-else class="w-full h-full flex items-center justify-center">
               <Icon name="lucide:image" class="w-8 h-8 text-gray-200" />
             </div>

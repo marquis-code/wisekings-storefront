@@ -239,8 +239,8 @@
             <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
               <div v-for="item in items" :key="item.productId" class="flex items-start justify-between gap-4 py-4 border-b border-[#033958]/5 last:border-0">
                 <div class="flex items-center gap-4">
-                  <div class="w-16 h-16 rounded-2xl bg-white/40 border border-white/20 overflow-hidden shrink-0 shadow-inner">
-                    <img v-if="item.image" :src="item.image" class="w-full h-full object-contain p-2" />
+                  <div class="w-16 h-16 rounded-2xl bg-white/40 border border-white/20 overflow-hidden shrink-0 shadow-inner flex items-center justify-center p-2">
+                    <img v-if="item.image" :src="item.image" class="max-w-full max-h-full object-contain" />
                   </div>
                   <div class="space-y-0.5">
                     <p class="text-base font-black text-[#033958] leading-tight line-clamp-2">{{ item.name }}</p>
@@ -380,11 +380,11 @@ onMounted(async () => {
   try {
     const res = await GATEWAY_ENDPOINT.get('/settings') as any
     const data = res.data || res.data?.data || res
-    whatsappNumber.value = data.whatsappNumber || '2348023225019'
+    whatsappNumber.value = data.whatsappNumber || '2349060012295'
     bankDetails.value = data.customerBankDetails || { accountName: '', accountNumber: '', bankName: '' }
   } catch (e) {
     console.error('Failed to load global settings', e)
-    whatsappNumber.value = '2348023225019'
+    whatsappNumber.value = '2349060012295'
   }
 })
 
@@ -496,37 +496,44 @@ async function handleWhatsAppOrder(orderNumber?: string) {
     `✨ *New Order Received @ WISEKINGS VENTURES LIMITED* ✨\n\n` +
     `👑 *Manifest Details*\n` +
     `#️⃣ Order Number  : *${targetOrderNumber || 'Pending'}*\n` +
-    `🔆 Order Status  : pending\n` +
-    `🗓 Date          : ${date}\n` +
-    `📧 Email         : ${user.value?.email || 'Guest'}\n` +
+    `🔆 Order Status  : 🟡 Pending\n` +
+    `🗓 Date          : 📅 ${date}\n` +
+    `📧 Email         : ✉️ ${user.value?.email || 'Guest'}\n` +
     `💰 Total Amount  : *${formatPrice(total)}*\n\n` +
     `🔍 *Order details:* \n\n` +
     `${itemsList}\n\n` +
     `--------------------------------\n\n` +
     `🏷️ Subtotal: ${formatPrice(totalPrice.value)}\n` +
-    `🚛 Shipping: ${t(`common.${deliveryMethod.value}`)}\n` +
+    `🚛 Shipping: 🚚 ${t(`common.${deliveryMethod.value}`)}\n` +
     `💵 *Grand Total: ${formatPrice(total)}*\n\n` +
     `--------------------------------\n\n` +
     `🗺️ *Billing Address:*\n\n` +
-    `👤 ${address.value.fullName || 'N/A'}\n` +
-    `📞 ${address.value.phone || 'N/A'}\n` +
-    `🏠 ${address.value.address || 'N/A'}\n` +
-    `🌇 ${address.value.city || 'N/A'}\n` +
-    `📍 ${address.value.state || 'N/A'}\n` +
-    `🇳🇬 ${address.value.country || 'Nigeria'}\n\n` +
+    `👤 Name: *${address.value.fullName || 'N/A'}*\n` +
+    `📞 Phone: *${address.value.phone || 'N/A'}*\n` +
+    `🏠 Address: ${address.value.address || 'N/A'}\n` +
+    `🌇 City: ${address.value.city || 'N/A'}\n` +
+    `📍 State: ${address.value.state || 'N/A'}\n` +
+    `🇳🇬 Country: ${address.value.country || 'Nigeria'}\n\n` +
     `--------------------------------\n\n` +
     `🚚 *Shipping Address:*\n\n` +
-    `👤 ${address.value.fullName || 'N/A'}\n` +
-    `📞 ${address.value.phone || 'N/A'}\n` +
-    `🏠 ${address.value.address || 'N/A'}\n` +
-    `🌇 ${address.value.city || 'N/A'}\n` +
-    `📍 ${address.value.state || 'N/A'}\n\n` +
+    `👤 Name: *${address.value.fullName || 'N/A'}*\n` +
+    `📞 Phone: *${address.value.phone || 'N/A'}*\n` +
+    `🏠 Address: ${address.value.address || 'N/A'}\n` +
+    `🌇 City: ${address.value.city || 'N/A'}\n` +
+    `📍 State: ${address.value.state || 'N/A'}\n\n` +
     `--------------------------------\n\n` +
-    `💳 *Payment Method:* Direct Bank Transfer\n` +
-    `✨ *Thank you for choosing WiseKings!* ✨`
+    `💳 *Payment Method:* 🏦 Direct Bank Transfer\n\n` +
+    `✨ *Thank you for choosing WiseKings!* ✨\n` +
+    `👑 *Engineered for Royals* 👑`
   )
 
   window.open(`https://wa.me/${whatsappNumber.value}?text=${message}`, '_blank')
+  
+  // Clear cart after successful redirection
+  setTimeout(() => {
+    clearCart()
+    navigateTo('/checkout/success')
+  }, 1000)
 }
 
 async function handleCheckout() {
