@@ -4,9 +4,9 @@
     <div class="hidden lg:flex lg:w-1/2 overflow-hidden sticky top-0 h-screen">
       <div class="absolute inset-0 z-0 bg-black">
         <img 
-          src="@/assets/images/hero5.jpg" 
+          src="@/assets/images/fresh2.jpg" 
           alt="Delicious Snacks" 
-          class="w-full h-full object-cover opacity-60"
+          class="w-full h-full object-cover opacity-30"
         >
       </div>
       

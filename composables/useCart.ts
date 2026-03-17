@@ -7,6 +7,7 @@ interface CartItem {
     image: string
     quantity: number
     slug: string
+    weight?: number
 }
 
 const items = ref<CartItem[]>([])
@@ -31,10 +32,20 @@ export function useCart() {
     const totalItems = computed(() => items.value.reduce((sum, i) => sum + i.quantity, 0))
     const totalPrice = computed(() => items.value.reduce((sum, i) => sum + i.price * i.quantity, 0))
 
-    function addItem(product: { _id: string; name: string; price: number; images: string[]; slug: string }, qty = 1) {
+    function addItem(product: { _id: string; name: string; price: number; images: string[]; slug: string; weight?: number }, qty = 1) {
         const existing = items.value.find((i) => i.productId === product._id)
         if (existing) { existing.quantity += qty }
-        else { items.value.push({ productId: product._id, name: product.name, price: product.price, image: product.images?.[0] || '', quantity: qty, slug: product.slug }) }
+        else { 
+            items.value.push({ 
+                productId: product._id, 
+                name: product.name, 
+                price: product.price, 
+                image: product.images?.[0] || '', 
+                quantity: qty, 
+                slug: product.slug,
+                weight: product.weight || 1
+            }) 
+        }
         persist()
     }
 

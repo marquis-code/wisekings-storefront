@@ -6,12 +6,14 @@ export const useShipping = () => {
     const shippingFee = ref(0)
     const distanceInfo = ref<any>(null)
 
-    const calculateFee = async (lat: number, lng: number, method: string = 'lagos_dispatch') => {
+    const calculateFee = async (lat: number, lng: number, method: string = 'lagos_dispatch', country: string = 'Nigeria', weight: number = 0, isHomeDelivery: boolean = false) => {
         loading.value = true
         try {
-            const res = await GATEWAY_ENDPOINT.get('/shipping/calculate', { params: { lat, lng, method } }) as any
+            const res = await GATEWAY_ENDPOINT.get('/shipping/calculate', { 
+                params: { lat, lng, method, country, weight, isHomeDelivery } 
+            }) as any
             const data = res.data || res
-            shippingFee.value = data.fee
+            shippingFee.value = data.fee || 0
             distanceInfo.value = data
             return data
         } catch (error) {

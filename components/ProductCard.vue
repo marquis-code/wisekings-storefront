@@ -1,7 +1,7 @@
 <template>
   <NuxtLink :to="`/products/${product.slug}`" class="group flex flex-col h-full bg-white rounded-[2.5rem] border border-gray-100 overflow-hidden transition-all duration-500 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2">
     <!-- Image Area -->
-    <div class="relative aspect-square bg-gray-50 flex items-center justify-center p-6 overflow-hidden">
+    <div class="relative aspect-[4/5] bg-gray-50 flex items-center justify-center p-4 overflow-hidden">
       <img 
         v-if="product.images?.[0]" 
         :src="product.images[0]" 
@@ -67,7 +67,8 @@ function handleAddToCart() {
       name: props.product.name,
       price: props.product.price,
       images: props.product.images,
-      slug: props.product.slug
+      slug: props.product.slug,
+      weight: props.product.weight
     }, 1)
     
     showToast({

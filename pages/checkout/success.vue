@@ -8,7 +8,7 @@
     <div class="max-w-xl w-full bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white p-8 md:p-12 text-center relative z-10 slide-up">
       
       <!-- Animated Check Circle -->
-      <div class="relative w-24 h-24 mx-auto mb-8">
+      <div class="relative w-20 h-20 mx-auto mb-8">
         <div class="absolute inset-0 bg-green-100 rounded-full scale-125 animate-ping opacity-20"></div>
         <div class="relative w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-lg shadow-green-200 check-scale">
           <Icon name="lucide:check" class="w-12 h-12 text-white stroke-[3px]" />
@@ -70,17 +70,38 @@
 <script setup lang="ts">
 const { clearCart } = useCart()
 const { trackPurchase } = useAnalytics()
+import { GATEWAY_ENDPOINT } from '~/api_factory/axios.config'
 const route = useRoute()
 
 const orderId = computed(() => route.query.orderId as string)
+const isDirectTransfer = computed(() => route.query.method === 'direct_transfer')
 
-onMounted(() => {
+onMounted(async () => {
   clearCart()
+  
   if (orderId.value) {
     trackPurchase({
       id: orderId.value,
       totalAmount: 0 
     })
+
+    // Trigger Automated WhatsApp Message for non-direct-transfer orders
+    // Direct transfer orders already have a custom WA redirect in the checkout page
+    if (!isDirectTransfer.value) {
+      try {
+        const settingsRes = await GATEWAY_ENDPOINT.get('/settings') as any
+        const settings = settingsRes?.data || settingsRes
+        const phone = settings.whatsappNumber || settings.contactPhone || '2348163914445'
+        const message = encodeURIComponent(`Your order has been received. We are working on it to deliver it to you. Order ID: #${orderId.value.slice(-8).toUpperCase()}`)
+        
+        // Use a slight delay to allow the page to load visually first
+        setTimeout(() => {
+          window.open(`https://wa.me/${phone.replace(/\+/g, '')}?text=${message}`, '_blank')
+        }, 1500)
+      } catch (e) {
+        console.error('Failed to trigger auto-WhatsApp message', e)
+      }
+    }
   }
 
   // Trigger confetti effect if available in the design system or via script

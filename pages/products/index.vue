@@ -85,10 +85,18 @@ const { categories, fetchCategories } = useFetchCategories()
 const { locale, t } = useI18n()
 const { selectedCurrency, formatPrice } = useCurrency()
 
+const route = useRoute()
 const page = ref(1)
 const search = ref('')
-const categoryFilter = ref('')
+const categoryFilter = ref(route.query.category as string || '')
 const sortBy = ref('')
+
+// Watch for URL category changes (e.g. from Home page clicks)
+watch(() => route.query.category, (newCat) => {
+  categoryFilter.value = newCat as string || ''
+  page.value = 1
+  handleFetch()
+})
 
 const categoryOptions = computed(() => {
   const desired = ['plantain chips', 'potato chips', 'popcorn']

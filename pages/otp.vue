@@ -7,10 +7,11 @@
     <div class="w-full max-w-md relative z-10 transition-all duration-700 ease-out" :class="[mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10']">
       <div class="text-center mb-10">
         <NuxtLink to="/" class="inline-block mb-8">
-            <div class="w-20 h-20 rounded-[2rem] bg-indigo-600 flex items-center justify-center font-black text-white text-3xl shadow-[0_20px_40px_rgba(79,70,229,0.3)] mx-auto relative group overflow-hidden">
+          <img src="@/assets/images/logo.jpg" class="h-10 w-auto" alt="Logo" />
+            <!-- <div class="w-20 h-20 rounded-[2rem] bg-indigo-600 flex items-center justify-center font-black text-white text-3xl shadow-[0_20px_40px_rgba(79,70,229,0.3)] mx-auto relative group overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent group-hover:translate-x-full duration-1000 transition-transform"></div>
                 WK
-            </div>
+            </div> -->
         </NuxtLink>
         <h1 class="text-3xl font-black text-gray-900 tracking-tight mb-2">Verify Email</h1>
         <p class="text-gray-500 font-medium italic text-sm">A 6-digit code was sent to your inbox.</p>

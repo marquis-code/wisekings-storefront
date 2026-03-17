@@ -127,8 +127,37 @@
                   <input v-model="address.city" type="text" class="w-full bg-white border-2 border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold focus:border-[#033958] focus:ring-0 outline-none transition-all shadow-sm" placeholder="City">
                 </div>
                 <div class="space-y-2">
-                  <label class="text-xs font-black uppercase tracking-widest text-gray-500 ml-1">State</label>
-                  <input v-model="address.state" type="text" class="w-full bg-white border-2 border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold focus:border-[#033958] focus:ring-0 outline-none transition-all shadow-sm" placeholder="Lagos, FCT, etc.">
+                  <label class="text-xs font-black uppercase tracking-widest text-gray-500 ml-1">Country</label>
+                  <select v-model="address.country" class="w-full bg-white border-2 border-gray-100 rounded-2xl px-5 py-4 text-sm font-bold focus:border-[#033958] focus:ring-0 outline-none transition-all shadow-sm">
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="UK">United Kingdom (UK)</option>
+                    <option value="US">United States (US)</option>
+                    <option value="Canada">Canada</option>
+                  </select>
+                </div>
+
+                <div v-if="address.country === 'Canada'" class="md:col-span-2 p-6 bg-emerald-50 rounded-[30px] border border-emerald-100 flex items-center justify-between gap-6">
+                  <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-emerald-600 shadow-sm">
+                      <Icon name="lucide:home" size="24" />
+                    </div>
+                    <div>
+                      <p class="text-xs font-black text-emerald-900 uppercase tracking-widest">Home Delivery?</p>
+                      <p class="text-[10px] font-medium text-emerald-800/60">Apply $4/kg surcharge for direct delivery to your door.</p>
+                    </div>
+                  </div>
+                  <button 
+                    type="button"
+                    @click="isHomeDelivery = !isHomeDelivery"
+                    :class="['px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all', isHomeDelivery ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20' : 'bg-white text-emerald-600 border border-emerald-100']"
+                  >
+                    {{ isHomeDelivery ? 'Enabled' : 'Select' }}
+                  </button>
+                </div>
+
+                <div v-if="shippingErrorMessage" class="md:col-span-2 p-6 bg-red-50 rounded-[30px] border border-red-100 flex items-center gap-4">
+                  <Icon name="lucide:alert-circle" class="text-red-500" size="24" />
+                  <p class="text-xs font-bold text-red-900">{{ shippingErrorMessage }}</p>
                 </div>
               </div>
             </div>
@@ -141,7 +170,7 @@
               Payment Method
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <!-- <button 
+              <button 
                 type="button" 
                 @click="paymentMethod = 'card'"
                 class="p-6 rounded-[32px] border-2 transition-all flex items-center gap-4 group"
@@ -153,8 +182,9 @@
                 <div class="text-left">
                   <p class="text-[11px] font-black uppercase tracking-widest" :class="paymentMethod === 'card' ? 'text-[#033958]' : 'text-gray-400'">Pay with Card</p>
                   <p class="text-[9px] font-medium text-gray-400 mt-0.5">Stripe / Paystack</p>
+                  <p v-if="paymentMethod === 'card'" class="text-[10px] font-bold text-[#033958] mt-2 italic">⚠️ Orders made with payment with card would be delivered in 72 hours</p>
                 </div>
-              </button> -->
+              </button>
 
               <button 
                 type="button" 
@@ -168,54 +198,54 @@
                 <div class="text-left">
                   <p class="text-[11px] font-black uppercase tracking-widest" :class="paymentMethod === 'direct_transfer' ? 'text-amber-600' : 'text-gray-400'">{{ $t('common.direct_transfer') }}</p>
                   <p class="text-[9px] font-medium text-gray-400 mt-0.5">Manual Verification</p>
+                  <p v-if="paymentMethod === 'direct_transfer'" class="text-[10px] font-bold text-amber-600 mt-2 italic">✅ Orders made with direct bank transfer would be delivered immediately</p>
                 </div>
               </button>
             </div>
 
-            <!-- Direct Transfer Info & Upload -->
+            <!-- Direct Transfer Note (Account details hidden for security) -->
             <transition name="fade">
-              <div v-if="paymentMethod === 'direct_transfer'" class="p-8 bg-amber-50/50 rounded-[40px] border border-amber-100 space-y-6">
-                <div class="p-6 bg-white rounded-3xl border border-amber-100 shadow-sm space-y-4">
-                  <div class="flex items-center gap-3 text-amber-600 mb-2">
-                    <Icon name="lucide:info" size="18" />
-                    <p class="text-[10px] font-black uppercase tracking-widest">{{ $t('common.bank_instruction') }}</p>
-                  </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div class="space-y-1">
-                      <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">{{ $t('common.account_name') }}</p>
-                      <p class="text-xs font-bold text-gray-900">{{ bankDetails.accountName || '...' }}</p>
-                    </div>
-                    <div class="space-y-1">
-                      <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">{{ $t('common.account_number') }}</p>
-                      <p class="text-xs font-bold text-gray-900 select-all">{{ bankDetails.accountNumber || '...' }}</p>
-                    </div>
-                    <div class="space-y-1">
-                      <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">{{ $t('common.bank_name') }}</p>
-                      <p class="text-xs font-bold text-gray-900">{{ bankDetails.bankName || '...' }}</p>
-                    </div>
-                  </div>
+              <div v-if="paymentMethod === 'direct_transfer'" class="p-8 bg-amber-50/50 rounded-[40px] border border-amber-100 space-y-8">
+                <!-- Instruction Note -->
+                <div class="p-6 bg-white rounded-3xl border border-amber-100 shadow-sm flex items-start gap-4 text-amber-700">
+                  <Icon name="lucide:shield-check" class="mt-1" size="20" />
+                  <p class="text-xs font-bold shrink leading-relaxed">Account details are hidden for security. Click "<span class="font-black">ORDER VIA WHATSAPP</span>" below to receive the bank details and complete your order.</p>
                 </div>
 
+                <!-- Custom Premium Upload Section -->
                 <div class="space-y-4">
-                  <h3 class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">{{ $t('common.upload_proof') }}</h3>
+                  <div class="flex items-center justify-between px-2">
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Proof of Payment</h3>
+                    <span class="text-[9px] font-bold text-amber-600 uppercase tracking-widest bg-amber-100 px-2 py-0.5 rounded-md">Optional</span>
+                  </div>
+                  
                   <div 
-                    class="relative h-40 rounded-3xl border-2 border-dashed border-gray-200 bg-white flex flex-col items-center justify-center gap-3 hover:border-amber-500 transition-all cursor-pointer overflow-hidden group"
-                    @click="$refs.fileInput.click()"
+                    class="relative group cursor-pointer"
+                    @click="fileInput?.click()"
                   >
-                    <template v-if="!proofUrl">
-                      <div class="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-amber-50 group-hover:text-amber-500 transition-all">
-                        <Icon :name="uploading ? 'lucide:loader-2' : 'lucide:camera'" :class="uploading ? 'animate-spin' : ''" size="24" />
-                      </div>
-                      <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">{{ uploading ? 'Uploading...' : 'Click to upload receipt' }}</p>
-                    </template>
-                    <template v-else>
-                      <img :src="proofUrl" class="absolute inset-0 w-full h-full object-cover group-hover:opacity-50 transition-opacity" />
-                      <div class="relative z-10 flex items-center justify-center gap-2 px-4 py-2 bg-emerald-500 text-white rounded-full text-[9px] font-black uppercase tracking-widest">
-                        <Icon name="lucide:check" size="14" />
-                        Uploaded
-                      </div>
-                    </template>
-                    <input ref="fileInput" type="file" class="hidden" accept="image/*" @change="handleFileUpload" />
+                    <!-- Background Glow -->
+                    <div class="absolute -inset-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-[2rem] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+                    
+                    <div class="relative h-48 bg-white rounded-[2rem] border-2 border-dashed border-gray-100 flex flex-col items-center justify-center p-6 transition-all group-hover:border-amber-400">
+                      <template v-if="!proofUrl">
+                        <div class="w-16 h-16 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-500 mb-4 group-hover:scale-110 transition-transform duration-500 shadow-inner">
+                          <Icon :name="uploading ? 'lucide:loader-2' : 'lucide:upload-cloud'" :class="uploading ? 'animate-spin' : ''" size="32" />
+                        </div>
+                        <p class="text-[11px] font-black text-gray-900 uppercase tracking-widest mb-1">{{ uploading ? 'Processing Assets...' : 'Drop Receipt Here' }}</p>
+                        <p class="text-[9px] text-gray-400 font-medium tracking-tight">Tap to browse your files (JPEG, PNG)</p>
+                      </template>
+                      <template v-else>
+                        <img :src="proofUrl" class="absolute inset-0 w-full h-full object-contain p-2 rounded-[2rem] opacity-20" />
+                        <div class="relative z-10 flex flex-col items-center gap-3">
+                          <div class="w-14 h-14 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-200 animate-bounce-subtle">
+                            <Icon name="lucide:check-circle" size="28" />
+                          </div>
+                          <p class="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em]">Asset Secured</p>
+                          <button @click.stop="proofUrl = ''" class="text-[9px] font-bold text-gray-400 hover:text-red-500 uppercase tracking-widest mt-2 border-b border-gray-100">Remove and Retry</button>
+                        </div>
+                      </template>
+                      <input ref="fileInput" type="file" class="hidden" accept="image/*" @change="handleFileUpload" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -303,17 +333,18 @@
             <!-- Actions -->
             <div class="space-y-3 pt-4">
               <button 
-                v-if="paymentMethod === 'direct_transfer'"
-                @click="confirmDirectTransfer" 
+                v-if="paymentMethod === 'card'"
+                @click="handleCheckout" 
                 class="w-full py-5 bg-[#033958] hover:bg-[#022d46] text-white rounded-[32px] font-black text-xs uppercase tracking-[0.2em] transition-all active:scale-[0.95] shadow-xl flex items-center justify-center gap-3 disabled:opacity-50"
-                :disabled="submitting || !proofUrl"
+                :disabled="submitting"
               >
                 <Icon v-if="submitting" name="lucide:loader-2" class="w-4 h-4 animate-spin" />
                 <template v-else>
-                  {{ $t('common.confirm_payment_made') }}
-                  <Icon name="lucide:check-circle" class="w-4 h-4" />
+                  PAY NOW
+                  <Icon name="lucide:arrow-right" class="w-4 h-4" />
                 </template>
               </button>
+
 
               <button 
                 @click="() => handleWhatsAppOrder()" 
@@ -323,8 +354,13 @@
                 {{ $t('common.order_whatsapp') }}
               </button>
             </div>
+
+            <div v-if="totalWeight > 0" class="flex items-center justify-between pt-4 border-t border-[#033958]/10 text-[10px] font-black uppercase tracking-widest text-[#033958]/40">
+              <span>Total Weight</span>
+              <span>{{ totalWeight }} KG</span>
+            </div>
             
-            <p v-if="deliveryMethod === 'lagos_dispatch' && !distanceInfo" class="text-[10px] font-black text-[#033958]/40 text-center uppercase tracking-widest mt-4">
+            <p v-if="deliveryMethod === 'lagos_dispatch' && !distanceInfo && address.country === 'Nigeria'" class="text-[10px] font-black text-[#033958]/40 text-center uppercase tracking-widest mt-4">
               <Icon name="lucide:map-pin" size="12" class="mr-1" />
               Set delivery address for fee
             </p>
@@ -343,6 +379,7 @@ import { useAuthState } from '@/composables/useAuthState'
 import { useCart } from '@/composables/useCart'
 import { useCurrency } from '@/composables/useCurrency'
 import { useReferral } from '@/composables/useReferral'
+import { useCustomToast } from '@/composables/core/useCustomToast'
 
 declare const google: any
 
@@ -356,6 +393,7 @@ const { selectedCurrency, formatPrice } = useCurrency()
 const { createOrder } = useCreateOrder()
 const { initializePayment, loading: submitting } = useInitializePayment()
 const { calculateFee, loading: calculatingFee, shippingFee, distanceInfo } = useShipping()
+const { showToast } = useCustomToast()
 
 const deliveryMethod = ref('lagos_dispatch')
 const paymentMethod = ref('direct_transfer')
@@ -363,14 +401,41 @@ const pointsToRedeem = ref(0)
 const redeemPoints = ref(false)
 const proofUrl = ref('')
 const uploading = ref(false)
+const fileInput = ref<HTMLInputElement | null>(null)
+const pickupLocations = ref<any[]>([])
 const bankDetails = ref({ accountName: '', accountNumber: '', bankName: '' })
 const address = ref({ fullName: user.value?.fullName || '', phone: user.value?.phone || '', address: '', city: '', state: '', country: 'Nigeria', zipCode: '', lat: 0, lng: 0 })
 
-// Add debounced watch for address changes to trigger fee calc
-watch(address, (newVal) => {
-  if (deliveryMethod.value === 'lagos_dispatch' && newVal.lat && newVal.lng) {
-    calculateFee(newVal.lat, newVal.lng, 'lagos_dispatch')
+const isHomeDelivery = ref(false)
+const shippingErrorMessage = ref('')
+
+// Calculate total weight
+const totalWeight = computed(() => {
+  return items.value.reduce((acc, item: any) => acc + (item.weight || 1) * item.quantity, 0)
+})
+
+// Trigger fee calculation with more context
+const refreshShippingFee = async () => {
+  shippingErrorMessage.value = ''
+  
+  const res = await calculateFee(
+    address.value.lat, 
+    address.value.lng, 
+    deliveryMethod.value,
+    address.value.country,
+    totalWeight.value,
+    isHomeDelivery.value
+  )
+
+  if (res?.error) {
+    shippingErrorMessage.value = res.error
+    shippingFee.value = 0
   }
+}
+
+// Add debounced watch for address changes to trigger fee calc
+watch([address, deliveryMethod, isHomeDelivery], () => {
+  refreshShippingFee()
 }, { deep: true })
 
 const whatsappNumber = ref('')
@@ -382,9 +447,24 @@ onMounted(async () => {
     const data = res.data || res.data?.data || res
     whatsappNumber.value = data.whatsappNumber || '2349060012295'
     bankDetails.value = data.customerBankDetails || { accountName: '', accountNumber: '', bankName: '' }
+    pickupLocations.value = data.pickupLocations || []
   } catch (e) {
     console.error('Failed to load global settings', e)
     whatsappNumber.value = '2349060012295'
+  }
+})
+
+
+
+// Watch delivery method to reset fee if pickup
+watch(deliveryMethod, (val) => {
+  if (val === 'pickup') {
+    shippingFee.value = 0
+    distanceInfo.value = null
+  } else if (val === 'waybill') {
+    calculateFee(0, 0, 'waybill')
+  } else if (val === 'lagos_dispatch' && address.value.lat && address.value.lng) {
+    calculateFee(address.value.lat, address.value.lng, 'lagos_dispatch')
   }
 })
 
@@ -401,60 +481,14 @@ async function handleFileUpload(event: any) {
       headers: { 'Content-Type': 'multipart/form-data' }
     }) as any
     proofUrl.value = res.data?.url || res.url
+    showToast({ title: 'Upload Success', message: 'Proof of payment asset secured.', toastType: 'success' })
   } catch (e) {
     console.error('Upload failed', e)
+    showToast({ title: 'Upload Failed', message: 'Could not secure asset.', toastType: 'error' })
   } finally {
     uploading.value = false
   }
 }
-
-async function confirmDirectTransfer() {
-    if (!proofUrl.value) return
-    
-    // Create the order first
-    const finalAmount = totalPrice.value + shippingFee.value - (redeemPoints.value ? pointsToRedeem.value : 0)
-    const orderData = {
-        items: items.value.map((i) => ({ productId: i.productId, name: i.name, price: i.price, quantity: i.quantity, image: i.image })),
-        totalAmount: totalPrice.value,
-        shippingFee: shippingFee.value,
-        redeemPoints: redeemPoints.value,
-        pointsToRedeem: pointsToRedeem.value,
-        deliveryMethod: deliveryMethod.value,
-        deliveryLocation: (deliveryMethod.value === 'delivery' || deliveryMethod.value === 'lagos_dispatch') ? { lat: address.value.lat, lng: address.value.lng } : undefined,
-        shippingAddress: deliveryMethod.value !== 'pickup' ? address.value : undefined,
-        referralCode: referralCode.value || undefined,
-        paymentProvider: 'direct_transfer'
-    }
-
-    try {
-        const orderRes = await createOrder(orderData) as any
-        const data = orderRes?.data || orderRes
-        const orderId = data._id
-
-        // Submit proof
-        await GATEWAY_ENDPOINT.post(`/orders/${orderId}/submit-proof`, { proofUrl: proofUrl.value })
-        
-        // Trigger WhatsApp
-        handleWhatsAppOrder(data.orderNumber)
-        
-        clearCart()
-        navigateTo('/checkout/success')
-    } catch (e) {
-        console.error('Direct transfer failed', e)
-    }
-}
-
-// Watch delivery method to reset fee if pickup
-watch(deliveryMethod, (val) => {
-  if (val === 'pickup') {
-    shippingFee.value = 0
-    distanceInfo.value = null
-  } else if (val === 'waybill') {
-    calculateFee(0, 0, 'waybill')
-  } else if (val === 'lagos_dispatch' && address.value.lat && address.value.lng) {
-    calculateFee(address.value.lat, address.value.lng, 'lagos_dispatch')
-  }
-})
 
 async function handleWhatsAppOrder(orderNumber?: string) {
   if (submitting.value) return
@@ -464,7 +498,14 @@ async function handleWhatsAppOrder(orderNumber?: string) {
   if (!targetOrderNumber) {
     try {
       const orderData = {
-        items: items.value.map((i) => ({ productId: i.productId, name: i.name, price: i.price, quantity: i.quantity, image: i.image })),
+        items: items.value.map((i: any) => ({ 
+          productId: i.productId, 
+          name: i.name, 
+          price: i.price, 
+          quantity: i.quantity, 
+          image: i.image,
+          weight: i.weight || 1
+        })),
         totalAmount: totalPrice.value,
         shippingFee: shippingFee.value,
         redeemPoints: redeemPoints.value,
@@ -473,9 +514,11 @@ async function handleWhatsAppOrder(orderNumber?: string) {
         deliveryLocation: (deliveryMethod.value === 'delivery' || deliveryMethod.value === 'lagos_dispatch') ? { lat: address.value.lat, lng: address.value.lng } : undefined,
         shippingAddress: deliveryMethod.value !== 'pickup' ? address.value : undefined,
         referralCode: referralCode.value || undefined,
-        paymentProvider: 'whatsapp'
+        paymentProvider: paymentMethod.value === 'direct_transfer' ? 'direct_transfer' : 'whatsapp',
+        isHomeDelivery: isHomeDelivery.value
       }
       const res = await createOrder(orderData) as any
+      if (!res) throw new Error('Failed to create order')
       const data = res?.data || res
       targetOrderNumber = data.orderNumber
       
@@ -485,6 +528,8 @@ async function handleWhatsAppOrder(orderNumber?: string) {
       }
     } catch (e) {
       console.error('Failed to create order before WhatsApp redirect', e)
+      showToast({ title: 'Error', message: 'Failed to initialize order via WhatsApp', toastType: 'error' })
+      return
     }
   }
 
@@ -507,40 +552,60 @@ async function handleWhatsAppOrder(orderNumber?: string) {
     `🚛 Shipping: 🚚 ${t(`common.${deliveryMethod.value}`)}\n` +
     `💵 *Grand Total: ${formatPrice(total)}*\n\n` +
     `--------------------------------\n\n` +
-    `🗺️ *Billing Address:*\n\n` +
-    `👤 Name: *${address.value.fullName || 'N/A'}*\n` +
-    `📞 Phone: *${address.value.phone || 'N/A'}*\n` +
-    `🏠 Address: ${address.value.address || 'N/A'}\n` +
-    `🌇 City: ${address.value.city || 'N/A'}\n` +
-    `📍 State: ${address.value.state || 'N/A'}\n` +
-    `🇳🇬 Country: ${address.value.country || 'Nigeria'}\n\n` +
-    `--------------------------------\n\n` +
-    `🚚 *Shipping Address:*\n\n` +
-    `👤 Name: *${address.value.fullName || 'N/A'}*\n` +
-    `📞 Phone: *${address.value.phone || 'N/A'}*\n` +
-    `🏠 Address: ${address.value.address || 'N/A'}\n` +
-    `🌇 City: ${address.value.city || 'N/A'}\n` +
-    `📍 State: ${address.value.state || 'N/A'}\n\n` +
+    (deliveryMethod.value === 'pickup' 
+      ? `🏢 *Pickup Location:*\n\n` +
+        `📍 Name: *${pickupLocations.value.find(l => l.isActive)?.name || 'Main Factory'}*\n` +
+        `🏠 Address: ${pickupLocations.value.find(l => l.isActive)?.address || '13, Sonubi street, off Bakare street ketu, Lagos'}\n` +
+        `📞 Contact: ${pickupLocations.value.find(l => l.isActive)?.phone || 'N/A'}\n\n`
+      : `🗺️ *Billing Address:*\n\n` +
+        `👤 Name: *${address.value.fullName || 'N/A'}*\n` +
+        `📞 Phone: *${address.value.phone || 'N/A'}*\n` +
+        `🏠 Address: ${address.value.address || 'N/A'}\n` +
+        `🌇 City: ${address.value.city || 'N/A'}\n` +
+        `📍 State: ${address.value.state || 'N/A'}\n` +
+        `🇳🇬 Country: ${address.value.country || 'Nigeria'}\n\n` +
+        `--------------------------------\n\n` +
+        `🚚 *Shipping Address:*\n\n` +
+        `👤 Name: *${address.value.fullName || 'N/A'}*\n` +
+        `📞 Phone: *${address.value.phone || 'N/A'}*\n` +
+        `🏠 Address: ${address.value.address || 'N/A'}\n` +
+        `🌇 City: ${address.value.city || 'N/A'}\n` +
+        `📍 State: ${address.value.state || 'N/A'}\n\n`
+    ) +
     `--------------------------------\n\n` +
     `💳 *Payment Method:* 🏦 Direct Bank Transfer\n\n` +
-    `✨ *Thank you for choosing WiseKings!* ✨\n` +
-    `👑 *Engineered for Royals* 👑`
+    `Thank you for choosing *WiseKings*, your order has been received and is being processed. We shall get back to you shortly.\n\n` +
+    `To complete your order, kindly proceed to make your payment using the bank details below:\n\n` +
+    `🏦 *Payment Instructions (Direct Transfer)*\n` +
+    `Account Name: *${bankDetails.value?.accountName || 'WISEKINGS VENTURES LIMITED'}*\n` +
+    `Account Number: *${bankDetails.value?.accountNumber || 'N/A'}*\n` +
+    `Bank Name: *${bankDetails.value?.bankName || 'N/A'}*\n\n` +
+    `--------------------------------\n\n` +
+    `*Wisekings Team*`
   )
 
   window.open(`https://wa.me/${whatsappNumber.value}?text=${message}`, '_blank')
   
-  // Clear cart after successful redirection
-  setTimeout(() => {
-    clearCart()
-    navigateTo('/checkout/success')
-  }, 1000)
+  if (targetOrderNumber) {
+    setTimeout(() => {
+      clearCart()
+      navigateTo('/checkout/success?method=direct_transfer')
+    }, 1000)
+  }
 }
 
 async function handleCheckout() {
   const finalAmount = totalPrice.value + shippingFee.value - (redeemPoints.value ? pointsToRedeem.value : 0)
   
   const orderData = {
-    items: items.value.map((i) => ({ productId: i.productId, name: i.name, price: i.price, quantity: i.quantity, image: i.image })),
+    items: items.value.map((i: any) => ({ 
+      productId: i.productId, 
+      name: i.name, 
+      price: i.price, 
+      quantity: i.quantity, 
+      image: i.image,
+      weight: i.weight || 1
+    })),
     totalAmount: totalPrice.value,
     shippingFee: shippingFee.value,
     redeemPoints: redeemPoints.value,
@@ -549,34 +614,43 @@ async function handleCheckout() {
     deliveryLocation: deliveryMethod.value === 'delivery' ? { lat: address.value.lat, lng: address.value.lng } : undefined,
     shippingAddress: deliveryMethod.value === 'delivery' ? address.value : undefined,
     referralCode: referralCode.value || undefined,
+    isHomeDelivery: isHomeDelivery.value,
   }
   
-  const order = await createOrder(orderData) as any
-  if (!order) return
+  try {
+    const order = await createOrder(orderData) as any
+    if (!order) {
+      showToast({ title: 'Error', message: 'Failed to create order', toastType: 'error' })
+      return
+    }
 
-  const data = order?.data || order
-  const orderId = data._id
+    const data = order?.data || order
+    const orderId = data._id
 
-  const payment = await initializePayment({ 
-    orderId, 
-    email: user.value?.email || (address.value.fullName + '@guest.com'), 
-    amount: finalAmount, 
-    currency: selectedCurrency.value,
-    callbackUrl: `${window.location.origin}/checkout/success` 
-  }) as any
+    const payment = await initializePayment({ 
+      orderId, 
+      email: user.value?.email || (address.value.fullName + '@guest.com'), 
+      amount: finalAmount, 
+      currency: selectedCurrency.value,
+      callbackUrl: `${window.location.origin}/checkout/success` 
+    }) as any
 
-  const pData = payment?.data || payment
+    const pData = payment?.data || payment
 
-  if (pData?.authorization_url) { 
-    window.location.href = pData.authorization_url; 
-    return 
-  } else if (pData?.url) {
-    window.location.href = pData.url;
-    return
+    if (pData?.authorization_url) { 
+      window.location.href = pData.authorization_url; 
+      return 
+    } else if (pData?.url) {
+      window.location.href = pData.url;
+      return
+    }
+
+    clearCart()
+    navigateTo(`/checkout/success?orderId=${orderId}&method=card`)
+  } catch (err) {
+    console.error('Checkout failed', err)
+    showToast({ title: 'Error', message: 'Checkout initialization failed. Please try again.', toastType: 'error' })
   }
-
-  clearCart()
-  navigateTo('/checkout/success')
 }
 </script>
 
