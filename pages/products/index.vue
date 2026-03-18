@@ -59,7 +59,7 @@
         </div>
         <div v-if="loading" class="text-center py-20 text-gray-400"><Icon name="lucide:loader-2" class="w-8 h-8 animate-spin mx-auto" /></div>
         <div v-else-if="products.length === 0" class="text-center py-20 text-gray-400">{{ $t('common.no_products') }}</div>
-        <div v-else class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div v-else class="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6">
           <ProductCard v-for="p in products" :key="p._id" :product="p" />
         </div>
         <div v-if="totalPages > 1" class="flex justify-center gap-2 mt-8">

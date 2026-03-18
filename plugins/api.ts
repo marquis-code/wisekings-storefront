@@ -1,7 +1,8 @@
-// API Factory Plugin for Storefront
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp) => {
     const config = useRuntimeConfig()
     const authState = useAuthState()
+    const i18n = nuxtApp.$i18n as any
+    const selectedCurrency = useState('selected_currency')
 
     const api = $fetch.create({
         baseURL: config.public.apiBase as string,
@@ -11,14 +12,15 @@ export default defineNuxtPlugin(() => {
                 options.headers = { ...options.headers, Authorization: `Bearer ${token}` }
             }
 
-            const locale = useI18n()?.locale?.value || 'en'
-            const currency = useState('selected_currency').value || 'NGN'
+            // Access values using captured references
+            const locale = i18n?.locale?.value || 'en'
+            const currency = selectedCurrency.value || 'NGN'
 
             options.headers = {
                 ...options.headers,
                 'x-locale': locale,
-                'x-currency': currency,
-            } as any
+                'x-currency': currency as any,
+            }
         },
         async onResponse({ response }) { },
         async onResponseError({ response }) {

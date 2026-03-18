@@ -845,7 +845,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "6b5a3c51-1d95-4a51-b06f-34a38b5f8460",
+    "buildId": "1ecc139b-3860-4bde-8336-f890f6182c63",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -1386,7 +1386,7 @@ var common$2 = {
 	back_to_shop: "← Back to shop",
 	added_to_cart: "{name} added to cart",
 	sign_in: "Sign in",
-	enter_kingdom: "Enter the Kingdom",
+	enter_kingdom: "Login",
 	global_reach: "Global Reach",
 	pricing: "Pricing",
 	discovery: "Discovery",
@@ -1442,6 +1442,7 @@ var common$2 = {
 	proceed_checkout: "Proceed to Checkout",
 	checkout: "Checkout",
 	complete_details: "Complete your details to finalize your snacking manifest.",
+	complete_purchase: "Complete Purchase",
 	fulfillment_method: "Fulfillment Method",
 	waybill: "Waybill (Outside Lagos)",
 	dispatch: "Dispatch (Within Lagos)",
@@ -2341,7 +2342,7 @@ const _mHd4hMNgU8RTbMvuEo_Fbn8_O5jnH9iV40lo5T7T5kY = defineNitroPlugin(async (ni
     const localeSegment = detector.route(event.path);
     const pathLocale = isSupportedLocale(localeSegment) && localeSegment || void 0;
     const path = (pathLocale && url.pathname.slice(pathLocale.length + 1)) ?? url.pathname;
-    if (!url.pathname.includes("/_i18n/ZZbCUAWP") && !isExistingNuxtRoute(path)) {
+    if (!url.pathname.includes("/_i18n/xWA6QQeQ") && !isExistingNuxtRoute(path)) {
       return;
     }
     const resolved = resolveRedirectPath(event, path, pathLocale, ctx.vueI18nOptions.defaultLocale, detector);

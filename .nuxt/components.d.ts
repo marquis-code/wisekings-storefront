@@ -21,6 +21,7 @@ export const CoreAnimatedInput: typeof import("../components/core/AnimatedInput.
 export const CoreConfirmModal: typeof import("../components/core/ConfirmModal.vue")['default']
 export const CoreCurrencySwitcher: typeof import("../components/core/CurrencySwitcher.vue")['default']
 export const CoreDropdown: typeof import("../components/core/Dropdown.vue")['default']
+export const CoreFullscreenLoader: typeof import("../components/core/FullscreenLoader.vue")['default']
 export const CoreLanguageSwitcher: typeof import("../components/core/LanguageSwitcher.vue")['default']
 export const CoreLiveChatWidget: typeof import("../components/core/LiveChatWidget.vue")['default']
 export const CorePasswordInput: typeof import("../components/core/PasswordInput.vue")['default']
@@ -61,6 +62,7 @@ export const LazyCoreAnimatedInput: LazyComponent<typeof import("../components/c
 export const LazyCoreConfirmModal: LazyComponent<typeof import("../components/core/ConfirmModal.vue")['default']>
 export const LazyCoreCurrencySwitcher: LazyComponent<typeof import("../components/core/CurrencySwitcher.vue")['default']>
 export const LazyCoreDropdown: LazyComponent<typeof import("../components/core/Dropdown.vue")['default']>
+export const LazyCoreFullscreenLoader: LazyComponent<typeof import("../components/core/FullscreenLoader.vue")['default']>
 export const LazyCoreLanguageSwitcher: LazyComponent<typeof import("../components/core/LanguageSwitcher.vue")['default']>
 export const LazyCoreLiveChatWidget: LazyComponent<typeof import("../components/core/LiveChatWidget.vue")['default']>
 export const LazyCorePasswordInput: LazyComponent<typeof import("../components/core/PasswordInput.vue")['default']>

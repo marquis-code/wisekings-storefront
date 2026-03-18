@@ -48,6 +48,19 @@
         </div>
       </div>
     </div>
+    <!-- Related Products Section -->
+    <section v-if="product?.relatedProducts?.length" class="mt-20 border-t border-gray-100 pt-16">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-2xl font-black text-gray-900 tracking-tight">Related Products</h2>
+          <p class="text-sm text-gray-400 font-medium">Specially selected to complement your choice</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <ProductCard v-for="p in product.relatedProducts" :key="p._id" :product="localizeProduct(p)" />
+      </div>
+    </section>
+
     <!-- Aggressive Recommendations Section -->
     <section v-if="recommendations.length" class="mt-32 relative">
       <!-- Decorative Backdrop -->
@@ -133,6 +146,16 @@ watch(product, (newVal) => {
 onMounted(() => {
   refreshData()
 })
+
+// Localization helper for individual product objects (used for related products)
+function localizeProduct(p: any) {
+  if (!p) return null
+  return {
+    ...p,
+    name: p.name?.[locale.value] || p.name?.en || '',
+    description: p.description?.[locale.value] || p.description?.en || ''
+  }
+}
 
 useHead(() => ({
   title: product.value ? `${product.value.name} — WiseKings` : 'Product — WiseKings',

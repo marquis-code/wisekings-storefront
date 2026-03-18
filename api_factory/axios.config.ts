@@ -40,9 +40,9 @@ GATEWAY_ENDPOINT.interceptors.response.use(
       
       try {
         // Get refresh token from cookie or localStorage
-        let refreshToken = document.cookie.split('; ').find(row => row.startsWith('wk_store_refresh_token='))?.split('=')[1] || '';
+        let refreshToken = document.cookie.split('; ').find(row => row.startsWith('wk_store_refresh='))?.split('=')[1] || '';
         if (!refreshToken) {
-          refreshToken = localStorage.getItem('wk_store_refresh_token') || '';
+          refreshToken = localStorage.getItem('wk_store_refresh') || '';
         }
 
         if (refreshToken) {
@@ -52,9 +52,9 @@ GATEWAY_ENDPOINT.interceptors.response.use(
           // Update tokens in cookies (with expiration) and localStorage
           const cookieOptions = "; path=/; max-age=604800; SameSite=Lax"; // 7 days
           document.cookie = `wk_store_token=${accessToken}${cookieOptions}`;
-          document.cookie = `wk_store_refresh_token=${newRefreshToken}${cookieOptions}`;
+          document.cookie = `wk_store_refresh=${newRefreshToken}${cookieOptions}`;
           localStorage.setItem('wk_store_token', accessToken);
-          localStorage.setItem('wk_store_refresh_token', newRefreshToken);
+          localStorage.setItem('wk_store_refresh', newRefreshToken);
 
           // Retry the original request
           originalRequest.headers.Authorization = `Bearer ${accessToken}`;

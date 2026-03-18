@@ -443,12 +443,12 @@ const _routes = [
     name: "otp",
     path: "/otp",
     meta: __nuxt_page_meta$8 || {},
-    component: () => import('./otp-BIC8iFrc.mjs')
+    component: () => import('./otp-kjr1p5Hr.mjs')
   },
   {
     name: "cart",
     path: "/cart",
-    component: () => import('./cart-D1jkLqnP.mjs')
+    component: () => import('./cart-Vxrd1iRT.mjs')
   },
   {
     name: "about",
@@ -459,13 +459,13 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-DQyexzXp.mjs')
+    component: () => import('./index-CGvOVOep.mjs')
   },
   {
     name: "login",
     path: "/login",
     meta: __nuxt_page_meta$6 || {},
-    component: () => import('./login-A-jdQkma.mjs')
+    component: () => import('./login-Ck7xn0NX.mjs')
   },
   {
     name: "terms",
@@ -475,12 +475,12 @@ const _routes = [
   {
     name: "offers",
     path: "/offers",
-    component: () => import('./offers-BOxYXeQH.mjs')
+    component: () => import('./offers-Dp0G0nDo.mjs')
   },
   {
     name: "contact",
     path: "/contact",
-    component: () => import('./contact-DxVJdmNK.mjs')
+    component: () => import('./contact-BpV6530S.mjs')
   },
   {
     name: "privacy",
@@ -491,18 +491,18 @@ const _routes = [
     name: "register",
     path: "/register",
     meta: __nuxt_page_meta$5 || {},
-    component: () => import('./register-DGMQm_Z3.mjs')
+    component: () => import('./register-CuAOMpsn.mjs')
   },
   {
     name: "categories",
     path: "/categories",
-    component: () => import('./categories-BGqs3sVe.mjs')
+    component: () => import('./categories-CcWFkL3E.mjs')
   },
   {
     name: "account",
     path: "/account",
     meta: __nuxt_page_meta$4 || {},
-    component: () => import('./index-BGcZf_sW.mjs')
+    component: () => import('./index-Bg5f4BQd.mjs')
   },
   {
     name: "return-policy",
@@ -512,18 +512,18 @@ const _routes = [
   {
     name: "checkout",
     path: "/checkout",
-    component: () => import('./index-BUyZwmIM.mjs')
+    component: () => import('./index-Bt8pGahQ.mjs')
   },
   {
     name: "products",
     path: "/products",
-    component: () => import('./index-CBgO9WWB.mjs')
+    component: () => import('./index-DVJxvE5b.mjs')
   },
   {
     name: "account-profile",
     path: "/account/profile",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import('./profile-KTSfYYyU.mjs')
+    component: () => import('./profile-BLCu1CN6.mjs')
   },
   {
     name: "forgot-password",
@@ -533,7 +533,7 @@ const _routes = [
   {
     name: "products-slug",
     path: "/products/:slug()",
-    component: () => import('./_slug_-Ik6poVwQ.mjs')
+    component: () => import('./_slug_-Dv4U1qUe.mjs')
   },
   {
     name: "shipping-policy",
@@ -549,19 +549,19 @@ const _routes = [
   {
     name: "checkout-success",
     path: "/checkout/success",
-    component: () => import('./success-DgtV77Ak.mjs')
+    component: () => import('./success-StsJC-v6.mjs')
   },
   {
     name: "account-orders-id",
     path: "/account/orders/:id()",
     meta: __nuxt_page_meta$1 || {},
-    component: () => import('./_id_-BYi4TmM1.mjs')
+    component: () => import('./_id_-CxImlOOe.mjs')
   },
   {
     name: "account-orders",
     path: "/account/orders",
     meta: __nuxt_page_meta || {},
-    component: () => import('./index-Eo2bYRhj.mjs')
+    component: () => import('./index-BBwpUQr_.mjs')
   }
 ];
 const _wrapInTransition = (props, children) => {
@@ -1388,7 +1388,7 @@ const localeLoaders = {
     {
       key: "locale_en_46json_479328f1",
       load: () => import(
-        './en-DhaGmBhm.mjs'
+        './en-C0iIt1qx.mjs'
         /* webpackChunkName: "locale_en_46json_479328f1" */
       ),
       cache: true
@@ -1934,7 +1934,7 @@ function createNuxtI18nContext(nuxt, vueI18n, defaultLocale) {
       return;
     }
     const headers = getLocaleConfig(locale)?.cacheable ? {} : { "Cache-Control": "no-cache" };
-    const messages = await $fetch(`${"/_i18n/ZZbCUAWP"}/${locale}/messages.json`, { headers });
+    const messages = await $fetch(`${"/_i18n/xWA6QQeQ"}/${locale}/messages.json`, { headers });
     for (const k of Object.keys(messages)) {
       i18n.mergeLocaleMessage(k, messages[k]);
     }
@@ -6915,7 +6915,7 @@ const i18n_EI7LsD1KYQADczz5hrChviGQCdVM8yUkvFEZLJpmnvM = /* @__PURE__ */ defineN
     {
       localeConfigs.value = useRequestEvent().context.nuxtI18n?.localeConfigs || {};
     }
-    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/ZZbCUAWP"}/${locale}/messages.json`));
+    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/xWA6QQeQ"}/${locale}/messages.json`));
     const i18n = createI18n(optionsI18n);
     const detectors = useDetectors(useRequestEvent(nuxt), useI18nDetection(nuxt), nuxt);
     const ctx = createNuxtI18nContext(nuxt, i18n, optionsI18n.defaultLocale);
@@ -7063,9 +7063,11 @@ function useAuthState() {
   }
   return { accessToken: readonly(accessToken), refreshToken: readonly(refreshTokenValue), user: readonly(user), isAuthenticated, setAuth, logout, refresh };
 }
-const api_jy9dy79pM_nYQuRKPrcfNg56p_gKkzw9SekUTZgAenc = /* @__PURE__ */ defineNuxtPlugin(() => {
+const api_jy9dy79pM_nYQuRKPrcfNg56p_gKkzw9SekUTZgAenc = /* @__PURE__ */ defineNuxtPlugin((nuxtApp) => {
   const config = /* @__PURE__ */ useRuntimeConfig();
   const authState = useAuthState();
+  const i18n = nuxtApp.$i18n;
+  const selectedCurrency = useState("selected_currency");
   const api = $fetch.create({
     baseURL: config.public.apiBase,
     onRequest({ options }) {
@@ -7073,8 +7075,8 @@ const api_jy9dy79pM_nYQuRKPrcfNg56p_gKkzw9SekUTZgAenc = /* @__PURE__ */ defineNu
       if (token) {
         options.headers = { ...options.headers, Authorization: `Bearer ${token}` };
       }
-      const locale = useI18n()?.locale?.value || "en";
-      const currency = useState("selected_currency").value || "NGN";
+      const locale = i18n?.locale?.value || "en";
+      const currency = selectedCurrency.value || "NGN";
       options.headers = {
         ...options.headers,
         "x-locale": locale,
@@ -7152,9 +7154,9 @@ const plugins = [
   ssg_detect_IpHCGcQQ_IR5Rl99qyukWoMA9fJGfuTYyoksTzy81cs
 ];
 const layouts = {
-  account: defineAsyncComponent(() => import('./account-CwlcP4Oc.mjs').then((m) => m.default || m)),
+  account: defineAsyncComponent(() => import('./account-6KqtWrfY.mjs').then((m) => m.default || m)),
   auth: defineAsyncComponent(() => import('./auth-BTML3Qrb.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-CIyofD8R.mjs').then((m) => m.default || m))
+  default: defineAsyncComponent(() => import('./default-CSQrB7ij.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({

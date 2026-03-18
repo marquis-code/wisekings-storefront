@@ -38,25 +38,23 @@
           </p>
         </div>
 
-        <!-- Shuffling Card Stack (Desktop Only) -->
-        <div class="hidden lg:flex justify-center mt-12 relative h-[450px] w-full max-w-lg mx-auto perspective-1000">
-          <transition-group name="card-stack">
-            <div v-for="(img, i) in displayedGallery" :key="img" 
-              class="absolute inset-0 w-80 h-[450px] left-1/2 -ml-40 rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] border-4 border-white bg-white p-4"
-              :style="getCardStyle(i)"
+        <!-- High-Speed Infinite Marquee (Desktop) -->
+        <div class="hidden lg:flex justify-center mt-20 relative overflow-hidden w-full">
+          <div class="flex animate-marquee-fast gap-12 py-10">
+            <div v-for="(img, i) in [...heroGallery, ...heroGallery]" :key="i" 
+              class="flex-shrink-0 w-80 h-[550px] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white bg-white hover:scale-105 transition-transform duration-500 p-4"
             >
               <img :src="img" class="w-full h-full object-contain" alt="Snack Variety">
-              <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-gray-900/10 to-transparent pointer-events-none"></div>
             </div>
-          </transition-group>
+          </div>
         </div>
 
         <!-- Mobile Image Gallery (Scrollable) -->
-        <div class="lg:hidden flex gap-4 overflow-x-auto no-scrollbar px-4 pb-8 mt-12 snap-x snap-mandatory">
+        <div class="lg:hidden flex gap-4 overflow-x-auto no-scrollbar px-4 pb-12 mt-12 snap-x snap-mandatory">
           <div v-for="(img, i) in heroGallery" :key="i" 
-            class="flex-shrink-0 w-64 aspect-[4/5] rounded-[2rem] overflow-hidden shadow-xl snap-center"
+            class="flex-shrink-0 w-72 h-[450px] bg-white rounded-[2rem] overflow-hidden shadow-xl snap-center border-2 border-gray-50 p-4"
           >
-            <img :src="img" class="w-full h-full object-cover" alt="Snack Variety">
+            <img :src="img" class="w-full h-full object-contain" alt="Snack Variety">
           </div>
         </div>
       </div>
@@ -91,10 +89,10 @@
             <p class="text-lg text-gray-400 font-medium leading-relaxed">
               We partner with West Africa's most prestigious retail chains to bring royalty-grade artisanal snacks directly to your favorite stores.
             </p>
-            <NuxtLink to="/brands" class="inline-flex items-center gap-3 bg-[#FFC20E] text-gray-950 px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-[#FFC20E]/20 group">
+            <!-- <NuxtLink to="/brands" class="inline-flex items-center gap-3 bg-[#FFC20E] text-gray-950 px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-[#FFC20E]/20 group">
               See All Brands
               <Icon name="lucide:arrow-right" size="16" class="group-hover:translate-x-1 transition-transform" />
-            </NuxtLink>
+            </NuxtLink> -->
           </div>
 
           <!-- End-to-End Carousel -->
@@ -178,7 +176,7 @@
         </NuxtLink>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
         <NuxtLink v-for="c in displayCategories" :key="c._id" :to="`/products?category=${c._id}`"
           class="group relative h-64 rounded-[3rem] overflow-hidden transition-all duration-700 hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)]"
         >
@@ -370,8 +368,8 @@
           {{ $t('view_all') }} <Icon name="lucide:arrow-right" size="14" />
         </NuxtLink>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-        <ProductCard v-for="p in products" :key="p._id" :product="p" />
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6">
+          <ProductCard v-for="p in products" :key="p._id" :product="p" />
       </div>
       <div v-if="products.length === 0" class="text-center py-12 text-gray-400">{{ $t('loading_products') }}</div>
     </section>
@@ -564,31 +562,6 @@ const heroGallery = [
 ]
 
 const stackIndex = ref(0)
-const displayedGallery = computed(() => {
-  // Rotate the gallery based on stackIndex
-  const arr = [...heroGallery]
-  for (let i = 0; i < stackIndex.value; i++) {
-    const first = arr.shift()
-    if (first) arr.push(first)
-  }
-  return arr.reverse().slice(0, 5) // Reverse so the "last" index in slice is on top
-})
-
-function getCardStyle(index: number) {
-  // index 0 is top card
-  const offset = 4 - index
-  const scale = 1 - (offset * 0.05)
-  const translateY = offset * -20
-  const rotate = (offset * 3) * (offset % 2 === 0 ? 1 : -1)
-  const zIndex = 10 + index
-  const opacity = 1 - (offset * 0.2)
-  
-  return {
-    transform: `translateY(${translateY}px) scale(${scale}) rotate(${rotate}deg)`,
-    zIndex: zIndex,
-    opacity: opacity,
-  }
-}
 
 watch(currentSlide, () => {
   // Sync stack shuffle with slide interval
@@ -669,25 +642,6 @@ onUnmounted(() => { if (slideInterval) clearInterval(slideInterval) })
   perspective: 1000px;
 }
 
-.card-stack-move {
-  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.card-stack-enter-active,
-.card-stack-leave-active {
-  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.card-stack-enter-from {
-  opacity: 0;
-  transform: translate(-50%, 100px) rotate(20deg) scale(0.8) !important;
-}
-
-.card-stack-leave-to {
-  opacity: 0;
-  transform: translate(150%, -100px) rotate(-20deg) scale(0.8) !important;
-}
-
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -723,7 +677,10 @@ onUnmounted(() => { if (slideInterval) clearInterval(slideInterval) })
   100% { transform: translateX(-50%); }
 }
 .animate-marquee-fast {
-  animation: marquee-fast 20s linear infinite;
+  animation: marquee-fast 15s linear infinite;
+}
+.animate-marquee-fast:hover {
+  animation-play-state: paused;
 }
 
 @keyframes marquee-brand {

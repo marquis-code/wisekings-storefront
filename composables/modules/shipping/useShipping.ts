@@ -9,7 +9,7 @@ export const useShipping = () => {
     const calculateFee = async (lat: number, lng: number, method: string = 'lagos_dispatch', country: string = 'Nigeria', weight: number = 0, isHomeDelivery: boolean = false) => {
         loading.value = true
         try {
-            const res = await GATEWAY_ENDPOINT.get('/shipping/calculate', { 
+            const res = await GATEWAY_ENDPOINT.get('/shipping/calculate-public', { 
                 params: { lat, lng, method, country, weight, isHomeDelivery } 
             }) as any
             const data = res.data || res

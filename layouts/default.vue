@@ -94,12 +94,12 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 overflow-x-hidden pb-20">
+    <main class="flex-1 pb-20">
       <slot />
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-100 pt-20 pb-10">
+    <footer v-if="route.path !== '/checkout'" class="bg-white border-t border-gray-100 pt-20 pb-10">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
           <div class="lg:col-span-2 space-y-6">
