@@ -39,22 +39,22 @@
         </div>
 
         <!-- High-Speed Infinite Marquee (Desktop) -->
-        <div class="hidden lg:flex justify-center mt-20 relative overflow-hidden w-full">
-          <div class="flex animate-marquee-fast gap-12 py-10">
+        <div class="hidden lg:flex justify-center mt-8 relative overflow-hidden w-full">
+          <div class="flex animate-marquee-fast gap-8 py-4">
             <div v-for="(img, i) in [...heroGallery, ...heroGallery]" :key="i" 
-              class="flex-shrink-0 w-80 h-[550px] rounded-[3rem] overflow-hidden  border-4 border-white bg-white hover:scale-105 transition-transform duration-500 p-4"
+              class="flex-shrink-0 w-48 h-[300px] rounded-[2rem] overflow-hidden border border-gray-100 bg-white hover:scale-105 transition-transform duration-500 p-4 flex items-center justify-center"
             >
-              <img :src="img" class="w-full h-full object-contain" alt="Snack Variety">
+              <img :src="img" class="max-w-full max-h-full object-contain" alt="Snack Variety">
             </div>
           </div>
         </div>
 
         <!-- Mobile Image Gallery (Scrollable) -->
-        <div class="lg:hidden flex gap-4 overflow-x-auto no-scrollbar px-4 pb-12 mt-12 snap-x snap-mandatory">
+        <div class="lg:hidden flex gap-4 overflow-x-auto no-scrollbar px-4 pb-6 mt-6 snap-x snap-mandatory">
           <div v-for="(img, i) in heroGallery" :key="i" 
-            class="flex-shrink-0 w-72 h-[450px] bg-white rounded-[2rem] overflow-hidden  snap-center border-2 border-gray-50 p-4"
+            class="flex-shrink-0 w-48 h-[280px] bg-white rounded-[1.5rem] overflow-hidden snap-center border border-gray-100 p-4 flex items-center justify-center"
           >
-            <img :src="img" class="w-full h-full object-contain" alt="Snack Variety">
+            <img :src="img" class="max-w-full max-h-full object-contain" alt="Snack Variety">
           </div>
         </div>
       </div>
@@ -66,24 +66,19 @@
       </div>
     </section>
 
-    <!-- Categories Section (Shifted down for layout flow) -->
-    <section class="max-w-[1920px] mx-auto px-4 lg:px-8 py-24">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-        <div>
-          <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-600 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-4">
-            <Icon name="lucide:layers" size="14" /> Collections
-          </div>
-          <h2 class="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter">{{ $t('shop_by_category') }}</h2>
-        </div>
-        <NuxtLink to="/categories" class="group flex items-center gap-3 bg-gray-50 text-gray-900 px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#033958] hover:text-white transition-all">
+    <!-- Categories Section (Compact & Horizontal) -->
+    <section class="max-w-[1920px] mx-auto px-4 lg:px-8 py-12">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tighter">{{ $t('shop_by_category') }}</h2>
+        <NuxtLink to="/categories" class="group flex items-center gap-2 text-amber-600 font-black text-xs uppercase tracking-widest hover:text-gray-900 transition-all">
           {{ $t('view_all') }} 
-          <Icon name="lucide:arrow-right" size="16" class="group-hover:translate-x-1 transition-transform" />
+          <Icon name="lucide:arrow-right" size="14" class="group-hover:translate-x-1 transition-transform" />
         </NuxtLink>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+      <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4 snap-x snap-mandatory">
         <NuxtLink v-for="c in displayCategories" :key="c.slug || c.name.toLowerCase().replace(/ /g, '-')" :to="`/products?category=${c.slug || c.name.toLowerCase().replace(/ /g, '-')}`"
-          class="group relative h-64 rounded-[3rem] overflow-hidden transition-all duration-700 hover:-translate-y-4 hover:"
+          class="flex-shrink-0 w-[45%] md:flex-1 md:w-auto group relative h-48 md:h-64 rounded-[2rem] overflow-hidden transition-all duration-700 hover:-translate-y-2 snap-center"
         >
           <!-- Background Image -->
           <div class="absolute inset-0 z-0">
@@ -94,22 +89,20 @@
               class="w-full h-full object-contain p-4 transition-transform duration-1000 group-hover:scale-110"
             />
             <div v-else class="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
-              <Icon name="lucide:image" class="w-12 h-12 text-gray-200" />
+              <Icon name="lucide:image" class="w-10 h-10 text-gray-200" />
             </div>
             <!-- Dynamic Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/20 to-gray-900/90 group-hover:to-[#033958]/95 transition-all duration-500"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/10 to-gray-900/80 group-hover:to-[#033958]/90 transition-all duration-500"></div>
           </div>
 
           <!-- Content -->
-          <div class="relative z-10 h-full p-8 flex flex-col justify-end">
-            <span class="text-xs font-black text-white/40 uppercase tracking-[0.3em] mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Discover</span>
-            <h3 class="text-xl font-black text-white tracking-tight leading-none group-hover:translate-x-2 transition-transform duration-500">{{ c.name }}</h3>
-            <div class="w-10 h-1 bg-amber-400 mt-4 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-700"></div>
+          <div class="relative z-10 h-full p-6 flex flex-col justify-end">
+            <h3 class="text-lg font-black text-white tracking-tight leading-none transition-transform duration-500">{{ c.name }}</h3>
+            <div class="w-8 h-1 bg-amber-400 mt-2 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-700"></div>
           </div>
         </NuxtLink>
-        <div v-if="displayCategories.length === 0" class="col-span-full py-20 text-center">
-          <div class="w-16 h-16 border-4 border-gray-100 border-t-[#033958] rounded-full animate-spin mx-auto mb-6"></div>
-          <p class="text-xs font-black text-[#033958]/80 uppercase tracking-[0.3em]">Sourcing Collections...</p>
+        <div v-if="displayCategories.length === 0" class="flex-1 py-10 text-center">
+          <p class="text-[10px] font-black text-[#033958]/80 uppercase tracking-widest">Sourcing Collections...</p>
         </div>
       </div>
     </section>

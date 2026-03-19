@@ -87,6 +87,10 @@
         "next": "Suivant",
         "all_categories": "Toutes les catégories",
         "shopping_cart": "Panier d'achat",
+        "cart": {
+            "view": "Voir le panier",
+            "empty": "Votre panier est vide"
+        },
         "cart_empty": "Votre panier est vide",
         "continue_shopping": "Continuer les achats",
         "per_unit": "Par unité",

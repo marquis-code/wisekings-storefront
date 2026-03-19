@@ -70,11 +70,11 @@
               <span class="text-2xl font-black text-gray-950 tracking-tight">{{ formatPrice(totalPrice) }}</span>
             </div>
             <p class="text-xs text-[#033958]/80 font-bold uppercase tracking-widest text-center italic">Taxes and shipping calculated at checkout</p>
-            <NuxtLink to="/checkout" @click="close" class="w-full bg-[#033958] text-white py-6 rounded-[2rem] font-black text-sm uppercase tracking-widest hover:bg-gray-950 transition-all  /20 flex items-center justify-center gap-4 group">
+            <NuxtLink to="/checkout" @click="close" class="w-full bg-[#033958] text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-gray-950 transition-all shadow-lg shadow-[#033958]/20 flex items-center justify-center gap-4 group">
               Checkout Now
               <Icon name="lucide:arrow-right" size="20" class="group-hover:translate-x-2 transition-transform" />
             </NuxtLink>
-            <button @click="close" class="w-full text-xs font-black text-[#033958]/80 uppercase tracking-widest hover:text-gray-950 transition-colors">Continue Shopping</button>
+            <button @click="close" class="w-full bg-amber-400 text-gray-950 py-4 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-amber-500 transition-all shadow-md shadow-amber-200">Continue Shopping</button>
           </div>
         </div>
       </div>

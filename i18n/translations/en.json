@@ -74,9 +74,9 @@
         "related_snacks": "Related Snacks You'll Love",
         "category": "Category",
         "full_collection": "The Full Collection",
-        "shop_royal_vault": "Shop the Royal Vault",
+        "shop_royal_vault": "Discover Our Collection",
         "explore_collection_desc": "Explore our meticulously curated selection of premium Nigerian snacks.",
-        "refine_manifest": "Refine Manifest",
+        "refine_manifest": "Filter Selection",
         "product_category": "Product Category",
         "sort_archive": "Sort Archive By",
         "search_products": "Search products...",
@@ -87,6 +87,10 @@
         "next": "Next",
         "all_categories": "All Categories",
         "shopping_cart": "Shopping Cart",
+        "cart": {
+            "view": "View Cart",
+            "empty": "Your cart is empty"
+        },
         "cart_empty": "Your cart is empty",
         "continue_shopping": "Continue Shopping",
         "per_unit": "Per unit",

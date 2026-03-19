@@ -21,9 +21,15 @@
         <NuxtLink to="/products" class="text-sm text-[#033958]/80 hover:text-gray-600 mb-2">{{ $t('common.back_to_shop') }}</NuxtLink>
         <h1 class="text-3xl font-bold text-gray-900">{{ product.name }}</h1>
         <div class="flex items-center gap-3 mt-3">
-          <span class="text-2xl font-bold text-gray-900">{{ formatPrice(product.price) }}</span>
+          <div class="flex flex-col">
+            <span class="text-2xl font-black text-[#033958]">{{ formatPrice(product.price) }}</span>
+            <span v-if="product.unitPrice" class="text-xs font-bold text-[#033958]/40 uppercase tracking-widest">{{ formatPrice(product.unitPrice) }} / Unit</span>
+          </div>
           <span v-if="product.compareAtPrice" class="text-lg text-[#033958]/80 line-through">{{ formatPrice(product.compareAtPrice) }}</span>
-          <span v-if="product.compareAtPrice" class="badge bg-red-50 text-red-600 text-xs">{{ $t('common.save') }} {{ savings }}%</span>
+          <div v-if="product.unitDescription || product.varietyType" class="flex gap-2 ml-4">
+            <span v-if="product.unitDescription" class="px-3 py-1 bg-[#033958]/5 text-[#033958] text-[10px] font-black uppercase tracking-widest rounded-full">{{ product.unitDescription }}</span>
+            <span v-if="product.varietyType" class="px-3 py-1 bg-amber-50 text-amber-600 text-[10px] font-black uppercase tracking-widest rounded-full">{{ product.varietyType }}</span>
+          </div>
         </div>
         <p class="text-gray-600 mt-4 leading-relaxed">{{ product.description }}</p>
 
@@ -40,11 +46,11 @@
         <p v-else class="mt-6 text-red-600 font-medium">{{ $t('common.out_of_stock') }}</p>
 
         <div class="mt-8 space-y-3 border-t border-gray-200 pt-6">
-          <div v-if="product.sku" class="flex justify-between text-sm"><span class="text-[#033958]/80">SKU</span><span class="text-gray-700">{{ product.sku }}</span></div>
-          <div class="flex justify-between text-sm"><span class="text-[#033958]/80">{{ $t('common.category') }}</span><span class="text-gray-700">{{ typeof product.category === 'object' ? (product.category as any)?.name : '—' }}</span></div>
-          <div v-if="product.tags?.length" class="flex gap-2 flex-wrap mt-2">
-            <span v-for="tag in product.tags" :key="tag" class="px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-600">{{ tag }}</span>
-          </div>
+          <div v-if="product.unitDescription" class="flex justify-between text-sm"><span class="text-[#033958]/80">Unit Weight</span><span class="text-gray-700 font-bold">{{ product.unitDescription }}</span></div>
+          <div v-if="product.quantityPerPack" class="flex justify-between text-sm"><span class="text-[#033958]/80">Quantity per Pack</span><span class="text-gray-700 font-bold">{{ product.quantityPerPack }}</span></div>
+          <div v-if="product.varietyType" class="flex justify-between text-sm"><span class="text-[#033958]/80">Variety/Type</span><span class="text-gray-700 font-bold">{{ product.varietyType }}</span></div>
+          <div v-if="product.sku" class="flex justify-between text-sm"><span class="text-[#033958]/80">SKU</span><span class="text-gray-700 font-bold">{{ product.sku }}</span></div>
+          <div class="flex justify-between text-sm"><span class="text-[#033958]/80">{{ $t('common.category') }}</span><span class="text-gray-700 font-bold">{{ typeof product.category === 'object' ? (product.category as any)?.name : '—' }}</span></div>
         </div>
       </div>
     </div>

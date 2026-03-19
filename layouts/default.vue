@@ -98,8 +98,24 @@
       <slot />
     </main>
 
+    <!-- Floating View Cart Button -->
+    <transition name="pop">
+      <button 
+        v-if="totalItems > 0 && route.path !== '/checkout' && route.path !== '/cart'"
+        @click="isCartDrawerOpen = true"
+        class="fixed top-32 right-8 z-[200] bg-[#033958] text-white px-6 py-3 rounded-2xl shadow-2xl shadow-[#033958]/40 flex items-center gap-3 hover:scale-105 active:scale-95 transition-all group border border-white/10"
+      >
+        <div class="relative">
+          <Icon name="lucide:shopping-bag" size="20" />
+          <span class="absolute -top-2 -right-2 w-4 h-4 bg-amber-500 text-white text-[9px] rounded-full flex items-center justify-center font-black border border-[#033958]">{{ totalItems }}</span>
+        </div>
+        <span class="text-[10px] font-black uppercase tracking-[0.2em]">{{ $t('common.cart.view') || 'View Cart' }}</span>
+        <Icon name="lucide:arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+      </button>
+    </transition>
+
     <!-- Footer -->
-    <footer v-if="route.path !== '/checkout'" class="bg-white border-t border-gray-100 pt-20 pb-10">
+    <footer v-if="route.path === '/'" class="bg-white border-t border-gray-100 pt-20 pb-10">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
           <div class="lg:col-span-2 space-y-6">
@@ -189,11 +205,11 @@ const isScrolled = ref(false)
 const isCartDrawerOpen = ref(false)
 
 // Watch totalItems to open drawer when adding items
-watch(totalItems, (newVal, oldVal) => {
-  if (newVal > oldVal) {
-    isCartDrawerOpen.value = true
-  }
-})
+// watch(totalItems, (newVal, oldVal) => {
+//   if (newVal > oldVal) {
+//     isCartDrawerOpen.value = true
+//   }
+// })
 
 const solidBackgroundPages = [
   '/contact', 

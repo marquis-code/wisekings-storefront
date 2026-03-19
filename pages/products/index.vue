@@ -15,59 +15,124 @@
              <Icon name="lucide:shopping-bag" size="14" class="text-amber-400" />
              {{ $t('common.full_collection') }}
           </div>
-          <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none mb-4">
-            {{ $t('common.shop_royal_vault').split(' ')[0] }}<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">{{ $t('common.shop_royal_vault').split(' ').slice(1).join(' ') }}</span>
+          <h1 class="text-4xl md:text-6xl font-black text-white tracking-tighter leading-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">
+            {{ $t('common.shop_royal_vault') }}
           </h1>
           <p class="text-lg text-white/60 font-medium">{{ $t('common.explore_collection_desc') }}</p>
         </div>
       </div>
     </section>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="flex flex-col md:flex-row gap-8">
-      <!-- Sidebar filters -->
-      <aside class="w-full md:w-64 flex-shrink-0 space-y-8 order-2 md:order-1">
-        <div class="flex items-center gap-3 mb-6">
-          <div class="w-8 h-8 rounded-lg bg-[#033958]/5 flex items-center justify-center text-[#033958]">
-            <Icon name="lucide:sliders-horizontal" size="18" />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+      <div class="flex flex-col gap-8">
+        <!-- Compact Filter Header -->
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100 pb-8">
+          <div class="flex items-center gap-4">
+            <button 
+              @click="showFilters = !showFilters"
+              class="flex items-center gap-2 px-5 py-2.5 bg-gray-50 hover:bg-gray-100 rounded-xl border border-gray-100 transition-all text-[#033958] font-bold text-sm group"
+            >
+              <Icon :name="showFilters ? 'lucide:x' : 'lucide:sliders-horizontal'" size="18" class="group-hover:rotate-12 transition-transform" />
+              {{ showFilters ? 'Close Filters' : $t('common.refine_manifest') }}
+            </button>
+            <div class="h-6 w-px bg-gray-200 hidden sm:block"></div>
+            <p class="text-sm font-bold text-gray-500 hidden sm:block">{{ total }} {{ $t('common.products_count').replace('{count}', '') || 'Products' }}</p>
           </div>
-          <h2 class="text-xl font-black text-gray-950 tracking-tight">{{ $t('common.refine_manifest') }}</h2>
+
+          <div class="flex items-center gap-3 flex-1 max-w-md">
+            <div class="relative flex-1">
+              <Icon name="lucide:search" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size="18" />
+              <input 
+                v-model="search" 
+                type="text" 
+                :placeholder="$t('common.search_products')" 
+                class="w-full pl-11 pr-4 py-2.5 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-[#033958]/10 outline-none font-medium transition-all" 
+                @input="debouncedFetch" 
+              />
+            </div>
+          </div>
         </div>
 
-        <div class="space-y-6">
-          <CoreSelectInput 
-            v-model="categoryFilter" 
-            :label="$t('common.product_category')"
-            :options="categoryOptions"
-            @update:model-value="page = 1; handleFetch()"
-          />
+        <!-- Toggleable Filter Interface -->
+        <transition 
+          enter-active-class="transition duration-300 ease-out"
+          enter-from-class="transform -translate-y-4 opacity-0"
+          enter-to-class="transform translate-y-0 opacity-100"
+          leave-active-class="transition duration-200 ease-in"
+          leave-from-class="transform translate-y-0 opacity-100"
+          leave-to-class="transform -translate-y-4 opacity-0"
+        >
+          <div v-if="showFilters" class="bg-gray-50/50 rounded-3xl p-8 border border-gray-100 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="space-y-3">
+              <label class="text-xs font-black uppercase tracking-widest text-[#033958]/50 ml-1">{{ $t('common.product_category') }}</label>
+              <CoreSelectInput 
+                v-model="categoryFilter" 
+                :label="''"
+                :options="categoryOptions"
+                @update:model-value="page = 1; handleFetch()"
+              />
+            </div>
 
-          <CoreSelectInput 
-            v-model="sortBy" 
-            :label="$t('common.sort_archive')"
-            :options="sortOptions"
-            @update:model-value="handleFetch()"
-          />
-        </div>
-      </aside>
+            <div class="space-y-3">
+              <label class="text-xs font-black uppercase tracking-widest text-[#033958]/50 ml-1">{{ $t('common.sort_archive') }}</label>
+              <CoreSelectInput 
+                v-model="sortBy" 
+                :label="''"
+                :options="sortOptions"
+                @update:model-value="handleFetch()"
+              />
+            </div>
 
-      <!-- Products grid -->
-      <div class="flex-1 order-1 md:order-2">
-        <div class="flex items-center justify-between mb-6">
-          <input v-model="search" type="text" :placeholder="$t('common.search_products')" class="input max-w-xs" @input="debouncedFetch" />
-        </div>
-        <div v-if="loading" class="text-center py-20 text-[#033958]/80"><Icon name="lucide:loader-2" class="w-8 h-8 animate-spin mx-auto" /></div>
-        <div v-else-if="products.length === 0" class="text-center py-20 text-[#033958]/80">{{ $t('common.no_products') }}</div>
-        <div v-else class="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6">
-          <ProductCard v-for="p in products" :key="p._id" :product="p" />
-        </div>
-        <div v-if="totalPages > 1" class="flex justify-center gap-2 mt-8">
-          <button @click="page--; handleFetch()" :disabled="page <= 1" class="btn-secondary btn-sm">{{ $t('common.prev') }}</button>
-          <span class="px-4 py-2 text-sm text-gray-500">{{ page }} / {{ totalPages }}</span>
-          <button @click="page++; handleFetch()" :disabled="page >= totalPages" class="btn-secondary btn-sm">{{ $t('common.next') }}</button>
+            <div class="flex items-end">
+              <button @click="categoryFilter = ''; sortBy = ''; search = ''; handleFetch()" class="text-xs font-black text-amber-600 uppercase tracking-widest hover:text-amber-700 underline underline-offset-4 ml-1 mb-4">
+                Clear All Filters
+              </button>
+            </div>
+          </div>
+        </transition>
+
+        <!-- Products grid -->
+        <div class="w-full">
+          <div v-if="loading" class="text-center py-32">
+            <div class="w-12 h-12 border-4 border-[#033958]/10 border-t-[#033958] rounded-full animate-spin mx-auto"></div>
+            <p class="mt-4 text-sm font-bold text-[#033958]/60 uppercase tracking-widest">Sourcing Products...</p>
+          </div>
+          <div v-else-if="products.length === 0" class="text-center py-32 bg-gray-50 rounded-[3rem] border border-gray-100">
+            <Icon name="lucide:package-search" size="48" class="text-gray-300 mx-auto mb-4" />
+            <p class="text-lg font-black text-gray-900">{{ $t('common.no_products') }}</p>
+            <p class="text-sm font-medium text-gray-500 mt-2">Try adjusting your filters or search terms.</p>
+          </div>
+          <div v-else class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+            <ProductCard v-for="p in products" :key="p._id" :product="p" />
+          </div>
+
+          <!-- Pagination -->
+          <div v-if="totalPages > 1" class="flex justify-center items-center gap-6 mt-20">
+            <button 
+              @click="page--; handleFetch()" 
+              :disabled="page <= 1" 
+              class="w-12 h-12 rounded-2xl flex items-center justify-center border border-gray-100 hover:bg-gray-50 transition-all disabled:opacity-30"
+            >
+              <Icon name="lucide:chevron-left" />
+            </button>
+            <div class="flex items-center gap-2">
+              <span v-for="n in totalPages" :key="n" 
+                @click="page = n; handleFetch()"
+                :class="['w-10 h-10 rounded-xl flex items-center justify-center text-sm font-black cursor-pointer transition-all', page === n ? 'bg-[#033958] text-white shadow-lg shadow-[#033958]/20' : 'hover:bg-gray-50 text-gray-400']"
+              >
+                {{ n }}
+              </span>
+            </div>
+            <button 
+              @click="page++; handleFetch()" 
+              :disabled="page >= totalPages" 
+              class="w-12 h-12 rounded-2xl flex items-center justify-center border border-gray-100 hover:bg-gray-50 transition-all disabled:opacity-30"
+            >
+              <Icon name="lucide:chevron-right" />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
 </template>
@@ -89,6 +154,7 @@ const page = ref(1)
 const search = ref('')
 const categoryFilter = ref('')
 const sortBy = ref('')
+const showFilters = ref(false)
 
 // Watch for URL category changes (e.g. from Home page clicks)
 watch(() => route.query.category, (newCat) => {
@@ -110,7 +176,7 @@ const categoryOptions = computed(() => {
     label: c.name,
     value: c.slug || c.name.toLowerCase().replace(/ /g, '-')
   }))
-  return [{ label: t('common.all_categories'), value: '' }, ...options]
+  return options
 })
 
 const sortOptions = computed(() => [
@@ -151,9 +217,14 @@ watch([locale, selectedCurrency], () => {
 })
 
 onMounted(async () => {
-  await fetchCategories()
-  categoryFilter.value = route.query.category as string || '';
+  // Initial fetch immediately to ensure products show up
   handleFetch()
+  
+  await fetchCategories()
+  if (route.query.category) {
+    categoryFilter.value = route.query.category as string;
+    handleFetch()
+  }
 })
 </script>
 

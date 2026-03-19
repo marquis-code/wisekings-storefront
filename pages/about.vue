@@ -68,23 +68,23 @@
 
           <!-- Visual Card -->
           <div class="relative">
-            <div class="aspect-[4/5] bg-gradient-to-br from-[#033958] to-[#0a5a8a] rounded-[3rem] overflow-hidden relative  /30">
+            <div class="aspect-[4/5] bg-gradient-to-br from-[#033958] to-[#0a5a8a] rounded-[3rem] overflow-hidden relative shadow-2xl shadow-[#033958]/30">
               <div class="absolute inset-0 opacity-10"
                 style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;">
               </div>
               <div class="absolute bottom-0 left-0 right-0 p-12 text-white">
                 <Icon name="lucide:quote" class="w-16 h-16 text-amber-400 mb-4 opacity-80" />
                 <p class="text-2xl font-black leading-snug text-white/90">
-                  "Every snack we craft is a commitment to quality that Nigeria deserves."
+                  "Our snacks are crafted with a singular mission: to provide the premium quality that Nigerians deserve."
                 </p>
-                <p class="text-white/50 text-sm font-bold mt-4 uppercase tracking-widest">— Wisekings Ventures</p>
+                <p class="text-white/50 text-sm font-bold mt-4 uppercase tracking-widest">— Wisekings Innovations</p>
               </div>
               <!-- Decorative orb -->
               <div class="absolute top-8 right-8 w-40 h-40 bg-amber-400/20 rounded-full blur-[60px]"></div>
             </div>
 
             <!-- Floating stats -->
-            <div class="absolute -right-6 top-12 bg-white rounded-2xl  border border-gray-100 p-5 flex items-center gap-4">
+            <div class="absolute -right-6 top-12 bg-white rounded-2xl shadow-xl border border-gray-100 p-5 flex items-center gap-4">
               <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center">
                 <Icon name="lucide:award" class="w-6 h-6 text-amber-500" />
               </div>
@@ -94,13 +94,13 @@
               </div>
             </div>
 
-            <div class="absolute -left-6 bottom-16 bg-white rounded-2xl  border border-gray-100 p-5 flex items-center gap-4">
+            <div class="absolute -left-6 bottom-16 bg-white rounded-2xl shadow-xl border border-gray-100 p-5 flex items-center gap-4">
               <div class="w-12 h-12 rounded-xl bg-[#033958]/10 flex items-center justify-center">
                 <Icon name="lucide:package-check" class="w-6 h-6 text-[#033958]" />
               </div>
               <div>
-                <p class="text-xl font-black text-gray-900">9+</p>
-                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Product Lines</p>
+                <p class="text-xl font-black text-gray-900">14+</p>
+                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Premium Varieties</p>
               </div>
             </div>
           </div>
@@ -117,7 +117,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div v-for="v in values" :key="v.title"
-            class="bg-white rounded-[2rem] p-10 border border-gray-100  hover: hover:-translate-y-1 transition-all duration-300 text-center group">
+            class="bg-white rounded-[2rem] p-10 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group">
             <div class="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center transition-all duration-300"
               :class="v.bg + ' group-hover:scale-110'">
               <Icon :name="v.icon" class="w-8 h-8" :class="v.color" />
@@ -129,67 +129,40 @@
       </div>
     </section>
 
-    <!-- Founder Section -->
-    <section class="py-24 bg-white">
+    <!-- Product Showcase CTA (Replaces Founder) -->
+    <section class="py-24 bg-white overflow-hidden">
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <!-- Founder Card -->
-          <div class="relative">
-            <div class="bg-gradient-to-br from-gray-900 to-[#033958] rounded-[3rem] p-12 text-white relative overflow-hidden ">
-              <div class="absolute top-0 right-0 w-64 h-64 bg-amber-400/10 rounded-full translate-x-1/3 -translate-y-1/3 blur-[80px]"></div>
-              <div class="relative z-10">
-                <div class="w-20 h-20 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-8">
-                  <Icon name="lucide:user-circle" class="w-10 h-10 text-amber-400" />
+        <div class="bg-[#033958] rounded-[3.5rem] p-12 md:p-20 relative overflow-hidden">
+          <!-- Background Decor -->
+          <div class="absolute top-0 right-0 w-96 h-96 bg-amber-400/10 rounded-full translate-x-1/3 -translate-y-1/3 blur-[100px]"></div>
+          <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/4 translate-y-1/4 blur-[100px]"></div>
+          
+          <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <span class="inline-block text-xs font-black text-amber-400 uppercase tracking-[0.2em] mb-6">Uncompromising Quality</span>
+              <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-8 leading-tight">
+                Crafted for those who<br />value premium taste.
+              </h2>
+              <p class="text-white/70 text-lg font-medium leading-relaxed mb-10 max-w-lg">
+                Our snacks combine food science with authentic Nigerian heritage. We use zero preservatives and high-quality ingredients to ensure that every bite is as healthy as it is delicious.
+              </p>
+              <div class="flex flex-wrap gap-4">
+                <div class="bg-white/10 border border-white/10 rounded-2xl px-6 py-4 backdrop-blur-sm">
+                  <p class="text-2xl font-black text-white">100%</p>
+                  <p class="text-xs text-white/50 uppercase font-bold tracking-wider">Natural Ingredients</p>
                 </div>
-                <h3 class="text-3xl font-black mb-2">Mr. Eustace Ugboh</h3>
-                <p class="text-amber-400 font-bold text-sm uppercase tracking-widest mb-8">Founder, Wisekings Ventures Limited</p>
-                <div class="space-y-4 text-white/70 font-medium leading-relaxed">
-                  <div class="flex items-start gap-3">
-                    <Icon name="lucide:graduation-cap" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-                    <p>Academic background in <strong class="text-white">Food Science</strong> with years of hands-on industry experience.</p>
-                  </div>
-                  <div class="flex items-start gap-3">
-                    <Icon name="lucide:lightbulb" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-                    <p>Deep passion for food excellence and a vision to transform snacking in Nigeria.</p>
-                  </div>
+                <div class="bg-white/10 border border-white/10 rounded-2xl px-6 py-4 backdrop-blur-sm">
+                  <p class="text-2xl font-black text-white">No</p>
+                  <p class="text-xs text-white/50 uppercase font-bold tracking-wider">Added Preservatives</p>
                 </div>
               </div>
             </div>
-          </div>
-
-          <!-- Founder Story -->
-          <div>
-            <span class="inline-block text-xs font-black text-[#033958] uppercase tracking-[0.2em] mb-6 border-b-2 border-amber-400 pb-1">Meet Our Visionary Founder</span>
-            <h2 class="text-4xl font-black text-gray-900 tracking-tight mb-6 leading-tight">
-              A food scientist<br class="hidden sm:block" /> with a dream.
-            </h2>
-            <div class="space-y-5 text-gray-600 leading-relaxed text-lg font-medium">
-              <p>
-                Mr. Eustace Ugboh, the founder of Wisekings Ventures Limited, has a deep passion for food excellence
-                and quality. With an academic background in food science and years of industry experience, he understands
-                the nuances of creating superior snacks.
-              </p>
-              <p>
-                Eustace started Wisekings Ventures with a vision to provide nutritious and delicious snacking options
-                for all. Motivated by the lack of quality snack choices in the Nigerian market, he embarked on a journey
-                to craft a product line that combines <strong class="text-gray-900 font-black">taste with health</strong>.
-              </p>
-            </div>
-
-            <div class="mt-10 flex items-center gap-6">
-              <div class="text-center">
-                <p class="text-3xl font-black text-[#033958]">9+</p>
-                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider mt-1">Products</p>
-              </div>
-              <div class="w-px h-12 bg-gray-100"></div>
-              <div class="text-center">
-                <p class="text-3xl font-black text-[#033958]">100%</p>
-                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider mt-1">NAFDAC</p>
-              </div>
-              <div class="w-px h-12 bg-gray-100"></div>
-              <div class="text-center">
-                <p class="text-3xl font-black text-[#033958]">NG</p>
-                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider mt-1">Made in Nigeria</p>
+            <div class="relative">
+              <div class="aspect-square bg-white/5 border border-white/10 rounded-[3rem] p-8 flex items-center justify-center group overflow-hidden">
+                <Icon name="lucide:sparkles" class="w-32 h-32 text-amber-400/20 group-hover:scale-110 transition-transform duration-700" />
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <p class="text-sm font-black text-white uppercase tracking-[0.3em] rotate-90 opacity-20 whitespace-nowrap">SELECTION • QUALITY • FRESHNESS</p>
+                </div>
               </div>
             </div>
           </div>

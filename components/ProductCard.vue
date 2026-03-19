@@ -23,11 +23,17 @@
 
     <!-- Info Area -->
     <div class="p-3 md:p-8 flex flex-col flex-1">
-      <h3 class="text-sm md:text-sm font-black text-gray-900 line-clamp-1 mb-2 md:mb-4 group-hover:text-[#033958] transition-colors tracking-tight">{{ product.name }}</h3>
+      <h3 class="text-sm md:text-sm font-black text-gray-900 line-clamp-1 mb-1 group-hover:text-[#033958] transition-colors tracking-tight">{{ product.name }}</h3>
+      <div v-if="product.unitDescription || product.varietyType" class="flex flex-wrap gap-2 mb-3 md:mb-4">
+        <span v-if="product.unitDescription" class="text-[10px] font-bold text-[#033958]/60 bg-[#033958]/5 px-2 py-0.5 rounded-md uppercase tracking-widest">{{ product.unitDescription }}</span>
+        <span v-if="product.varietyType" class="text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md uppercase tracking-widest">{{ product.varietyType }}</span>
+        <span v-if="product.quantityPerPack" class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md uppercase tracking-widest">{{ product.quantityPerPack }} Units</span>
+      </div>
       
       <div class="flex items-center justify-between mb-3 md:mb-6">
         <div class="flex flex-col">
           <span class="text-base md:text-xl font-black text-[#033958] tracking-tighter">{{ formatPrice(product.price) }}</span>
+          <span v-if="product.unitPrice" class="text-[10px] font-bold text-[#033958]/40 uppercase tracking-widest">{{ formatPrice(product.unitPrice) }} / Unit</span>
           <span v-if="product.compareAtPrice" class="text-sm md:text-xs text-[#033958]/80 line-through font-bold">{{ formatPrice(product.compareAtPrice) }}</span>
         </div>
         <div class="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-gray-50 flex items-center justify-center text-[#033958]/80 group-hover:bg-[#033958]/5 group-hover:text-[#033958] transition-all shrink-0">

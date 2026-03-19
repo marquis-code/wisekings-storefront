@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1440px] bg-white mx-auto px-4 lg:px-8 py-10 md:py-20 min-h-screen overflow-x-hidden">
+  <div class="w-full bg-white mx-auto px-4 lg:px-8 py-10 md:py-20 min-h-screen overflow-x-hidden">
     <CoreFullscreenLoader 
       :loading="submitting" 
       :title="loaderState.title" 
@@ -26,220 +26,260 @@
         </div>
 
         <form v-else @submit.prevent="handleCheckout" class="space-y-12">
-
-          <!-- Fulfillment Toggle -->
-          <div class="space-y-6">
-            <h2 class="text-sm font-extrabold uppercase tracking-[0.2em] text-[#033958] flex items-center gap-2">
-              <Icon name="lucide:package-check" size="18" />
-              {{ $t('common.fulfillment_method') }}
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <button 
-                type="button" 
-                @click="deliveryMethod = 'lagos_dispatch'"
-                class="relative z-10 p-4 rounded-[28px] border-2 transition-all flex flex-col items-center gap-3 group cursor-pointer"
-                :class="deliveryMethod === 'lagos_dispatch' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
-              >
-                <div class="w-10 h-10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="deliveryMethod === 'lagos_dispatch' ? 'bg-amber-500 text-white  shadow-amber-500/10' : 'bg-white text-[#033958]/80'">
-                  <Icon name="lucide:truck" class="w-5 h-5" />
+          <!-- 1. Contact & Delivery Details (NOW FIRST) -->
+          <div class="space-y-8 bg-gray-50 p-6 md:p-10 rounded-[40px] border border-gray-100 shadow-sm">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-[#033958] flex items-center justify-center text-white shadow-lg shadow-[#033958]/20">
+                  <Icon :name="deliveryMethod === 'pickup' ? 'lucide:user-check' : 'lucide:map-pinned'" size="24" />
                 </div>
-                <div class="text-center">
-                  <p class="text-xs font-black uppercase tracking-widest" :class="deliveryMethod === 'lagos_dispatch' ? 'text-amber-600' : 'text-[#033958]/80'">{{ $t('common.dispatch') }}</p>
-                  <p class="text-sm font-medium text-[#033958]/80 mt-0.5 line-clamp-1">{{ $t('common.within_lagos') }}</p>
-                </div>
-              </button>
-
-              <button 
-                type="button" 
-                @click="deliveryMethod = 'waybill'"
-                class="relative z-10 p-4 rounded-[28px] border-2 transition-all flex flex-col items-center gap-3 group cursor-pointer"
-                :class="deliveryMethod === 'waybill' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
-              >
-                <div class="w-10 h-10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="deliveryMethod === 'waybill' ? 'bg-[#033958] text-white  /10' : 'bg-white text-[#033958]/80'">
-                  <Icon name="lucide:package" class="w-5 h-5" />
-                </div>
-                <div class="text-center">
-                  <p class="text-xs font-black uppercase tracking-widest" :class="deliveryMethod === 'waybill' ? 'text-amber-600' : 'text-[#033958]/80'">{{ $t('common.waybill') }}</p>
-                  <p class="text-sm font-medium text-[#033958]/80 mt-0.5 line-clamp-1">{{ $t('common.outside_lagos') }}</p>
-                </div>
-              </button>
-
-              <button 
-                type="button" 
-                @click="deliveryMethod = 'pickup'"
-                class="relative z-10 p-4 rounded-[28px] border-2 transition-all flex flex-col items-center gap-3 group cursor-pointer"
-                :class="deliveryMethod === 'pickup' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
-              >
-                <div class="w-10 h-10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="deliveryMethod === 'pickup' ? 'bg-[#033958] text-white  /10' : 'bg-white text-[#033958]/80'">
-                  <Icon name="lucide:store" class="w-5 h-5" />
-                </div>
-                <div class="text-center">
-                  <p class="text-xs font-black uppercase tracking-widest" :class="deliveryMethod === 'pickup' ? 'text-[#033958]' : 'text-[#033958]/80'">{{ $t('common.pickup') }}</p>
-                  <p class="text-sm font-medium text-[#033958]/80 mt-0.5 line-clamp-1">{{ $t('common.at_store') }}</p>
-                </div>
-              </button>
-            </div>
-          </div>
-
-          <!-- Contact & Delivery -->
-          <transition name="slide-fade">
-            <div class="space-y-8 bg-gray-50 p-4 md:p-6 rounded-[30px] md:rounded-[40px] border border-gray-100">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-2xl bg-[#033958] flex items-center justify-center text-white  /10">
-                    <Icon :name="deliveryMethod === 'pickup' ? 'lucide:user' : 'lucide:map-pin'" size="20" />
-                  </div>
-                  <h2 class="text-sm font-extrabold uppercase tracking-widest text-[#033958]">
-                    {{ deliveryMethod === 'pickup' ? 'Contact Information' : 'Contact & Delivery Details' }}
+                <div>
+                  <h2 class="text-sm font-black uppercase tracking-[0.2em] text-[#033958]">
+                    {{ deliveryMethod === 'pickup' ? 'Recipient Information' : 'Contact & Delivery Details' }}
                   </h2>
-                </div>
-                <div v-if="!isAuthenticated" class="text-right">
-                  <p class="text-sm font-black text-amber-600 uppercase tracking-widest bg-amber-50 px-3 py-1 rounded-full border border-amber-100/50">Guest Checkout Active</p>
+                  <p class="text-[10px] font-bold text-[#033958]/40 uppercase tracking-widest mt-1">Step 1 of 3: Identity & Logistics</p>
                 </div>
               </div>
+              <div v-if="!isAuthenticated" class="text-right">
+                <p class="text-sm font-black text-amber-600 uppercase tracking-widest bg-amber-50 px-3 py-1 rounded-full border border-amber-100/50">Guest Checkout Active</p>
+              </div>
+            </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Email Identity -->
-                <div v-if="!isAuthenticated" class="md:col-span-2">
-                  <CoreAnimatedInput 
-                    v-model="guestAuth.email" 
-                    type="email" 
-                    label="Account Email" 
-                    autocomplete="email" 
-                    placeholder="Enter your email"
-                  />
-                  <p class="text-sm font-medium text-[#033958]/80 ml-1 uppercase tracking-tight">This email is used to setup an account with WiseKings</p>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Full Name (Compulsory) -->
+              <div class="md:col-span-2">
+                <CoreAnimatedInput 
+                  v-model="address.fullName" 
+                  label="Full Name *" 
+                  placeholder="Enter your full legal name"
+                  required
+                />
+              </div>
 
-                <div class="space-y-2">
-                  <CoreAnimatedInput 
-                    v-model="address.fullName" 
-                    label="Full Name" 
-                    placeholder="Enter recipient name"
-                  />
-                </div>
-                <div class="space-y-2">
-                  <CoreAnimatedInput 
-                    v-model="address.phone" 
-                    type="tel" 
-                    label="Phone Number" 
-                    placeholder="+234 ..."
-                  />
-                </div>
+              <!-- WhatsApp Phone (Compulsory) -->
+              <div class="space-y-2">
+                <label class="text-[10px] font-black uppercase tracking-widest text-amber-600 ml-1">Mandatory for Order Updates</label>
+                <CoreAnimatedInput 
+                  v-model="address.phone" 
+                  type="tel" 
+                  label="WhatsApp Number *" 
+                  placeholder="+234 ..."
+                  required
+                />
+              </div>
 
-                <!-- Physical Address - Conditional for Pickup -->
-                <template v-if="deliveryMethod !== 'pickup'">
-                  <div class="md:col-span-2">
+              <div v-if="deliveryMethod === 'waybill'" class="mt-4 p-4 bg-blue-50/50 rounded-2xl border border-blue-100/50">
+                <div class="flex items-start gap-3 text-[#033958]">
+                  <Icon name="lucide:info" size="18" class="mt-0.5 shrink-0 text-blue-500" />
+                  <div class="space-y-1">
+                    <p class="text-xs font-bold">Waybill: Delivery is within 5 days outside lagos</p>
+                    <p class="text-xs font-bold">International Waybill: 2 to 3 weeks</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Alternative Phone (Optional) -->
+              <div class="space-y-2">
+                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Alternative (Optional)</label>
+                <CoreAnimatedInput 
+                  v-model="address.alternativePhone" 
+                  type="tel" 
+                  label="Backup Phone" 
+                  placeholder="+234 ..."
+                />
+              </div>
+
+              <!-- Email Address (Optional) -->
+              <div class="md:col-span-2">
+                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Email Address (Optional)</label>
+                <CoreAnimatedInput 
+                  v-model="guestAuth.email" 
+                  type="email" 
+                  label="Email Address" 
+                  placeholder="For digital receipts (Optional)"
+                />
+              </div>
+
+              <!-- Physical Address - Only if not Pickup -->
+              <template v-if="deliveryMethod !== 'pickup'">
+                <div class="md:col-span-2 mt-4 pt-4 border-t border-gray-200/60">
+                  <div v-if="!isEditingAddress && address.address" class="p-6 bg-white rounded-3xl border border-gray-100 flex items-start justify-between gap-4">
+                    <div class="flex items-start gap-3">
+                      <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
+                        <Icon name="lucide:map-pin" size="20" />
+                      </div>
+                      <div class="space-y-1">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Delivery Address</p>
+                        <p class="text-sm font-bold text-[#033958] leading-tight">{{ address.address }}</p>
+                        <p class="text-xs text-gray-400 font-medium">{{ address.city }}, {{ address.state }}, {{ address.country }}</p>
+                      </div>
+                    </div>
+                    <button 
+                      type="button"
+                      @click="isEditingAddress = true"
+                      class="px-4 py-2 bg-gray-50 text-[#033958] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-gray-100 transition-all shrink-0"
+                    >
+                      Edit
+                    </button>
+                  </div>
+                  <div v-else class="space-y-6">
+                    <div class="flex items-center justify-between mb-2">
+                       <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Delivery Street Address *</label>
+                       <button v-if="address.address" @click="isEditingAddress = false" type="button" class="text-[10px] font-black text-amber-600 uppercase tracking-widest">Cancel</button>
+                    </div>
                     <CoreAddressAutocomplete 
                       v-model="address.address" 
-                      label="Street Address" 
-                      placeholder="Search for your address..." 
+                      label="Delivery Street Address *" 
+                      placeholder="Search for your exact location..." 
                       @place-changed="(data: any) => {
                         address.address = data.address;
                         address.lat = data.lat;
                         address.lng = data.lng;
                         address.city = data.city;
                         address.state = data.state;
+                        isEditingAddress = false;
                         
                         if (deliveryMethod === 'lagos_dispatch' && data.lat && data.lng) {
                           calculateFee(data.lat, data.lng, 'lagos_dispatch')
                         }
                       }"
                     />
-                  </div>
-                  <div class="space-y-2">
-                    <CoreAnimatedInput 
-                      v-model="address.city" 
-                      label="City" 
-                      placeholder="City"
-                    />
-                  </div>
-                  <div class="space-y-2">
-                    <CoreSelectInput 
-                      v-model="address.country" 
-                      label="Country" 
-                      :options="['Nigeria', 'UK', 'US', 'Canada']"
-                    />
-                  </div>
-
-                  <div v-if="address.country === 'Canada'" class="md:col-span-2 p-6 bg-emerald-50 rounded-[30px] border border-emerald-100 flex items-center justify-between gap-6">
-                    <div class="flex items-center gap-4">
-                      <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-emerald-600 ">
-                        <Icon name="lucide:home" size="24" />
-                      </div>
-                      <div>
-                        <p class="text-xs font-black text-emerald-900 uppercase tracking-widest">Home Delivery?</p>
-                        <p class="text-xs font-medium text-emerald-800/60">Apply $4/kg surcharge for direct delivery to your door.</p>
-                      </div>
+                    <div class="flex items-center gap-2 mt-2">
+                        <button @click="detectLocation" type="button" class="flex items-center gap-2 text-[10px] font-black text-emerald-600 uppercase tracking-widest py-2 px-3 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-all">
+                           <Icon name="lucide:locate-fixed" size="14" />
+                           {{ detectingLocation ? 'Detecting...' : 'Use Current Location' }}
+                        </button>
                     </div>
-                    <button 
-                      type="button"
-                      @click="isHomeDelivery = !isHomeDelivery"
-                      :class="['px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all', isHomeDelivery ? 'bg-emerald-600 text-white  shadow-emerald-600/20' : 'bg-white text-emerald-600 border border-emerald-100']"
-                    >
-                      {{ isHomeDelivery ? 'Enabled' : 'Select' }}
-                    </button>
                   </div>
+                </div>
+                <div class="space-y-2">
+                  <CoreAnimatedInput v-model="address.city" label="City" placeholder="City" />
+                </div>
+                <div class="space-y-2">
+                  <CoreSelectInput 
+                    v-model="address.country" 
+                    label="Country" 
+                    :options="['Nigeria', 'UK', 'US', 'Canada']"
+                  />
+                </div>
 
-                  <div v-if="shippingErrorMessage" class="md:col-span-2 p-6 bg-red-50 rounded-[30px] border border-red-100 flex items-center gap-4">
-                    <Icon name="lucide:alert-circle" class="text-red-500" size="24" />
-                    <p class="text-xs font-bold text-red-900">{{ shippingErrorMessage }}</p>
+                <div v-if="address.country === 'Canada'" class="md:col-span-2 p-6 bg-emerald-50 rounded-[30px] border border-emerald-100 flex items-center justify-between gap-6">
+                  <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-emerald-600 ">
+                      <Icon name="lucide:home" size="24" />
+                    </div>
+                    <div>
+                      <p class="text-xs font-black text-emerald-900 uppercase tracking-widest">Home Delivery?</p>
+                      <p class="text-xs font-medium text-emerald-800/60">Apply $4/kg surcharge for direct delivery to your door.</p>
+                    </div>
                   </div>
-                </template>
-              </div>
+                  <button 
+                    type="button"
+                    @click="isHomeDelivery = !isHomeDelivery"
+                    :class="['px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all', isHomeDelivery ? 'bg-emerald-600 text-white  shadow-emerald-600/20' : 'bg-white text-emerald-600 border border-emerald-100']"
+                  >
+                    {{ isHomeDelivery ? 'Enabled' : 'Select' }}
+                  </button>
+                </div>
+
+                <div v-if="shippingErrorMessage" class="md:col-span-2 p-6 bg-red-50 rounded-[30px] border border-red-100 flex items-center gap-4">
+                  <Icon name="lucide:alert-circle" class="text-red-500" size="24" />
+                  <p class="text-xs font-bold text-red-900">{{ shippingErrorMessage }}</p>
+                </div>
+              </template>
             </div>
-          </transition>
+          </div>
 
-          <!-- Payment Method -->
-          <div class="space-y-6">
-            <h2 class="text-sm font-extrabold uppercase tracking-[0.2em] text-[#033958] flex items-center gap-2">
-              <Icon name="lucide:wallet" size="18" />
-              Payment Method
-            </h2>
+          <!-- 2. Fulfillment Method (NOW SECOND & CONCISE) -->
+          <div class="space-y-6 px-2">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-400/10 flex items-center justify-center text-amber-600">
+                <Icon name="lucide:truck" size="20" />
+              </div>
+              <h2 class="text-xs font-black uppercase tracking-[0.2em] text-[#033958]">
+                {{ $t('common.fulfillment_method') }}
+              </h2>
+            </div>
+            
+            <div class="flex flex-wrap gap-3">
+              <button 
+                v-for="method in [
+                  { id: 'lagos_dispatch', icon: 'lucide:bike', label: $t('common.dispatch'), sub: 'Within Lagos' },
+                  { id: 'waybill', icon: 'lucide:package-2', label: $t('common.waybill'), sub: 'Outside Lagos' },
+                  { id: 'pickup', icon: 'lucide:store', label: $t('common.pickup'), sub: 'At Factory' }
+                ]"
+                :key="method.id"
+                type="button" 
+                @click="deliveryMethod = method.id"
+                :class="[
+                  'flex-1 min-w-[140px] p-4 rounded-2xl border-2 transition-all flex items-center gap-3 group text-left relative overflow-hidden',
+                  deliveryMethod === method.id ? 'border-[#033958] bg-[#033958] text-white' : 'border-gray-100 bg-white hover:border-gray-200 text-gray-500'
+                ]"
+              >
+                <Icon :name="method.icon" size="20" :class="deliveryMethod === method.id ? 'text-amber-400' : 'text-[#033958]/40'" />
+                <div>
+                  <p class="text-[10px] font-black uppercase tracking-widest leading-none mb-1">{{ method.label }}</p>
+                  <p class="text-[9px] font-bold opacity-60 uppercase whitespace-nowrap">{{ method.sub }}</p>
+                </div>
+                <div v-if="deliveryMethod === method.id" class="absolute -right-2 -bottom-2 opacity-10">
+                  <Icon :name="method.icon" size="48" />
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Payment Method (STAYS THIRD) -->
+          <div class="space-y-6 pt-4">
+            <div class="flex items-center gap-3 px-2">
+              <div class="w-10 h-10 rounded-xl bg-emerald-400/10 flex items-center justify-center text-emerald-600">
+                <Icon name="lucide:credit-card" size="20" />
+              </div>
+              <h2 class="text-xs font-black uppercase tracking-[0.2em] text-[#033958]">Payment Method</h2>
+            </div>
+            
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <button 
                 type="button" 
                 @click="paymentMethod = 'direct_transfer'"
-                class="p-6 rounded-[32px] border-2 transition-all flex items-center gap-4 group"
+                class="p-5 rounded-3xl border-2 transition-all flex items-center gap-4 group"
                 :class="paymentMethod === 'direct_transfer' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
               >
-                <div class="w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="paymentMethod === 'direct_transfer' ? 'bg-amber-500 text-white' : 'bg-white text-[#033958]/80'">
-                  <Icon name="lucide:banknote" class="w-6 h-6" />
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="paymentMethod === 'direct_transfer' ? 'bg-amber-500 text-white' : 'bg-white text-[#033958]/80'">
+                  <Icon name="lucide:banknote" size="20" />
                 </div>
                 <div class="text-left">
-                  <p class="text-sm font-black uppercase tracking-widest" :class="paymentMethod === 'direct_transfer' ? 'text-amber-600' : 'text-[#033958]/80'">Bank Transfer (Manual)</p>
-                  <p class="text-sm font-medium text-[#033958]/80 mt-0.5">Priority Delivery</p>
+                  <p class="text-sm font-bold text-[#033958]">Bank transfer</p>
+                  <p class="text-[10px] text-[#033958]/60">Delivery within 24hrs</p>
                 </div>
               </button>
 
               <button 
                 type="button" 
                 @click="paymentMethod = 'card'"
-                class="p-6 rounded-[32px] border-2 transition-all flex items-center gap-4 group"
+                class="p-5 rounded-3xl border-2 transition-all flex items-center gap-4 group"
                 :class="paymentMethod === 'card' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
               >
-                <div class="w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="paymentMethod === 'card' ? 'bg-[#033958] text-white' : 'bg-white text-[#033958]/80'">
-                  <Icon name="lucide:credit-card" class="w-6 h-6" />
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="paymentMethod === 'card' ? 'bg-[#033958] text-white' : 'bg-white text-[#033958]/80'">
+                  <Icon name="lucide:credit-card" size="20" />
                 </div>
                 <div class="text-left">
-                  <p class="text-sm font-black uppercase tracking-widest" :class="paymentMethod === 'card' ? 'text-[#033958]' : 'text-[#033958]/80'">Pay with Card (Option 2)</p>
-                  <p class="text-sm font-medium text-[#033958]/80 mt-0.5">Stripe / Paystack</p>
+                  <p class="text-sm font-bold text-[#033958]">Pay with Paystack</p>
+                  <p class="text-[10px] text-[#033958]/60">Delivery within 72hrs</p>
                 </div>
               </button>
             </div>
 
             <!-- Payment Route Details (Bold and Outside) -->
-            <div v-if="paymentMethod" class="p-6 bg-white rounded-[32px] border-2 border-[#033958]/10  animate-pulse-subtle">
-              <div v-if="paymentMethod === 'direct_transfer'" class="flex items-start gap-4 text-amber-600">
-                <Icon name="lucide:zap" class="mt-1 shrink-0" size="24" />
-                <p class="text-sm font-black uppercase tracking-tight leading-tight">
-                  <span class="text-amber-500">Immediate Processing:</span> Payment with Bank transfer will be processed immediately and delivered within 24hrs.
+            <div v-if="paymentMethod" class="p-4 bg-white rounded-2xl border border-[#033958]/10">
+              <div v-if="paymentMethod === 'direct_transfer'" class="flex items-center gap-3 text-[#033958]">
+                <Icon name="lucide:zap" class="shrink-0 text-amber-500" size="18" />
+                <p class="text-xs font-medium">
+                  Pay with bank transfer: Delivery within 24hrs
                 </p>
               </div>
-              <div v-if="paymentMethod === 'card'" class="flex items-start gap-4 text-[#033958]">
-                <Icon name="lucide:clock" class="mt-1 shrink-0" size="24" />
-                <p class="text-sm font-black uppercase tracking-tight leading-tight">
-                  <span class="text-blue-500">Standard Processing:</span> Payment with card as an option will be processed and delivered within 72hrs.
+              <div v-if="paymentMethod === 'card'" class="flex items-center gap-3 text-[#033958]">
+                <Icon name="lucide:credit-card" class="shrink-0 text-blue-500" size="18" />
+                <p class="text-xs font-medium">
+                  Pay with paystack: Delivery within 72hrs
                 </p>
               </div>
             </div>
@@ -432,11 +472,13 @@ const pickupLocations = ref<any[]>([])
 const bankDetails = ref({ accountName: '', accountNumber: '', bankName: '' })
 const guestAuth = ref({ email: '', password: '' })
 const showPassword = ref(false)
-const address = ref({ fullName: user.value?.fullName || '', phone: user.value?.phone || '', address: '', city: '', state: '', country: 'Nigeria', zipCode: '', lat: 0, lng: 0 })
+const address = ref({ fullName: user.value?.fullName || '', phone: user.value?.phone || '', alternativePhone: '', address: '', city: '', state: '', country: 'Nigeria', zipCode: '', lat: 0, lng: 0 })
 
 const isHomeDelivery = ref(false)
 const shippingErrorMessage = ref('')
 const showCancelButton = ref(false)
+const isEditingAddress = ref(false)
+const detectingLocation = ref(false)
 let submittingTimeout: any = null
 
 const cancelSubmitting = () => {
@@ -543,7 +585,54 @@ onMounted(async () => {
     console.error('Failed to load global settings', e)
     whatsappNumber.value = '2349060012295'
   }
+
+  // Auto-detect location for shipping calculation if not set
+  if (!address.value.address && deliveryMethod.value !== 'pickup') {
+    detectLocation()
+  }
 })
+
+async function detectLocation() {
+  if (!navigator.geolocation) {
+    showToast({ title: 'Geolocation Not Supported', message: 'Your browser does not support geolocation.', toastType: 'error' })
+    return
+  }
+
+  detectingLocation.value = true
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const { latitude, longitude } = position.coords
+      address.value.lat = latitude
+      address.value.lng = longitude
+
+      // Try to reverse geocode or alert the user
+      try {
+        // In a real scenario, use Google Maps Reverse Geocoding API
+        // For now, we'll set a placeholder and ask them to confirm if not found
+        // but we WILL use these coords for accurate shipping fee calculation
+        if (!address.value.address) {
+            address.value.address = 'Detected Location (Coordinates Acquired)'
+        }
+        
+        if (deliveryMethod.value === 'lagos_dispatch') {
+            await calculateFee(latitude, longitude, 'lagos_dispatch')
+        }
+        
+        showToast({ title: 'Location Detected', message: 'Shipping fee calculated based on your current coordinates.', toastType: 'success' })
+      } catch (err) {
+        console.error('Reverse Geocoding failed', err)
+      } finally {
+        detectingLocation.value = false
+      }
+    },
+    (error) => {
+      detectingLocation.value = false
+      console.warn('Geolocation error:', error)
+      showToast({ title: 'Location Access Denied', message: 'Please search for your address manually.', toastType: 'info' })
+    },
+    { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+  )
+}
 
 
 
@@ -736,7 +825,11 @@ async function handleCheckout() {
       pointsToRedeem: pointsToRedeem.value,
       deliveryMethod: deliveryMethod.value,
       deliveryLocation: (deliveryMethod.value === 'delivery' || deliveryMethod.value === 'lagos_dispatch') ? { lat: address.value.lat, lng: address.value.lng } : undefined,
-      shippingAddress: (deliveryMethod.value === 'delivery' || deliveryMethod.value === 'lagos_dispatch') ? address.value : undefined,
+      shippingAddress: {
+        ...address.value,
+        phone: address.value.phone, // WhatsApp (Mandatory)
+        email: guestAuth.value.email || user.value?.email || undefined
+      },
       referralCode: referralCode.value || undefined,
       isHomeDelivery: isHomeDelivery.value,
       paymentProvider: paymentMethod.value === 'direct_transfer' ? 'direct_transfer' : 'card'
