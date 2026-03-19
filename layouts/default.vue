@@ -22,7 +22,7 @@
             :to="link.path"
             :class="[
               route.path === link.path ? 'text-amber-500' : (shouldShowSolidHeader ? 'text-gray-900' : 'text-white'),
-              'text-sm font-black uppercase tracking-[0.2em] transition-all hover:text-amber-500 relative group/link'
+              'text-sm font-black tracking-[0.2em] transition-all hover:text-amber-500 relative group/link'
             ]"
           >
             {{ link.name }}

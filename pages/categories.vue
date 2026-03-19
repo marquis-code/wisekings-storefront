@@ -19,29 +19,29 @@
     </section>
 
     <!-- Categories Grid -->
-    <section class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-16">
-      <div v-if="loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-10 py-16">
+      <div v-if="loading" class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
         <div v-for="i in 6" :key="i" class="animate-pulse">
-          <div class="bg-gray-100 rounded-3xl h-56"></div>
+          <div class="bg-gray-100 rounded-[1.5rem] md:rounded-[2.5rem] h-48 md:h-56"></div>
           <div class="mt-4 h-5 bg-gray-100 rounded w-3/4"></div>
           <div class="mt-2 h-4 bg-gray-50 rounded w-1/2"></div>
         </div>
       </div>
 
-      <div v-else-if="categories.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div v-else-if="categories.length" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-10">
         <NuxtLink 
           v-for="cat in categories" 
           :key="cat._id" 
           :to="`/products?category=${cat._id}`"
           class="group block"
         >
-          <div class="relative rounded-[2.5rem] overflow-hidden h-72 bg-gray-50 border border-gray-100  transition-all duration-700 hover: hover:shadow-gray-200">
+          <div class="relative rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden h-40 md:h-72 bg-white border border-gray-100 transition-all duration-700 hover:shadow-xl hover:shadow-gray-200/50 p-2 md:p-6 flex items-center justify-center">
             <!-- Background Image -->
             <img 
               v-if="cat.image" 
               :src="cat.image" 
               :alt="cat.name"
-              class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+              class="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-110"
             >
             <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
                <Icon name="lucide:shopping-basket" size="48" class="text-gray-200" />
@@ -51,20 +51,20 @@
             <div class="absolute inset-0 bg-gradient-to-t from-[#033958] via-[#033958]/20 to-transparent opacity-0 group-hover:opacity-90 transition-opacity duration-500"></div>
             
             <!-- Floating Indicator -->
-            <div class="absolute top-6 right-6 w-12 h-12 bg-white/10 backdrop-blur-xl rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 border border-white/20">
-              <Icon name="lucide:arrow-up-right" size="20" class="text-white" />
+            <div class="absolute top-4 md:top-6 right-4 md:right-6 w-8 h-8 md:w-12 md:h-12 bg-[#033958]/40 md:bg-white/10 backdrop-blur-xl rounded-xl md:rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 border border-white/20">
+              <Icon name="lucide:arrow-up-right" size="16" class="text-white md:w-5 md:h-5" />
             </div>
 
             <!-- Content Overlay -->
-            <div class="absolute inset-x-0 bottom-0 p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-               <h3 class="text-2xl font-black text-white tracking-tight mb-2 uppercase">{{ cat.name }}</h3>
-               <p class="text-white/60 text-xs font-bold uppercase tracking-widest line-clamp-1">{{ $t('common.explore_collection_btn') }}</p>
+            <div class="absolute inset-x-0 bottom-0 p-4 md:p-8 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 text-center md:text-left">
+               <h3 class="text-sm md:text-2xl font-black text-white tracking-tight mb-1 md:mb-2 uppercase">{{ cat.name }}</h3>
+               <p class="text-white/80 text-[8px] md:text-xs font-bold uppercase tracking-widest line-clamp-1">{{ $t('common.explore_collection_btn') }}</p>
             </div>
           </div>
           
-          <div class="mt-6 px-4 group-hover:translate-x-1 transition-transform duration-500">
-            <h3 class="text-xl font-black text-gray-900 leading-none group-hover:text-[#033958] transition-colors uppercase tracking-tight">{{ cat.name }}</h3>
-            <p class="text-sm text-[#033958]/80 mt-2 font-medium line-clamp-2 leading-relaxed">{{ cat.description || $t('common.default_cat_desc') }}</p>
+          <div class="mt-4 md:mt-6 px-2 md:px-4 group-hover:translate-x-1 transition-transform duration-500 text-center md:text-left">
+            <h3 class="text-sm md:text-xl font-black text-gray-900 leading-none group-hover:text-[#033958] transition-colors uppercase tracking-tight">{{ cat.name }}</h3>
+            <p class="text-[10px] md:text-sm text-[#033958]/80 mt-1.5 md:mt-2 font-medium line-clamp-2 leading-relaxed">{{ cat.description || $t('common.default_cat_desc') }}</p>
           </div>
         </NuxtLink>
       </div>

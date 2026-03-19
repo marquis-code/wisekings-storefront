@@ -22,4 +22,5 @@ import 'node:url';
 import 'file:///Users/mac/Documents/wisekings/storefront/node_modules/pathe/dist/index.mjs';
 import 'file:///Users/mac/Documents/wisekings/storefront/node_modules/@iconify/utils/lib/index.mjs';
 import 'file:///Users/mac/Documents/wisekings/storefront/node_modules/consola/dist/index.mjs';
+import 'node:module';
 //# sourceMappingURL=index.mjs.map

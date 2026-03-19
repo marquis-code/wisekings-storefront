@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-white mx-auto px-4 lg:px-8 py-10 md:py-20 min-h-screen overflow-x-hidden">
+  <div class="w-full max-w-[100vw] bg-white mx-auto px-1 sm:px-4 lg:px-8 py-8 md:py-16 min-h-screen overflow-x-hidden overflow-y-auto box-border">
     <CoreFullscreenLoader 
       :loading="submitting" 
       :title="loaderState.title" 
@@ -25,9 +25,9 @@
           </NuxtLink>
         </div>
 
-        <form v-else @submit.prevent="handleCheckout" class="space-y-12">
-          <!-- 1. Contact & Delivery Details (NOW FIRST) -->
-          <div class="space-y-8 bg-gray-50 p-6 md:p-10 rounded-[40px] border border-gray-100 shadow-sm">
+        <form v-else @submit.prevent="handleCheckout" class="space-y-8 md:space-y-12">
+          <!-- 1. Contact & Delivery Details -->
+          <div class="space-y-6 md:space-y-8 bg-gray-50 p-4 sm:p-6 md:p-10 rounded-3xl md:rounded-[40px] border border-gray-100 shadow-sm w-full box-border">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-3">
                 <div class="w-12 h-12 rounded-2xl bg-[#033958] flex items-center justify-center text-white shadow-lg shadow-[#033958]/20">
@@ -189,8 +189,8 @@
             </div>
           </div>
 
-          <!-- 2. Fulfillment Method (NOW SECOND & CONCISE) -->
-          <div class="space-y-6 px-2">
+          <!-- 2. Fulfillment Method -->
+          <div class="space-y-4 md:space-y-6 px-1 md:px-2">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-amber-400/10 flex items-center justify-center text-amber-600">
                 <Icon name="lucide:truck" size="20" />
@@ -227,9 +227,9 @@
             </div>
           </div>
 
-          <!-- 3. Payment Method (STAYS THIRD) -->
-          <div class="space-y-6 pt-4">
-            <div class="flex items-center gap-3 px-2">
+          <!-- 3. Payment Method -->
+          <div class="space-y-4 md:space-y-6 pt-4 px-1 md:px-2">
+            <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-xl bg-emerald-400/10 flex items-center justify-center text-emerald-600">
                 <Icon name="lucide:credit-card" size="20" />
               </div>
@@ -258,11 +258,13 @@
                 class="p-5 rounded-3xl border-2 transition-all flex items-center gap-4 group"
                 :class="paymentMethod === 'card' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
               >
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="paymentMethod === 'card' ? 'bg-[#033958] text-white' : 'bg-white text-[#033958]/80'">
+                <div class="w-12 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="paymentMethod === 'card' ? 'bg-[#033958] text-white' : 'bg-white text-[#033958]/80'">
                   <Icon name="lucide:credit-card" size="20" />
+                   <!-- <img src="@/assets/images/paystack.png" class="h-10 w-auto" /> -->
                 </div>
                 <div class="text-left">
                   <p class="text-sm font-bold text-[#033958]">Pay with Paystack</p>
+                  <!-- <img src="@/assets/images/paystack.png" class="h-12 w-auto" /> -->
                   <p class="text-[10px] text-[#033958]/60">Delivery within 72hrs</p>
                 </div>
               </button>
@@ -328,8 +330,8 @@
       </div>
 
       <!-- Manifest Summary -->
-      <aside class="w-full lg:w-[500px] shrink-0 lg:sticky lg:top-32 h-fit">
-        <div class="bg-amber-400 rounded-[30px] md:rounded-[40px] p-6 lg:p-8  shadow-amber-200/20 overflow-hidden group">
+      <aside class="w-full lg:w-[450px] xl:w-[500px] shrink-0 lg:sticky lg:top-32 h-fit mb-20 lg:mb-0">
+        <div class="bg-amber-400 rounded-3xl md:rounded-[40px] p-5 sm:p-6 lg:p-8 shadow-amber-200/20 overflow-hidden group w-full box-border relative">
           <!-- Subtle Decorative Pattern -->
           <div class="absolute -right-10 -top-10 p-10 opacity-10 group-hover:scale-110 transition-transform duration-1000 text-[#033958]">
             <Icon name="lucide:receipt" size="240" />

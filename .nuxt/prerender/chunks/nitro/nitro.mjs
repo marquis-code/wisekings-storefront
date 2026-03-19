@@ -21,6 +21,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve, basename } from 'file:///Users/mac/Documents/wisekings/storefront/node_modules/pathe/dist/index.mjs';
 import { getIcons } from 'file:///Users/mac/Documents/wisekings/storefront/node_modules/@iconify/utils/lib/index.mjs';
 import { consola } from 'file:///Users/mac/Documents/wisekings/storefront/node_modules/consola/dist/index.mjs';
+import { createRequire } from 'node:module';
 
 const serverAssets = [{"baseName":"server","dir":"/Users/mac/Documents/wisekings/storefront/server/assets"}];
 
@@ -845,7 +846,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "1780f313-478f-4099-ac2d-f315a8c05f12",
+    "buildId": "a9f3dab6-66fe-4dd2-883b-cf6e56120424",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -1422,9 +1423,9 @@ var common$2 = {
 	related_snacks: "Related Snacks You'll Love",
 	category: "Category",
 	full_collection: "The Full Collection",
-	shop_royal_vault: "Shop the Royal Vault",
+	shop_royal_vault: "Discover Our Collection",
 	explore_collection_desc: "Explore our meticulously curated selection of premium Nigerian snacks.",
-	refine_manifest: "Refine Manifest",
+	refine_manifest: "Filter Selection",
 	product_category: "Product Category",
 	sort_archive: "Sort Archive By",
 	search_products: "Search products...",
@@ -1435,6 +1436,10 @@ var common$2 = {
 	next: "Next",
 	all_categories: "All Categories",
 	shopping_cart: "Shopping Cart",
+	cart: {
+		view: "View Cart",
+		empty: "Your cart is empty"
+	},
 	cart_empty: "Your cart is empty",
 	continue_shopping: "Continue Shopping",
 	per_unit: "Per unit",
@@ -1607,6 +1612,10 @@ var common$1 = {
 	next: "Suivant",
 	all_categories: "Toutes les catégories",
 	shopping_cart: "Panier d'achat",
+	cart: {
+		view: "Voir le panier",
+		empty: "Votre panier est vide"
+	},
 	cart_empty: "Votre panier est vide",
 	continue_shopping: "Continuer les achats",
 	per_unit: "Par unité",
@@ -2342,7 +2351,7 @@ const _mHd4hMNgU8RTbMvuEo_Fbn8_O5jnH9iV40lo5T7T5kY = defineNitroPlugin(async (ni
     const localeSegment = detector.route(event.path);
     const pathLocale = isSupportedLocale(localeSegment) && localeSegment || void 0;
     const path = (pathLocale && url.pathname.slice(pathLocale.length + 1)) ?? url.pathname;
-    if (!url.pathname.includes("/_i18n/uH-SFb72") && !isExistingNuxtRoute(path)) {
+    if (!url.pathname.includes("/_i18n/3KzHe4Bb") && !isExistingNuxtRoute(path)) {
       return;
     }
     const resolved = resolveRedirectPath(event, path, pathLocale, ctx.vueI18nOptions.defaultLocale, detector);
@@ -2456,6 +2465,8 @@ const _vdCHG0 = eventHandler((event) => {
 });
 
 const _SxA8c9 = defineEventHandler(() => {});
+
+createRequire(globalThis._importMeta_.url);
 
 const collections = {
 };

@@ -22,13 +22,22 @@
         <h1 class="text-3xl font-bold text-gray-900">{{ product.name }}</h1>
         <div class="flex items-center gap-3 mt-3">
           <div class="flex flex-col">
-            <span class="text-2xl font-black text-[#033958]">{{ formatPrice(product.price) }}</span>
-            <span v-if="product.unitPrice" class="text-xs font-bold text-[#033958]/40 uppercase tracking-widest">{{ formatPrice(product.unitPrice) }} / Unit</span>
+            <span class="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Carton Price</span>
+            <span class="text-3xl font-black text-[#033958] leading-none">{{ formatPrice(product.price) }}</span>
+            <div v-if="product.unitPrice" class="mt-2 flex items-center gap-1.5">
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Unit Price:</span>
+              <span class="text-sm font-black text-gray-600 tracking-tight">{{ formatPrice(product.unitPrice) }}</span>
+            </div>
           </div>
-          <span v-if="product.compareAtPrice" class="text-lg text-[#033958]/80 line-through">{{ formatPrice(product.compareAtPrice) }}</span>
-          <div v-if="product.unitDescription || product.varietyType" class="flex gap-2 ml-4">
-            <span v-if="product.unitDescription" class="px-3 py-1 bg-[#033958]/5 text-[#033958] text-[10px] font-black uppercase tracking-widest rounded-full">{{ product.unitDescription }}</span>
-            <span v-if="product.varietyType" class="px-3 py-1 bg-amber-50 text-amber-600 text-[10px] font-black uppercase tracking-widest rounded-full">{{ product.varietyType }}</span>
+          <div v-if="product.unitDescription || product.varietyType" class="flex flex-col gap-2 ml-6">
+            <span v-if="product.varietyType" class="px-3 py-1 bg-amber-50 text-amber-600 text-[10px] font-black uppercase tracking-widest rounded-lg border border-amber-100 flex items-center gap-1.5">
+              <Icon name="lucide:layers" size="12" />
+              {{ product.varietyType }}
+            </span>
+            <span v-if="product.unitDescription" class="px-3 py-1 bg-[#033958]/5 text-[#033958] text-[10px] font-black uppercase tracking-widest rounded-lg flex items-center gap-1.5">
+              <Icon name="lucide:scale" size="12" />
+              {{ product.unitDescription }}
+            </span>
           </div>
         </div>
         <p class="text-gray-600 mt-4 leading-relaxed">{{ product.description }}</p>

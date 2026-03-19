@@ -3,39 +3,68 @@
     <!-- Hero Banner Carousel -->
     <!-- Hero Section (SumipSplash Style) -->
     <section class="relative bg-white pt-32 pb-20 overflow-hidden">
-      <div class="max-w-[1920px] mx-auto px-4 lg:px-8 text-center relative z-10">
+      <div class="max-w-7xl mx-auto px-4 lg:px-8 text-center relative z-10">
         <!-- Top Pill Badge -->
-        <div class="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest text-gray-500 mb-12  animate-fade-in">
+        <!-- <div class="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest text-gray-500 mb-12  animate-fade-in text-center mx-auto">
           <span>🍿</span>
           <span class="w-px h-3 bg-gray-200 mx-1"></span>
           <span>👑 WiseKings Snacking</span>
           <Icon name="lucide:arrow-right" size="12" class="text-[#033958]/60" />
           <span>🔍</span>
-        </div>
+        </div> -->
 
-        <!-- Typography Carousel -->
-        <div class="max-w-[1440px] mx-auto mb-12 h-[220px] md:h-[280px] flex items-center justify-center">
-          <transition name="slide-fade" mode="out-in">
-            <div :key="currentSlide" class="space-y-6">
-              <h1 :style="{ color: slides[currentSlide].color }" class="text-5xl md:text-8xl lg:text-[100px] font-black tracking-tighter leading-[0.9] drop- transition-colors duration-1000">
-                {{ slides[currentSlide].title }}
-              </h1>
-              <p class="text-lg md:text-2xl text-gray-500 max-w-2xl mx-auto font-medium leading-relaxed">
-                {{ slides[currentSlide].subtitle }}
-              </p>
+          <!-- Main Typography Stack -->
+          <div class="relative z-10 w-full text-center flex flex-col items-center pt-8 md:pt-2 pb-8">
+            <!-- Business Name (Massive Focal Point) -->
+            <h1 class="text-6xl md:text-9xl lg:text-[160px] font-black tracking-tighter leading-[0.85] uppercase mb-4 animate-fade-in-up text-transparent bg-clip-text bg-gradient-to-br from-[#033958] via-gray-800 to-amber-500 pr-5 drop-shadow-xl filter">
+              Wisekings
+            </h1>
+
+            <!-- Slogan -->
+            <p class="text-lg md:text-2xl font-black text-amber-500 uppercase tracking-[0.3em] flex items-center justify-center gap-3 mb-8 animate-fade-in-up delay-[50ms]">
+                <Icon name="lucide:award" class="text-amber-400" size="24" />
+                Best in Value
+            </p>
+
+            <!-- Dynamic Product Selection (Prominent but smaller than brand) -->
+            <div class="h-[60px] md:h-[100px] flex items-center justify-center animate-fade-in-up delay-100">
+              <transition name="slide-up" mode="out-in">
+                <span :key="currentSlide" 
+                  class="text-4xl md:text-6xl lg:text-8xl font-black tracking-tight uppercase"
+                  :style="{ color: slides[currentSlide].color }"
+                >
+                  {{ slides[currentSlide].title }}
+                </span>
+              </transition>
             </div>
-          </transition>
+
+            <transition name="fade" mode="out-in">
+              <p :key="currentSlide" class="text-base md:text-xl text-gray-500 max-w-2xl mx-auto font-medium mt-8 leading-relaxed px-4">
+                {{ slides[currentSlide].subtitle.replace('Best in Value • ', '') }}
+              </p>
+            </transition>
+          </div>
+
+          <!-- Subtle Scroll/Slide Indicator -->
+          <div class="absolute bottom-4 flex gap-2">
+            <div 
+              v-for="(_, i) in slides" :key="i"
+              class="h-1 rounded-full transition-all duration-500"
+              :class="currentSlide === i ? 'w-8' : 'w-2 bg-gray-200'"
+              :style="{ backgroundColor: currentSlide === i ? slides[currentSlide].color : '' }"
+            ></div>
+          </div>
         </div>
 
-        <!-- CTA Button -->
-        <div class="flex flex-col items-center gap-4 mb-20">
-          <NuxtLink :to="slides[currentSlide].cta.link" class="bg-gray-950 text-white px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:bg-[#033958] hover:scale-105 transition-all  flex items-center gap-3 group/btn relative overflow-hidden">
-            <span class="relative z-10">Order now</span>
-            <Icon name="lucide:arrow-right" size="18" class="relative z-10 group-hover/btn:translate-x-1 transition-transform" />
+        <!-- CTA Buttons -->
+        <div class="flex flex-col items-center gap-6 mb-16 relative z-20">
+          <NuxtLink :to="slides[currentSlide].cta.link" 
+            class="text-white px-10 py-4 md:px-12 md:py-5 rounded-2xl font-black text-xs md:text-sm uppercase tracking-widest hover:scale-105 transition-all flex items-center gap-4 group/btn shadow-2xl shadow-gray-900/20"
+            :style="{ backgroundColor: slides[currentSlide].color || '#000' }"
+          >
+            <span>Order now</span>
+            <Icon name="lucide:arrow-right" size="18" class="group-hover:translate-x-2 transition-transform" />
           </NuxtLink>
-          <p class="text-xs font-bold text-[#033958]/80 uppercase tracking-widest flex items-center gap-2">
-            <span>✨</span> Freshly handcrafted for your royalty.
-          </p>
         </div>
 
         <!-- High-Speed Infinite Marquee (Desktop) -->
@@ -57,8 +86,6 @@
             <img :src="img" class="max-w-full max-h-full object-contain" alt="Snack Variety">
           </div>
         </div>
-      </div>
-
       <!-- Background Accents -->
       <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
         <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-50 rounded-full blur-[120px] opacity-60"></div>
@@ -67,7 +94,7 @@
     </section>
 
     <!-- Categories Section (Compact & Horizontal) -->
-    <section class="max-w-[1920px] mx-auto px-4 lg:px-8 py-12">
+    <section class="max-w-7xl mx-auto px-4 lg:px-8 py-12">
       <div class="flex items-center justify-between mb-8">
         <h2 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tighter">{{ $t('shop_by_category') }}</h2>
         <NuxtLink to="/categories" class="group flex items-center gap-2 text-amber-600 font-black text-xs uppercase tracking-widest hover:text-gray-900 transition-all">
@@ -108,87 +135,38 @@
     </section>
 
     <!-- Featured Products -->
-    <section class="max-w-[1920px] mx-auto px-4 lg:px-8 py-16">
+    <section class="max-w-7xl mx-auto px-4 lg:px-8 py-16">
       <div class="flex items-center justify-between mb-8">
         <h2 class="text-2xl font-extrabold text-gray-900">{{ $t('featured_snacks') }}</h2>
         <NuxtLink to="/products" class="text-sm font-bold text-[#033958] hover:underline flex items-center gap-1">
           {{ $t('view_all') }} <Icon name="lucide:arrow-right" size="14" />
         </NuxtLink>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6">
-          <ProductCard v-for="p in products" :key="p._id" :product="p" />
+      <!-- <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8"> -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
+          <ProductCard v-for="p in randomizedProducts" :key="p._id" :product="p" />
       </div>
-      <div v-if="products.length === 0" class="text-center py-12 text-[#033958]/80">{{ $t('loading_products') }}</div>
-    </section>
-
-    <!-- Promotions & Special Sections (Overhauled) -->
-    <section v-if="promotions.length" class="relative py-32 overflow-hidden bg-gray-950">
-      <!-- Decorative Backdrop -->
-      <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,#033958_0%,transparent_40%)] opacity-30"></div>
-      <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,#f59e0b_0%,transparent_30%)] opacity-10"></div>
-      
-      <div class="max-w-[1920px] mx-auto px-4 lg:px-8 relative z-10">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8 text-center md:text-left">
-          <div class="space-y-4">
-            <div class="inline-flex items-center gap-2 bg-amber-400/10 text-amber-400 px-5 py-2 rounded-full text-xs font-black uppercase tracking-[0.3em] border border-amber-400/20">
-              <Icon name="lucide:zap" size="14" class="animate-pulse" /> Flash Offers
-            </div>
-            <h2 class="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">
-              Hot <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Deals</span>
-            </h2>
-            <p class="text-white/40 max-w-xl font-medium text-lg italic">Unmissable limited-time offers curated for premium snack explorers.</p>
-          </div>
-          <NuxtLink to="/offers" class="bg-gray-800/50 backdrop-blur-3xl text-white px-8 py-4 rounded-[2rem] font-black text-xs uppercase tracking-widest border border-white/10 hover:bg-white/10 transition-all flex items-center justify-center gap-3 active:scale-95">
-            Explores All Deals <Icon name="lucide:arrow-right" size="16" />
-          </NuxtLink>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div v-for="p in promotions" :key="p._id" class="group relative bg-white/5 backdrop-blur-3xl rounded-[3rem] p-10 border border-white/5 hover:bg-white/10 transition-all duration-700 hover:-translate-y-4  flex flex-col justify-between min-h-[400px]">
-            <div>
-                <div class="flex items-center justify-between mb-8">
-                <span v-if="p.badgeText" :class="['px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest ', p.badgeColor || 'bg-amber-400 text-gray-900']">{{ p.badgeText }}</span>
-                <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:bg-amber-400 group-hover:text-gray-900 transition-colors">
-                    <Icon name="lucide:gift" size="20" />
-                </div>
-                </div>
-                
-                <h3 class="text-4xl font-black text-white mb-6 leading-tight group-hover:text-amber-400 transition-colors tracking-tighter">{{ p.title }}</h3>
-                <div v-if="p.description" class="max-h-[120px] overflow-y-auto mobile-scroll pr-2">
-                    <p class="text-white/40 text-sm mb-8 leading-relaxed font-medium" v-html="p.description"></p>
-                </div>
-            </div>
-            
-            <div class="flex items-center justify-between mt-auto">
-              <div v-if="p.discountPercentage" class="text-5xl font-black text-white tracking-tighter">
-                {{ p.discountPercentage }}<span class="text-amber-400 text-2xl">%</span> <span class="text-white/20 text-xs font-black uppercase tracking-widest ml-1">Off</span>
-              </div>
-              <Icon name="lucide:arrow-right-circle" size="40" class="text-white/10 group-hover:text-amber-400 transition-all group-hover:translate-x-1" />
-            </div>
-
-            <!-- Decorative corner accent -->
-            <div class="absolute inset-0 bg-gradient-to-br from-transparent to-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-[3rem]"></div>
-          </div>
-        </div>
-      </div>
+      <div v-if="randomizedProducts.length === 0" class="text-center py-12 text-[#033958]/80">{{ $t('loading_products') }}</div>
     </section>
 
     <!-- Gifting Section -->
-    <section class="py-16 bg-white overflow-hidden">
-      <div class="max-w-[1920px] mx-auto px-4 lg:px-8">
-        <div class="relative rounded-[4rem] overflow-hidden  group/gifting">
-          <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=2000&auto=format&fit=crop" alt="Gifting" class="absolute inset-0 w-full h-full object-cover group-hover/gifting:scale-105 transition-transform duration-1000">
-          <div class="absolute inset-0 bg-gradient-to-r from-gray-950/90 via-gray-950/40 to-transparent"></div>
-          <div class="relative z-10 p-12 md:p-20 text-white max-w-2xl">
-            <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-xl px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-[0.2em] mb-8 border border-white/20">
-              <Icon name="lucide:gift" size="18" class="text-amber-400" /> Gift Collection
+    <section class="py-8 md:py-16 bg-white overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 lg:px-8">
+        <div class="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden group/gifting">
+          <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=2000&auto=format&fit=crop" alt="Gifting" class="absolute inset-0 w-full h-full object-cover group-hover/gifting:scale-105 transition-transform duration-1000 bg-center">
+          <div class="absolute inset-0 bg-gradient-to-r from-gray-950/90 via-gray-950/60 to-transparent"></div>
+          <div class="relative z-10 p-8 md:p-14 text-white max-w-3xl flex flex-col md:flex-row md:items-center justify-between gap-8 text-left">
+            <div>
+              <div class="inline-flex items-center gap-3 bg-white/10 backdrop-blur-xl px-4 py-2 rounded-full text-xs font-black uppercase tracking-[0.2em] mb-4 border border-white/20">
+                <Icon name="lucide:gift" size="16" class="text-amber-400" /> Gift Collection
+              </div>
+              <h2 class="text-3xl md:text-5xl font-black mb-3 leading-[1] tracking-tighter">Curate a Special Occasion</h2>
+              <p class="text-white/80 text-base mb-6 max-w-md font-medium leading-relaxed">Select your favorite plantain chips, pack them beautifully, and we'll deliver them anywhere in the world.</p>
+              <NuxtLink to="/gifting" class="inline-flex items-center gap-4 bg-amber-500 text-gray-950 px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest hover:bg-white transition-all group">
+                Start Curating
+                <Icon name="lucide:arrow-right" size="18" class="group-hover:translate-x-1 transition-transform" />
+              </NuxtLink>
             </div>
-            <h2 class="text-4xl md:text-7xl font-black mb-6 leading-[0.9] tracking-tighter">Pure Joy<br/>Hand-Wrapped</h2>
-            <p class="text-white/60 text-lg md:text-xl mb-10 max-w-md font-medium leading-relaxed">Curated gift boxes for every heartbeat. From anniversaries to grand celebrations.</p>
-            <NuxtLink to="/products" class="inline-flex items-center gap-4 bg-white text-gray-950 px-10 py-5 rounded-3xl font-black text-sm uppercase tracking-widest hover:bg-amber-400 transition-all  group">
-              Shop Gifts
-              <Icon name="lucide:arrow-right" size="20" class="group-hover:translate-x-1 transition-transform" />
-            </NuxtLink>
           </div>
         </div>
       </div>
@@ -196,7 +174,7 @@
 
     <!-- Holiday Banner -->
     <section class="py-16 bg-gray-50">
-      <div class="max-w-[1920px] mx-auto px-4 lg:px-8">
+      <div class="max-w-7xl mx-auto px-4 lg:px-8">
         <div class="relative rounded-3xl overflow-hidden ">
           <img src="@/assets/images/holiday.jpg" alt="Holiday" class="absolute inset-0 w-full h-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-r from-emerald-900/90 to-teal-900/80"></div>
@@ -217,46 +195,39 @@
       </div>
     </section>
 
-    <!-- Premium Brand Showcase Section (Full Width) -->
-    <section class="py-32 bg-gray-900 overflow-hidden relative">
-      <!-- Decorative Accents -->
-      <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500/20 blur-[100px] rounded-full"></div>
-        <div class="absolute top-1/2 -right-24 w-64 h-64 bg-[#FFC20E]/10 blur-[80px] rounded-full"></div>
-      </div>
+    <!-- Brand Continuity Carousel Section -->
+    <section class="py-12 md:py-16 bg-gray-950 overflow-hidden relative">
+      <div class="absolute inset-0 bg-[#033958]/20 mix-blend-overlay"></div>
+      <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20 mix-blend-color-burn"></div>
 
-      <div class="max-w-[1920px] mx-auto">
-        <div class="flex flex-col lg:flex-row gap-16 items-center">
+      <div class="w-full px-4 lg:px-8">
+        <div class="flex flex-col lg:flex-row gap-8 md:gap-12 items-center">
           <!-- Text Content -->
-          <div class="px-6 lg:pl-20 lg:w-1/3 xl:w-1/4 space-y-8 text-left relative z-10">
+          <div class="lg:w-1/3 xl:w-1/4 space-y-6 text-left relative z-10">
             <div class="inline-flex items-center gap-2 text-[#FFC20E] font-bold uppercase tracking-widest text-sm border-b-2 border-[#FFC20E] pb-1">
               <Icon name="lucide:users" size="18" />
               Our Partners
             </div>
-            <h2 class="text-5xl md:text-6xl font-black text-white tracking-tighter leading-none">
+            <h2 class="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none">
               Meet the Company <br/> 
               <span class="text-[#FFC20E]">Behind the Brands</span>
             </h2>
-            <p class="text-lg text-white/90 font-medium leading-relaxed not-italic">
+            <p class="text-base text-white/90 font-medium leading-relaxed not-italic">
               We partner with West Africa's most prestigious retail chains to bring royalty-grade artisanal snacks directly to your favorite stores.
             </p>
-            <!-- <NuxtLink to="/brands" class="inline-flex items-center gap-3 bg-[#FFC20E] text-gray-950 px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest hover:scale-105 transition-all  /20 group">
-              See All Brands
-              <Icon name="lucide:arrow-right" size="16" class="group-hover:translate-x-1 transition-transform" />
-            </NuxtLink> -->
           </div>
 
           <!-- End-to-End Carousel -->
-          <div class="lg:w-2/3 xl:w-3/4 relative overflow-hidden h-[500px] flex items-center">
-             <div class="flex animate-marquee-brand gap-8 group py-10">
+          <div class="lg:w-2/3 xl:w-3/4 relative overflow-hidden h-[360px] flex items-center">
+             <div class="flex animate-marquee-brand gap-6 group py-4">
                <div v-for="(brand, i) in brandShowcaseContinuity" :key="i" 
-                 class="flex-shrink-0 w-80 bg-white/5 backdrop-blur-md rounded-[2rem] p-5 border border-white/10 hover:border-[#FFC20E]/50 transition-all duration-700 hover:-translate-y-4 group/card"
+                 class="flex-shrink-0 w-72 bg-white/5 backdrop-blur-md rounded-[2rem] p-5 border border-white/10 hover:border-[#FFC20E]/50 transition-all duration-700 hover:-translate-y-2 group/card"
                >
-                 <div class="h-40 w-full bg-white rounded-2xl overflow-hidden mb-5 p-4 flex items-center justify-center transition-all group-hover/card:bg-[#FFC20E]">
+                 <div class="h-32 w-full bg-white rounded-2xl overflow-hidden mb-4 p-4 flex items-center justify-center transition-all group-hover/card:bg-[#FFC20E]">
                     <img :src="brand.logo" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover/card:scale-110" :alt="brand.name">
                  </div>
-                 <h3 class="text-xl font-black text-white mb-2 tracking-tighter">{{ brand.name }}</h3>
-                 <p class="text-sm text-white/90 leading-relaxed line-clamp-4 font-medium">
+                 <h3 class="text-lg font-black text-white mb-2 tracking-tighter">{{ brand.name }}</h3>
+                 <p class="text-xs text-white/80 leading-relaxed line-clamp-3 font-medium">
                    {{ brand.miniBio }}
                  </p>
                </div>
@@ -267,7 +238,7 @@
     </section>
 
     <!-- Dynamic Banners (from API) - Asymmetrical Layout -->
-    <section v-if="banners.length" class="max-w-[1920px] mx-auto px-4 lg:px-8  relative z-20 pb-16">
+    <section v-if="banners.length" class="max-w-7xl mx-auto px-4 lg:px-8  relative z-20 pb-16">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
         <!-- Main Large Banner -->
         <div v-if="banners[0]" class="md:col-span-8 group relative overflow-hidden rounded-[2.5rem]  transition-all duration-700 hover:-translate-y-2 h-[400px] md:h-[500px]">
@@ -314,7 +285,7 @@
 
     <!-- Marketing Videos Section -->
     <section class="py-28 bg-gradient-to-b from-white to-[#FFF5F7] overflow-hidden">
-      <div class="max-w-[1920px] mx-auto px-4 lg:px-8">
+      <div class="max-w-7xl mx-auto px-4 lg:px-8">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div class="space-y-4">
             <div class="inline-flex items-center gap-2 bg-pink-100/80 text-pink-600 px-5 py-2 rounded-full text-xs font-black uppercase tracking-[0.2em] backdrop-blur-sm">
@@ -392,7 +363,7 @@
 
     <!-- Bottom Animated Carousel -->
     <section class="py-24 bg-white overflow-hidden">
-      <div class="max-w-[1920px] mx-auto px-6 mb-12 flex items-center justify-between">
+      <div class="max-w-7xl mx-auto px-6 mb-12 flex items-center justify-between">
         <h2 class="text-3xl md:text-5xl font-black text-gray-950 tracking-tighter">Our Artisan Collection</h2>
         <div class="h-px flex-1 bg-gray-100 mx-12 hidden md:block"></div>
         <NuxtLink to="/products" class="text-sm font-black uppercase tracking-widest text-amber-500 hover:text-gray-950 transition-colors">Explore All</NuxtLink>
@@ -414,9 +385,9 @@
 
     <!-- CTA -->
     <section class="bg-gray-900 text-white py-20">
-      <div class="max-w-[1920px] mx-auto px-4 lg:px-8 text-center">
+      <div class="max-w-7xl mx-auto px-4 lg:px-8 text-center">
         <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Join the WiseKings Community</h2>
-        <p class="text-[#033958]/80 mb-10 max-w-md mx-auto text-lg">Earn commissions, sell products, or become a partner. Your journey starts here.</p>
+        <p class="text-white mb-10 max-w-md mx-auto text-lg">Earn commissions, sell products, or become a partner. Your journey starts here.</p>
         <div class="flex justify-center gap-4 flex-col sm:flex-row">
           <NuxtLink to="/register" class="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-2xl font-bold text-lg  transition-all">{{ $t('auth.create_account') }}</NuxtLink>
           <a href="https://merchants.wisekings.ng/" target="_blank" class="bg-emerald-600 text-white hover:bg-emerald-700 px-8 py-4 rounded-2xl font-bold text-lg  transition-all flex items-center gap-2 justify-center">
@@ -461,6 +432,21 @@ import video6 from "@/assets/videos/wisekings2.mp4"
 
 const { products, fetchProducts } = useFetchProducts()
 const { categories, fetchCategories } = useFetchCategories()
+
+const randomizedProducts = ref<Product[]>([])
+let shuffleInterval: ReturnType<typeof setInterval> | null = null
+
+const updateRandomProducts = () => {
+  if (!products.value || products.value.length === 0) return
+  const shuffled = [...products.value].sort(() => 0.5 - Math.random())
+  randomizedProducts.value = shuffled.slice(0, 8)
+}
+
+watch(products, (newProducts) => {
+  if (newProducts && newProducts.length > 0) {
+    updateRandomProducts()
+  }
+}, { deep: true })
 const { locale } = useI18n()
 const { selectedCurrency, formatPrice } = useCurrency()
 
@@ -485,29 +471,29 @@ const slides = [
   {
     badge: 'WiseKings Snacking',
     icon: 'lucide:crown',
-    image: plantainHero,
-    title: 'Wisekings Plantain Chips.',
-    subtitle: 'Taste crunchy delight for everyone',
+    image: popcornHero,
+    title: 'Popcorn',
+    subtitle: 'Best in Value • Light, airy, and perfectly seasoned.',
     cta: { text: 'Order now', link: '/products' },
-    color: '#10B981' // Green
+    color: '#005bb5' // Popcorn Blue
   },
   {
     badge: 'WiseKings Snacking',
     icon: 'lucide:sparkles',
     image: potatoHero,
-    title: 'Wisekings Potato Chips.',
-    subtitle: 'Taste crunchy delight for everyone',
+    title: 'Potato Chips',
+    subtitle: 'Best in Value • Crispy, golden, and satisfying.',
     cta: { text: 'Order now', link: '/products' },
-    color: '#FFC20E' // Yellow
+    color: '#c53030' // Potato Red
   },
   {
     badge: 'WiseKings Snacking',
     icon: 'lucide:gem',
-    image: popcornHero,
-    title: 'Wisekings Popcorn.',
-    subtitle: 'Taste crunchy delight for everyone',
+    image: plantainHero,
+    title: 'Plantain Chips',
+    subtitle: 'Best in Value • Sweet or savory, always majestic.',
     cta: { text: 'Order now', link: '/products' },
-    color: '#EF4444' // Red
+    color: '#1a472a' // Deep Green
   }
 ]
 
@@ -613,7 +599,7 @@ function startCarousel() {
 
 async function refreshData() {
   await Promise.allSettled([
-    fetchProducts({ limit: 8 }),
+    fetchProducts({ limit: 50 }),
     fetchCategories(),
     marketing_api.getBanners({ isActive: true, position: 'home' }).then(r => { banners.value = r?.data?.data || r?.data || [] }).catch(() => {}),
     marketing_api.getPromotions({ isActive: true }).then(r => { promotions.value = r?.data?.data || r?.data || [] }).catch(() => {}),
@@ -625,9 +611,15 @@ watch([locale, selectedCurrency], () => refreshData())
 onMounted(async () => {
   startCarousel()
   await refreshData()
+  shuffleInterval = setInterval(() => {
+    updateRandomProducts()
+  }, 8000)
 })
 
-onUnmounted(() => { if (slideInterval) clearInterval(slideInterval) })
+onUnmounted(() => { 
+  if (slideInterval) clearInterval(slideInterval) 
+  if (shuffleInterval) clearInterval(shuffleInterval)
+})
 </script>
 
 <style>
@@ -639,9 +631,18 @@ onUnmounted(() => { if (slideInterval) clearInterval(slideInterval) })
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 .animate-fade-in {
   animation: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+.animate-fade-in-up {
+  animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
