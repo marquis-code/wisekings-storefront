@@ -73,8 +73,8 @@ export default defineNuxtConfig({
         display: "swap",
         preload: true,
     },
-      experimental: {
-    appManifest: false
-  },
+    experimental: {
+        appManifest: false
+    },
     css: ['/assets/font/stylesheet.css', "/assets/css/main.css"],
 })

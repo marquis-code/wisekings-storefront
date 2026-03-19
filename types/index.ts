@@ -163,6 +163,8 @@ export interface Product {
     totalSold: number
     avgRating: number
     reviewCount: number
+    sellPerUnit?: boolean
+    unitPrice?: number
     unitDescription?: string
     unitPrice?: number
     quantityPerPack?: number

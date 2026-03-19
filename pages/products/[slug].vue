@@ -20,24 +20,45 @@
       <div class="flex flex-col">
         <NuxtLink to="/products" class="text-sm text-[#033958]/80 hover:text-gray-600 mb-2">{{ $t('common.back_to_shop') }}</NuxtLink>
         <h1 class="text-3xl font-bold text-gray-900">{{ product.name }}</h1>
-        <div class="flex items-center gap-3 mt-3">
-          <div class="flex flex-col">
-            <span class="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Carton Price</span>
-            <span class="text-3xl font-black text-[#033958] leading-none">{{ formatPrice(product.price) }}</span>
-            <div v-if="product.unitPrice" class="mt-2 flex items-center gap-1.5">
-              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Unit Price:</span>
-              <span class="text-sm font-black text-gray-600 tracking-tight">{{ formatPrice(product.unitPrice) }}</span>
+        <div class="flex flex-col gap-6 mt-6">
+          <!-- Pricing Section -->
+          <div class="flex items-baseline gap-4">
+            <div class="flex flex-col">
+              <span class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Price per Unit</span>
+              <div class="flex items-baseline gap-3">
+                <span class="text-4xl md:text-5xl font-black text-[#033958] tracking-tighter leading-none">
+                  {{ formatPrice(product.unitPrice || product.price) }}
+                </span>
+                <span v-if="unitCompareAtPrice" class="text-lg md:text-xl font-bold text-gray-300 line-through decoration-amber-500/50">
+                  {{ formatPrice(unitCompareAtPrice) }}
+                </span>
+              </div>
             </div>
           </div>
-          <div v-if="product.unitDescription || product.varietyType" class="flex flex-col gap-2 ml-6">
-            <span v-if="product.varietyType" class="px-3 py-1 bg-amber-50 text-amber-600 text-[10px] font-black uppercase tracking-widest rounded-lg border border-amber-100 flex items-center gap-1.5">
-              <Icon name="lucide:layers" size="12" />
-              {{ product.varietyType }}
-            </span>
-            <span v-if="product.unitDescription" class="px-3 py-1 bg-[#033958]/5 text-[#033958] text-[10px] font-black uppercase tracking-widest rounded-lg flex items-center gap-1.5">
-              <Icon name="lucide:scale" size="12" />
-              {{ product.unitDescription }}
-            </span>
+
+          <div class="flex flex-wrap items-center gap-6">
+            <!-- Carton Info -->
+            <div class="flex flex-col">
+                <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1">Carton ({{ product.quantityPerPack }} Units)</span>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-xl font-bold text-gray-600">{{ formatPrice(product.price) }}</span>
+                  <span v-if="product.compareAtPrice" class="text-xs font-medium text-gray-300 line-through decoration-gray-300/50">
+                    {{ formatPrice(product.compareAtPrice) }}
+                  </span>
+                </div>
+            </div>
+
+            <!-- Tags -->
+            <div v-if="product.unitDescription || product.varietyType" class="flex gap-2">
+              <span v-if="product.varietyType" class="px-3 py-1.5 bg-amber-50 text-amber-600 text-[10px] font-black uppercase tracking-widest rounded-xl border border-amber-100 flex items-center gap-2">
+                <Icon name="lucide:layers" size="14" />
+                {{ product.varietyType }}
+              </span>
+              <span v-if="product.unitDescription" class="px-3 py-1.5 bg-[#033958]/5 text-[#033958] text-[10px] font-black uppercase tracking-widest rounded-xl flex items-center gap-2">
+                <Icon name="lucide:scale" size="14" />
+                {{ product.unitDescription }}
+              </span>
+            </div>
           </div>
         </div>
         <p class="text-gray-600 mt-4 leading-relaxed">{{ product.description }}</p>
@@ -115,9 +136,17 @@ const { selectedCurrency, formatPrice } = useCurrency()
 const selectedImage = ref(0)
 const qty = ref(1)
 
+const unitCompareAtPrice = computed(() => {
+  if (!product.value?.compareAtPrice) return 0
+  if (product.value.sellPerUnit && product.value.unitPrice) return product.value.compareAtPrice
+  return product.value.compareAtPrice / (product.value.quantityPerPack || 1)
+})
+
 const savings = computed(() => {
   if (!product.value?.compareAtPrice) return 0
-  return Math.round((1 - product.value.price / product.value.compareAtPrice) * 100)
+  const priceToUse = product.value.unitPrice || product.value.price
+  const compareToUse = product.value.sellPerUnit ? product.value.compareAtPrice : (product.value.compareAtPrice / (product.value.quantityPerPack || 1))
+  return Math.round((1 - priceToUse / compareToUse) * 100)
 })
 
 function handleAdd() {

@@ -30,7 +30,15 @@
                 <div class="flex-1 flex flex-col justify-between py-1">
                   <div>
                     <h3 class="font-black text-gray-950 tracking-tight leading-tight mb-1">{{ item.name }}</h3>
-                    <p class="text-amber-500 font-bold text-sm">{{ formatPrice(item.price) }}</p>
+                    <div class="flex flex-col gap-0.5">
+                      <div class="flex items-center gap-2">
+                        <p class="text-[#033958] font-black text-sm">{{ formatPrice(item.price) }}</p>
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">/ Unit</span>
+                      </div>
+                      <p v-if="item.quantityPerPack && item.quantity >= item.quantityPerPack" class="text-[10px] font-black text-emerald-600 uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded-md w-fit">
+                        You have added up to a carton worth
+                      </p>
+                    </div>
                   </div>
                   
                   <div class="flex items-center justify-between pt-2">

@@ -187,7 +187,7 @@
       </div>
     </footer>
     <CoreWhatsAppWidget />
-    <CoreLiveChatWidget />
+    <!-- <CoreLiveChatWidget /> -->
     <CartDrawer :isOpen="isCartDrawerOpen" @close="isCartDrawerOpen = false" />
   </div>
 </template>

@@ -13,65 +13,71 @@
       </div>
       
       <!-- Badges -->
-      <div v-if="product.compareAtPrice" class="absolute top-2 left-2 md:top-6 md:left-6 px-2 py-0.5 md:px-3 md:py-1 bg-amber-400 text-[#033958] text-[9px] md:text-sm font-black uppercase tracking-widest rounded-full">
+      <div v-if="product.compareAtPrice && product.compareAtPrice > (product.sellPerUnit ? (product.unitPrice || product.price) : product.price)" class="absolute top-2 left-2 md:top-6 md:left-6 px-2 py-0.5 md:px-3 md:py-1 bg-amber-400 text-[#033958] text-[9px] md:text-sm font-black uppercase tracking-widest rounded-full">
         Saving
       </div>
-      <div v-if="product.stock <= 5 && product.stock > 0" class="absolute top-2 right-2 md:top-6 md:right-6 px-2 py-0.5 md:px-3 md:py-1 bg-red-50 text-red-500 text-[9px] md:text-sm font-black uppercase tracking-widest rounded-full border border-red-100">
+      <div v-if="product.stock > 0" class="absolute top-2 right-2 md:top-6 md:right-6 px-2 py-0.5 md:px-3 md:py-1 bg-emerald-50 text-emerald-600 text-[9px] md:text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-100 shadow-sm z-10">
+        In Stock
+      </div>
+      <div v-else class="absolute top-2 right-2 md:top-6 md:right-6 px-2 py-0.5 md:px-3 md:py-1 bg-red-50 text-red-600 text-[9px] md:text-[10px] font-black uppercase tracking-widest rounded-full border border-red-100 shadow-sm z-10">
+        Sold Out
+      </div>
+      <!-- Low Stock Notice -->
+      <div v-if="product.stock <= 5 && product.stock > 0" class="absolute bottom-2 right-2 md:bottom-6 md:right-6 px-2 py-0.5 md:px-3 md:py-1 bg-amber-50 text-amber-600 text-[9px] md:text-[10px] font-black text-center uppercase tracking-widest rounded-full border border-amber-100 z-10">
         {{ product.stock }} left
       </div>
     </div>
 
     <!-- Info Area -->
     <div class="p-2.5 md:p-6 flex flex-col flex-1">
-      <!-- Name + Stock -->
-      <div class="flex items-start justify-between gap-1 mb-1.5">
-        <h3 class="text-xs md:text-base font-black text-gray-900 line-clamp-2 leading-snug group-hover:text-[#033958] transition-colors tracking-tight">
+      <!-- Name -->
+      <div class="mb-1.5 min-h-[40px] md:min-h-[48px]">
+        <h3 class="text-xs md:text-base font-black text-gray-900 line-clamp-2 md:line-clamp-3 leading-snug group-hover:text-[#033958] transition-colors tracking-tight">
           {{ product.name }}
         </h3>
-        <div v-if="product.stock > 0" class="shrink-0 px-1.5 py-0.5 bg-emerald-50 text-emerald-600 text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-md border border-emerald-100">
-          In Stock
-        </div>
-        <div v-else class="shrink-0 px-1.5 py-0.5 bg-red-50 text-red-600 text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-md border border-red-100">
-          Sold Out
-        </div>
-      </div>
-
-      <!-- Varieties & Specs — inline wrap, compact on mobile -->
-      <div class="flex flex-wrap gap-1 mb-2">
-        <span v-if="product.varietyType" class="flex items-center gap-0.5 text-[8px] md:text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded-md uppercase tracking-wide">
-          <Icon name="lucide:layers" size="8" class="hidden md:inline" />
-          {{ product.varietyType }}
-        </span>
-        <span v-if="product.unitDescription" class="flex items-center gap-0.5 text-[8px] md:text-[10px] font-bold text-[#033958] bg-[#033958]/5 px-1.5 py-0.5 rounded-md uppercase tracking-wide">
-          <Icon name="lucide:scale" size="8" class="hidden md:inline" />
-          {{ product.unitDescription }}
-        </span>
-        <span v-if="product.quantityPerPack" class="flex items-center gap-0.5 text-[8px] md:text-[10px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded-md uppercase tracking-wide">
-          <Icon name="lucide:package-2" size="8" class="hidden md:inline" />
-          {{ product.quantityPerPack }}/Ctn
-        </span>
       </div>
       
-      <!-- Pricing -->
-      <div class="mt-auto pt-2 md:pt-4 border-t border-gray-50 flex flex-col gap-2 md:gap-4">
-        <div class="flex items-end justify-between gap-1">
-          <div class="flex flex-col min-w-0">
-            <span class="text-[8px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Carton</span>
-            <span class="text-sm md:text-2xl font-black text-[#033958] tracking-tighter leading-none truncate">{{ formatPrice(product.price) }}</span>
+      <!-- Pricing Area -->
+      <div class="mt-auto pt-3 border-t border-gray-50 space-y-3">
+        <!-- Main Price Section -->
+        <div class="flex items-baseline justify-between gap-2">
+          <div class="flex flex-col">
+            <span class="text-[8px] font-black text-gray-400 uppercase tracking-[0.2em] mb-0.5">Price per Unit</span>
+            <div class="flex items-baseline gap-2">
+              <span class="text-xl md:text-2xl font-black text-[#033958] tracking-tighter leading-none">
+                {{ formatPrice(product.unitPrice || product.price) }}
+              </span>
+              <span v-if="unitCompareAtPrice" class="text-[10px] font-bold text-gray-300 line-through decoration-amber-500/50">
+                {{ formatPrice(unitCompareAtPrice) }}
+              </span>
+            </div>
           </div>
-          <div v-if="product.unitPrice" class="flex flex-col items-end text-right shrink-0">
-            <span class="text-[8px] md:text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-0.5">Unit</span>
-            <span class="text-[10px] md:text-xs font-black text-gray-600 tracking-tight">{{ formatPrice(product.unitPrice) }}</span>
+          
+          <!-- Carton Info Badge -->
+          <div v-if="product.quantityPerPack" class="flex flex-col items-end shrink-0">
+             <div class="flex items-center gap-1 px-2 py-1 bg-amber-50 rounded-lg border border-amber-100">
+               <Icon name="lucide:package" size="10" class="text-amber-600" />
+               <span class="text-[9px] font-black text-amber-700 uppercase tracking-tight">{{ product.quantityPerPack }} Units/Ctn</span>
+             </div>
           </div>
         </div>
+
+        <!-- Secondary Price (Carton) -->
+        <div class="flex items-center justify-between text-[9px] md:text-[10px] font-bold text-gray-400 uppercase tracking-widest pt-1">
+          <div class="flex items-center gap-1.5">
+            <span>Carton:</span>
+            <span class="text-gray-900 font-black">{{ formatPrice(product.price) }}</span>
+          </div>
+          <span v-if="product.varietyType" class="text-emerald-600 font-black">{{ product.varietyType }}</span>
+        </div>
         
+        <!-- Add to Cart -->
         <button 
-          class="w-full py-2 md:py-3 rounded-xl md:rounded-2xl bg-[#033958] text-white flex items-center justify-center gap-1.5 hover:bg-amber-400 hover:text-gray-950 transition-all font-bold text-[9px] md:text-xs uppercase tracking-widest shadow-lg shadow-[#033958]/10" 
+          class="w-full py-2.5 rounded-xl bg-[#033958] text-white flex items-center justify-center gap-2 hover:bg-amber-400 hover:text-gray-950 transition-all duration-300 font-black text-[9px] md:text-[10px] uppercase tracking-widest shadow-lg shadow-[#033958]/10 group/btn" 
           @click.stop.prevent="handleAddToCart"
         >
-          <span>Add to Cart</span>
-          <Icon name="lucide:shopping-cart" size="12" class="md:hidden" />
-          <Icon name="lucide:shopping-cart" size="16" class="hidden md:inline" />
+          <span>Add to cart</span>
+          <Icon name="lucide:shopping-cart" size="14" class="group-hover/btn:scale-110 transition-transform" />
         </button>
       </div>
     </div>
@@ -92,6 +98,16 @@ const { formatPrice } = useCurrency()
 const { addItem } = useCart()
 const { showToast } = useCustomToast()
 
+const unitCompareAtPrice = computed(() => {
+  if (!props.product.compareAtPrice) return 0
+  if (props.product.sellPerUnit && props.product.unitPrice) {
+     // If it's already a unit product, just return compareAtPrice
+     return props.product.compareAtPrice
+  }
+  // Otherwise calculate unit compare price from carton compare price
+  return props.product.compareAtPrice / (props.product.quantityPerPack || 1)
+})
+
 function handleAddToCart() {
   try {
     addItem({
@@ -100,7 +116,10 @@ function handleAddToCart() {
       price: props.product.price,
       images: props.product.images,
       slug: props.product.slug,
-      weight: props.product.weight
+      weight: props.product.weight,
+      sellPerUnit: props.product.sellPerUnit,
+      unitPrice: props.product.unitPrice,
+      quantityPerPack: props.product.quantityPerPack
     }, 1)
     
     showToast({

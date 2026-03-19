@@ -438,8 +438,7 @@ let shuffleInterval: ReturnType<typeof setInterval> | null = null
 
 const updateRandomProducts = () => {
   if (!products.value || products.value.length === 0) return
-  const shuffled = [...products.value].sort(() => 0.5 - Math.random())
-  randomizedProducts.value = shuffled.slice(0, 8)
+  randomizedProducts.value = [...products.value].slice(0, 8)
 }
 
 watch(products, (newProducts) => {
@@ -611,14 +610,11 @@ watch([locale, selectedCurrency], () => refreshData())
 onMounted(async () => {
   startCarousel()
   await refreshData()
-  shuffleInterval = setInterval(() => {
-    updateRandomProducts()
-  }, 8000)
+  updateRandomProducts() // Initial load only, no shuffling
 })
 
 onUnmounted(() => { 
   if (slideInterval) clearInterval(slideInterval) 
-  if (shuffleInterval) clearInterval(shuffleInterval)
 })
 </script>
 

@@ -39,4 +39,3 @@ export { useCurrency } from '../composables/useCurrency';
 export { useFirebase } from '../composables/useFirebase';
 export { useReferral } from '../composables/useReferral';
 export { useI18n } from 'vue-i18n';
-export { useNuxtDevTools } from '../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';

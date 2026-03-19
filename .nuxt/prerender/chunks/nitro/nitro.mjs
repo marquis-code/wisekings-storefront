@@ -21,7 +21,6 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve, basename } from 'file:///Users/mac/Documents/wisekings/storefront/node_modules/pathe/dist/index.mjs';
 import { getIcons } from 'file:///Users/mac/Documents/wisekings/storefront/node_modules/@iconify/utils/lib/index.mjs';
 import { consola } from 'file:///Users/mac/Documents/wisekings/storefront/node_modules/consola/dist/index.mjs';
-import { createRequire } from 'node:module';
 
 const serverAssets = [{"baseName":"server","dir":"/Users/mac/Documents/wisekings/storefront/server/assets"}];
 
@@ -846,7 +845,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "a9f3dab6-66fe-4dd2-883b-cf6e56120424",
+    "buildId": "2e49a8d0-7190-4bb3-9d2d-c484ffc95b1e",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -1423,7 +1422,7 @@ var common$2 = {
 	related_snacks: "Related Snacks You'll Love",
 	category: "Category",
 	full_collection: "The Full Collection",
-	shop_royal_vault: "Discover Our Collection",
+	shop_royal_vault: "Enjoy the taste of Africa",
 	explore_collection_desc: "Explore our meticulously curated selection of premium Nigerian snacks.",
 	refine_manifest: "Filter Selection",
 	product_category: "Product Category",
@@ -1449,12 +1448,12 @@ var common$2 = {
 	complete_details: "Complete your details to finalize your snacking manifest.",
 	complete_purchase: "Complete Purchase",
 	fulfillment_method: "Fulfillment Method",
-	waybill: "Waybill (Outside Lagos)",
-	dispatch: "Dispatch (Within Lagos)",
-	outside_lagos: "Waybill (Outside Lagos)",
-	within_lagos: "Dispatch (Within Lagos)",
+	waybill: "Waybill",
+	dispatch: "Dispatch",
+	outside_lagos: "Waybill",
+	within_lagos: "Dispatch",
 	at_store: "Store Pickup",
-	lagos_dispatch: "Dispatch (Within Lagos)",
+	lagos_dispatch: "Dispatch",
 	pickup: "Store Pickup",
 	shipping_destination: "Shipping Destination",
 	shipping: "Shipping",
@@ -1468,6 +1467,8 @@ var common$2 = {
 	authorize_payment: "Authorize Payment",
 	order_whatsapp: "Order via WhatsApp",
 	calculating_fee: "Calculating distance pricing...",
+	whatsapp_fee: "TBD / WhatsApp",
+	delivery_fee_whatsapp_note: "Delivery fee will be communicated on WhatsApp",
 	distance_detected: "Distance: {distance}km detected",
 	redeem_points: "Redeem Points",
 	remove: "Remove",
@@ -2351,7 +2352,7 @@ const _mHd4hMNgU8RTbMvuEo_Fbn8_O5jnH9iV40lo5T7T5kY = defineNitroPlugin(async (ni
     const localeSegment = detector.route(event.path);
     const pathLocale = isSupportedLocale(localeSegment) && localeSegment || void 0;
     const path = (pathLocale && url.pathname.slice(pathLocale.length + 1)) ?? url.pathname;
-    if (!url.pathname.includes("/_i18n/3KzHe4Bb") && !isExistingNuxtRoute(path)) {
+    if (!url.pathname.includes("/_i18n/uTVBai9V") && !isExistingNuxtRoute(path)) {
       return;
     }
     const resolved = resolveRedirectPath(event, path, pathLocale, ctx.vueI18nOptions.defaultLocale, detector);
@@ -2465,8 +2466,6 @@ const _vdCHG0 = eventHandler((event) => {
 });
 
 const _SxA8c9 = defineEventHandler(() => {});
-
-createRequire(globalThis._importMeta_.url);
 
 const collections = {
 };

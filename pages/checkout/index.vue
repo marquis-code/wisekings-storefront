@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-[100vw] bg-white mx-auto px-1 sm:px-4 lg:px-8 py-8 md:py-16 min-h-screen overflow-x-hidden overflow-y-auto box-border">
+  <div class="w-full max-w-[100vw] bg-white mx-auto px-4 lg:px-8 py-8 md:py-16 min-h-screen overflow-x-hidden overflow-y-auto box-border">
     <CoreFullscreenLoader 
       :loading="submitting" 
       :title="loaderState.title" 
@@ -218,7 +218,7 @@
                 <Icon :name="method.icon" size="20" :class="deliveryMethod === method.id ? 'text-amber-400' : 'text-[#033958]/40'" />
                 <div>
                   <p class="text-[10px] font-black uppercase tracking-widest leading-none mb-1">{{ method.label }}</p>
-                  <p class="text-[9px] font-bold opacity-60 uppercase whitespace-nowrap">{{ method.sub }}</p>
+                  <p v-if="method.sub" class="text-[9px] font-bold opacity-60 uppercase whitespace-nowrap">{{ method.sub }}</p>
                 </div>
                 <div v-if="deliveryMethod === method.id" class="absolute -right-2 -bottom-2 opacity-10">
                   <Icon :name="method.icon" size="48" />
@@ -365,7 +365,10 @@
               
               <div class="flex justify-between items-center">
                 <span class="text-xs font-bold uppercase tracking-widest text-[#033958]/70">{{ $t('common.shipping') }} <span class="text-xs opacity-60">({{ $t(`common.${deliveryMethod}`) }})</span></span>
-                <span class="text-lg font-black text-[#033958]">{{ formatPrice(shippingFee) }}</span>
+                <span v-if="deliveryMethod === 'lagos_dispatch'" class="text-[10px] font-black text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-lg uppercase tracking-tighter shadow-sm border border-emerald-100 animate-pulse">
+                  {{ $t('common.whatsapp_fee') }}
+                </span>
+                <span v-else class="text-lg font-black text-[#033958]">{{ formatPrice(shippingFee) }}</span>
               </div>
 
               <div v-if="redeemPoints" class="flex justify-between items-center">
@@ -542,6 +545,13 @@ const refreshShippingFee = async () => {
       weight: totalWeight.value
     }
 
+    // Force zero for lagos_dispatch as per user request (Manual communication via WhatsApp)
+    if (deliveryMethod.value === 'lagos_dispatch') {
+        shippingFee.value = 0
+        distanceInfo.value = null
+        return { fee: 0 }
+    }
+
     const res = await calculateFee(
       address.value.lat, 
       address.value.lng, 
@@ -607,20 +617,48 @@ async function detectLocation() {
       address.value.lat = latitude
       address.value.lng = longitude
 
-      // Try to reverse geocode or alert the user
+      // Try to reverse geocode using Google Maps Geocoder
       try {
-        // In a real scenario, use Google Maps Reverse Geocoding API
-        // For now, we'll set a placeholder and ask them to confirm if not found
-        // but we WILL use these coords for accurate shipping fee calculation
-        if (!address.value.address) {
-            address.value.address = 'Detected Location (Coordinates Acquired)'
+        if (typeof google !== 'undefined' && google.maps && google.maps.Geocoder) {
+          const geocoder = new google.maps.Geocoder()
+          const latlng = { lat: latitude, lng: longitude }
+
+          geocoder.geocode({ location: latlng }, (results: any, status: any) => {
+            if (status === 'OK') {
+              if (results[0]) {
+                const place = results[0]
+                address.value.address = place.formatted_address
+                
+                // Parse address components
+                place.address_components.forEach((component: any) => {
+                  const types = component.types
+                  if (types.includes('locality')) {
+                    address.value.city = component.long_name
+                  } else if (types.includes('administrative_area_level_1')) {
+                    address.value.state = component.long_name
+                  } else if (types.includes('country')) {
+                    address.value.country = component.long_name
+                  }
+                })
+
+                showToast({ title: 'Location Detected', message: 'Your delivery address has been automatically populated.', toastType: 'success' })
+              } else {
+                showToast({ title: 'Location Found', message: 'Coordinates acquired, but no address found.', toastType: 'info' })
+              }
+            } else {
+              console.error('Geocoder failed due to: ' + status)
+              address.value.address = 'Detected Location (Coordinates Acquired)'
+            }
+          })
+        } else {
+          // Fallback if google maps is not loaded yet
+          address.value.address = 'Detected Location (Coordinates Acquired)'
+          showToast({ title: 'Location Detected', message: 'Coordinates acquired. Please confirm your address.', toastType: 'info' })
         }
         
         if (deliveryMethod.value === 'lagos_dispatch') {
             await calculateFee(latitude, longitude, 'lagos_dispatch')
         }
-        
-        showToast({ title: 'Location Detected', message: 'Shipping fee calculated based on your current coordinates.', toastType: 'success' })
       } catch (err) {
         console.error('Reverse Geocoding failed', err)
       } finally {
@@ -712,11 +750,12 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
       `${itemsList}\n\n` +
       `--------------------------------\n\n` +
       `🏷 Subtotal: ${formatPrice(s.totalPrice)}\n` +
-      `🚛 Shipping: 🚚 ${shippingMethodName} [${formatPrice(s.shippingFee)}]\n` +
+      `🚛 Shipping: 🚚 ${shippingMethodName} ${s.deliveryMethod === 'lagos_dispatch' ? '[Fee to be communicated via WhatsApp]' : `[${formatPrice(s.shippingFee)}]`}\n` +
       (pointsDiscount > 0 ? `🎁 Points Discount: -${formatPrice(pointsDiscount)}\n` : '') +
       `💵 *Grand Total: ${formatPrice(total)}*\n\n` +
+      `⚠️ *Note:* Delivery fee for ${shippingMethodName} will be finalized and communicated here on WhatsApp.\n\n` +
       `--------------------------------\n\n` +
-      (deliveryMethod.value === 'pickup' 
+      (s.deliveryMethod === 'pickup' 
         ? `🏢 *Pickup Location:*\n\n` +
           `📍 Name: *${pickupLocations.value.find(l => l.isActive)?.name || 'Main Factory'}*\n` +
           `🏠 Address: ${pickupLocations.value.find(l => l.isActive)?.address || '13, Sonubi street, off Bakare street ketu, Lagos'}\n` +
@@ -738,8 +777,8 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
       ) +
       `--------------------------------\n\n` +
       `💳 *Payment Method:* 🏦 Direct Bank Transfer\n\n` +
-      `Thank you for choosing *WiseKings*, your order has been received and is being processed. We shall get back to you shortly.\n\n` +
-      `To complete your order, kindly proceed to make your payment using the bank details below:\n\n` +
+      `Thank you for choosing *WiseKings*. Your order has been received and is being processed. We shall get back to you shortly with the applicable delivery charge.\n\n` +
+      `Kindly proceed to make payment to the account details below once the delivery fee has been communicated:\n\n` +
       `🏦 *Payment Instructions (Direct Transfer)*\n` +
       `Account Name: *${bankDetails.value?.accountName || 'WISEKINGS VENTURES LIMITED'}*\n` +
       `Account Number: *${bankDetails.value?.accountNumber || 'N/A'}*\n` +

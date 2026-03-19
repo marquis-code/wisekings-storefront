@@ -8,6 +8,7 @@ interface CartItem {
     quantity: number
     slug: string
     weight?: number
+    quantityPerPack?: number
 }
 
 const items = ref<CartItem[]>([])
@@ -32,18 +33,23 @@ export function useCart() {
     const totalItems = computed(() => items.value.reduce((sum, i) => sum + i.quantity, 0))
     const totalPrice = computed(() => Math.ceil(items.value.reduce((sum, i) => sum + i.price * i.quantity, 0)))
 
-    function addItem(product: { _id: string; name: string; price: number; images: string[]; slug: string; weight?: number }, qty = 1) {
+    function addItem(product: { _id: string; name: string; price: number; images: string[]; slug: string; weight?: number; sellPerUnit?: boolean; unitPrice?: number; quantityPerPack?: number }, qty = 1) {
         const existing = items.value.find((i) => i.productId === product._id)
+        
+        // Aggressively use unitPrice if available, otherwise fallback to price
+        const priceToUse = product.unitPrice || product.price;
+
         if (existing) { existing.quantity += qty }
         else { 
             items.value.push({ 
                 productId: product._id, 
                 name: product.name, 
-                price: product.price, 
+                price: priceToUse, 
                 image: product.images?.[0] || '', 
                 quantity: qty, 
                 slug: product.slug,
-                weight: product.weight || 1
+                weight: product.weight || 1,
+                quantityPerPack: product.quantityPerPack
             }) 
         }
         persist()

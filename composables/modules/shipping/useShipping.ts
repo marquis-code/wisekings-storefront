@@ -10,7 +10,7 @@ export const useShipping = () => {
         loading.value = true
         try {
             const res = await GATEWAY_ENDPOINT.get('/shipping/calculate-public', { 
-                params: { lat, lng, method, country, weight, isHomeDelivery } 
+                params: { lat, lng, method, country, weight, isHomeDelivery, _t: Date.now() } 
             }) as any
             const data = res.data || res
             shippingFee.value = data.fee || 0

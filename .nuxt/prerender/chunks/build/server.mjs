@@ -30,7 +30,6 @@ import 'node:url';
 import 'file:///Users/mac/Documents/wisekings/storefront/node_modules/pathe/dist/index.mjs';
 import 'file:///Users/mac/Documents/wisekings/storefront/node_modules/@iconify/utils/lib/index.mjs';
 import 'file:///Users/mac/Documents/wisekings/storefront/node_modules/consola/dist/index.mjs';
-import 'node:module';
 import 'file:///Users/mac/Documents/wisekings/storefront/node_modules/vue-bundle-renderer/dist/runtime.mjs';
 import 'file:///Users/mac/Documents/wisekings/storefront/node_modules/unhead/dist/server.mjs';
 import 'file:///Users/mac/Documents/wisekings/storefront/node_modules/devalue/index.js';
@@ -449,7 +448,7 @@ const _routes = [
   {
     name: "cart",
     path: "/cart",
-    component: () => import('./cart-C-0-JQL6.mjs')
+    component: () => import('./cart-DgqbMj9S.mjs')
   },
   {
     name: "about",
@@ -460,7 +459,7 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-CpV4fCqu.mjs')
+    component: () => import('./index-BVqM6Peb.mjs')
   },
   {
     name: "login",
@@ -518,12 +517,12 @@ const _routes = [
   {
     name: "checkout",
     path: "/checkout",
-    component: () => import('./index-BC4_4Xep.mjs')
+    component: () => import('./index-Dix5ebbU.mjs')
   },
   {
     name: "products",
     path: "/products",
-    component: () => import('./index-ffxkDLtt.mjs')
+    component: () => import('./index-BdQdPK8T.mjs')
   },
   {
     name: "account-profile",
@@ -539,7 +538,7 @@ const _routes = [
   {
     name: "products-slug",
     path: "/products/:slug()",
-    component: () => import('./_slug_-DBZQuTqQ.mjs')
+    component: () => import('./_slug_-CSraR6Za.mjs')
   },
   {
     name: "shipping-policy",
@@ -555,7 +554,7 @@ const _routes = [
   {
     name: "checkout-success",
     path: "/checkout/success",
-    component: () => import('./success-BtfKQKop.mjs')
+    component: () => import('./success-BfUervQC.mjs')
   },
   {
     name: "account-orders-id",
@@ -1394,7 +1393,7 @@ const localeLoaders = {
     {
       key: "locale_en_46json_479328f1",
       load: () => import(
-        './en-BaCCrSPC.mjs'
+        './en-CSwL6Boz.mjs'
         /* webpackChunkName: "locale_en_46json_479328f1" */
       ),
       cache: true
@@ -1940,7 +1939,7 @@ function createNuxtI18nContext(nuxt, vueI18n, defaultLocale) {
       return;
     }
     const headers = getLocaleConfig(locale)?.cacheable ? {} : { "Cache-Control": "no-cache" };
-    const messages = await $fetch(`${"/_i18n/3KzHe4Bb"}/${locale}/messages.json`, { headers });
+    const messages = await $fetch(`${"/_i18n/uTVBai9V"}/${locale}/messages.json`, { headers });
     for (const k of Object.keys(messages)) {
       i18n.mergeLocaleMessage(k, messages[k]);
     }
@@ -6921,7 +6920,7 @@ const i18n_EI7LsD1KYQADczz5hrChviGQCdVM8yUkvFEZLJpmnvM = /* @__PURE__ */ defineN
     {
       localeConfigs.value = useRequestEvent().context.nuxtI18n?.localeConfigs || {};
     }
-    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/3KzHe4Bb"}/${locale}/messages.json`));
+    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/uTVBai9V"}/${locale}/messages.json`));
     const i18n = createI18n(optionsI18n);
     const detectors = useDetectors(useRequestEvent(nuxt), useI18nDetection(nuxt), nuxt);
     const ctx = createNuxtI18nContext(nuxt, i18n, optionsI18n.defaultLocale);
@@ -7160,9 +7159,9 @@ const plugins = [
   ssg_detect_IpHCGcQQ_IR5Rl99qyukWoMA9fJGfuTYyoksTzy81cs
 ];
 const layouts = {
-  account: defineAsyncComponent(() => import('./account-DWLgBWFc.mjs').then((m) => m.default || m)),
-  auth: defineAsyncComponent(() => import('./auth-qrU_uq3k.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-Bj_RSQx0.mjs').then((m) => m.default || m))
+  account: defineAsyncComponent(() => import('./account-D7XJDYSU.mjs').then((m) => m.default || m)),
+  auth: defineAsyncComponent(() => import('./auth-rUzdu0n-.mjs').then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import('./default-CrokxO5H.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({
