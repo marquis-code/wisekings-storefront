@@ -9,7 +9,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-orange-700 via-orange-600/40 to-transparent"></div>
       </div>
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full relative z-10 pt-20 text-center">
-        <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-[10px] font-black tracking-widest uppercase mb-6 mx-auto">
+        <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white px-4 py-2 rounded-full text-xs font-black tracking-widest uppercase mb-6 mx-auto">
           <Icon name="lucide:flame" size="14" class="text-amber-400" />
           {{ $t('common.limited_time_deals') }}
         </div>
@@ -44,7 +44,7 @@
           :to="`/products/${product.slug}`"
           class="group"
         >
-          <div class="relative rounded-3xl overflow-hidden h-56 bg-gray-50 border border-gray-100 group-hover:shadow-xl group-hover:shadow-orange-500/5 transition-all duration-300">
+          <div class="relative rounded-3xl overflow-hidden h-56 bg-gray-50 border border-gray-100 group-hover: group-hover:shadow-orange-500/5 transition-all duration-300">
             <img 
               v-if="product.images && product.images.length" 
               :src="product.images[0]" 
@@ -52,10 +52,10 @@
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             >
             <div v-else class="flex items-center justify-center h-full">
-              <Icon name="lucide:package" size="36" class="text-gray-300" />
+              <Icon name="lucide:package" size="36" class="text-[#033958]/60" />
             </div>
             <!-- Deal Badge -->
-            <div v-if="product.compareAtPrice" class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-extrabold shadow-lg">
+            <div v-if="product.compareAtPrice" class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-extrabold ">
               {{ $t('common.off', { percent: Math.round((1 - product.price / product.compareAtPrice) * 100) }) }}
             </div>
           </div>
@@ -63,7 +63,7 @@
             <h3 class="text-sm font-bold text-gray-900 group-hover:text-orange-600 transition-colors line-clamp-1">{{ product.name }}</h3>
             <div class="flex items-center gap-2 mt-2">
               <span class="text-lg font-extrabold text-gray-900 font-serif">{{ formatPrice(product.price) }}</span>
-              <span v-if="product.compareAtPrice" class="text-sm text-gray-400 line-through font-serif">{{ formatPrice(product.compareAtPrice) }}</span>
+              <span v-if="product.compareAtPrice" class="text-sm text-[#033958]/80 line-through font-serif">{{ formatPrice(product.compareAtPrice) }}</span>
             </div>
           </div>
         </NuxtLink>
@@ -75,7 +75,7 @@
         </div>
         <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $t('common.no_offers') }}</h3>
         <p class="text-gray-500 mb-6">{{ $t('common.check_back_deals') }}</p>
-        <NuxtLink to="/products" class="inline-flex items-center gap-2 bg-[#033958] text-white px-8 py-3 rounded-2xl font-bold hover:bg-[#022a45] transition-all shadow-lg shadow-[#033958]/10">
+        <NuxtLink to="/products" class="inline-flex items-center gap-2 bg-[#033958] text-white px-8 py-3 rounded-2xl font-bold hover:bg-[#022a45] transition-all  /10">
           {{ $t('common.browse_all_snacks') }}
           <Icon name="lucide:arrow-right" size="18" />
         </NuxtLink>

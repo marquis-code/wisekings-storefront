@@ -11,7 +11,7 @@
       </div>
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full relative z-10 pt-20">
         <div class="max-w-2xl">
-          <div class="inline-flex items-center gap-2 bg-white/10 text-white/90 px-4 py-2 rounded-full text-[10px] font-black tracking-widest uppercase backdrop-blur-md border border-white/20 mb-6 font-sans">
+          <div class="inline-flex items-center gap-2 bg-white/10 text-white/90 px-4 py-2 rounded-full text-xs font-black tracking-widest uppercase backdrop-blur-md border border-white/20 mb-6 font-sans">
              <Icon name="lucide:shopping-bag" size="14" class="text-amber-400" />
              {{ $t('common.full_collection') }}
           </div>
@@ -55,10 +55,9 @@
       <div class="flex-1 order-1 md:order-2">
         <div class="flex items-center justify-between mb-6">
           <input v-model="search" type="text" :placeholder="$t('common.search_products')" class="input max-w-xs" @input="debouncedFetch" />
-          <p class="text-sm text-gray-400">{{ $t('common.products_count', { count: total }) }}</p>
         </div>
-        <div v-if="loading" class="text-center py-20 text-gray-400"><Icon name="lucide:loader-2" class="w-8 h-8 animate-spin mx-auto" /></div>
-        <div v-else-if="products.length === 0" class="text-center py-20 text-gray-400">{{ $t('common.no_products') }}</div>
+        <div v-if="loading" class="text-center py-20 text-[#033958]/80"><Icon name="lucide:loader-2" class="w-8 h-8 animate-spin mx-auto" /></div>
+        <div v-else-if="products.length === 0" class="text-center py-20 text-[#033958]/80">{{ $t('common.no_products') }}</div>
         <div v-else class="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6">
           <ProductCard v-for="p in products" :key="p._id" :product="p" />
         </div>
@@ -88,12 +87,12 @@ const { selectedCurrency, formatPrice } = useCurrency()
 const route = useRoute()
 const page = ref(1)
 const search = ref('')
-const categoryFilter = ref(route.query.category as string || '')
+const categoryFilter = ref('')
 const sortBy = ref('')
 
 // Watch for URL category changes (e.g. from Home page clicks)
 watch(() => route.query.category, (newCat) => {
-  categoryFilter.value = newCat as string || ''
+  categoryFilter.value = newCat as string || '';
   page.value = 1
   handleFetch()
 })
@@ -109,7 +108,7 @@ const categoryOptions = computed(() => {
     return a.name.localeCompare(b.name)
   }).map(c => ({
     label: c.name,
-    value: c._id
+    value: c.slug || c.name.toLowerCase().replace(/ /g, '-')
   }))
   return [{ label: t('common.all_categories'), value: '' }, ...options]
 })
@@ -153,6 +152,7 @@ watch([locale, selectedCurrency], () => {
 
 onMounted(async () => {
   await fetchCategories()
+  categoryFilter.value = route.query.category as string || '';
   handleFetch()
 })
 </script>

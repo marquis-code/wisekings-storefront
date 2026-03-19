@@ -7,7 +7,7 @@
       
       <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4 uppercase">Privacy Policy</h1>
-        <p class="text-gray-300 font-medium">Last updated: March 12, 2026</p>
+        <p class="text-[#033958]/60 font-medium">Last updated: March 12, 2026</p>
       </div>
     </section>
 
@@ -58,7 +58,7 @@
         </p>
 
         <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 flex items-center justify-between">
-          <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">WiseKings Unified Enterprise</p>
+          <p class="text-xs font-bold text-[#033958]/80 uppercase tracking-widest">WiseKings Unified Enterprise</p>
           <NuxtLink to="/contact" class="text-sm font-black text-[#033958] hover:underline">Support Hub</NuxtLink>
         </div>
       </div>

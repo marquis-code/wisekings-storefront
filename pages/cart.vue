@@ -2,13 +2,13 @@
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 py-8">
     <h1 class="text-2xl font-bold text-gray-900 mb-6">{{ $t('common.shopping_cart') }}</h1>
     <div v-if="items.length === 0" class="text-center py-20">
-      <Icon name="lucide:shopping-bag" class="w-12 h-12 mx-auto text-gray-300 mb-4" />
+      <Icon name="lucide:shopping-bag" class="w-12 h-12 mx-auto text-[#033958]/60 mb-4" />
       <p class="text-gray-500 mb-4">{{ $t('common.cart_empty') }}</p>
       <NuxtLink to="/products" class="btn-primary">{{ $t('common.continue_shopping') }}</NuxtLink>
     </div>
     <div v-else>
       <div class="space-y-4 mb-8">
-        <div v-for="item in items" :key="item.productId" class="flex gap-4 p-4 sm:p-5 border border-gray-100 rounded-[2rem] bg-white shadow-sm hover:shadow-md transition-all group relative">
+        <div v-for="item in items" :key="item.productId" class="flex gap-4 p-4 sm:p-5 border border-gray-100 rounded-[2rem] bg-white  hover: transition-all group relative">
           <!-- Image -->
           <div class="w-24 h-24 sm:w-28 sm:h-28 bg-gray-50 rounded-2xl overflow-hidden flex-shrink-0 border border-gray-50 flex items-center justify-center p-2">
             <img v-if="item.image" :src="item.image" class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-500" />
@@ -24,11 +24,11 @@
                 <NuxtLink :to="`/products/${item.slug}`" class="text-sm sm:text-base font-black text-gray-900 hover:text-[#033958] transition-colors leading-tight line-clamp-2">
                   {{ item.name }}
                 </NuxtLink>
-                <button @click="removeItem(item.productId)" class="p-2 -mr-2 text-gray-300 hover:text-red-500 transition-colors">
+                <button @click="removeItem(item.productId)" class="p-2 -mr-2 text-[#033958]/60 hover:text-red-500 transition-colors">
                   <Icon name="lucide:x" class="w-4 h-4" />
                 </button>
               </div>
-              <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">{{ $t('common.per_unit') }}: {{ formatPrice(item.price) }}</p>
+              <p class="text-xs font-bold text-[#033958]/80 uppercase tracking-widest mt-1">{{ $t('common.per_unit') }}: {{ formatPrice(item.price) }}</p>
             </div>
 
             <div class="flex items-center justify-between mt-4">

@@ -7,7 +7,7 @@
       
       <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4 uppercase">Terms of Service</h1>
-        <p class="text-gray-300 font-medium">Agreement for WiseKings Unified Enterprise</p>
+        <p class="text-[#033958]/60 font-medium">Agreement for WiseKings Unified Enterprise</p>
       </div>
     </section>
 

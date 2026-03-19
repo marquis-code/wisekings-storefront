@@ -8,13 +8,13 @@
             ? 'border-[#033958] ring-2 ring-[#033958]/10 bg-white' 
             : 'border-gray-200 bg-gray-50 hover:border-gray-300'
         ]">
-          <span :class="selected ? 'text-gray-900' : 'text-gray-400'">
+          <span :class="selected ? 'text-gray-900' : 'text-[#033958]/80'">
             {{ selected ? selectedLabel : placeholder }}
           </span>
           <Icon 
             name="lucide:chevron-down" 
             size="18" 
-            :class="['text-gray-400 transition-transform duration-200', isOpen ? 'rotate-180' : '']" 
+            :class="['text-[#033958]/80 transition-transform duration-200', isOpen ? 'rotate-180' : '']" 
           />
         </div>
       </slot>
@@ -30,7 +30,7 @@
     >
       <div 
         v-if="isOpen" 
-        class="absolute z-50 mt-2 w-full bg-white border border-gray-100 rounded-2xl shadow-xl shadow-black/5 py-2 max-h-60 overflow-y-auto"
+        class="absolute z-50 mt-2 w-full bg-white border border-gray-100 rounded-2xl  shadow-black/5 py-2 max-h-60 overflow-y-auto"
       >
         <div
           v-for="option in options"

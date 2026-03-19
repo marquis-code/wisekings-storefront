@@ -4,17 +4,17 @@
     <button 
       @click="toggleChat"
       :class="[
-        'w-10 h-10 rounded-full shadow-2xl flex items-center justify-center transition-all duration-500 hover:scale-110 active:scale-95 z-[101]',
+        'w-10 h-10 rounded-full  flex items-center justify-center transition-all duration-500 hover:scale-110 active:scale-95 z-[101] relative',
         isOpen ? 'bg-gray-100 text-gray-900 rotate-90' : 'bg-[#033958] text-white'
       ]"
     >
       <Icon :name="isOpen ? 'lucide:x' : 'lucide:message-circle'" size="20" />
-      <span v-if="!isOpen && unreadCount > 0" class="absolute -top-1 -right-1 w-6 h-6 bg-red-600 text-white text-[10px] rounded-full flex items-center justify-center font-black border-2 border-white shadow-lg">{{ unreadCount }}</span>
+      <span v-if="!isOpen && unreadCount > 0" class="absolute -top-1 -right-1 w-6 h-6 bg-red-600 text-white text-xs rounded-full flex items-center justify-center font-black border-2 border-white ">{{ unreadCount }}</span>
     </button>
 
     <!-- Chat Window -->
     <Transition name="chat-panel">
-      <div v-if="isOpen" class="absolute bottom-20 right-0 w-[400px] h-[600px] bg-white rounded-[2.5rem] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] border border-gray-100 overflow-hidden flex flex-col pointer-events-auto">
+      <div v-if="isOpen" class="fixed inset-0 top-0 left-0 right-0 bottom-0 sm:absolute sm:inset-auto sm:bottom-20 sm:right-0 w-full h-[100dvh] sm:w-[400px] sm:h-[600px] bg-white sm:rounded-[2.5rem] border border-gray-100 overflow-hidden flex flex-col pointer-events-auto z-[90] sm:z-auto">
         <!-- Header -->
         <div class="bg-[#033958] p-8 text-white relative">
           <div class="absolute top-0 right-0 p-4 opacity-10">
@@ -35,20 +35,33 @@
         </div>
 
         <!-- Auth Guard State -->
-        <div v-if="!isAuthenticated" class="flex-1 flex flex-col items-center justify-center p-12 text-center space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-          <div class="w-24 h-24 rounded-[2rem] bg-gray-50 flex items-center justify-center text-[#033958] shadow-inner">
-            <Icon name="lucide:lock" size="40" />
+        <!-- Guest Auth State -->
+        <div v-if="!isAuthenticated" class="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div class="text-center space-y-3 w-full max-w-sm">
+            <div class="w-20 h-20 mx-auto rounded-[2rem] bg-gray-50 flex items-center justify-center text-[#033958] shadow-inner mb-6">
+              <Icon name="lucide:message-square-plus" size="40" />
+            </div>
+            <h4 class="text-xl font-black text-gray-900 tracking-tight">Need Help?</h4>
+            <p class="text-sm font-medium text-[#033958]/80 leading-relaxed max-w-xs mx-auto mb-8">Enter your details below to instantly start a live chat with our support team.</p>
+            
+            <form @submit.prevent="initiateGuestChat" class="space-y-4 text-left w-full mt-6">
+              <CoreAnimatedInput v-model="guestForm.fullName" type="text" label="Full Name" required />
+              <CoreAnimatedInput v-model="guestForm.email" type="email" label="Email Address" required />
+              
+              <button 
+                type="submit"
+                :disabled="isGuestLoading || !guestForm.fullName || !guestForm.email"
+                class="w-full py-4 mt-2 bg-[#033958] text-white font-black rounded-2xl  /20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center disabled:opacity-75"
+              >
+                <Icon v-if="isGuestLoading" name="lucide:loader-2" class="animate-spin w-5 h-5" />
+                <span v-else>Start Chat</span>
+              </button>
+            </form>
+            
+            <div class="pt-8 border-t border-gray-100 mt-8">
+               <NuxtLink :to="`/login?redirect=${route.fullPath}`" class="font-black text-[#033958] hover:underline uppercase tracking-widest text-[10px]">Already registered? Sign in</NuxtLink>
+            </div>
           </div>
-          <div class="space-y-3">
-            <h4 class="text-xl font-black text-gray-900 tracking-tight">Members Only Chat</h4>
-            <p class="text-sm font-medium text-gray-400 leading-relaxed">Please sign in to your WiseKings account to start a conversation with our support team.</p>
-          </div>
-          <NuxtLink 
-            :to="`/login?redirect=${route.fullPath}`"
-            class="w-full py-4 bg-[#033958] text-white font-black rounded-2xl shadow-xl shadow-[#033958]/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
-          >
-            Sign in to WiseKings
-          </NuxtLink>
         </div>
 
         <!-- Messages Area (Authenticated) -->
@@ -58,7 +71,7 @@
                <div class="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center text-[#033958]">
                  <Icon name="lucide:sparkles" size="40" />
                </div>
-               <p class="text-gray-400 font-bold text-sm">Welcome back! How can we assist you today?</p>
+               <p class="text-[#033958]/80 font-bold text-sm">Welcome back! How can we assist you today?</p>
                <div class="flex flex-wrap justify-center gap-2">
                  <button @click="quickMessage('Order status?')" class="px-4 py-2 bg-white rounded-full text-xs font-bold text-[#033958] border border-gray-100 hover:border-[#033958]/30 transition-all">Order status?</button>
                  <button @click="quickMessage('Shipping info?')" class="px-4 py-2 bg-white rounded-full text-xs font-bold text-[#033958] border border-gray-100 hover:border-[#033958]/30 transition-all">Shipping info?</button>
@@ -69,12 +82,12 @@
                     <div :class="['flex w-full mb-3', isSentByMe(msg) ? 'justify-end' : 'justify-start']">
                         <div :class="['max-w-[85%] flex flex-col', isSentByMe(msg) ? 'items-end' : 'items-start']">
                             <!-- Sender name for received messages -->
-                            <span v-if="!isSentByMe(msg)" class="text-[10px] uppercase font-bold text-slate-500 mb-1 ml-2 tracking-wider">
+                            <span v-if="!isSentByMe(msg)" class="text-xs uppercase font-bold text-slate-500 mb-1 ml-2 tracking-wider">
                                 {{ getSenderName(msg) }} {{ getSenderRole(msg) }}
                             </span>
                             
                             <div :class="[
-                                'relative px-4 py-2.5 rounded-2xl shadow-sm transition-all duration-300',
+                                'relative px-4 py-2.5 rounded-2xl  transition-all duration-300',
                                 isSentByMe(msg) 
                                     ? 'bg-[#033958] text-white rounded-br-none' 
                                     : getSenderRole(msg).includes('Admin') 
@@ -92,7 +105,7 @@
                                                 <Icon name="lucide:file-text" size="24" class="shrink-0" />
                                                 <div class="min-w-0 text-left">
                                                     <p class="text-[12px] font-bold truncate">Document Attachment</p>
-                                                    <p class="text-[9px] opacity-60 uppercase font-black">Click to view/download</p>
+                                                    <p class="text-sm opacity-60 uppercase font-black">Click to view/download</p>
                                                 </div>
                                             </div>
                                         </a>
@@ -103,14 +116,14 @@
                                 <div v-if="msg.type === 'text' && containsVideoLink(msg.content)" class="mb-2 rounded-xl overflow-hidden border border-black/10 bg-black/5">
                                    <div class="p-2 flex items-center gap-2 bg-[#033958]/10">
                                       <Icon name="lucide:video" size="14" class="text-[#033958]" />
-                                      <span class="text-[10px] font-bold text-[#033958] uppercase">Video Preview</span>
+                                      <span class="text-xs font-bold text-[#033958] uppercase">Video Preview</span>
                                    </div>
                                    <iframe v-if="getYoutubeId(msg.content)" :src="`https://www.youtube.com/embed/${getYoutubeId(msg.content)}`" class="w-full aspect-video border-none" allowfullscreen></iframe>
                                 </div>
 
                                 <p class="text-sm font-medium leading-relaxed whitespace-pre-wrap">{{ msg.content }}</p>
                                 <div :class="['flex items-center gap-1 mt-1 justify-end', isSentByMe(msg) ? 'text-white/60' : 'text-slate-400']">
-                                    <span class="text-[9px] font-bold">{{ formatTime(msg.createdAt) }}</span>
+                                    <span class="text-sm font-bold">{{ formatTime(msg.createdAt) }}</span>
                                     <Icon v-if="isSentByMe(msg)" name="lucide:check-check" class="w-3 h-3" />
                                 </div>
                             </div>
@@ -124,7 +137,7 @@
              <div class="flex items-center gap-3">
                 <img v-if="pendingAttachmentType === 'image'" :src="pendingAttachmentUrl" class="w-10 h-10 rounded object-cover" />
                 <Icon v-else name="lucide:file" class="text-blue-600" />
-                <span class="text-[10px] font-bold text-blue-800">Ready to send...</span>
+                <span class="text-xs font-bold text-blue-800">Ready to send...</span>
              </div>
              <button @click="clearPendingAttachment" class="text-blue-600 hover:text-blue-800"><Icon name="lucide:x" size="14" /></button>
           </div>
@@ -137,25 +150,25 @@
                     <span class="w-1 h-1 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
                     <span class="w-1 h-1 bg-emerald-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
                 </div>
-                <span class="text-[10px] italic text-slate-500">{{ typersDisplay }}</span>
+                <span class="text-xs italic text-slate-500">{{ typersDisplay }}</span>
             </div>
           <div class="p-6 bg-white border-t border-gray-100 relative">
             <!-- Emoji Picker Popover -->
-            <div v-if="showEmojiPicker" class="absolute bottom-full left-6 mb-2 bg-white rounded-3xl shadow-2xl border border-gray-100 p-4 w-[280px] grid grid-cols-6 gap-2 z-[200] animate-in slide-in-from-bottom-2 duration-300">
+            <div v-if="showEmojiPicker" class="absolute bottom-full left-6 mb-2 bg-white rounded-3xl  border border-gray-100 p-4 w-[280px] grid grid-cols-6 gap-2 z-[200] animate-in slide-in-from-bottom-2 duration-300">
                <button v-for="emoji in commonEmojis" :key="emoji" @click="addEmoji(emoji)" class="w-8 h-8 flex items-center justify-center hover:bg-gray-50 rounded-lg text-xl transition-all hover:scale-125">{{ emoji }}</button>
             </div>
 
             <div class="relative flex items-center gap-2">
               <button 
                 @click="showEmojiPicker = !showEmojiPicker"
-                class="w-10 h-10 bg-gray-50 text-gray-400 rounded-xl flex items-center justify-center hover:text-amber-500 transition-all"
+                class="w-10 h-10 bg-gray-50 text-[#033958]/80 rounded-xl flex items-center justify-center hover:text-amber-500 transition-all"
               >
                 <Icon name="lucide:smile" size="18" />
               </button>
               <button 
                 @click="triggerFileInput" 
                 :disabled="isUploading"
-                class="w-10 h-10 bg-gray-50 text-gray-400 rounded-xl flex items-center justify-center hover:text-[#033958] transition-all"
+                class="w-10 h-10 bg-gray-50 text-[#033958]/80 rounded-xl flex items-center justify-center hover:text-[#033958] transition-all"
               >
                 <Icon v-if="!isUploading" name="lucide:paperclip" size="18" />
                 <Icon v-else name="lucide:loader-2" size="18" class="animate-spin" />
@@ -167,17 +180,17 @@
                 @keypress.enter="handleSend"
                 @input="handleTyping"
                 placeholder="Type your message..."
-                class="w-full bg-gray-50 border-none focus:ring-2 focus:ring-[#033958]/10 rounded-2xl px-5 py-4 text-sm font-medium placeholder:text-gray-400 pr-12"
+                class="w-full bg-gray-50 border-none focus:ring-2 focus:ring-[#033958]/10 rounded-2xl px-5 py-4 text-sm font-medium placeholder:text-[#033958]/80 pr-12"
               />
               <button 
                 @click="handleSend"
                 :disabled="(!newMessage.trim() && !pendingAttachmentUrl) || isUploading"
-                class="absolute right-2 w-10 h-10 bg-[#033958] text-white rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#033958]/20 disabled:opacity-50"
+                class="absolute right-2 w-10 h-10 bg-[#033958] text-white rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all  /20 disabled:opacity-50"
               >
                 <Icon name="lucide:send" size="18" />
               </button>
             </div>
-            <p class="text-[10px] text-center text-gray-300 mt-4 font-bold uppercase tracking-widest">Powered by WiseKings Real-time</p>
+            <p class="text-xs text-center text-[#033958]/60 mt-4 font-bold uppercase tracking-widest">Powered by WiseKings Real-time</p>
           </div>
         </template>
       </div>
@@ -200,6 +213,10 @@ const userState = useAuthState()
 const { user, isAuthenticated } = userState
 const route = useRoute()
 
+import { useGuestChat } from '@/composables/modules/auth/useGuestChat'
+const { guestChat, loading: isGuestLoading } = useGuestChat()
+
+const guestForm = ref({ fullName: '', email: '' })
 const isOpen = ref(false)
 const newMessage = ref('')
 const unreadCount = ref(0)
@@ -251,6 +268,19 @@ async function toggleChat() {
   isOpen.value = !isOpen.value
   console.log('[WIDGET] toggleChat:', { isOpen: isOpen.value, isAuthenticated: isAuthenticated.value, userId: user.value?._id })
   if (isOpen.value && isAuthenticated.value) {
+    await setupSupportChat()
+  }
+}
+
+async function initiateGuestChat() {
+  if (!guestForm.value.fullName || !guestForm.value.email) return
+  const success = await guestChat(guestForm.value)
+  if (success) {
+    await setupSupportChat()
+  }
+}
+
+async function setupSupportChat() {
     unreadCount.value = 0
     
     // Fetch or create support conversation
@@ -293,7 +323,6 @@ async function toggleChat() {
     }
     
     nextTick(() => scrollToBottom())
-  }
 }
 
 function handleSend() {
@@ -326,7 +355,7 @@ function handleTyping() {
 
 function isSentByMe(msg: any) {
   const senderId = String(msg.senderId?._id || msg.senderId || '')
-  const myId = String(user.value?._id || user.value?.id || '')
+  const myId = String(user.value?._id || '')
   return !!senderId && senderId === myId
 }
 

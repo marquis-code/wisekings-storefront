@@ -9,7 +9,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
       </div>
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full relative z-10 pt-20 text-center">
-        <div class="inline-flex items-center gap-2 bg-white/10 text-white/90 px-4 py-2 rounded-full text-[10px] font-black tracking-widest uppercase backdrop-blur-md border border-white/20 mb-6 font-sans mx-auto">
+        <div class="inline-flex items-center gap-2 bg-white/10 text-white/90 px-4 py-2 rounded-full text-xs font-black tracking-widest uppercase backdrop-blur-md border border-white/20 mb-6 font-sans mx-auto">
            <Icon name="lucide:grid-3x3" size="14" class="text-amber-400" />
            {{ $t('common.category_curation') }}
         </div>
@@ -35,7 +35,7 @@
           :to="`/products?category=${cat._id}`"
           class="group block"
         >
-          <div class="relative rounded-[2.5rem] overflow-hidden h-72 bg-gray-50 border border-gray-100 shadow-sm transition-all duration-700 hover:shadow-2xl hover:shadow-gray-200">
+          <div class="relative rounded-[2.5rem] overflow-hidden h-72 bg-gray-50 border border-gray-100  transition-all duration-700 hover: hover:shadow-gray-200">
             <!-- Background Image -->
             <img 
               v-if="cat.image" 
@@ -64,14 +64,14 @@
           
           <div class="mt-6 px-4 group-hover:translate-x-1 transition-transform duration-500">
             <h3 class="text-xl font-black text-gray-900 leading-none group-hover:text-[#033958] transition-colors uppercase tracking-tight">{{ cat.name }}</h3>
-            <p class="text-sm text-gray-400 mt-2 font-medium line-clamp-2 leading-relaxed">{{ cat.description || $t('common.default_cat_desc') }}</p>
+            <p class="text-sm text-[#033958]/80 mt-2 font-medium line-clamp-2 leading-relaxed">{{ cat.description || $t('common.default_cat_desc') }}</p>
           </div>
         </NuxtLink>
       </div>
 
       <div v-else class="text-center py-20">
         <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-6">
-          <Icon name="lucide:folder-open" size="40" class="text-gray-300" />
+          <Icon name="lucide:folder-open" size="40" class="text-[#033958]/60" />
         </div>
         <h3 class="text-xl font-bold text-gray-900 mb-2">{{ $t('common.no_categories') }}</h3>
         <p class="text-gray-500">{{ $t('common.check_back_soon') }}</p>

@@ -12,4 +12,5 @@ export const auth_api = {
     verifyLoginOtp: (payload: { email: string; otpCode: string }) => GATEWAY_ENDPOINT.post('/auth/verify-login-otp', payload),
     socialLogin: (payload: { idToken: string }) => GATEWAY_ENDPOINT.post('/auth/social-login', payload),
     updateProfile: (payload: any) => GATEWAY_ENDPOINT.patch('/auth/profile', payload),
+    guestChat: (payload: { fullName: string; email: string }) => GATEWAY_ENDPOINT.post('/auth/guest-chat', payload),
 }

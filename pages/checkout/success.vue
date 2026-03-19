@@ -5,12 +5,12 @@
     <div class="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl -ml-48 -mb-48 animate-pulse" style="animation-delay: 2s"></div>
 
     <!-- Success Card -->
-    <div class="max-w-xl w-full bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-white p-8 md:p-12 text-center relative z-10 slide-up">
+    <div class="max-w-xl w-full bg-white/80 backdrop-blur-xl rounded-[2.5rem]  border border-white p-8 md:p-12 text-center relative z-10 slide-up">
       
       <!-- Animated Check Circle -->
       <div class="relative w-20 h-20 mx-auto mb-8">
         <div class="absolute inset-0 bg-green-100 rounded-full scale-125 animate-ping opacity-20"></div>
-        <div class="relative w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-lg shadow-green-200 check-scale">
+        <div class="relative w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center  shadow-green-200 check-scale">
           <Icon name="lucide:check" class="w-12 h-12 text-white stroke-[3px]" />
         </div>
       </div>
@@ -29,12 +29,12 @@
       <!-- Order Details Summary (Optional/Placeholder) -->
       <div v-if="orderId" class="bg-slate-50 rounded-2xl p-4 mb-10 flex items-center justify-between text-sm border border-slate-100">
         <div class="text-left">
-          <p class="text-slate-400 uppercase tracking-widest font-bold text-[10px] mb-1">Order ID</p>
+          <p class="text-slate-400 uppercase tracking-widest font-bold text-xs mb-1">Order ID</p>
           <p class="text-slate-700 font-mono font-bold">#{{ orderId.slice(-8).toUpperCase() }}</p>
         </div>
         <div class="text-right">
-          <p class="text-slate-400 uppercase tracking-widest font-bold text-[10px] mb-1">Status</p>
-          <div class="flex items-center gap-1.5 text-green-600 font-bold uppercase text-[11px]">
+          <p class="text-slate-400 uppercase tracking-widest font-bold text-xs mb-1">Status</p>
+          <div class="flex items-center gap-1.5 text-green-600 font-bold uppercase text-sm">
             <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
             Confirmed
           </div>
@@ -44,12 +44,12 @@
       <!-- Actions -->
       <div class="grid sm:grid-cols-2 gap-4">
         <NuxtLink to="/account/orders" 
-          class="flex items-center justify-center gap-2 py-4 px-6 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all hover:translate-y-[-2px] active:scale-95 shadow-lg shadow-slate-200">
+          class="flex items-center justify-center gap-2 py-4 px-6 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all hover:translate-y-[-2px] active:scale-95  shadow-slate-200">
           <Icon name="lucide:shopping-bag" class="w-5 h-5" />
           Track Order
         </NuxtLink>
         <NuxtLink to="/" 
-          class="flex items-center justify-center gap-2 py-4 px-6 bg-white text-slate-700 border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all hover:translate-y-[-2px] active:scale-95 shadow-sm">
+          class="flex items-center justify-center gap-2 py-4 px-6 bg-white text-slate-700 border border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition-all hover:translate-y-[-2px] active:scale-95 ">
           Continue Store
         </NuxtLink>
       </div>

@@ -2,7 +2,7 @@
   <Transition name="fade">
     <div v-if="isOpen" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-dark-950/60 backdrop-blur-sm">
       <Transition name="scale">
-        <div v-if="isOpen" class="w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+        <div v-if="isOpen" class="w-full max-w-sm bg-white rounded-3xl  overflow-hidden border border-gray-100">
           <div class="p-8 text-center">
             <div class="w-16 h-16 rounded-2xl bg-amber-50 flex items-center justify-center mx-auto mb-6">
               <Icon :name="icon || 'lucide:alert-triangle'" class="w-8 h-8 text-amber-500" />
@@ -13,7 +13,7 @@
             <div class="flex flex-col gap-3">
               <button 
                 @click="onConfirm" 
-                :class="['w-full py-4 rounded-2xl font-bold transition-all shadow-lg', confirmClass || 'bg-gray-900 text-white hover:bg-black shadow-gray-900/10']"
+                :class="['w-full py-4 rounded-2xl font-bold transition-all ', confirmClass || 'bg-gray-900 text-white hover:bg-black shadow-gray-900/10']"
               >
                 {{ confirmText || 'Confirm' }}
               </button>

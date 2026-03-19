@@ -1,12 +1,12 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-32 lg:px-8 py-8">
-    <div v-if="loading" class="text-center py-20"><Icon name="lucide:loader-2" class="w-8 h-8 animate-spin mx-auto text-gray-400" /></div>
+    <div v-if="loading" class="text-center py-20"><Icon name="lucide:loader-2" class="w-8 h-8 animate-spin mx-auto text-[#033958]/80" /></div>
     <div v-else-if="product" class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
       <!-- Images -->
       <div>
         <div class="aspect-square bg-gray-50 rounded-3xl overflow-hidden flex items-center justify-center border border-gray-100 p-8">
           <img v-if="product.images?.[selectedImage]" :src="product.images[selectedImage]" :alt="product.name" class="w-full h-full object-contain" />
-          <div v-else class="w-full h-full flex items-center justify-center"><Icon name="lucide:image" class="w-16 h-16 text-gray-300" /></div>
+          <div v-else class="w-full h-full flex items-center justify-center"><Icon name="lucide:image" class="w-16 h-16 text-[#033958]/60" /></div>
         </div>
         <div v-if="product.images?.length > 1" class="flex gap-2 mt-4">
           <button v-for="(img, i) in (product.images as any[])" :key="i" @click="selectedImage = (i as number)"
@@ -18,11 +18,11 @@
 
       <!-- Details -->
       <div class="flex flex-col">
-        <NuxtLink to="/products" class="text-sm text-gray-400 hover:text-gray-600 mb-2">{{ $t('common.back_to_shop') }}</NuxtLink>
+        <NuxtLink to="/products" class="text-sm text-[#033958]/80 hover:text-gray-600 mb-2">{{ $t('common.back_to_shop') }}</NuxtLink>
         <h1 class="text-3xl font-bold text-gray-900">{{ product.name }}</h1>
         <div class="flex items-center gap-3 mt-3">
           <span class="text-2xl font-bold text-gray-900">{{ formatPrice(product.price) }}</span>
-          <span v-if="product.compareAtPrice" class="text-lg text-gray-400 line-through">{{ formatPrice(product.compareAtPrice) }}</span>
+          <span v-if="product.compareAtPrice" class="text-lg text-[#033958]/80 line-through">{{ formatPrice(product.compareAtPrice) }}</span>
           <span v-if="product.compareAtPrice" class="badge bg-red-50 text-red-600 text-xs">{{ $t('common.save') }} {{ savings }}%</span>
         </div>
         <p class="text-gray-600 mt-4 leading-relaxed">{{ product.description }}</p>
@@ -40,8 +40,8 @@
         <p v-else class="mt-6 text-red-600 font-medium">{{ $t('common.out_of_stock') }}</p>
 
         <div class="mt-8 space-y-3 border-t border-gray-200 pt-6">
-          <div v-if="product.sku" class="flex justify-between text-sm"><span class="text-gray-400">SKU</span><span class="text-gray-700">{{ product.sku }}</span></div>
-          <div class="flex justify-between text-sm"><span class="text-gray-400">{{ $t('common.category') }}</span><span class="text-gray-700">{{ typeof product.category === 'object' ? (product.category as any)?.name : '—' }}</span></div>
+          <div v-if="product.sku" class="flex justify-between text-sm"><span class="text-[#033958]/80">SKU</span><span class="text-gray-700">{{ product.sku }}</span></div>
+          <div class="flex justify-between text-sm"><span class="text-[#033958]/80">{{ $t('common.category') }}</span><span class="text-gray-700">{{ typeof product.category === 'object' ? (product.category as any)?.name : '—' }}</span></div>
           <div v-if="product.tags?.length" class="flex gap-2 flex-wrap mt-2">
             <span v-for="tag in product.tags" :key="tag" class="px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-600">{{ tag }}</span>
           </div>
@@ -53,40 +53,28 @@
       <div class="flex items-center justify-between mb-8">
         <div>
           <h2 class="text-2xl font-black text-gray-900 tracking-tight">Related Products</h2>
-          <p class="text-sm text-gray-400 font-medium">Specially selected to complement your choice</p>
+          <p class="text-sm text-[#033958]/80 font-medium">Specially selected to complement your choice</p>
         </div>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
         <ProductCard v-for="p in product.relatedProducts" :key="p._id" :product="localizeProduct(p)" />
       </div>
     </section>
 
     <!-- Aggressive Recommendations Section -->
-    <section v-if="recommendations.length" class="mt-32 relative">
-      <!-- Decorative Backdrop -->
-      <div class="absolute inset-0 bg-[#033958]/5 rounded-[4rem] -mx-4 lg:-mx-12 py-20 pointer-events-none"></div>
-      
-      <div class="relative z-10 px-4 lg:px-8 py-20">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-          <div class="space-y-4">
-            <div class="inline-flex items-center gap-2 bg-amber-400/10 text-amber-600 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] border border-amber-400/20">
-              <Icon name="lucide:sparkles" size="14" class="animate-pulse" /> You May Also Love
-            </div>
-            <h2 class="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none">
-              Royal <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-[#033958]">Selections</span>
-            </h2>
-            <p class="text-gray-500 max-w-xl font-medium text-lg leading-relaxed italic">
-              Experience more artisanal flavors hand-picked to complement your current choice.
-            </p>
-          </div>
-          <NuxtLink to="/products" class="bg-white hover:bg-gray-50 text-gray-950 px-8 py-4 rounded-[2rem] font-black text-xs uppercase tracking-widest border-2 border-gray-100 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-sm">
-            View Royal Archive <Icon name="lucide:arrow-right" size="16" />
-          </NuxtLink>
+    <section v-if="recommendations.length" class="mt-20 border-t border-gray-100 pt-16">
+      <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <h2 class="text-3xl font-black text-gray-900 tracking-tight">You May Also Love</h2>
+          <p class="text-sm text-gray-500 font-medium mt-2">More flavors hand-picked to complement your choice.</p>
         </div>
+        <NuxtLink to="/products" class="text-sm font-bold text-[#033958] hover:underline flex items-center gap-1">
+          Explore All <Icon name="lucide:arrow-right" size="14" />
+        </NuxtLink>
+      </div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-          <ProductCard v-for="p in recommendations" :key="p._id" :product="p" />
-        </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <ProductCard v-for="p in recommendations" :key="p._id" :product="p" />
       </div>
     </section>
   </div>

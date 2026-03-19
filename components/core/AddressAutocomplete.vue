@@ -1,21 +1,36 @@
 <template>
   <div class="space-y-2 relative">
-    <label v-if="label" class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">{{ label }}</label>
     <div class="relative group">
-      <Icon name="lucide:map-pin" size="18" class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#033958] transition-colors" />
-      <input 
-        ref="autocompleteInput"
-        :value="modelValue"
-        @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-        :placeholder="placeholder" 
-        :required="required"
-        class="w-full pl-12 pr-5 py-4 bg-white border border-gray-200 rounded-2xl text-sm font-bold text-gray-900 focus:ring-2 focus:ring-[#033958] outline-none transition-all" 
-      />
+      <Icon name="lucide:map-pin" size="18" class="absolute left-5 top-1/2 -translate-y-1/2 text-[#033958]/80 group-focus-within:text-[#033958] transition-colors z-10" />
+      <div class="relative">
+        <label 
+          v-if="label"
+          :class="[
+            'absolute transition-all duration-300 ease-in-out pointer-events-none z-10 text-xs text-gray-500 left-12 top-2',
+            modelValue ? 'opacity-100' : 'opacity-0'
+          ]"
+        >
+          {{ label }}
+        </label>
+        <input 
+          ref="autocompleteInput"
+          :value="modelValue"
+          @input="handleInput"
+          :placeholder="modelValue ? '' : placeholder" 
+          :required="required"
+          :class="[
+            'w-full pl-12 pr-5 bg-gray-50 border border-gray-200 rounded-2xl text-sm font-bold text-gray-900 focus:ring-1 focus:ring-[#033958] focus:border-[#033958] outline-none transition-all',
+            label ? 'py-4 pt-6' : 'py-4'
+          ]" 
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+
 declare const google: any
 
 const props = defineProps({
@@ -39,6 +54,16 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue', 'place-changed'])
 const autocompleteInput = ref<HTMLInputElement | null>(null)
+
+let debounceTimer: any = null
+
+const handleInput = (e: Event) => {
+  const value = (e.target as HTMLInputElement).value
+  if (debounceTimer) clearTimeout(debounceTimer)
+  debounceTimer = setTimeout(() => {
+    emit('update:modelValue', value)
+  }, 800) // Debounce update to modelValue
+}
 
 onMounted(() => {
   if (typeof google === 'undefined') return

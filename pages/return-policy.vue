@@ -7,7 +7,7 @@
       
       <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4 uppercase">Return Policy</h1>
-        <p class="text-gray-300 font-medium">Fairness and Transparency in Every Transaction</p>
+        <p class="text-[#033958]/60 font-medium">Fairness and Transparency in Every Transaction</p>
       </div>
     </section>
 
@@ -45,10 +45,10 @@
 
         <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 flex items-center justify-between">
           <div>
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Need assistance?</p>
+            <p class="text-xs font-bold text-[#033958]/80 uppercase tracking-widest mb-1">Need assistance?</p>
             <p class="text-sm font-black text-gray-900 tracking-tight">Support is available 24/7</p>
           </div>
-          <NuxtLink to="/contact" class="px-8 py-3 bg-[#033958] text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#044a70] transition-colors shadow-lg shadow-[#033958]/20">Contact Us</NuxtLink>
+          <NuxtLink to="/contact" class="px-8 py-3 bg-[#033958] text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#044a70] transition-colors  /20">Contact Us</NuxtLink>
         </div>
       </div>
     </section>

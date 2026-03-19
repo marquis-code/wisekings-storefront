@@ -8,7 +8,7 @@
       <div class="text-center mb-10">
         <NuxtLink to="/" class="inline-block mb-8">
           <img src="@/assets/images/logo.jpg" class="h-10 w-auto" alt="Logo" />
-            <!-- <div class="w-20 h-20 rounded-[2rem] bg-indigo-600 flex items-center justify-center font-black text-white text-3xl shadow-[0_20px_40px_rgba(79,70,229,0.3)] mx-auto relative group overflow-hidden">
+            <!-- <div class="w-20 h-20 rounded-[2rem] bg-indigo-600 flex items-center justify-center font-black text-white text-3xl  mx-auto relative group overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent group-hover:translate-x-full duration-1000 transition-transform"></div>
                 WK
             </div> -->
@@ -17,13 +17,13 @@
         <p class="text-gray-500 font-medium italic text-sm">A 6-digit code was sent to your inbox.</p>
       </div>
 
-      <div class="bg-white rounded-[3rem] p-10 shadow-[0_30px_70px_rgba(79,70,229,0.1)] border border-white relative overflow-hidden">
+      <div class="bg-white rounded-[3rem] p-10  border border-white relative overflow-hidden">
         <!-- Inner glow -->
         <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-amber-50/30 to-transparent pointer-events-none"></div>
 
         <div class="text-center mb-10 relative">
             <div class="px-4 py-2 bg-amber-50 rounded-full inline-block border border-amber-100/50 mb-3">
-                <p class="text-[10px] font-black text-amber-600 uppercase tracking-widest">{{ email }}</p>
+                <p class="text-xs font-black text-amber-600 uppercase tracking-widest">{{ email }}</p>
             </div>
         </div>
 
@@ -38,7 +38,7 @@
               maxlength="1"
               inputmode="numeric"
               autocomplete="one-time-code"
-              class="w-12 h-16 text-center text-2xl font-black bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-indigo-400 focus:ring-8 focus:ring-indigo-400/5 transition-all outline-none shadow-sm"
+              class="w-12 h-16 text-center text-2xl font-black bg-gray-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-indigo-400 focus:ring-8 focus:ring-indigo-400/5 transition-all outline-none "
               @input="onInput($event, index)"
               @keydown="onKeydown($event, index)"
               @paste="onPaste"
@@ -50,7 +50,7 @@
             <button 
               type="submit" 
               :disabled="loading || otpValue.length < 6"
-              class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 rounded-[1.5rem] shadow-2xl shadow-indigo-600/20 transition-all flex items-center justify-center gap-3 group disabled:opacity-50 active:scale-95"
+              class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 rounded-[1.5rem]  shadow-indigo-600/20 transition-all flex items-center justify-center gap-3 group disabled:opacity-50 active:scale-95"
             >
               <span v-if="loading" class="flex items-center gap-2">
                 <Icon name="lucide:loader-2" class="w-5 h-5 animate-spin" />
@@ -63,7 +63,7 @@
             </button>
 
             <div class="flex flex-col items-center gap-4">
-                <p class="text-[11px] font-bold text-gray-400 uppercase tracking-tight">
+                <p class="text-sm font-bold text-[#033958]/80 uppercase tracking-tight">
                     Didn't get the code? 
                     <button 
                       type="button" 
@@ -74,7 +74,7 @@
                       {{ countdown > 0 ? `Retry in ${countdown}s` : 'Resend Code' }}
                     </button>
                 </p>
-                <NuxtLink to="/login" class="text-[10px] font-black text-gray-400 hover:text-gray-600 uppercase tracking-tighter flex items-center gap-1 transition-all">
+                <NuxtLink to="/login" class="text-xs font-black text-[#033958]/80 hover:text-gray-600 uppercase tracking-tighter flex items-center gap-1 transition-all">
                     <Icon name="lucide:arrow-left" class="w-3 h-3" />
                     Return to Login
                 </NuxtLink>
@@ -84,7 +84,7 @@
       </div>
 
       <div class="mt-10 text-center">
-        <p class="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] flex items-center justify-center gap-2">
+        <p class="text-[#033958]/80 text-xs font-black uppercase tracking-[0.2em] flex items-center justify-center gap-2">
             <Icon name="lucide:lock" class="w-3 h-3" />
             Verified Security
         </p>

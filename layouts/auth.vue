@@ -14,7 +14,7 @@
         <div>
           <NuxtLink to="/" class="flex items-center gap-3 group">
             <img src="@/assets/images/logo.jpg" alt="WiseKings Logo" class="w-auto h-14" />
-            <!-- <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 shadow-lg">
+            <!-- <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-300 ">
               <span class="text-[#033958] font-black text-sm">WK</span>
             </div>
             <span class="text-2xl font-extrabold tracking-tight text-white group-hover:text-white/90 transition-colors">WiseKings</span> -->
@@ -32,7 +32,7 @@
 
         <div class="flex items-center gap-4">
           <div class="flex -space-x-3">
-            <div v-for="i in 4" :key="i" class="w-10 h-10 rounded-full border-2 border-white bg-gray-200 overflow-hidden shadow-sm">
+            <div v-for="i in 4" :key="i" class="w-10 h-10 rounded-full border-2 border-white bg-gray-200 overflow-hidden ">
               <img :src="`https://api.dicebear.com/7.x/avataaars/svg?seed=${i+20}`" alt="User Avatar">
             </div>
           </div>
@@ -59,7 +59,7 @@
       </div>
       
       <div class="absolute bottom-8 left-0 right-0 text-center px-6">
-        <p class="text-sm text-gray-400">
+        <p class="text-sm text-[#033958]/80">
           &copy; {{ new Date().getFullYear() }} WiseKings. All rights reserved.
         </p>
       </div>

@@ -3,21 +3,21 @@
     <!-- Hero Banner Carousel -->
     <!-- Hero Section (SumipSplash Style) -->
     <section class="relative bg-white pt-32 pb-20 overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center relative z-10">
+      <div class="max-w-[1920px] mx-auto px-4 lg:px-8 text-center relative z-10">
         <!-- Top Pill Badge -->
-        <div class="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest text-gray-500 mb-12 shadow-sm animate-fade-in">
+        <div class="inline-flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest text-gray-500 mb-12  animate-fade-in">
           <span>🍿</span>
           <span class="w-px h-3 bg-gray-200 mx-1"></span>
           <span>👑 WiseKings Snacking</span>
-          <Icon name="lucide:arrow-right" size="12" class="text-gray-300" />
+          <Icon name="lucide:arrow-right" size="12" class="text-[#033958]/60" />
           <span>🔍</span>
         </div>
 
         <!-- Typography Carousel -->
-        <div class="max-w-5xl mx-auto mb-12 h-[220px] md:h-[280px] flex items-center justify-center">
+        <div class="max-w-[1440px] mx-auto mb-12 h-[220px] md:h-[280px] flex items-center justify-center">
           <transition name="slide-fade" mode="out-in">
             <div :key="currentSlide" class="space-y-6">
-              <h1 :style="{ color: slides[currentSlide].color }" class="text-5xl md:text-8xl lg:text-[100px] font-black tracking-tighter leading-[0.9] drop-shadow-sm transition-colors duration-1000">
+              <h1 :style="{ color: slides[currentSlide].color }" class="text-5xl md:text-8xl lg:text-[100px] font-black tracking-tighter leading-[0.9] drop- transition-colors duration-1000">
                 {{ slides[currentSlide].title }}
               </h1>
               <p class="text-lg md:text-2xl text-gray-500 max-w-2xl mx-auto font-medium leading-relaxed">
@@ -29,11 +29,11 @@
 
         <!-- CTA Button -->
         <div class="flex flex-col items-center gap-4 mb-20">
-          <NuxtLink :to="slides[currentSlide].cta.link" class="bg-gray-950 text-white px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:bg-[#033958] hover:scale-105 transition-all shadow-xl flex items-center gap-3 group/btn relative overflow-hidden">
+          <NuxtLink :to="slides[currentSlide].cta.link" class="bg-gray-950 text-white px-10 py-5 rounded-full font-black text-sm uppercase tracking-widest hover:bg-[#033958] hover:scale-105 transition-all  flex items-center gap-3 group/btn relative overflow-hidden">
             <span class="relative z-10">Order now</span>
             <Icon name="lucide:arrow-right" size="18" class="relative z-10 group-hover/btn:translate-x-1 transition-transform" />
           </NuxtLink>
-          <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
+          <p class="text-xs font-bold text-[#033958]/80 uppercase tracking-widest flex items-center gap-2">
             <span>✨</span> Freshly handcrafted for your royalty.
           </p>
         </div>
@@ -42,7 +42,7 @@
         <div class="hidden lg:flex justify-center mt-20 relative overflow-hidden w-full">
           <div class="flex animate-marquee-fast gap-12 py-10">
             <div v-for="(img, i) in [...heroGallery, ...heroGallery]" :key="i" 
-              class="flex-shrink-0 w-80 h-[550px] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white bg-white hover:scale-105 transition-transform duration-500 p-4"
+              class="flex-shrink-0 w-80 h-[550px] rounded-[3rem] overflow-hidden  border-4 border-white bg-white hover:scale-105 transition-transform duration-500 p-4"
             >
               <img :src="img" class="w-full h-full object-contain" alt="Snack Variety">
             </div>
@@ -52,7 +52,7 @@
         <!-- Mobile Image Gallery (Scrollable) -->
         <div class="lg:hidden flex gap-4 overflow-x-auto no-scrollbar px-4 pb-12 mt-12 snap-x snap-mandatory">
           <div v-for="(img, i) in heroGallery" :key="i" 
-            class="flex-shrink-0 w-72 h-[450px] bg-white rounded-[2rem] overflow-hidden shadow-xl snap-center border-2 border-gray-50 p-4"
+            class="flex-shrink-0 w-72 h-[450px] bg-white rounded-[2rem] overflow-hidden  snap-center border-2 border-gray-50 p-4"
           >
             <img :src="img" class="w-full h-full object-contain" alt="Snack Variety">
           </div>
@@ -66,106 +66,11 @@
       </div>
     </section>
 
-    <!-- Premium Brand Showcase Section (Full Width) -->
-    <section class="py-32 bg-gray-900 overflow-hidden relative">
-      <!-- Decorative Accents -->
-      <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-        <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500/20 blur-[100px] rounded-full"></div>
-        <div class="absolute top-1/2 -right-24 w-64 h-64 bg-[#FFC20E]/10 blur-[80px] rounded-full"></div>
-      </div>
-
-      <div class="max-w-[1920px] mx-auto">
-        <div class="flex flex-col lg:flex-row gap-16 items-center">
-          <!-- Text Content -->
-          <div class="px-6 lg:pl-20 lg:w-1/3 xl:w-1/4 space-y-8 text-left relative z-10">
-            <div class="inline-flex items-center gap-2 text-[#FFC20E] font-bold uppercase tracking-widest text-sm border-b-2 border-[#FFC20E] pb-1">
-              <Icon name="lucide:users" size="18" />
-              Our Partners
-            </div>
-            <h2 class="text-5xl md:text-6xl font-black text-white tracking-tighter leading-none">
-              Meet the Company <br/> 
-              <span class="text-[#FFC20E]">Behind the Brands</span>
-            </h2>
-            <p class="text-lg text-gray-400 font-medium leading-relaxed">
-              We partner with West Africa's most prestigious retail chains to bring royalty-grade artisanal snacks directly to your favorite stores.
-            </p>
-            <!-- <NuxtLink to="/brands" class="inline-flex items-center gap-3 bg-[#FFC20E] text-gray-950 px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-[#FFC20E]/20 group">
-              See All Brands
-              <Icon name="lucide:arrow-right" size="16" class="group-hover:translate-x-1 transition-transform" />
-            </NuxtLink> -->
-          </div>
-
-          <!-- End-to-End Carousel -->
-          <div class="lg:w-2/3 xl:w-3/4 relative overflow-hidden h-[500px] flex items-center">
-             <div class="flex animate-marquee-brand gap-8 group py-10">
-               <div v-for="(brand, i) in brandShowcaseContinuity" :key="i" 
-                 class="flex-shrink-0 w-80 bg-white/5 backdrop-blur-md rounded-[2.5rem] p-8 border border-white/10 hover:border-[#FFC20E]/50 transition-all duration-700 hover:-translate-y-6 group/card"
-               >
-                 <div class="h-44 w-full bg-white rounded-3xl overflow-hidden mb-8 p-6 flex items-center justify-center transition-all group-hover/card:bg-[#FFC20E]">
-                    <img :src="brand.logo" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover/card:scale-110" :alt="brand.name">
-                 </div>
-                 <h3 class="text-xl font-black text-white mb-4 tracking-tighter">{{ brand.name }}</h3>
-                 <p class="text-xs text-gray-400 leading-relaxed line-clamp-4 font-medium italic">
-                   "{{ brand.miniBio }}"
-                 </p>
-               </div>
-             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Dynamic Banners (from API) - Asymmetrical Layout -->
-    <section v-if="banners.length" class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 -mt-20 relative z-20 pb-16">
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
-        <!-- Main Large Banner -->
-        <div v-if="banners[0]" class="md:col-span-8 group relative overflow-hidden rounded-[2.5rem] shadow-2xl transition-all duration-700 hover:-translate-y-2 h-[400px] md:h-[500px]">
-          <a :href="banners[0].link || '#'" class="block relative h-full">
-            <img :src="banners[0].image" :alt="banners[0].title" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
-            <div class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
-            
-            <div class="absolute inset-x-0 bottom-0 p-10 flex flex-col justify-end">
-              <div class="space-y-4">
-                <span class="inline-block px-4 py-1.5 bg-amber-400 text-gray-950 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-2">Featured Now</span>
-                <h3 class="text-4xl md:text-5xl font-black text-white leading-none tracking-tighter">{{ banners[0].title }}</h3>
-                <p v-if="banners[0].description" class="text-white/60 text-sm md:text-base font-medium max-w-xl line-clamp-2 md:line-clamp-none overflow-y-auto max-h-[100px] mobile-scroll">{{ banners[0].description }}</p>
-              </div>
-            </div>
-            <div class="absolute top-8 right-8 w-16 h-16 bg-white/10 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500 scale-75 group-hover:scale-100">
-              <Icon name="lucide:arrow-up-right" class="text-white" size="24" />
-            </div>
-          </a>
-        </div>
-
-        <!-- Sidebar Banners Stack -->
-        <div class="md:col-span-4 flex flex-col gap-8">
-            <div v-for="(b, i) in banners.slice(1, 3)" :key="b._id" 
-              class="group relative overflow-hidden rounded-[2.5rem] shadow-2xl transition-all duration-700 hover:-translate-y-2 flex-1 min-h-[220px]"
-            >
-              <a :href="b.link || '#'" class="block relative h-full">
-                <img :src="b.image" :alt="b.title" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                <div class="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-gray-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
-                
-                <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end">
-                  <div class="space-y-2 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                    <span class="inline-block px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[9px] font-black uppercase tracking-widest text-white mb-1">Exclusive</span>
-                    <h3 class="text-xl font-black text-white leading-tight uppercase tracking-tight">{{ b.title }}</h3>
-                    <div v-if="b.description" class="max-h-[60px] overflow-y-auto mobile-scroll">
-                        <p class="text-white/50 text-[10px] font-medium leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity">{{ b.description }}</p>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Categories Section (Shifted down for layout flow) -->
-    <section class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-24">
+    <section class="max-w-[1920px] mx-auto px-4 lg:px-8 py-24">
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
         <div>
-          <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">
+          <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-600 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-4">
             <Icon name="lucide:layers" size="14" /> Collections
           </div>
           <h2 class="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter">{{ $t('shop_by_category') }}</h2>
@@ -177,8 +82,8 @@
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-        <NuxtLink v-for="c in displayCategories" :key="c._id" :to="`/products?category=${c._id}`"
-          class="group relative h-64 rounded-[3rem] overflow-hidden transition-all duration-700 hover:-translate-y-4 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)]"
+        <NuxtLink v-for="c in displayCategories" :key="c.slug || c.name.toLowerCase().replace(/ /g, '-')" :to="`/products?category=${c.slug || c.name.toLowerCase().replace(/ /g, '-')}`"
+          class="group relative h-64 rounded-[3rem] overflow-hidden transition-all duration-700 hover:-translate-y-4 hover:"
         >
           <!-- Background Image -->
           <div class="absolute inset-0 z-0">
@@ -197,16 +102,30 @@
 
           <!-- Content -->
           <div class="relative z-10 h-full p-8 flex flex-col justify-end">
-            <span class="text-[10px] font-black text-white/40 uppercase tracking-[0.3em] mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Discover</span>
+            <span class="text-xs font-black text-white/40 uppercase tracking-[0.3em] mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">Discover</span>
             <h3 class="text-xl font-black text-white tracking-tight leading-none group-hover:translate-x-2 transition-transform duration-500">{{ c.name }}</h3>
             <div class="w-10 h-1 bg-amber-400 mt-4 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-700"></div>
           </div>
         </NuxtLink>
         <div v-if="displayCategories.length === 0" class="col-span-full py-20 text-center">
           <div class="w-16 h-16 border-4 border-gray-100 border-t-[#033958] rounded-full animate-spin mx-auto mb-6"></div>
-          <p class="text-xs font-black text-gray-400 uppercase tracking-[0.3em]">Sourcing Collections...</p>
+          <p class="text-xs font-black text-[#033958]/80 uppercase tracking-[0.3em]">Sourcing Collections...</p>
         </div>
       </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="max-w-[1920px] mx-auto px-4 lg:px-8 py-16">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-extrabold text-gray-900">{{ $t('featured_snacks') }}</h2>
+        <NuxtLink to="/products" class="text-sm font-bold text-[#033958] hover:underline flex items-center gap-1">
+          {{ $t('view_all') }} <Icon name="lucide:arrow-right" size="14" />
+        </NuxtLink>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6">
+          <ProductCard v-for="p in products" :key="p._id" :product="p" />
+      </div>
+      <div v-if="products.length === 0" class="text-center py-12 text-[#033958]/80">{{ $t('loading_products') }}</div>
     </section>
 
     <!-- Promotions & Special Sections (Overhauled) -->
@@ -215,10 +134,10 @@
       <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,#033958_0%,transparent_40%)] opacity-30"></div>
       <div class="absolute bottom-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,#f59e0b_0%,transparent_30%)] opacity-10"></div>
       
-      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 relative z-10">
+      <div class="max-w-[1920px] mx-auto px-4 lg:px-8 relative z-10">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8 text-center md:text-left">
           <div class="space-y-4">
-            <div class="inline-flex items-center gap-2 bg-amber-400/10 text-amber-400 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.3em] border border-amber-400/20">
+            <div class="inline-flex items-center gap-2 bg-amber-400/10 text-amber-400 px-5 py-2 rounded-full text-xs font-black uppercase tracking-[0.3em] border border-amber-400/20">
               <Icon name="lucide:zap" size="14" class="animate-pulse" /> Flash Offers
             </div>
             <h2 class="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">
@@ -232,10 +151,10 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div v-for="p in promotions" :key="p._id" class="group relative bg-white/5 backdrop-blur-3xl rounded-[3rem] p-10 border border-white/5 hover:bg-white/10 transition-all duration-700 hover:-translate-y-4 shadow-2xl flex flex-col justify-between min-h-[400px]">
+          <div v-for="p in promotions" :key="p._id" class="group relative bg-white/5 backdrop-blur-3xl rounded-[3rem] p-10 border border-white/5 hover:bg-white/10 transition-all duration-700 hover:-translate-y-4  flex flex-col justify-between min-h-[400px]">
             <div>
                 <div class="flex items-center justify-between mb-8">
-                <span v-if="p.badgeText" :class="['px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm', p.badgeColor || 'bg-amber-400 text-gray-900']">{{ p.badgeText }}</span>
+                <span v-if="p.badgeText" :class="['px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest ', p.badgeColor || 'bg-amber-400 text-gray-900']">{{ p.badgeText }}</span>
                 <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:bg-amber-400 group-hover:text-gray-900 transition-colors">
                     <Icon name="lucide:gift" size="20" />
                 </div>
@@ -263,8 +182,8 @@
 
     <!-- Gifting Section -->
     <section class="py-16 bg-white overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-        <div class="relative rounded-[4rem] overflow-hidden shadow-2xl group/gifting">
+      <div class="max-w-[1920px] mx-auto px-4 lg:px-8">
+        <div class="relative rounded-[4rem] overflow-hidden  group/gifting">
           <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=2000&auto=format&fit=crop" alt="Gifting" class="absolute inset-0 w-full h-full object-cover group-hover/gifting:scale-105 transition-transform duration-1000">
           <div class="absolute inset-0 bg-gradient-to-r from-gray-950/90 via-gray-950/40 to-transparent"></div>
           <div class="relative z-10 p-12 md:p-20 text-white max-w-2xl">
@@ -273,7 +192,7 @@
             </div>
             <h2 class="text-4xl md:text-7xl font-black mb-6 leading-[0.9] tracking-tighter">Pure Joy<br/>Hand-Wrapped</h2>
             <p class="text-white/60 text-lg md:text-xl mb-10 max-w-md font-medium leading-relaxed">Curated gift boxes for every heartbeat. From anniversaries to grand celebrations.</p>
-            <NuxtLink to="/products" class="inline-flex items-center gap-4 bg-white text-gray-950 px-10 py-5 rounded-3xl font-black text-sm uppercase tracking-widest hover:bg-amber-400 transition-all shadow-2xl group">
+            <NuxtLink to="/products" class="inline-flex items-center gap-4 bg-white text-gray-950 px-10 py-5 rounded-3xl font-black text-sm uppercase tracking-widest hover:bg-amber-400 transition-all  group">
               Shop Gifts
               <Icon name="lucide:arrow-right" size="20" class="group-hover:translate-x-1 transition-transform" />
             </NuxtLink>
@@ -282,12 +201,130 @@
       </div>
     </section>
 
+    <!-- Holiday Banner -->
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-[1920px] mx-auto px-4 lg:px-8">
+        <div class="relative rounded-3xl overflow-hidden ">
+          <img src="@/assets/images/holiday.jpg" alt="Holiday" class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-r from-emerald-900/90 to-teal-900/80"></div>
+          <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 p-10 md:p-14 text-white">
+            <div class="max-w-lg">
+              <div class="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full text-sm font-bold mb-4 backdrop-blur-md border border-white/20">
+                <Icon name="lucide:calendar-heart" size="16" /> Holiday Special
+              </div>
+              <h2 class="text-3xl md:text-5xl font-extrabold mb-3 leading-tight">Holiday Season Savings!</h2>
+              <p class="text-white/80 text-lg">Celebrate with our exclusive holiday snack collections. Up to 30% off select items.</p>
+            </div>
+            <NuxtLink to="/offers" class="shrink-0 inline-flex items-center gap-3 bg-white text-emerald-800 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-50 transition-all  group">
+              Shop Holiday Deals
+              <Icon name="lucide:arrow-right" size="20" class="group-hover:translate-x-1 transition-transform" />
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Premium Brand Showcase Section (Full Width) -->
+    <section class="py-32 bg-gray-900 overflow-hidden relative">
+      <!-- Decorative Accents -->
+      <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500/20 blur-[100px] rounded-full"></div>
+        <div class="absolute top-1/2 -right-24 w-64 h-64 bg-[#FFC20E]/10 blur-[80px] rounded-full"></div>
+      </div>
+
+      <div class="max-w-[1920px] mx-auto">
+        <div class="flex flex-col lg:flex-row gap-16 items-center">
+          <!-- Text Content -->
+          <div class="px-6 lg:pl-20 lg:w-1/3 xl:w-1/4 space-y-8 text-left relative z-10">
+            <div class="inline-flex items-center gap-2 text-[#FFC20E] font-bold uppercase tracking-widest text-sm border-b-2 border-[#FFC20E] pb-1">
+              <Icon name="lucide:users" size="18" />
+              Our Partners
+            </div>
+            <h2 class="text-5xl md:text-6xl font-black text-white tracking-tighter leading-none">
+              Meet the Company <br/> 
+              <span class="text-[#FFC20E]">Behind the Brands</span>
+            </h2>
+            <p class="text-lg text-white/90 font-medium leading-relaxed not-italic">
+              We partner with West Africa's most prestigious retail chains to bring royalty-grade artisanal snacks directly to your favorite stores.
+            </p>
+            <!-- <NuxtLink to="/brands" class="inline-flex items-center gap-3 bg-[#FFC20E] text-gray-950 px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest hover:scale-105 transition-all  /20 group">
+              See All Brands
+              <Icon name="lucide:arrow-right" size="16" class="group-hover:translate-x-1 transition-transform" />
+            </NuxtLink> -->
+          </div>
+
+          <!-- End-to-End Carousel -->
+          <div class="lg:w-2/3 xl:w-3/4 relative overflow-hidden h-[500px] flex items-center">
+             <div class="flex animate-marquee-brand gap-8 group py-10">
+               <div v-for="(brand, i) in brandShowcaseContinuity" :key="i" 
+                 class="flex-shrink-0 w-80 bg-white/5 backdrop-blur-md rounded-[2rem] p-5 border border-white/10 hover:border-[#FFC20E]/50 transition-all duration-700 hover:-translate-y-4 group/card"
+               >
+                 <div class="h-40 w-full bg-white rounded-2xl overflow-hidden mb-5 p-4 flex items-center justify-center transition-all group-hover/card:bg-[#FFC20E]">
+                    <img :src="brand.logo" class="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover/card:scale-110" :alt="brand.name">
+                 </div>
+                 <h3 class="text-xl font-black text-white mb-2 tracking-tighter">{{ brand.name }}</h3>
+                 <p class="text-sm text-white/90 leading-relaxed line-clamp-4 font-medium">
+                   {{ brand.miniBio }}
+                 </p>
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dynamic Banners (from API) - Asymmetrical Layout -->
+    <section v-if="banners.length" class="max-w-[1920px] mx-auto px-4 lg:px-8  relative z-20 pb-16">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+        <!-- Main Large Banner -->
+        <div v-if="banners[0]" class="md:col-span-8 group relative overflow-hidden rounded-[2.5rem]  transition-all duration-700 hover:-translate-y-2 h-[400px] md:h-[500px]">
+          <a :href="banners[0].link || '#'" class="block relative h-full">
+            <img :src="banners[0].image" :alt="banners[0].title" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105">
+            <div class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
+            
+            <div class="absolute inset-x-0 bottom-0 p-10 flex flex-col justify-end">
+              <div class="space-y-4">
+                <span class="inline-block px-4 py-1.5 bg-amber-400 text-gray-950 rounded-full text-xs font-black uppercase tracking-[0.2em] mb-2">Featured Now</span>
+                <h3 class="text-4xl md:text-5xl font-black text-white leading-none tracking-tighter">{{ banners[0].title }}</h3>
+                <p v-if="banners[0].description" class="text-white/60 text-sm md:text-base font-medium max-w-xl line-clamp-2 md:line-clamp-none overflow-y-auto max-h-[100px] mobile-scroll">{{ banners[0].description }}</p>
+              </div>
+            </div>
+            <div class="absolute top-8 right-8 w-16 h-16 bg-white/10 backdrop-blur-xl rounded-2xl flex items-center justify-center border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500 scale-75 group-hover:scale-100">
+              <Icon name="lucide:arrow-up-right" class="text-white" size="24" />
+            </div>
+          </a>
+        </div>
+
+        <!-- Sidebar Banners Stack -->
+        <div class="md:col-span-4 flex flex-col gap-8">
+            <div v-for="(b, i) in banners.slice(1, 3)" :key="b._id" 
+              class="group relative overflow-hidden rounded-[2.5rem]  transition-all duration-700 hover:-translate-y-2 flex-1 min-h-[220px]"
+            >
+              <a :href="b.link || '#'" class="block relative h-full">
+                <img :src="b.image" :alt="b.title" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                <div class="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-gray-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
+                
+                <div class="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end">
+                  <div class="space-y-2 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                    <span class="inline-block px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-sm font-black uppercase tracking-widest text-white mb-1">Exclusive</span>
+                    <h3 class="text-xl font-black text-white leading-tight uppercase tracking-tight">{{ b.title }}</h3>
+                    <div v-if="b.description" class="max-h-[60px] overflow-y-auto mobile-scroll">
+                        <p class="text-white/50 text-xs font-medium leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity">{{ b.description }}</p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Marketing Videos Section -->
     <section class="py-28 bg-gradient-to-b from-white to-[#FFF5F7] overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+      <div class="max-w-[1920px] mx-auto px-4 lg:px-8">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div class="space-y-4">
-            <div class="inline-flex items-center gap-2 bg-pink-100/80 text-pink-600 px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] backdrop-blur-sm">
+            <div class="inline-flex items-center gap-2 bg-pink-100/80 text-pink-600 px-5 py-2 rounded-full text-xs font-black uppercase tracking-[0.2em] backdrop-blur-sm">
               <Icon name="lucide:sparkles" size="14" class="animate-spin-slow" /> Taste the Vibe
             </div>
             <h2 class="text-5xl md:text-7xl font-black text-gray-900 tracking-tighter leading-none">
@@ -300,10 +337,10 @@
           </div>
           
           <div class="hidden md:flex gap-4">
-            <button @click="scrollVideos('left')" class="w-14 h-14 rounded-full border-2 border-pink-100 flex items-center justify-center text-pink-500 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all shadow-xl shadow-pink-100/20 active:scale-95">
+            <button @click="scrollVideos('left')" class="w-14 h-14 rounded-full border-2 border-pink-100 flex items-center justify-center text-pink-500 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all  shadow-pink-100/20 active:scale-95">
               <Icon name="lucide:chevron-left" size="24" />
             </button>
-            <button @click="scrollVideos('right')" class="w-14 h-14 rounded-full border-2 border-pink-100 flex items-center justify-center text-pink-500 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all shadow-xl shadow-pink-100/20 active:scale-95">
+            <button @click="scrollVideos('right')" class="w-14 h-14 rounded-full border-2 border-pink-100 flex items-center justify-center text-pink-500 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all  shadow-pink-100/20 active:scale-95">
               <Icon name="lucide:chevron-right" size="24" />
             </button>
           </div>
@@ -315,7 +352,7 @@
           class="flex gap-8 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-12 -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth items-center"
         >
           <div v-for="(video, index) in marketingVideos" :key="index" 
-            class="flex-none w-[85%] sm:w-[45%] lg:w-[22%] snap-center group/video relative aspect-[9/16] rounded-[3.5rem] overflow-hidden shadow-2xl hover:shadow-pink-200/50 transition-all duration-700 hover:-translate-y-4 cursor-pointer"
+            class="flex-none w-[85%] sm:w-[45%] lg:w-[22%] snap-center group/video relative aspect-[9/16] rounded-[3.5rem] overflow-hidden  hover:shadow-pink-200/50 transition-all duration-700 hover:-translate-y-4 cursor-pointer"
             @click="handleVideoClick(index)"
           >
             <!-- Video Background -->
@@ -348,7 +385,7 @@
               <h3 class="text-2xl font-black mb-2 tracking-tight">{{ video.title }}</h3>
               <p class="text-white/80 text-sm font-medium leading-relaxed">{{ video.tagline }}</p>
               
-              <div class="mt-6 flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.2em] opacity-40 group-hover/video:opacity-100 transition-opacity">
+              <div class="mt-6 flex items-center gap-3 text-xs font-black uppercase tracking-[0.2em] opacity-40 group-hover/video:opacity-100 transition-opacity">
                 <Icon name="lucide:maximize-2" size="14" class="text-pink-400 animate-pulse" /> Full Experience
               </div>
             </div>
@@ -360,46 +397,9 @@
       </div>
     </section>
 
-    <!-- Featured Products -->
-    <section class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 py-16">
-      <div class="flex items-center justify-between mb-8">
-        <h2 class="text-2xl font-extrabold text-gray-900">{{ $t('featured_snacks') }}</h2>
-        <NuxtLink to="/products" class="text-sm font-bold text-[#033958] hover:underline flex items-center gap-1">
-          {{ $t('view_all') }} <Icon name="lucide:arrow-right" size="14" />
-        </NuxtLink>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6">
-          <ProductCard v-for="p in products" :key="p._id" :product="p" />
-      </div>
-      <div v-if="products.length === 0" class="text-center py-12 text-gray-400">{{ $t('loading_products') }}</div>
-    </section>
-
-    <!-- Holiday Banner -->
-    <section class="py-16 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
-        <div class="relative rounded-3xl overflow-hidden shadow-2xl">
-          <img src="@/assets/images/holiday.jpg" alt="Holiday" class="absolute inset-0 w-full h-full object-cover">
-          <div class="absolute inset-0 bg-gradient-to-r from-emerald-900/90 to-teal-900/80"></div>
-          <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 p-10 md:p-14 text-white">
-            <div class="max-w-lg">
-              <div class="inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full text-sm font-bold mb-4 backdrop-blur-md border border-white/20">
-                <Icon name="lucide:calendar-heart" size="16" /> Holiday Special
-              </div>
-              <h2 class="text-3xl md:text-5xl font-extrabold mb-3 leading-tight">Holiday Season Savings!</h2>
-              <p class="text-white/80 text-lg">Celebrate with our exclusive holiday snack collections. Up to 30% off select items.</p>
-            </div>
-            <NuxtLink to="/offers" class="shrink-0 inline-flex items-center gap-3 bg-white text-emerald-800 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-50 transition-all shadow-xl group">
-              Shop Holiday Deals
-              <Icon name="lucide:arrow-right" size="20" class="group-hover:translate-x-1 transition-transform" />
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Bottom Animated Carousel -->
     <section class="py-24 bg-white overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6 mb-12 flex items-center justify-between">
+      <div class="max-w-[1920px] mx-auto px-6 mb-12 flex items-center justify-between">
         <h2 class="text-3xl md:text-5xl font-black text-gray-950 tracking-tighter">Our Artisan Collection</h2>
         <div class="h-px flex-1 bg-gray-100 mx-12 hidden md:block"></div>
         <NuxtLink to="/products" class="text-sm font-black uppercase tracking-widest text-amber-500 hover:text-gray-950 transition-colors">Explore All</NuxtLink>
@@ -407,12 +407,12 @@
 
       <div class="relative flex overflow-x-hidden group">
         <div class="py-12 animate-marquee flex whitespace-nowrap gap-8 group-hover:pause">
-          <div v-for="i in 10" :key="i" class="w-72 h-96 rounded-[3rem] overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-105 hover:-rotate-2 border border-gray-100">
+          <div v-for="i in 10" :key="i" class="w-72 h-96 rounded-[3rem] overflow-hidden  transition-transform duration-500 hover:scale-105 hover:-rotate-2 border border-gray-100">
             <img :src="getArtisanImage(i)" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Artisan Snack">
           </div>
         </div>
         <div class="absolute top-0 py-12 animate-marquee2 flex whitespace-nowrap gap-8 group-hover:pause">
-          <div v-for="i in 10" :key="i" class="w-72 h-96 rounded-[3rem] overflow-hidden shadow-2xl transition-transform duration-500 hover:scale-105 hover:-rotate-2 border border-gray-100">
+          <div v-for="i in 10" :key="i" class="w-72 h-96 rounded-[3rem] overflow-hidden  transition-transform duration-500 hover:scale-105 hover:-rotate-2 border border-gray-100">
             <img :src="getArtisanImage(i)" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Artisan Snack">
           </div>
         </div>
@@ -421,12 +421,12 @@
 
     <!-- CTA -->
     <section class="bg-gray-900 text-white py-20">
-      <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 text-center">
+      <div class="max-w-[1920px] mx-auto px-4 lg:px-8 text-center">
         <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Join the WiseKings Community</h2>
-        <p class="text-gray-400 mb-10 max-w-md mx-auto text-lg">Earn commissions, sell products, or become a partner. Your journey starts here.</p>
+        <p class="text-[#033958]/80 mb-10 max-w-md mx-auto text-lg">Earn commissions, sell products, or become a partner. Your journey starts here.</p>
         <div class="flex justify-center gap-4 flex-col sm:flex-row">
-          <NuxtLink to="/register" class="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-2xl font-bold text-lg shadow-lg transition-all">{{ $t('auth.create_account') }}</NuxtLink>
-          <a href="https://merchants.wisekings.ng/" target="_blank" class="bg-emerald-600 text-white hover:bg-emerald-700 px-8 py-4 rounded-2xl font-bold text-lg shadow-lg transition-all flex items-center gap-2 justify-center">
+          <NuxtLink to="/register" class="bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-2xl font-bold text-lg  transition-all">{{ $t('auth.create_account') }}</NuxtLink>
+          <a href="https://merchants.wisekings.ng/" target="_blank" class="bg-emerald-600 text-white hover:bg-emerald-700 px-8 py-4 rounded-2xl font-bold text-lg  transition-all flex items-center gap-2 justify-center">
             <Icon name="lucide:store" size="18" /> Become a Merchant
           </a>
         </div>

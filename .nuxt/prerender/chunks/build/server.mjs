@@ -443,125 +443,125 @@ const _routes = [
     name: "otp",
     path: "/otp",
     meta: __nuxt_page_meta$8 || {},
-    component: () => import('./otp-kjr1p5Hr.mjs')
+    component: () => import('./otp-578H_XXR.mjs')
   },
   {
     name: "cart",
     path: "/cart",
-    component: () => import('./cart-Vxrd1iRT.mjs')
+    component: () => import('./cart-CQkobJ1K.mjs')
   },
   {
     name: "about",
     path: "/about",
     meta: __nuxt_page_meta$7 || {},
-    component: () => import('./about-CWszzwLO.mjs')
+    component: () => import('./about-BgPBbLu3.mjs')
   },
   {
     name: "index",
     path: "/",
-    component: () => import('./index-CGvOVOep.mjs')
+    component: () => import('./index-C8sTFSz3.mjs')
   },
   {
     name: "login",
     path: "/login",
     meta: __nuxt_page_meta$6 || {},
-    component: () => import('./login-Ck7xn0NX.mjs')
+    component: () => import('./login-SXgORq06.mjs')
   },
   {
     name: "terms",
     path: "/terms",
-    component: () => import('./terms-BpNzV5ah.mjs')
+    component: () => import('./terms-CLGWjkL6.mjs')
   },
   {
     name: "offers",
     path: "/offers",
-    component: () => import('./offers-Dp0G0nDo.mjs')
+    component: () => import('./offers-Bbduem6b.mjs')
   },
   {
     name: "contact",
     path: "/contact",
-    component: () => import('./contact-BpV6530S.mjs')
+    component: () => import('./contact-CeCqnyz1.mjs')
   },
   {
     name: "privacy",
     path: "/privacy",
-    component: () => import('./privacy-CIfTMILM.mjs')
+    component: () => import('./privacy-Cw9LzKRs.mjs')
   },
   {
     name: "register",
     path: "/register",
     meta: __nuxt_page_meta$5 || {},
-    component: () => import('./register-CuAOMpsn.mjs')
+    component: () => import('./register-QInFGU6e.mjs')
   },
   {
     name: "categories",
     path: "/categories",
-    component: () => import('./categories-CcWFkL3E.mjs')
+    component: () => import('./categories-Dt8z4e9n.mjs')
   },
   {
     name: "account",
     path: "/account",
     meta: __nuxt_page_meta$4 || {},
-    component: () => import('./index-Bg5f4BQd.mjs')
+    component: () => import('./index-CpMI32sv.mjs')
   },
   {
     name: "return-policy",
     path: "/return-policy",
-    component: () => import('./return-policy-CvnanAR6.mjs')
+    component: () => import('./return-policy-DnplQxWn.mjs')
   },
   {
     name: "checkout",
     path: "/checkout",
-    component: () => import('./index-Bt8pGahQ.mjs')
+    component: () => import('./index-a-8vripb.mjs')
   },
   {
     name: "products",
     path: "/products",
-    component: () => import('./index-DVJxvE5b.mjs')
+    component: () => import('./index-CoOx-qFR.mjs')
   },
   {
     name: "account-profile",
     path: "/account/profile",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import('./profile-BLCu1CN6.mjs')
+    component: () => import('./profile-COKnCI-3.mjs')
   },
   {
     name: "forgot-password",
     path: "/forgot-password",
-    component: () => import('./forgot-password-GkeGLQ4n.mjs')
+    component: () => import('./forgot-password-CjLkNklf.mjs')
   },
   {
     name: "products-slug",
     path: "/products/:slug()",
-    component: () => import('./_slug_-Dv4U1qUe.mjs')
+    component: () => import('./_slug_-sjs2NVUi.mjs')
   },
   {
     name: "shipping-policy",
     path: "/shipping-policy",
-    component: () => import('./shipping-policy-Ce-nqpId.mjs')
+    component: () => import('./shipping-policy-DbYAeJog.mjs')
   },
   {
     name: "account-security",
     path: "/account/security",
     meta: __nuxt_page_meta$2 || {},
-    component: () => import('./security-C79yLrW4.mjs')
+    component: () => import('./security-Dwn-Mfbe.mjs')
   },
   {
     name: "checkout-success",
     path: "/checkout/success",
-    component: () => import('./success-StsJC-v6.mjs')
+    component: () => import('./success-99Vll01A.mjs')
   },
   {
     name: "account-orders-id",
     path: "/account/orders/:id()",
     meta: __nuxt_page_meta$1 || {},
-    component: () => import('./_id_-CxImlOOe.mjs')
+    component: () => import('./_id_-DVrAYDfR.mjs')
   },
   {
     name: "account-orders",
     path: "/account/orders",
     meta: __nuxt_page_meta || {},
-    component: () => import('./index-BBwpUQr_.mjs')
+    component: () => import('./index-CVz5ynIu.mjs')
   }
 ];
 const _wrapInTransition = (props, children) => {
@@ -1934,7 +1934,7 @@ function createNuxtI18nContext(nuxt, vueI18n, defaultLocale) {
       return;
     }
     const headers = getLocaleConfig(locale)?.cacheable ? {} : { "Cache-Control": "no-cache" };
-    const messages = await $fetch(`${"/_i18n/xWA6QQeQ"}/${locale}/messages.json`, { headers });
+    const messages = await $fetch(`${"/_i18n/uH-SFb72"}/${locale}/messages.json`, { headers });
     for (const k of Object.keys(messages)) {
       i18n.mergeLocaleMessage(k, messages[k]);
     }
@@ -6915,7 +6915,7 @@ const i18n_EI7LsD1KYQADczz5hrChviGQCdVM8yUkvFEZLJpmnvM = /* @__PURE__ */ defineN
     {
       localeConfigs.value = useRequestEvent().context.nuxtI18n?.localeConfigs || {};
     }
-    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/xWA6QQeQ"}/${locale}/messages.json`));
+    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/uH-SFb72"}/${locale}/messages.json`));
     const i18n = createI18n(optionsI18n);
     const detectors = useDetectors(useRequestEvent(nuxt), useI18nDetection(nuxt), nuxt);
     const ctx = createNuxtI18nContext(nuxt, i18n, optionsI18n.defaultLocale);
@@ -7154,9 +7154,9 @@ const plugins = [
   ssg_detect_IpHCGcQQ_IR5Rl99qyukWoMA9fJGfuTYyoksTzy81cs
 ];
 const layouts = {
-  account: defineAsyncComponent(() => import('./account-6KqtWrfY.mjs').then((m) => m.default || m)),
-  auth: defineAsyncComponent(() => import('./auth-BTML3Qrb.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-CSQrB7ij.mjs').then((m) => m.default || m))
+  account: defineAsyncComponent(() => import('./account-DWLgBWFc.mjs').then((m) => m.default || m)),
+  auth: defineAsyncComponent(() => import('./auth-qrU_uq3k.mjs').then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import('./default-Ic_QBGb7.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({

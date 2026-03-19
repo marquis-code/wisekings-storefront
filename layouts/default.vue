@@ -2,15 +2,15 @@
   <div class="min-h-screen flex flex-col font-sans selection:bg-[#033958]/10 selection:text-[#033958]">
     <!-- Header -->
     <!-- Header -->
-    <header :class="['fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-[100] transition-all duration-500 rounded-[2rem]', shouldShowSolidHeader ? 'bg-white/80 backdrop-blur-2xl border border-white/20 shadow-[0_20px_50px_rgba(0,0,0,0.1)] py-3' : 'bg-transparent py-5']">
+    <header :class="['fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-[100] transition-all duration-500 rounded-[2rem]', shouldShowSolidHeader ? 'bg-white/80 backdrop-blur-2xl border border-white/20  py-3' : 'bg-transparent py-5']">
       <div class="px-8 lg:px-12 flex items-center justify-between">
         <!-- Brand -->
         <NuxtLink to="/" class="flex items-center gap-3 group shrink-0">
           <img src="@/assets/images/logo.jpg" class="h-10 w-auto" alt="Logo" />
-          <!-- <div class="w-11 h-11 rounded-2xl bg-[#033958] flex items-center justify-center text-white text-lg font-black shadow-2xl shadow-[#033958]/40 group-hover:rotate-12 transition-all duration-500">WK</div>
+          <!-- <div class="w-11 h-11 rounded-2xl bg-[#033958] flex items-center justify-center text-white text-lg font-black  /40 group-hover:rotate-12 transition-all duration-500">WK</div>
           <div class="flex flex-col">
             <span :class="['text-2xl font-black tracking-tighter leading-none transition-colors duration-500', isScrolled ? 'text-gray-950' : 'text-white']">WiseKings</span>
-            <span :class="['text-[9px] font-bold uppercase tracking-[0.3em] opacity-60 transition-colors duration-500', isScrolled ? 'text-[#033958]' : 'text-amber-400']">Engineered for Royals</span>
+            <span :class="['text-sm font-bold uppercase tracking-[0.3em] opacity-60 transition-colors duration-500', isScrolled ? 'text-[#033958]' : 'text-amber-400']">Engineered for Royals</span>
           </div> -->
         </NuxtLink>
 
@@ -37,16 +37,16 @@
                <Icon name="lucide:shopping-cart" size="22" />
             </div>
             <div v-if="totalItems > 0" class="hidden sm:flex flex-col text-left">
-              <span :class="['text-[10px] font-black uppercase tracking-widest leading-none', shouldShowSolidHeader ? 'text-gray-950' : 'text-white']">{{ totalItems }} {{ totalItems === 1 ? 'Item' : 'Items' }}</span>
-              <span class="text-[9px] font-bold text-amber-500 uppercase tracking-tight mt-0.5">In Cart</span>
+              <span :class="['text-xs font-black uppercase tracking-widest leading-none', shouldShowSolidHeader ? 'text-gray-950' : 'text-white']">{{ totalItems }} {{ totalItems === 1 ? 'Item' : 'Items' }}</span>
+              <span class="text-sm font-bold text-amber-500 uppercase tracking-tight mt-0.5">In Cart</span>
             </div>
-            <span v-if="totalItems > 0" class="absolute -top-1 -right-1 w-5 h-5 bg-amber-500 text-white text-[10px] rounded-full flex items-center justify-center font-black border-2 border-white shadow-lg sm:hidden">{{ totalItems }}</span>
+            <span v-if="totalItems > 0" class="absolute -top-1 -right-1 w-5 h-5 bg-amber-500 text-white text-xs rounded-full flex items-center justify-center font-black border-2 border-white  sm:hidden">{{ totalItems }}</span>
           </button>
 
           <NuxtLink v-if="isAuthenticated" to="/account" :class="['hidden sm:flex items-center justify-center w-11 h-11 rounded-2xl transition-all duration-500', shouldShowSolidHeader ? 'bg-gray-900 text-white hover:bg-[#033958]' : 'bg-white/10 text-white hover:bg-white/20']">
             <Icon name="lucide:user" size="20" />
           </NuxtLink>
-          <NuxtLink v-else to="/login" :class="['hidden sm:flex px-8 py-3 text-[10px] font-black uppercase tracking-[0.2em] rounded-2xl transition-all duration-500 shadow-xl overflow-hidden relative group', shouldShowSolidHeader ? 'bg-gray-950 text-white hover:bg-[#033958]' : 'bg-white text-gray-950 hover:bg-amber-400']">
+          <NuxtLink v-else to="/login" :class="['hidden sm:flex px-8 py-3 text-xs font-black uppercase tracking-[0.2em] rounded-2xl transition-all duration-500  overflow-hidden relative group', shouldShowSolidHeader ? 'bg-gray-950 text-white hover:bg-[#033958]' : 'bg-white text-gray-950 hover:bg-amber-400']">
             <span class="relative z-10 transition-colors duration-500">{{ $t('common.sign_in') }}</span>
           </NuxtLink>
 
@@ -62,13 +62,13 @@
 
       <!-- Mobile Dropdown -->
       <transition name="menu-drop">
-        <div v-if="isMobileMenuOpen" class="lg:hidden absolute top-auto left-0 w-full bg-white/95 backdrop-blur-3xl border-t border-gray-100 mt-2 rounded-[2rem] shadow-2xl z-50 overflow-hidden">
+        <div v-if="isMobileMenuOpen" class="lg:hidden absolute top-auto left-0 w-full bg-white border-t border-gray-100 mt-2 rounded-[2rem]  z-[150] overflow-hidden">
           <div class="p-8 space-y-2">
             <NuxtLink 
               v-for="link in navLinks" 
               :key="link.path" 
               :to="link.path"
-              class="block p-5 rounded-2xl text-[11px] font-black text-gray-500 hover:text-[#033958] hover:bg-[#033958]/5 transition-all tracking-[0.2em] uppercase"
+              class="block p-5 rounded-2xl text-sm font-black text-gray-500 hover:text-[#033958] hover:bg-[#033958]/5 transition-all tracking-[0.2em] uppercase"
               active-class="bg-[#033958]/10 text-[#033958]"
             >
               {{ link.name }}
@@ -76,17 +76,17 @@
             
             <div class="pt-8 mt-4 border-t border-gray-100 grid grid-cols-2 gap-4">
               <div class="p-5 bg-gray-50 rounded-2xl flex flex-col gap-3">
-                <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">{{ $t('common.global_reach') }}</span>
+                <span class="text-sm font-black text-[#033958]/80 uppercase tracking-widest">{{ $t('common.global_reach') }}</span>
                 <CoreLanguageSwitcher class="scale-90 origin-left" />
               </div>
               <div class="p-5 bg-gray-50 rounded-2xl flex flex-col gap-3">
-                <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">{{ $t('common.pricing') }}</span>
+                <span class="text-sm font-black text-[#033958]/80 uppercase tracking-widest">{{ $t('common.pricing') }}</span>
                 <CoreCurrencySwitcher class="scale-90 origin-left" />
               </div>
             </div>
 
             <div v-if="!isAuthenticated" class="pt-6">
-              <NuxtLink to="/login" class="flex items-center justify-center w-full py-5 bg-[#033958] text-white text-[12px] font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-[#033958]/20">{{ $t('common.enter_kingdom') }}</NuxtLink>
+              <NuxtLink to="/login" class="flex items-center justify-center w-full py-5 bg-[#033958] text-white text-[12px] font-black uppercase tracking-[0.2em] rounded-2xl  /20">{{ $t('common.enter_kingdom') }}</NuxtLink>
             </div>
           </div>
         </div>
@@ -110,9 +110,9 @@
               {{ $t('common.experience_future') }}
             </p>
             <div class="flex items-center gap-4">
-              <a href="https://www.instagram.com/wisekingsproducts/" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:instagram" class="w-5 h-5" /></a>
-              <a href="https://x.com/WisekingsS" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:twitter" class="w-5 h-5" /></a>
-              <a href="https://web.facebook.com/profile.php?id=61583785186822" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:facebook" class="w-5 h-5" /></a>
+              <a href="https://www.instagram.com/wisekingsproducts/" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-[#033958]/80 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:instagram" class="w-5 h-5" /></a>
+              <a href="https://x.com/WisekingsS" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-[#033958]/80 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:twitter" class="w-5 h-5" /></a>
+              <a href="https://web.facebook.com/profile.php?id=61583785186822" target="_blank" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-[#033958]/80 hover:text-[#033958] hover:bg-[#033958]/5 transition-all"><Icon name="lucide:facebook" class="w-5 h-5" /></a>
             </div>
           </div>
           
@@ -147,12 +147,12 @@
           <div class="lg:col-span-5 border-t border-gray-100 pt-8 -mb-4">
             <h4 class="text-gray-950 font-black text-sm uppercase tracking-widest mb-6">{{ $t('common.join_network') }}</h4>
             <div class="flex flex-col sm:flex-row gap-4">
-              <a href="https://merchants.wisekings.ng/" target="_blank" class="flex items-center gap-3 bg-emerald-50 border border-emerald-100 text-emerald-700 px-5 py-3.5 rounded-2xl font-bold text-sm hover:bg-emerald-100 hover:shadow-md transition-all group">
+              <a href="https://merchants.wisekings.ng/" target="_blank" class="flex items-center gap-3 bg-emerald-50 border border-emerald-100 text-emerald-700 px-5 py-3.5 rounded-2xl font-bold text-sm hover:bg-emerald-100 hover: transition-all group">
                 <Icon name="lucide:store" size="20" />
                 {{ $t('common.become_merchant') }}
                 <Icon name="lucide:external-link" size="14" class="ml-auto opacity-50 group-hover:opacity-100 transition-opacity" />
               </a>
-              <a href="https://partners.wisekings.ng/" target="_blank" class="flex items-center gap-3 bg-orange-50 border border-orange-100 text-orange-700 px-5 py-3.5 rounded-2xl font-bold text-sm hover:bg-orange-100 hover:shadow-md transition-all group">
+              <a href="https://partners.wisekings.ng/" target="_blank" class="flex items-center gap-3 bg-orange-50 border border-orange-100 text-orange-700 px-5 py-3.5 rounded-2xl font-bold text-sm hover:bg-orange-100 hover: transition-all group">
                 <Icon name="lucide:handshake" size="20" />
                 {{ $t('common.partner_with_us') }}
                 <Icon name="lucide:external-link" size="14" class="ml-auto opacity-50 group-hover:opacity-100 transition-opacity" />
@@ -162,7 +162,7 @@
         </div>
         
         <div class="pt-10 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p class="text-gray-400 text-xs font-bold">&copy; {{ new Date().getFullYear() }} WiseKings. Engineered for Royals.</p>
+          <p class="text-[#033958]/80 text-xs font-bold">&copy; {{ new Date().getFullYear() }} WiseKings. Engineered for Royals.</p>
           <div class="flex items-center gap-4">
             <CoreLanguageSwitcher variant="light" />
             <CoreCurrencySwitcher variant="light" />

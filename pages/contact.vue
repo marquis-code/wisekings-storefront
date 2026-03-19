@@ -11,7 +11,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
       </div>
       <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full relative z-10 text-center">
-        <div class="inline-flex items-center gap-2 bg-white/10 text-white/90 px-4 py-2 rounded-full text-[10px] font-black tracking-widest uppercase backdrop-blur-md border border-white/20 mb-8 mx-auto">
+        <div class="inline-flex items-center gap-2 bg-white/10 text-white/90 px-4 py-2 rounded-full text-xs font-black tracking-widest uppercase backdrop-blur-md border border-white/20 mb-8 mx-auto">
            <Icon name="lucide:headset" size="14" class="text-amber-400" />
            24/7 Global Support
         </div>
@@ -25,7 +25,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Contact Information -->
         <div class="lg:col-span-1 space-y-8">
-          <div class="bg-white p-10 rounded-[2.5rem] shadow-2xl shadow-gray-200 border border-gray-100">
+          <div class="bg-white p-10 rounded-[2.5rem]  shadow-gray-200 border border-gray-100">
             <h2 class="text-2xl font-black text-gray-900 tracking-tight mb-8">Direct Access</h2>
             <div class="space-y-10">
               <div class="flex items-start gap-6 group">
@@ -33,7 +33,7 @@
                   <Icon name="lucide:mail" class="w-5 h-5 text-[#033958] group-hover:text-white transition-colors" />
                 </div>
                 <div>
-                  <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Send an Email</p>
+                  <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest mb-1">Send an Email</p>
                   <a href="mailto:support@wisekings.ng" class="text-lg font-black text-gray-900 hover:text-[#033958] transition-colors">support@wisekings.ng</a>
                 </div>
               </div>
@@ -43,7 +43,7 @@
                   <Icon name="lucide:phone" class="w-5 h-5 text-emerald-600 group-hover:text-white transition-colors" />
                 </div>
                 <div>
-                  <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Call the Hub</p>
+                  <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest mb-1">Call the Hub</p>
                   <a href="tel:+2348023225019" class="text-lg font-black text-gray-900 hover:text-emerald-600 transition-colors">+234 802 322 5019</a>
                 </div>
               </div>
@@ -53,7 +53,7 @@
                   <Icon name="lucide:map-pin" class="w-5 h-5 text-amber-600 group-hover:text-white transition-colors" />
                 </div>
                 <div>
-                  <p class="text-[10px] font-black text-gray-400 lowercase tracking-widest mb-1">Global Headquarters</p>
+                  <p class="text-xs font-black text-[#033958]/80 lowercase tracking-widest mb-1">Global Headquarters</p>
                   <p class="text-lg font-black text-gray-900 lowercase leading-tight">11, DEMOLA ALABI CLOSE, BEHIND PHILLIPS FACTORY, OJOTA, LAGOS STATE,<br/>NIGERIA</p>
                 </div>
               </div>
@@ -72,26 +72,36 @@
 
         <!-- Contact Form -->
         <div class="lg:col-span-2">
-          <div class="bg-white p-10 md:p-14 rounded-[3rem] shadow-2xl shadow-gray-200 border border-gray-100">
+          <div class="bg-white p-10 md:p-14 rounded-[3rem]  shadow-gray-200 border border-gray-100">
             <div class="mb-12">
               <h2 class="text-3xl font-black text-gray-900 tracking-tight mb-4 uppercase">Direct Message</h2>
-              <p class="text-gray-400 font-medium">Fill out the secure form below and we'll route your request to the appropriate department within 2 hours.</p>
+              <p class="text-[#033958]/80 font-medium">Fill out the secure form below and we'll route your request to the appropriate department within 2 hours.</p>
             </div>
 
             <form @submit.prevent="handleSubmit" class="space-y-8">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="space-y-3">
-                  <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">Full Identity</label>
-                  <input v-model="form.name" type="text" placeholder="John Doe" class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[2rem] text-sm font-bold focus:ring-8 focus:ring-[#033958]/5 focus:border-[#033958] outline-none transition-all placeholder:text-gray-300" required />
+                  <CoreAnimatedInput 
+                    v-model="form.name" 
+                    type="text" 
+                    label="Full Identity" 
+                    placeholder="John Doe"
+                    required
+                  />
                 </div>
                 <div class="space-y-3">
-                  <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">Email Channel</label>
-                  <input v-model="form.email" type="email" placeholder="john@example.com" class="w-full px-8 py-5 bg-gray-50 border border-gray-100 rounded-[2rem] text-sm font-bold focus:ring-8 focus:ring-[#033958]/5 focus:border-[#033958] outline-none transition-all placeholder:text-gray-300" required />
+                  <CoreAnimatedInput 
+                    v-model="form.email" 
+                    type="email" 
+                    label="Email Channel" 
+                    placeholder="john@example.com"
+                    required
+                  />
                 </div>
               </div>
 
               <div class="space-y-3">
-                <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">Subject of Inquiry</label>
+                <label class="text-xs font-black uppercase tracking-[0.2em] text-[#033958]/80 ml-4">Subject of Inquiry</label>
                 <CoreSelectInput 
                   v-model="form.subject"
                   label="Select Inquiry Type"
@@ -101,15 +111,20 @@
               </div>
 
               <div class="space-y-3">
-                <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">Your Intelligence/Message</label>
-                <textarea v-model="form.message" rows="6" placeholder="How can we help establish excellence today?" class="w-full px-8 py-6 bg-gray-50 border border-gray-100 rounded-[2.5rem] text-sm font-bold focus:ring-8 focus:ring-[#033958]/5 focus:border-[#033958] outline-none transition-all placeholder:text-gray-300 resize-none" required></textarea>
+                <CoreAnimatedInput 
+                  v-model="form.message" 
+                  type="textarea" 
+                  label="Your Intelligence/Message" 
+                  placeholder="How can we help establish excellence today?"
+                  required
+                />
               </div>
 
               <div class="pt-4">
                 <button 
                   type="submit" 
                   :disabled="loading"
-                  class="w-full md:w-auto px-12 py-5 bg-gray-900 text-white rounded-[2rem] font-black text-xs uppercase tracking-[0.4em] hover:bg-gray-800 transition-all shadow-xl shadow-gray-200 flex items-center justify-center gap-4 group disabled:opacity-50 disabled:cursor-not-allowed"
+                  class="w-full md:w-auto px-12 py-5 bg-gray-900 text-white rounded-[2rem] font-black text-xs uppercase tracking-[0.4em] hover:bg-gray-800 transition-all  shadow-gray-200 flex items-center justify-center gap-4 group disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span v-if="loading">Transmitting...</span>
                   <template v-else>

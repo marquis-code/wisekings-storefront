@@ -7,7 +7,7 @@
       
       <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl font-black text-white tracking-tighter mb-4 uppercase">Shipping Policy</h1>
-        <p class="text-gray-300 font-medium">Global Logistics & Delivery Excellence</p>
+        <p class="text-[#033958]/60 font-medium">Global Logistics & Delivery Excellence</p>
       </div>
     </section>
 
@@ -25,7 +25,7 @@
 
         <h2 class="text-2xl font-black text-gray-900 mt-12 mb-6 tracking-tight uppercase">2. Shipping Options</h2>
         <div class="space-y-6 mb-8">
-           <div class="p-6 bg-white border border-gray-100 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+           <div class="p-6 bg-white border border-gray-100 rounded-3xl  hover: transition-shadow">
               <div class="flex items-center gap-4 mb-2">
                  <Icon name="lucide:truck" class="text-amber-500 w-6 h-6" />
                  <h3 class="text-lg font-black text-gray-900">Standard Delivery (3-5 Days)</h3>
@@ -33,7 +33,7 @@
               <p class="text-sm text-gray-500 font-medium">Free for orders over <strong class="text-gray-900">₦50,000</strong>. For orders under this amount, a flat rate of ₦2,500 applies.</p>
            </div>
 
-           <div class="p-6 bg-gray-900 text-white rounded-3xl shadow-xl">
+           <div class="p-6 bg-gray-900 text-white rounded-3xl ">
               <div class="flex items-center gap-4 mb-2">
                  <Icon name="lucide:zap" class="text-amber-400 w-6 h-6" />
                  <h3 class="text-lg font-black uppercase tracking-tighter">Express Delivery (1-2 Days)</h3>

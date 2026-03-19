@@ -3,10 +3,10 @@
     <button 
       @click="isOpen = !isOpen"
       :class="[
-        'flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all font-black text-[10px] uppercase tracking-[0.2em] shadow-lg backdrop-blur-md',
+        'flex items-center gap-2 px-4 py-2.5 rounded-2xl transition-all font-black text-xs uppercase tracking-[0.2em]  backdrop-blur-md',
         variant === 'dark' 
           ? 'bg-gray-950/40 text-white border border-white/10 hover:bg-gray-950/60' 
-          : 'bg-white/80 text-gray-900 border border-gray-100 hover:bg-white shadow-xl shadow-gray-200/50'
+          : 'bg-white/80 text-gray-900 border border-gray-100 hover:bg-white  shadow-gray-200/50'
       ]"
     >
       <Icon :name="currentLocaleIcon" class="w-4 h-4" />
@@ -20,16 +20,16 @@
     <Transition name="fade-slide">
       <div 
         v-if="isOpen" 
-        class="absolute bottom-full mb-3 right-0 w-48 bg-white/95 backdrop-blur-2xl rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-white/20 overflow-hidden z-50 p-2"
+        class="absolute bottom-full mb-3 right-0 w-48 bg-white/95 backdrop-blur-2xl rounded-[2rem]  border border-white/20 overflow-hidden z-50 p-2"
       >
         <button
           v-for="loc in locales"
           :key="loc.code"
           @click="setLocale(loc.code)"
           :class="[
-            'w-full flex items-center justify-between px-5 py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all group/item',
+            'w-full flex items-center justify-between px-5 py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest transition-all group/item',
             currentLocale === loc.code 
-              ? 'bg-[#033958] text-white shadow-lg shadow-[#033958]/20' 
+              ? 'bg-[#033958] text-white  /20' 
               : 'text-gray-500 hover:bg-[#033958]/5 hover:text-[#033958]'
           ]"
         >

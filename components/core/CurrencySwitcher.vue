@@ -3,10 +3,10 @@
     <button 
       @click="isOpen = !isOpen"
       :class="[
-        'flex items-center gap-3 px-4 py-2.5 rounded-2xl transition-all font-black text-[10px] uppercase tracking-[0.2em] shadow-lg backdrop-blur-md',
+        'flex items-center gap-3 px-4 py-2.5 rounded-2xl transition-all font-black text-xs uppercase tracking-[0.2em]  backdrop-blur-md',
         variant === 'dark' 
           ? 'bg-gray-950/40 text-white border border-white/10 hover:bg-gray-950/60' 
-          : 'bg-white/80 text-gray-900 border border-gray-100 hover:bg-white shadow-xl shadow-gray-200/50'
+          : 'bg-white/80 text-gray-900 border border-gray-100 hover:bg-white  shadow-gray-200/50'
       ]"
     >
       <div class="flex items-center gap-2">
@@ -22,24 +22,24 @@
     <Transition name="fade-slide">
       <div 
         v-if="isOpen" 
-        class="absolute bottom-full mb-3 right-0 w-48 bg-white/95 backdrop-blur-2xl rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-white/20 overflow-hidden z-50 p-2"
+        class="absolute bottom-full mb-3 right-0 w-48 bg-white/95 backdrop-blur-2xl rounded-[2rem]  border border-white/20 overflow-hidden z-50 p-2"
       >
         <button
           v-for="curr in currencies"
           :key="curr.code"
           @click="selectCurrency(curr)"
           :class="[
-            'w-full flex items-center justify-between px-5 py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all group/item',
+            'w-full flex items-center justify-between px-5 py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest transition-all group/item',
             selectedCurrency === curr.code 
-              ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/20' 
+              ? 'bg-emerald-600 text-white  shadow-emerald-600/20' 
               : 'text-gray-500 hover:bg-emerald-50 hover:text-emerald-600'
           ]"
         >
           <div class="flex flex-col items-start leading-none">
-            <span class="text-[10px] font-black tracking-widest">{{ curr.code }}</span>
-            <span :class="['text-[8px] mt-1 font-bold opacity-60']">{{ curr.name }}</span>
+            <span class="text-xs font-black tracking-widest">{{ curr.code }}</span>
+            <span :class="['text-xs mt-1 font-bold opacity-60']">{{ curr.name }}</span>
           </div>
-          <span class="font-black border rounded-lg px-2 py-0.5 text-[10px]" :class="selectedCurrency === curr.code ? 'border-white/20' : 'border-gray-100'">{{ curr.symbol }}</span>
+          <span class="font-black border rounded-lg px-2 py-0.5 text-xs" :class="selectedCurrency === curr.code ? 'border-white/20' : 'border-gray-100'">{{ curr.symbol }}</span>
         </button>
       </div>
     </Transition>

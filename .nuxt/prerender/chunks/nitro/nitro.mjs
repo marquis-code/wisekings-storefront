@@ -845,7 +845,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "1ecc139b-3860-4bde-8336-f890f6182c63",
+    "buildId": "1780f313-478f-4099-ac2d-f315a8c05f12",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -2342,7 +2342,7 @@ const _mHd4hMNgU8RTbMvuEo_Fbn8_O5jnH9iV40lo5T7T5kY = defineNitroPlugin(async (ni
     const localeSegment = detector.route(event.path);
     const pathLocale = isSupportedLocale(localeSegment) && localeSegment || void 0;
     const path = (pathLocale && url.pathname.slice(pathLocale.length + 1)) ?? url.pathname;
-    if (!url.pathname.includes("/_i18n/xWA6QQeQ") && !isExistingNuxtRoute(path)) {
+    if (!url.pathname.includes("/_i18n/uH-SFb72") && !isExistingNuxtRoute(path)) {
       return;
     }
     const resolved = resolveRedirectPath(event, path, pathLocale, ctx.vueI18nOptions.defaultLocale, detector);

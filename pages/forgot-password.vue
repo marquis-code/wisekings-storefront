@@ -3,7 +3,7 @@
     <!-- Close Button -->
     <NuxtLink 
       to="/login" 
-      class="fixed top-8 right-8 w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 hover:text-gray-900 hover:bg-gray-100 transition-all z-50 group"
+      class="fixed top-8 right-8 w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-[#033958]/80 hover:text-gray-900 hover:bg-gray-100 transition-all z-50 group"
     >
       <Icon name="lucide:x" size="20" class="group-hover:rotate-90 transition-transform duration-300" />
     </NuxtLink>
@@ -20,14 +20,14 @@
 
         <form v-if="!submitted" @submit.prevent="handleReset" class="space-y-8">
           <div class="space-y-3">
-            <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">Email Channel</label>
+            <label class="text-xs font-black uppercase tracking-[0.2em] text-[#033958]/80 ml-4">Email Channel</label>
             <div class="relative group">
-              <Icon name="lucide:mail" size="18" class="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#033958] transition-colors" />
+              <Icon name="lucide:mail" size="18" class="absolute left-6 top-1/2 -translate-y-1/2 text-[#033958]/60 group-focus-within:text-[#033958] transition-colors" />
               <input 
                 v-model="email" 
                 type="email" 
                 placeholder="yours@example.com"
-                class="w-full pl-14 pr-8 py-5 bg-gray-50 border border-gray-100 rounded-[2rem] text-sm font-bold focus:ring-8 focus:ring-[#033958]/5 focus:border-[#033958] outline-none transition-all placeholder:text-gray-300"
+                class="w-full pl-14 pr-8 py-5 bg-gray-50 border border-gray-100 rounded-[2rem] text-sm font-bold focus:ring-8 focus:ring-[#033958]/5 focus:border-[#033958] outline-none transition-all placeholder:text-[#033958]/60"
                 required
               />
             </div>
@@ -35,7 +35,7 @@
 
           <button 
             type="submit" 
-            class="w-full py-5 bg-gray-900 text-white rounded-[2rem] font-black text-xs uppercase tracking-[0.4em] hover:bg-gray-800 transition-all shadow-xl shadow-gray-200 flex items-center justify-center gap-4 group"
+            class="w-full py-5 bg-gray-900 text-white rounded-[2rem] font-black text-xs uppercase tracking-[0.4em] hover:bg-gray-800 transition-all  shadow-gray-200 flex items-center justify-center gap-4 group"
             :disabled="loading"
           >
             <Icon v-if="loading" name="lucide:loader-2" class="w-5 h-5 animate-spin" />
@@ -47,18 +47,18 @@
         </form>
 
         <div v-else class="text-center p-10 bg-emerald-50 rounded-[3rem] border border-emerald-100 space-y-6 animate-in fade-in zoom-in duration-500">
-          <div class="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto text-white shadow-lg shadow-emerald-500/20">
+          <div class="w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto text-white  shadow-emerald-500/20">
             <Icon name="lucide:check" size="28" />
           </div>
           <div class="space-y-2">
             <p class="text-lg font-black text-emerald-950 uppercase tracking-tight">Check your transmissions</p>
             <p class="text-xs font-bold text-emerald-600">A secure reset link has been dispatched to {{ email }}.</p>
           </div>
-          <NuxtLink to="/login" class="inline-block text-[10px] font-black text-emerald-900 uppercase tracking-widest border-b-2 border-emerald-200 pb-1 hover:border-emerald-500 transition-all">Back to Command Center</NuxtLink>
+          <NuxtLink to="/login" class="inline-block text-xs font-black text-emerald-900 uppercase tracking-widest border-b-2 border-emerald-200 pb-1 hover:border-emerald-500 transition-all">Back to Command Center</NuxtLink>
         </div>
 
         <div class="pt-8 text-center">
-            <NuxtLink to="/login" class="text-gray-400 font-bold hover:text-gray-900 transition-colors text-sm">Remembered? Return to login</NuxtLink>
+            <NuxtLink to="/login" class="text-[#033958]/80 font-bold hover:text-gray-900 transition-colors text-sm">Remembered? Return to login</NuxtLink>
         </div>
       </div>
     </div>

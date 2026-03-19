@@ -68,7 +68,7 @@
 
           <!-- Visual Card -->
           <div class="relative">
-            <div class="aspect-[4/5] bg-gradient-to-br from-[#033958] to-[#0a5a8a] rounded-[3rem] overflow-hidden relative shadow-2xl shadow-[#033958]/30">
+            <div class="aspect-[4/5] bg-gradient-to-br from-[#033958] to-[#0a5a8a] rounded-[3rem] overflow-hidden relative  /30">
               <div class="absolute inset-0 opacity-10"
                 style="background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 30px 30px;">
               </div>
@@ -84,7 +84,7 @@
             </div>
 
             <!-- Floating stats -->
-            <div class="absolute -right-6 top-12 bg-white rounded-2xl shadow-xl border border-gray-100 p-5 flex items-center gap-4">
+            <div class="absolute -right-6 top-12 bg-white rounded-2xl  border border-gray-100 p-5 flex items-center gap-4">
               <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center">
                 <Icon name="lucide:award" class="w-6 h-6 text-amber-500" />
               </div>
@@ -94,7 +94,7 @@
               </div>
             </div>
 
-            <div class="absolute -left-6 bottom-16 bg-white rounded-2xl shadow-xl border border-gray-100 p-5 flex items-center gap-4">
+            <div class="absolute -left-6 bottom-16 bg-white rounded-2xl  border border-gray-100 p-5 flex items-center gap-4">
               <div class="w-12 h-12 rounded-xl bg-[#033958]/10 flex items-center justify-center">
                 <Icon name="lucide:package-check" class="w-6 h-6 text-[#033958]" />
               </div>
@@ -117,7 +117,7 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div v-for="v in values" :key="v.title"
-            class="bg-white rounded-[2rem] p-10 border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group">
+            class="bg-white rounded-[2rem] p-10 border border-gray-100  hover: hover:-translate-y-1 transition-all duration-300 text-center group">
             <div class="w-16 h-16 rounded-2xl mx-auto mb-6 flex items-center justify-center transition-all duration-300"
               :class="v.bg + ' group-hover:scale-110'">
               <Icon :name="v.icon" class="w-8 h-8" :class="v.color" />
@@ -135,7 +135,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <!-- Founder Card -->
           <div class="relative">
-            <div class="bg-gradient-to-br from-gray-900 to-[#033958] rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+            <div class="bg-gradient-to-br from-gray-900 to-[#033958] rounded-[3rem] p-12 text-white relative overflow-hidden ">
               <div class="absolute top-0 right-0 w-64 h-64 bg-amber-400/10 rounded-full translate-x-1/3 -translate-y-1/3 blur-[80px]"></div>
               <div class="relative z-10">
                 <div class="w-20 h-20 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-8">
@@ -215,7 +215,7 @@
           Experience the joy of premium snacking. Browse our collection and treat yourself today!
         </p>
         <NuxtLink to="/products"
-          class="inline-flex items-center gap-3 bg-amber-400 text-gray-900 hover:bg-amber-300 px-10 py-5 rounded-2xl font-black text-lg shadow-2xl shadow-amber-400/20 transition-all hover:-translate-y-1 active:translate-y-0 group">
+          class="inline-flex items-center gap-3 bg-amber-400 text-gray-900 hover:bg-amber-300 px-10 py-5 rounded-2xl font-black text-lg  shadow-amber-400/20 transition-all hover:-translate-y-1 active:translate-y-0 group">
           Shop Now
           <Icon name="lucide:arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </NuxtLink>
