@@ -186,7 +186,7 @@ const sortOptions = computed(() => [
   { label: t('common.sort.name'), value: 'name' },
 ])
 
-const totalPages = computed(() => Math.ceil(total.value / 12))
+const totalPages = computed(() => Math.ceil(total.value / 24))
 
 let dt: ReturnType<typeof setTimeout>
 function debouncedFetch() {
@@ -200,7 +200,7 @@ async function handleFetch() {
 
   const params: any = { 
     page: page.value, 
-    limit: 12, 
+    limit: 24, 
     search: search.value || undefined, 
     category: categoryId || undefined 
   }

@@ -144,9 +144,9 @@
       </div>
       <!-- <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8"> -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
-          <ProductCard v-for="p in randomizedProducts" :key="p._id" :product="p" />
+          <ProductCard v-for="p in displayedProducts" :key="p._id" :product="p" />
       </div>
-      <div v-if="randomizedProducts.length === 0" class="text-center py-12 text-[#033958]/80">{{ $t('loading_products') }}</div>
+      <div v-if="displayedProducts.length === 0" class="text-center py-12 text-[#033958]/80">{{ $t('loading_products') }}</div>
     </section>
 
     <!-- Gifting Section -->
@@ -433,17 +433,17 @@ import video6 from "@/assets/videos/wisekings2.mp4"
 const { products, fetchProducts } = useFetchProducts()
 const { categories, fetchCategories } = useFetchCategories()
 
-const randomizedProducts = ref<Product[]>([])
+const displayedProducts = ref<Product[]>([])
 let shuffleInterval: ReturnType<typeof setInterval> | null = null
 
-const updateRandomProducts = () => {
+const updateDisplayedProducts = () => {
   if (!products.value || products.value.length === 0) return
-  randomizedProducts.value = [...products.value].slice(0, 8)
+  displayedProducts.value = [...products.value]
 }
 
 watch(products, (newProducts) => {
   if (newProducts && newProducts.length > 0) {
-    updateRandomProducts()
+    updateDisplayedProducts()
   }
 }, { deep: true })
 const { locale } = useI18n()
@@ -610,7 +610,7 @@ watch([locale, selectedCurrency], () => refreshData())
 onMounted(async () => {
   startCarousel()
   await refreshData()
-  updateRandomProducts() // Initial load only, no shuffling
+  updateDisplayedProducts() // Initial load
 })
 
 onUnmounted(() => { 

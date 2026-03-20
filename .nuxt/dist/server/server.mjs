@@ -440,7 +440,7 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import("./_nuxt/index-BVqM6Peb.js")
+    component: () => import("./_nuxt/index-0pZSAgW8.js")
   },
   {
     name: "login",
@@ -503,7 +503,7 @@ const _routes = [
   {
     name: "products",
     path: "/products",
-    component: () => import("./_nuxt/index-BdQdPK8T.js")
+    component: () => import("./_nuxt/index-8UNxdD3v.js")
   },
   {
     name: "account-profile",
@@ -519,7 +519,7 @@ const _routes = [
   {
     name: "products-slug",
     path: "/products/:slug()",
-    component: () => import("./_nuxt/_slug_-CSraR6Za.js")
+    component: () => import("./_nuxt/_slug_-D8C_5pib.js")
   },
   {
     name: "shipping-policy",
@@ -1926,7 +1926,7 @@ function createNuxtI18nContext(nuxt, vueI18n, defaultLocale) {
       return;
     }
     const headers = getLocaleConfig(locale)?.cacheable ? {} : { "Cache-Control": "no-cache" };
-    const messages = await $fetch(`${"/_i18n/eteUrqKO"}/${locale}/messages.json`, { headers });
+    const messages = await $fetch(`${"/_i18n/k9Ar_fLa"}/${locale}/messages.json`, { headers });
     for (const k of Object.keys(messages)) {
       i18n.mergeLocaleMessage(k, messages[k]);
     }
@@ -6918,7 +6918,7 @@ const i18n_EI7LsD1KYQADczz5hrChviGQCdVM8yUkvFEZLJpmnvM = /* @__PURE__ */ defineN
     {
       localeConfigs.value = useRequestEvent().context.nuxtI18n?.localeConfigs || {};
     }
-    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/eteUrqKO"}/${locale}/messages.json`));
+    prerenderRoutes(localeCodes.map((locale) => `${"/_i18n/k9Ar_fLa"}/${locale}/messages.json`));
     const i18n = createI18n(optionsI18n);
     const detectors = useDetectors(useRequestEvent(nuxt), useI18nDetection(nuxt), nuxt);
     const ctx = createNuxtI18nContext(nuxt, i18n, optionsI18n.defaultLocale);
