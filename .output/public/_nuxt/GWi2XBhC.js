@@ -1,0 +1,1 @@
+import{i as o,j as n}from"./BKKjZcNw.js";function f(){const r=o("wk_referral",{maxAge:2592e3});function a(){const e=new URLSearchParams(window.location.search).get("ref");e&&(r.value=e)}return{referralCode:n(r),captureFromUrl:a}}export{f as u};

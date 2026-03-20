@@ -53,18 +53,20 @@
                   label="Full Name *" 
                   placeholder="Enter your full legal name"
                   required
+                  :has-error="!address.fullName && submitting"
                 />
               </div>
 
               <!-- WhatsApp Phone (Compulsory) -->
               <div class="space-y-2">
-                <label class="text-[10px] font-black uppercase tracking-widest text-amber-600 ml-1">Mandatory for Order Updates</label>
+                <label class="text-[10px] font-black uppercase tracking-widest text-red-600 ml-1">Mandatory for Order Updates *</label>
                 <CoreAnimatedInput 
                   v-model="address.phone" 
                   type="tel" 
                   label="WhatsApp Number *" 
                   placeholder="+234 ..."
                   required
+                  :has-error="!address.phone && submitting"
                 />
               </div>
 
@@ -412,8 +414,8 @@
             <div class="space-y-3 pt-4">
               <button 
                 @click="handleCheckout" 
-                class="w-full py-5 bg-gray-950 hover:bg-[#033958] text-white rounded-[32px] font-black text-xs uppercase tracking-[0.2em] transition-all active:scale-[0.95]  shadow-gray-950/20 flex items-center justify-center gap-3 disabled:opacity-50"
-                :disabled="submitting || items.length === 0"
+                class="w-full py-5 bg-gray-950 hover:bg-[#033958] text-white rounded-[32px] font-black text-xs uppercase tracking-[0.2em] transition-all active:scale-[0.95]  shadow-gray-950/20 flex items-center justify-center gap-3 disabled:opacity-50 disabled:bg-gray-400"
+                :disabled="submitting || items.length === 0 || !address.phone || !address.fullName"
               >
                 <Icon name="lucide:lock" class="w-4 h-4" />
                 {{ $t('common.complete_purchase') || 'Complete Purchase' }}
@@ -753,7 +755,14 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
       `🚛 Shipping: 🚚 ${shippingMethodName} ${s.deliveryMethod === 'lagos_dispatch' ? '[Fee to be communicated via WhatsApp]' : `[${formatPrice(s.shippingFee)}]`}\n` +
       (pointsDiscount > 0 ? `🎁 Points Discount: -${formatPrice(pointsDiscount)}\n` : '') +
       `💵 *Grand Total: ${formatPrice(total)}*\n\n` +
-      `⚠️ *Note:* Delivery fee for ${shippingMethodName} will be finalized and communicated here on WhatsApp.\n\n` +
+      (s.deliveryMethod === 'waybill' 
+        ? `⚠️ *Narration:* We shall get back to you shortly on the applicable Way bill Cost to (${address.value.city || 'your destination'}).\n` +
+          `Kindly proceed to make payment to the account details below once the cost of Waybill is communicated.\n\n`
+        : s.deliveryMethod === 'pickup'
+          ? `✅ Thank you for choosing *Wisekings*. Your order has been received and is being processed for pick up.\n` +
+            `Kindly proceed to make payment to the account details below.\n\n`
+          : `⚠️ *Note:* Delivery fee for ${shippingMethodName} will be finalized and communicated here on WhatsApp.\n\n`
+      ) +
       `--------------------------------\n\n` +
       (s.deliveryMethod === 'pickup' 
         ? `🏢 *Pickup Location:*\n\n` +
@@ -777,8 +786,13 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
       ) +
       `--------------------------------\n\n` +
       `💳 *Payment Method:* 🏦 Direct Bank Transfer\n\n` +
-      `Thank you for choosing *WiseKings*. Your order has been received and is being processed. We shall get back to you shortly with the applicable delivery charge.\n\n` +
-      `Kindly proceed to make payment to the account details below once the delivery fee has been communicated:\n\n` +
+      (s.deliveryMethod === 'waybill'
+        ? `We shall get back to you shortly with the applicable Way bill Cost. Kindly proceed to make payment once the fee is communicated.\n\n`
+        : s.deliveryMethod === 'pickup'
+          ? `Thank you for choosing *Wisekings*. Your order has been received and is being processed for pick up. Kindly proceed to make payment to the account details below.\n\n`
+          : `Thank you for choosing *Wisekings*. Your order has been received and is being processed. We shall get back to you shortly with the applicable delivery charge.\n\n` +
+            `Kindly proceed to make payment to the account details below once the delivery fee has been communicated:\n\n`
+      ) +
       `🏦 *Payment Instructions (Direct Transfer)*\n` +
       `Account Name: *${bankDetails.value?.accountName || 'WISEKINGS VENTURES LIMITED'}*\n` +
       `Account Number: *${bankDetails.value?.accountNumber || 'N/A'}*\n` +
@@ -808,7 +822,13 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
 async function handleCheckout() {
   if (items.value.length === 0) return
 
-  // 1. Auth Validation
+  // 1. Mandatory Fields Validation
+  if (!address.value.fullName || !address.value.phone) {
+    showToast({ title: 'Mandatory Fields', message: 'Full Name and WhatsApp Phone Number are required.', toastType: 'error' })
+    return
+  }
+
+  // 1b. Auth Validation
   if (!isAuthenticated.value) {
     if (!guestAuth.value.email) {
       showToast({ title: 'Email Required', message: 'Please provide your email to proceed.', toastType: 'error' })
