@@ -67,25 +67,6 @@
           </NuxtLink>
         </div>
 
-        <!-- High-Speed Infinite Marquee (Desktop) -->
-        <div class="hidden lg:flex justify-center mt-8 relative overflow-hidden w-full">
-          <div class="flex animate-marquee-fast gap-8 py-4">
-            <div v-for="(img, i) in [...heroGallery, ...heroGallery]" :key="i" 
-              class="flex-shrink-0 w-48 h-[300px] rounded-[2rem] overflow-hidden border border-gray-100 bg-white hover:scale-105 transition-transform duration-500 p-4 flex items-center justify-center"
-            >
-              <img :src="img" class="max-w-full max-h-full object-contain" alt="Snack Variety">
-            </div>
-          </div>
-        </div>
-
-        <!-- Mobile Image Gallery (Scrollable) -->
-        <div class="lg:hidden flex gap-4 overflow-x-auto no-scrollbar px-4 pb-6 mt-6 snap-x snap-mandatory">
-          <div v-for="(img, i) in heroGallery" :key="i" 
-            class="flex-shrink-0 w-48 h-[280px] bg-white rounded-[1.5rem] overflow-hidden snap-center border border-gray-100 p-4 flex items-center justify-center"
-          >
-            <img :src="img" class="max-w-full max-h-full object-contain" alt="Snack Variety">
-          </div>
-        </div>
       <!-- Background Accents -->
       <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
         <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-emerald-50 rounded-full blur-[120px] opacity-60"></div>
@@ -94,6 +75,23 @@
     </section>
 
     <!-- Categories Section (Compact & Horizontal) -->
+
+
+    <!-- Featured Products -->
+    <section class="max-w-7xl mx-auto px-4 lg:px-8 py-16">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-extrabold text-gray-900">{{ $t('featured_snacks') }}</h2>
+        <NuxtLink to="/products" class="text-sm font-bold text-[#033958] hover:underline flex items-center gap-1">
+          {{ $t('view_all') }} <Icon name="lucide:arrow-right" size="14" />
+        </NuxtLink>
+      </div>
+      <!-- <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8"> -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
+          <ProductCard v-for="p in displayedProducts" :key="p._id" :product="p" />
+      </div>
+      <div v-if="displayedProducts.length === 0" class="text-center py-12 text-[#033958]/80">{{ $t('loading_products') }}</div>
+    </section>
+
     <section class="max-w-7xl mx-auto px-4 lg:px-8 py-12">
       <div class="flex items-center justify-between mb-8">
         <h2 class="text-2xl md:text-3xl font-black text-gray-900 tracking-tighter">{{ $t('shop_by_category') }}</h2>
@@ -134,20 +132,26 @@
       </div>
     </section>
 
-    <!-- Featured Products -->
-    <section class="max-w-7xl mx-auto px-4 lg:px-8 py-16">
-      <div class="flex items-center justify-between mb-8">
-        <h2 class="text-2xl font-extrabold text-gray-900">{{ $t('featured_snacks') }}</h2>
-        <NuxtLink to="/products" class="text-sm font-bold text-[#033958] hover:underline flex items-center gap-1">
-          {{ $t('view_all') }} <Icon name="lucide:arrow-right" size="14" />
-        </NuxtLink>
-      </div>
-      <!-- <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8"> -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
-          <ProductCard v-for="p in displayedProducts" :key="p._id" :product="p" />
-      </div>
-      <div v-if="displayedProducts.length === 0" class="text-center py-12 text-[#033958]/80">{{ $t('loading_products') }}</div>
-    </section>
+
+            <!-- High-Speed Infinite Marquee (Desktop) -->
+        <div class="hidden lg:flex justify-center mt-8 relative overflow-hidden w-full">
+          <div class="flex animate-marquee-fast gap-8 py-4">
+            <div v-for="(img, i) in [...heroGallery, ...heroGallery]" :key="i" 
+              class="flex-shrink-0 w-48 h-[300px] rounded-[2rem] overflow-hidden border border-gray-100 bg-white hover:scale-105 transition-transform duration-500 p-4 flex items-center justify-center"
+            >
+              <img :src="img" class="max-w-full max-h-full object-contain" alt="Snack Variety">
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Image Gallery (Scrollable) -->
+        <div class="lg:hidden flex gap-4 overflow-x-auto no-scrollbar px-4 pb-6 mt-6 snap-x snap-mandatory">
+          <div v-for="(img, i) in heroGallery" :key="i" 
+            class="flex-shrink-0 w-48 h-[280px] bg-white rounded-[1.5rem] overflow-hidden snap-center border border-gray-100 p-4 flex items-center justify-center"
+          >
+            <img :src="img" class="max-w-full max-h-full object-contain" alt="Snack Variety">
+          </div>
+        </div>
 
     <!-- Gifting Section -->
     <section class="py-8 md:py-16 bg-white overflow-hidden">

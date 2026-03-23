@@ -26,6 +26,44 @@
         </div>
 
         <form v-else @submit.prevent="handleCheckout" class="space-y-8 md:space-y-12">
+          <!-- 2. Fulfillment Method -->
+          <div class="space-y-4 md:space-y-6 px-1 md:px-2">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-400/10 flex items-center justify-center text-amber-600">
+                <Icon name="lucide:truck" size="20" />
+              </div>
+              <h2 class="text-xs font-black uppercase tracking-[0.2em] text-[#033958]">
+                {{ $t('common.fulfillment_method') }}
+              </h2>
+            </div>
+            
+            <div class="flex flex-wrap gap-3">
+              <button 
+                v-for="method in [
+                  { id: 'lagos_dispatch', icon: 'lucide:bike', label: $t('common.dispatch'), sub: 'Within Lagos' },
+                  { id: 'waybill', icon: 'lucide:package-2', label: $t('common.waybill'), sub: 'Outside Lagos' },
+                  { id: 'pickup', icon: 'lucide:store', label: $t('common.pickup'), sub: 'At Factory' }
+                ]"
+                :key="method.id"
+                type="button" 
+                @click="deliveryMethod = method.id"
+                :class="[
+                  'flex-1 min-w-[140px] p-4 rounded-2xl border-2 transition-all flex items-center gap-3 group text-left relative overflow-hidden',
+                  deliveryMethod === method.id ? 'border-[#033958] bg-[#033958] text-white' : 'border-gray-100 bg-white hover:border-gray-200 text-gray-500'
+                ]"
+              >
+                <Icon :name="method.icon" size="20" :class="deliveryMethod === method.id ? 'text-amber-400' : 'text-[#033958]/40'" />
+                <div>
+                  <p class="text-[10px] font-black uppercase tracking-widest leading-none mb-1">{{ method.label }}</p>
+                  <p v-if="method.sub" class="text-[9px] font-bold opacity-60 uppercase whitespace-nowrap">{{ method.sub }}</p>
+                </div>
+                <div v-if="deliveryMethod === method.id" class="absolute -right-2 -bottom-2 opacity-10">
+                  <Icon :name="method.icon" size="48" />
+                </div>
+              </button>
+            </div>
+          </div>
+
           <!-- 1. Contact & Delivery Details -->
           <div class="space-y-6 md:space-y-8 bg-gray-50 p-4 sm:p-6 md:p-10 rounded-3xl md:rounded-[40px] border border-gray-100 shadow-sm w-full box-border">
             <div class="flex items-center justify-between">
@@ -35,36 +73,34 @@
                 </div>
                 <div>
                   <h2 class="text-sm font-black uppercase tracking-[0.2em] text-[#033958]">
-                    {{ deliveryMethod === 'pickup' ? 'Recipient Information' : 'Contact & Delivery Details' }}
+                    {{ deliveryMethod === 'pickup' ? 'Receiver Information' : 'Shipping Address' }}
                   </h2>
-                  <p class="text-[10px] font-bold text-[#033958]/40 uppercase tracking-widest mt-1">Step 1 of 3: Identity & Logistics</p>
+                  
                 </div>
               </div>
-              <div v-if="!isAuthenticated" class="text-right">
+              <!-- <div v-if="!isAuthenticated" class="text-right">
                 <p class="text-sm font-black text-amber-600 uppercase tracking-widest bg-amber-50 px-3 py-1 rounded-full border border-amber-100/50">Guest Checkout Active</p>
-              </div>
+              </div> -->
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Full Name (Compulsory) -->
+              <!-- Recipient Full Name (Compulsory) -->
               <div class="md:col-span-2">
                 <CoreAnimatedInput 
                   v-model="address.fullName" 
-                  label="Full Name *" 
-                  placeholder="Enter your full legal name"
+                  label="Recipient Full Name *" 
                   required
                   :has-error="!address.fullName && submitting"
                 />
               </div>
 
-              <!-- WhatsApp Phone (Compulsory) -->
+              <!-- Recipient WhatsApp Phone (Compulsory) -->
               <div class="space-y-2">
                 <label class="text-[10px] font-black uppercase tracking-widest text-red-600 ml-1">Mandatory for Order Updates *</label>
                 <CoreAnimatedInput 
                   v-model="address.phone" 
                   type="tel" 
-                  label="WhatsApp Number *" 
-                  placeholder="+234 ..."
+                  label="Recipient WhatsApp Number *" 
                   required
                   :has-error="!address.phone && submitting"
                 />
@@ -79,27 +115,36 @@
                   </div>
                 </div>
               </div>
-              <!-- Alternative Phone (Optional) -->
+              <!-- Recipient Alternative Phone (Optional) -->
               <div class="space-y-2">
-                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Alternative (Optional)</label>
+                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Optional</label>
                 <CoreAnimatedInput 
                   v-model="address.alternativePhone" 
                   type="tel" 
-                  label="Backup Phone" 
-                  placeholder="+234 ..."
+                  label="Recipient Alternative Number" 
                 />
               </div>
 
-              <!-- Email Address (Optional) -->
+              <!-- Recipient Email (Optional) -->
               <div class="md:col-span-2">
-                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Email Address (Optional)</label>
+                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Optional</label>
                 <CoreAnimatedInput 
                   v-model="guestAuth.email" 
                   type="email" 
-                  label="Email Address" 
-                  placeholder="For digital receipts (Optional)"
+                  label="Recipient Email Address" 
                 />
               </div>
+
+              <!-- Factory Address for Pickup -->
+              <div v-if="deliveryMethod === 'pickup'" class="md:col-span-2 p-6 bg-amber-50 rounded-3xl border border-amber-100 flex items-start gap-4 mt-2">
+                <Icon name="lucide:store" class="text-amber-600 shrink-0 mt-1" size="24" />
+                <div>
+                  <h3 class="text-xs font-black text-amber-900 uppercase tracking-widest mb-1">Factory Pickup Location</h3>
+                  <p class="text-sm font-bold text-amber-800">13, Sonubi street, off Bakare street ketu, Lagos</p>
+                  <!-- <p class="text-xs font-medium text-amber-700/80 mt-2">Please ensure you bring your order ID and the WhatsApp phone number used above.</p> -->
+                </div>
+              </div>
+
 
               <!-- Physical Address - Only if not Pickup -->
               <template v-if="deliveryMethod !== 'pickup'">
@@ -154,7 +199,7 @@
                   </div>
                 </div>
                 <div class="space-y-2">
-                  <CoreAnimatedInput v-model="address.city" label="City" placeholder="City" />
+                  <CoreAnimatedInput v-model="address.city" label="City"  />
                 </div>
                 <div class="space-y-2">
                   <CoreSelectInput 
@@ -191,144 +236,9 @@
             </div>
           </div>
 
-          <!-- 2. Fulfillment Method -->
-          <div class="space-y-4 md:space-y-6 px-1 md:px-2">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-amber-400/10 flex items-center justify-center text-amber-600">
-                <Icon name="lucide:truck" size="20" />
-              </div>
-              <h2 class="text-xs font-black uppercase tracking-[0.2em] text-[#033958]">
-                {{ $t('common.fulfillment_method') }}
-              </h2>
-            </div>
-            
-            <div class="flex flex-wrap gap-3">
-              <button 
-                v-for="method in [
-                  { id: 'lagos_dispatch', icon: 'lucide:bike', label: $t('common.dispatch'), sub: 'Within Lagos' },
-                  { id: 'waybill', icon: 'lucide:package-2', label: $t('common.waybill'), sub: 'Outside Lagos' },
-                  { id: 'pickup', icon: 'lucide:store', label: $t('common.pickup'), sub: 'At Factory' }
-                ]"
-                :key="method.id"
-                type="button" 
-                @click="deliveryMethod = method.id"
-                :class="[
-                  'flex-1 min-w-[140px] p-4 rounded-2xl border-2 transition-all flex items-center gap-3 group text-left relative overflow-hidden',
-                  deliveryMethod === method.id ? 'border-[#033958] bg-[#033958] text-white' : 'border-gray-100 bg-white hover:border-gray-200 text-gray-500'
-                ]"
-              >
-                <Icon :name="method.icon" size="20" :class="deliveryMethod === method.id ? 'text-amber-400' : 'text-[#033958]/40'" />
-                <div>
-                  <p class="text-[10px] font-black uppercase tracking-widest leading-none mb-1">{{ method.label }}</p>
-                  <p v-if="method.sub" class="text-[9px] font-bold opacity-60 uppercase whitespace-nowrap">{{ method.sub }}</p>
-                </div>
-                <div v-if="deliveryMethod === method.id" class="absolute -right-2 -bottom-2 opacity-10">
-                  <Icon :name="method.icon" size="48" />
-                </div>
-              </button>
-            </div>
-          </div>
+          
 
-          <!-- 3. Payment Method -->
-          <div class="space-y-4 md:space-y-6 pt-4 px-1 md:px-2">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-xl bg-emerald-400/10 flex items-center justify-center text-emerald-600">
-                <Icon name="lucide:credit-card" size="20" />
-              </div>
-              <h2 class="text-xs font-black uppercase tracking-[0.2em] text-[#033958]">Payment Method</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <button 
-                type="button" 
-                @click="paymentMethod = 'direct_transfer'"
-                class="p-5 rounded-3xl border-2 transition-all flex items-center gap-4 group"
-                :class="paymentMethod === 'direct_transfer' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
-              >
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="paymentMethod === 'direct_transfer' ? 'bg-amber-500 text-white' : 'bg-white text-[#033958]/80'">
-                  <Icon name="lucide:banknote" size="20" />
-                </div>
-                <div class="text-left">
-                  <p class="text-sm font-bold text-[#033958]">Bank transfer</p>
-                  <p class="text-[10px] text-[#033958]/60">Delivery within 24hrs</p>
-                </div>
-              </button>
-
-              <button 
-                type="button" 
-                @click="paymentMethod = 'card'"
-                class="p-5 rounded-3xl border-2 transition-all flex items-center gap-4 group"
-                :class="paymentMethod === 'card' ? 'border-[#033958] bg-[#033958]/5' : 'border-gray-50 bg-gray-50 hover:border-gray-100'"
-              >
-                <div class="w-12 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform" :class="paymentMethod === 'card' ? 'bg-[#033958] text-white' : 'bg-white text-[#033958]/80'">
-                  <Icon name="lucide:credit-card" size="20" />
-                   <!-- <img src="@/assets/images/paystack.png" class="h-10 w-auto" /> -->
-                </div>
-                <div class="text-left">
-                  <p class="text-sm font-bold text-[#033958]">Pay with Paystack</p>
-                  <!-- <img src="@/assets/images/paystack.png" class="h-12 w-auto" /> -->
-                  <p class="text-[10px] text-[#033958]/60">Delivery within 72hrs</p>
-                </div>
-              </button>
-            </div>
-
-            <!-- Payment Route Details (Bold and Outside) -->
-            <div v-if="paymentMethod" class="p-4 bg-white rounded-2xl border border-[#033958]/10">
-              <div v-if="paymentMethod === 'direct_transfer'" class="flex items-center gap-3 text-[#033958]">
-                <Icon name="lucide:zap" class="shrink-0 text-amber-500" size="18" />
-                <p class="text-xs font-medium">
-                  Pay with bank transfer: Delivery within 24hrs
-                </p>
-              </div>
-              <div v-if="paymentMethod === 'card'" class="flex items-center gap-3 text-[#033958]">
-                <Icon name="lucide:credit-card" class="shrink-0 text-blue-500" size="18" />
-                <p class="text-xs font-medium">
-                  Pay with paystack: Delivery within 72hrs
-                </p>
-              </div>
-            </div>
-
-            <!-- Direct Transfer Note (Commented out as requested) -->
-            <!-- <transition name="fade">
-              <div v-if="paymentMethod === 'direct_transfer'" class="p-8 bg-amber-50/50 rounded-[40px] border border-amber-100 space-y-8">
-                <div class="space-y-4">
-                  <div class="flex items-center justify-between px-2">
-                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-[#033958]/80">Proof of Payment</h3>
-                    <span class="text-sm font-bold text-amber-600 uppercase tracking-widest bg-amber-100 px-2 py-0.5 rounded-md">Optional</span>
-                  </div>
-                  
-                  <div 
-                    class="relative group cursor-pointer"
-                    @click="fileInput?.click()"
-                  >
-                    <div class="absolute -inset-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-[2rem] blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-                    
-                    <div class="relative h-48 bg-white rounded-[2rem] border-2 border-dashed border-gray-100 flex flex-col items-center justify-center p-6 transition-all group-hover:border-amber-400">
-                      <template v-if="!proofUrl">
-                        <div class="w-16 h-16 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-500 mb-4 group-hover:scale-110 transition-transform duration-500 shadow-inner">
-                          <Icon :name="uploading ? 'lucide:loader-2' : 'lucide:upload-cloud'" :class="uploading ? 'animate-spin' : ''" size="32" />
-                        </div>
-                        <p class="text-sm font-black text-gray-900 uppercase tracking-widest mb-1">{{ uploading ? 'Processing Assets...' : 'Drop Receipt Here' }}</p>
-                        <p class="text-sm text-[#033958]/80 font-medium tracking-tight">Tap to browse your files (JPEG, PNG)</p>
-                      </template>
-                      <template v-else>
-                        <img :src="proofUrl" class="absolute inset-0 w-full h-full object-contain p-2 rounded-[2rem] opacity-20" />
-                        <div class="relative z-10 flex flex-col items-center gap-3">
-                          <div class="w-14 h-14 rounded-full bg-emerald-500 text-white flex items-center justify-center  shadow-emerald-200 animate-bounce-subtle">
-                            <Icon name="lucide:check-circle" size="28" />
-                          </div>
-                          <p class="text-xs font-black text-emerald-600 uppercase tracking-[0.2em]">Asset Secured</p>
-                          <button @click.stop="proofUrl = ''" class="text-sm font-bold text-[#033958]/80 hover:text-red-500 uppercase tracking-widest mt-2 border-b border-gray-100">Remove and Retry</button>
-                        </div>
-                      </template>
-                      <input ref="fileInput" type="file" class="hidden" accept="image/*" @change="handleFileUpload" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </transition> -->
-          </div>
-        </form>
+          </form>
       </div>
 
       <!-- Manifest Summary -->
@@ -365,12 +275,9 @@
                 <span class="text-lg font-black text-[#033958]">{{ formatPrice(totalPrice) }}</span>
               </div>
               
-              <div class="flex justify-between items-center">
+              <div v-if="deliveryMethod !== 'pickup'" class="flex justify-between items-start">
                 <span class="text-xs font-bold uppercase tracking-widest text-[#033958]/70">{{ $t('common.shipping') }} <span class="text-xs opacity-60">({{ $t(`common.${deliveryMethod}`) }})</span></span>
-                <span v-if="deliveryMethod === 'lagos_dispatch'" class="text-[10px] font-black text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-lg uppercase tracking-tighter shadow-sm border border-emerald-100 animate-pulse">
-                  {{ $t('common.whatsapp_fee') }}
-                </span>
-                <span v-else class="text-lg font-black text-[#033958]">{{ formatPrice(shippingFee) }}</span>
+                <span class="text-[10px] font-bold text-[#033958]/60 bg-white/40 px-2 py-1 rounded-lg text-right leading-tight max-w-[160px]">Will be communicated <br/>via WhatsApp</span>
               </div>
 
               <div v-if="redeemPoints" class="flex justify-between items-center">
@@ -408,10 +315,51 @@
                 <span class="text-base font-black uppercase tracking-[0.2em] text-[#033958]">{{ $t('common.grand_total') }}</span>
                 <span class="text-3xl font-black text-[#033958] tracking-tighter">{{ formatPrice(totalPrice + shippingFee - (redeemPoints ? pointsToRedeem : 0)) }}</span>
               </div>
+
             </div>
 
-            <!-- Actions -->
+
+          <div class="pt-4 space-y-3">
+            <p class="text-[10px] font-black uppercase tracking-[0.15em] text-[#033958]/60">Payment Method</p>
+            <!-- Bank Transfer - Active -->
+            <div class="p-4 bg-white rounded-2xl border-2 border-[#033958]/20">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center">
+                  <Icon name="lucide:banknote" size="20" />
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-black text-[#033958]">Bank Transfer</p>
+                </div>
+                <div class="bg-[#033958] text-white px-3 py-1.5 rounded-xl">
+                  <p class="text-[11px] font-black uppercase tracking-widest">24hrs Delivery</p>
+                </div>
+              </div>
+            </div>
+            <!-- Paystack - Commented out for now -->
+            <!-- <div class="p-4 bg-white/50 rounded-2xl border-2 border-gray-100 opacity-50">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center">
+                  <Icon name="lucide:credit-card" size="20" />
+                </div>
+                <div class="flex-1">
+                  <p class="text-sm font-black text-[#033958]">Pay with Paystack</p>
+                </div>
+                <div class="bg-blue-600 text-white px-3 py-1.5 rounded-xl">
+                  <p class="text-[11px] font-black uppercase tracking-widest">48hrs Delivery</p>
+                </div>
+              </div>
+            </div> -->
+          </div>
+
+
+
+<!-- WhatsApp Note + Actions -->
             <div class="space-y-3 pt-4">
+              <div class="flex items-center gap-2 px-2 py-3 bg-white/30 rounded-2xl">
+                <Icon name="lucide:message-circle" size="16" class="text-[#033958]/50 shrink-0" />
+                <p class="text-[10px] font-bold text-[#033958]/60 leading-snug">By clicking below, your order will be sent to our team via WhatsApp for quick confirmation and processing.</p>
+              </div>
+
               <button 
                 @click="handleCheckout" 
                 class="w-full py-5 bg-gray-950 hover:bg-[#033958] text-white rounded-[32px] font-black text-xs uppercase tracking-[0.2em] transition-all active:scale-[0.95]  shadow-gray-950/20 flex items-center justify-center gap-3 disabled:opacity-50 disabled:bg-gray-400"
@@ -428,15 +376,15 @@
               </div>
             </div>
 
+
+
+
             <div v-if="totalWeight > 0" class="flex items-center justify-between pt-4 border-t border-[#033958]/10 text-xs font-black uppercase tracking-widest text-[#033958]/40">
               <span>Total Weight</span>
               <span>{{ totalWeight }} KG</span>
             </div>
             
-            <p v-if="deliveryMethod === 'lagos_dispatch' && !distanceInfo && address.country === 'Nigeria'" class="text-xs font-black text-[#033958]/40 text-center uppercase tracking-widest mt-4">
-              <Icon name="lucide:map-pin" size="12" class="mr-1" />
-              Set delivery address for fee
-            </p>
+            
           </div>
         </div>
       </aside>
@@ -470,6 +418,7 @@ const { showToast } = useCustomToast()
 
 const deliveryMethod = ref('lagos_dispatch')
 const paymentMethod = ref('direct_transfer')
+const showPaymentDropdown = ref(false)
 const pointsToRedeem = ref(0)
 const redeemPoints = ref(false)
 const proofUrl = ref('')
@@ -725,9 +674,11 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
         shippingFee: shippingFee.value,
         pointsToRedeem: pointsToRedeem.value,
         redeemPoints: redeemPoints.value,
-        deliveryMethod: deliveryMethod.value
+        deliveryMethod: deliveryMethod.value,
+        address: JSON.parse(JSON.stringify(address.value))
     }
-    const itemsList = s.items.map((i: any) => `⭐ ${i.name} x ${i.quantity} => ${formatPrice(i.price * i.quantity)} (${formatPrice(i.price)}/ea)`).join('\n')
+    const targetAddress = s.address || address.value
+    const itemsList = s.items.map((i: any) => `⭐ ${i.name} x ${i.quantity} => ${formatPrice(i.price * i.quantity)}`).join('\n')
     const total = s.totalPrice + s.shippingFee - (s.redeemPoints ? s.pointsToRedeem : 0)
     const date = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
     
@@ -742,64 +693,51 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
     
     const message = encodeURIComponent(
       `✨ *New Order Received @ WISEKINGS VENTURES LIMITED* ✨\n\n` +
-      `👑 *Manifest Details*\n` +
+      `👑 *MANIFEST DETAILS*\n\n` +
       `#️⃣ Order Number  : *${targetOrderNumber || 'Pending'}*\n` +
       `🔆 Order Status  : 🟡 Pending\n` +
       `🗓 Date          : 📅 ${date}\n` +
-      `📧 Email         : ✉️ ${user.value?.email || 'Guest'}\n` +
       `💰 Total Amount  : *${formatPrice(total)}*\n\n` +
-      `🔍 *Order details:* \n\n` +
+      `👤 *RECIPIENT DETAILS*\n\n` +
+      `👤 Name: *${targetAddress.fullName || 'N/A'}*\n` +
+      `📱 WhatsApp: *${targetAddress.phone || 'N/A'}*\n` +
+      (targetAddress.alternativePhone ? `📞 Alt. Number: ${targetAddress.alternativePhone}\n` : '') +
+      ((guestAuth.value.email || user.value?.email) ? `📧 Email: ${guestAuth.value.email || user.value?.email}\n` : '') +
+      `\n` +
+      `📦 *ORDER ITEMS*\n\n` +
       `${itemsList}\n\n` +
-      `--------------------------------\n\n` +
       `🏷 Subtotal: ${formatPrice(s.totalPrice)}\n` +
-      `🚛 Shipping: 🚚 ${shippingMethodName} ${s.deliveryMethod === 'lagos_dispatch' ? '[Fee to be communicated via WhatsApp]' : `[${formatPrice(s.shippingFee)}]`}\n` +
+      (s.deliveryMethod === 'pickup'
+        ? ``
+        : `🚛 Shipping (${shippingMethodName}): _To be communicated_\n`
+      ) +
       (pointsDiscount > 0 ? `🎁 Points Discount: -${formatPrice(pointsDiscount)}\n` : '') +
       `💵 *Grand Total: ${formatPrice(total)}*\n\n` +
-      (s.deliveryMethod === 'waybill' 
-        ? `⚠️ *Narration:* We shall get back to you shortly on the applicable Way bill Cost to (${address.value.city || 'your destination'}).\n` +
-          `Kindly proceed to make payment to the account details below once the cost of Waybill is communicated.\n\n`
-        : s.deliveryMethod === 'pickup'
-          ? `✅ Thank you for choosing *Wisekings*. Your order has been received and is being processed for pick up.\n` +
-            `Kindly proceed to make payment to the account details below.\n\n`
-          : `⚠️ *Note:* Delivery fee for ${shippingMethodName} will be finalized and communicated here on WhatsApp.\n\n`
+      `🚚 *FULFILLMENT: ${shippingMethodName.toUpperCase()}*\n\n` +
+      (s.deliveryMethod === 'pickup'
+        ? `🏢 *Pickup Location*\n` +
+          `📍 ${pickupLocations.value.find(l => l.isActive)?.name || 'WiseKings Factory'}\n` +
+          `🏠 ${pickupLocations.value.find(l => l.isActive)?.address || '13, Sonubi street, off Bakare street ketu, Lagos'}\n` +
+          `📞 ${pickupLocations.value.find(l => l.isActive)?.phone || '09060012295'}\n\n`
+        : `🗺️ *Delivery Address*\n` +
+          `🏠 ${targetAddress.address || 'N/A'}\n` +
+          `🌇 ${targetAddress.city || 'N/A'}, ${targetAddress.state || 'N/A'}\n` +
+          `🇳🇬 ${targetAddress.country || 'Nigeria'}\n\n`
       ) +
-      `--------------------------------\n\n` +
-      (s.deliveryMethod === 'pickup' 
-        ? `🏢 *Pickup Location:*\n\n` +
-          `📍 Name: *${pickupLocations.value.find(l => l.isActive)?.name || 'Main Factory'}*\n` +
-          `🏠 Address: ${pickupLocations.value.find(l => l.isActive)?.address || '13, Sonubi street, off Bakare street ketu, Lagos'}\n` +
-          `📞 Contact: ${pickupLocations.value.find(l => l.isActive)?.phone || 'N/A'}\n\n`
-        : `🗺️ *Billing Address:*\n\n` +
-          `👤 Name: *${address.value.fullName || 'N/A'}*\n` +
-          `📞 Phone: *${address.value.phone || 'N/A'}*\n` +
-          `🏠 Address: ${address.value.address || 'N/A'}\n` +
-          `🌇 City: ${address.value.city || 'N/A'}\n` +
-          `📍 State: ${address.value.state || 'N/A'}\n` +
-          `🇳🇬 Country: ${address.value.country || 'Nigeria'}\n\n` +
-          `--------------------------------\n\n` +
-          `🚚 *Shipping Address:*\n\n` +
-          `👤 Name: *${address.value.fullName || 'N/A'}*\n` +
-          `📞 Phone: *${address.value.phone || 'N/A'}*\n` +
-          `🏠 Address: ${address.value.address || 'N/A'}\n` +
-          `🌇 City: ${address.value.city || 'N/A'}\n` +
-          `📍 State: ${address.value.state || 'N/A'}\n\n`
+      (s.deliveryMethod === 'pickup'
+        ? `Thank you for choosing WiseKings. Your order has been received and is being processed for pick up. Kindly proceed to make payment to the account details below:\n\n`
+        : `Thank you for choosing WiseKings. Your order has been received and is being processed. We shall get back to you shortly with the applicable delivery charge. Kindly proceed to make payment to the account details below once the delivery fee has been communicated:\n\n`
       ) +
-      `--------------------------------\n\n` +
-      `💳 *Payment Method:* 🏦 Direct Bank Transfer\n\n` +
-      (s.deliveryMethod === 'waybill'
-        ? `We shall get back to you shortly with the applicable Way bill Cost. Kindly proceed to make payment once the fee is communicated.\n\n`
-        : s.deliveryMethod === 'pickup'
-          ? `Thank you for choosing *Wisekings*. Your order has been received and is being processed for pick up. Kindly proceed to make payment to the account details below.\n\n`
-          : `Thank you for choosing *Wisekings*. Your order has been received and is being processed. We shall get back to you shortly with the applicable delivery charge.\n\n` +
-            `Kindly proceed to make payment to the account details below once the delivery fee has been communicated:\n\n`
-      ) +
-      `🏦 *Payment Instructions (Direct Transfer)*\n` +
-      `Account Name: *${bankDetails.value?.accountName || 'WISEKINGS VENTURES LIMITED'}*\n` +
-      `Account Number: *${bankDetails.value?.accountNumber || 'N/A'}*\n` +
-      `Bank Name: *${bankDetails.value?.bankName || 'N/A'}*\n\n` +
-      `--------------------------------\n\n` +
-      `*Wisekings Team*`
+      `🏦 *PAYMENT DETAILS*\n\n` +
+      `💳 Method: *Bank Transfer*\n` +
+      `⏰ Estimated Delivery: *Within 24 hours*\n\n` +
+      `🏦 *Bank Account Information*\n` +
+      `🔹 Account Name: *${bankDetails.value?.accountName || 'Wisekings Ventures'}*\n` +
+      `🔹 Account Number: *${bankDetails.value?.accountNumber || '6140536188'}*\n` +
+      `🔹 Bank: *${bankDetails.value?.bankName || 'Opay'}*\n\n` +
+      `*— WiseKings Team*`
     )
+
 
     const whatsappUrl = `https://wa.me/${whatsappNumber.value || '2349060012295'}?text=${message}`
     console.log('AGGRESSIVE REDIRECT:', whatsappUrl)
@@ -893,7 +831,7 @@ async function handleCheckout() {
       },
       referralCode: referralCode.value || undefined,
       isHomeDelivery: isHomeDelivery.value,
-      paymentProvider: paymentMethod.value === 'direct_transfer' ? 'direct_transfer' : 'card'
+      paymentProvider: paymentMethod.value === 'direct_transfer' ? 'direct_transfer' : 'paystack'
     }
 
     const orderRes = await createOrder(orderData) as any
@@ -918,7 +856,8 @@ async function handleCheckout() {
         shippingFee: shippingFee.value,
         pointsToRedeem: pointsToRedeem.value,
         redeemPoints: redeemPoints.value,
-        deliveryMethod: deliveryMethod.value
+        deliveryMethod: deliveryMethod.value,
+        address: JSON.parse(JSON.stringify(address.value))
     }
 
     if (paymentMethod.value === 'direct_transfer') {

@@ -27,7 +27,6 @@
             v-model="password" 
             type="password" 
             label="Password" 
-            placeholder="••••••••"
             required
           />
         </div>

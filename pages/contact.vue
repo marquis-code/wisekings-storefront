@@ -85,7 +85,6 @@
                     v-model="form.name" 
                     type="text" 
                     label="Full Identity" 
-                    placeholder="John Doe"
                     required
                   />
                 </div>
@@ -94,7 +93,6 @@
                     v-model="form.email" 
                     type="email" 
                     label="Email Channel" 
-                    placeholder="john@example.com"
                     required
                   />
                 </div>
@@ -115,7 +113,6 @@
                   v-model="form.message" 
                   type="textarea" 
                   label="Your Intelligence/Message" 
-                  placeholder="How can we help establish excellence today?"
                   required
                 />
               </div>

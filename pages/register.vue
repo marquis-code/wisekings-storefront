@@ -24,7 +24,6 @@
             type="email" 
             label="Email Address" 
             autocomplete="email" 
-            placeholder="name@example.com"
             required
           />
         </div>
@@ -35,7 +34,6 @@
             type="tel" 
             label="Phone Number" 
             autocomplete="tel" 
-            placeholder="+234 800 0000 000"
           />
         </div>
 
@@ -44,7 +42,6 @@
             v-model="form.password" 
             type="password" 
             label="Password" 
-            placeholder="••••••••"
             required
           />
         </div>

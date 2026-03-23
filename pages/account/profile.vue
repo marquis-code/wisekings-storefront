@@ -26,7 +26,6 @@
               v-model="form.phone" 
               type="tel" 
               label="Contact Number" 
-              placeholder="+234..."
             />
           </div>
         </div>
