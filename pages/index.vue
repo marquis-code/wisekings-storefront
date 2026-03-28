@@ -15,34 +15,23 @@
 
           <!-- Main Typography Stack -->
           <div class="relative z-10 w-full text-center flex flex-col items-center pt-8 md:pt-2 pb-8">
-            <!-- Business Name (Massive Focal Point) -->
-            <h1 class="text-6xl md:text-9xl lg:text-[160px] font-black tracking-tighter leading-[0.85] uppercase mb-4 animate-fade-in-up text-transparent bg-clip-text bg-gradient-to-br from-[#033958] via-gray-800 to-amber-500 pr-5 drop-shadow-xl filter">
-              Wisekings
-            </h1>
-
-            <!-- Slogan -->
-            <p class="text-lg md:text-2xl font-black text-amber-500 uppercase tracking-[0.3em] flex items-center justify-center gap-3 mb-8 animate-fade-in-up delay-[50ms]">
-                <Icon name="lucide:award" class="text-amber-400" size="24" />
-                Best in Value
-            </p>
-
-            <!-- Dynamic Product Selection (Prominent but smaller than brand) -->
-            <div class="h-[60px] md:h-[100px] flex items-center justify-center animate-fade-in-up delay-100">
-              <transition name="slide-up" mode="out-in">
-                <span :key="currentSlide" 
-                  class="text-4xl md:text-6xl lg:text-8xl font-black tracking-tight uppercase"
-                  :style="{ color: slides[currentSlide].color }"
-                >
-                  {{ slides[currentSlide].title }}
-                </span>
-              </transition>
+            <!-- Business Logo (Massive Focal Point) -->
+            <div class="mb-12 animate-fade-in-up">
+              <img src="@/assets/images/logo.jpg" alt="WiseKings Logo" class="h-48 md:h-64 lg:h-80 w-auto object-contain drop-shadow-2xl mx-auto" />
             </div>
 
-            <transition name="fade" mode="out-in">
-              <p :key="currentSlide" class="text-base md:text-xl text-gray-500 max-w-2xl mx-auto font-medium mt-8 leading-relaxed px-4">
-                {{ slides[currentSlide].subtitle.replace('Best in Value • ', '') }}
-              </p>
-            </transition>
+            <!-- Static Product Selection -->
+            <div class="flex flex-wrap items-center justify-center gap-4 md:gap-8 mb-6 animate-fade-in-up delay-100">
+              <span class="text-2xl md:text-4xl lg:text-5xl font-black tracking-tight uppercase text-emerald-600">PLANTAIN CHIPS</span>
+              <span class="w-2 h-2 rounded-full bg-gray-200 hidden md:block"></span>
+              <span class="text-2xl md:text-4xl lg:text-5xl font-black tracking-tight uppercase text-red-600">POTATO CHIPS</span>
+              <span class="w-2 h-2 rounded-full bg-gray-200 hidden md:block"></span>
+              <span class="text-2xl md:text-4xl lg:text-5xl font-black tracking-tight uppercase text-blue-600">POPCORN</span>
+            </div>
+
+            <p class="text-lg md:text-2xl font-black text-gray-900 animate-fade-in-up delay-200">
+              ...Taster, crunchy delight for everyone!
+            </p>
           </div>
 
           <!-- Subtle Scroll/Slide Indicator -->
@@ -57,10 +46,9 @@
         </div>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-col items-center gap-6 mb-16 relative z-20">
-          <NuxtLink :to="slides[currentSlide].cta.link" 
-            class="text-white px-10 py-4 md:px-12 md:py-5 rounded-2xl font-black text-xs md:text-sm uppercase tracking-widest hover:scale-105 transition-all flex items-center gap-4 group/btn shadow-2xl shadow-gray-900/20"
-            :style="{ backgroundColor: slides[currentSlide].color || '#000' }"
+        <div class="flex flex-col items-center gap-6 mb-4 relative z-20">
+          <NuxtLink to="/products" 
+            class="bg-[#033958] text-white px-10 py-4 md:px-12 md:py-5 rounded-2xl font-black text-xs md:text-sm uppercase tracking-widest hover:scale-105 transition-all flex items-center gap-4 group/btn shadow-2xl shadow-[#033958]/20"
           >
             <span>Order now</span>
             <Icon name="lucide:arrow-right" size="18" class="group-hover:translate-x-2 transition-transform" />
@@ -78,7 +66,7 @@
 
 
     <!-- Featured Products -->
-    <section class="max-w-7xl mx-auto px-4 lg:px-8 py-16">
+    <section class="max-w-7xl mx-auto px-4 lg:px-8 py-8">
       <div class="flex items-center justify-between mb-8">
         <h2 class="text-2xl font-extrabold text-gray-900">{{ $t('featured_snacks') }}</h2>
         <NuxtLink to="/products" class="text-sm font-bold text-[#033958] hover:underline flex items-center gap-1">

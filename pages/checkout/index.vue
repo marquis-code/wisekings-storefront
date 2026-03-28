@@ -185,8 +185,10 @@
                         address.state = data.state;
                         isEditingAddress = false;
                         
-                        if (deliveryMethod === 'lagos_dispatch' && data.lat && data.lng) {
-                          calculateFee(data.lat, data.lng, 'lagos_dispatch')
+                        if (deliveryMethod === 'lagos_dispatch') {
+                          shippingFee = 0
+                        } else if (data.lat && data.lng) {
+                          calculateFee(data.lat, data.lng, deliveryMethod)
                         }
                       }"
                     />
@@ -725,8 +727,8 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
           `🇳🇬 ${targetAddress.country || 'Nigeria'}\n\n`
       ) +
       (s.deliveryMethod === 'pickup'
-        ? `Thank you for choosing WiseKings. Your order has been received and is being processed for pick up. Kindly proceed to make payment to the account details below:\n\n`
-        : `Thank you for choosing WiseKings. Your order has been received and is being processed. We shall get back to you shortly with the applicable delivery charge. Kindly proceed to make payment to the account details below once the delivery fee has been communicated:\n\n`
+        ? `Thank you for choosing WiseKings. Your order has been received and is being processed for pick up.\n\nKindly proceed to make payment to the account details below:\n\n`
+        : `Thank you for choosing WiseKings. Your order has been received and is being processed. We shall get back to you shortly with the applicable delivery charge.\n\nKindly proceed to make payment to the account details below once the delivery fee has been communicated:\n\n`
       ) +
       `🏦 *PAYMENT DETAILS*\n\n` +
       `💳 Method: *Bank Transfer*\n` +

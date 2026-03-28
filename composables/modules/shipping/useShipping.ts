@@ -13,6 +13,14 @@ export const useShipping = () => {
                 params: { lat, lng, method, country, weight, isHomeDelivery, _t: Date.now() } 
             }) as any
             const data = res.data || res
+            
+            // Aggressively force 0 for lagos_dispatch regardless of backend response
+            // to match the "To be communicated" UI logic
+            if (method === 'lagos_dispatch') {
+                shippingFee.value = 0
+                return { ...data, fee: 0 }
+            }
+
             shippingFee.value = data.fee || 0
             distanceInfo.value = data
             return data
