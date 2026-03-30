@@ -83,137 +83,73 @@
               </div> -->
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Recipient Full Name (Compulsory) -->
-              <div class="md:col-span-2">
-                <CoreAnimatedInput 
-                  v-model="address.fullName" 
-                  label="Recipient Full Name *" 
-                  required
-                  :has-error="!address.fullName && submitting"
-                />
-              </div>
-
-              <!-- Recipient WhatsApp Phone (Compulsory) -->
-              <div class="space-y-2">
-                <label class="text-[10px] font-black uppercase tracking-widest text-red-600 ml-1">Mandatory for Order Updates *</label>
-                <CoreAnimatedInput 
-                  v-model="address.phone" 
-                  type="tel" 
-                  label="Recipient WhatsApp Number *" 
-                  required
-                  :has-error="!address.phone && submitting"
-                />
-              </div>
-
-              <div v-if="deliveryMethod === 'waybill'" class="mt-4 p-4 bg-blue-50/50 rounded-2xl border border-blue-100/50">
-                <div class="flex items-start gap-3 text-[#033958]">
-                  <Icon name="lucide:info" size="18" class="mt-0.5 shrink-0 text-blue-500" />
-                  <div class="space-y-1">
-                    <p class="text-xs font-bold">Waybill: Delivery is within 5 days outside lagos</p>
-                    <p class="text-xs font-bold">International Waybill: 2 to 3 weeks</p>
+            <div class="space-y-8">
+              <!-- Ordering Customer Details -->
+              <div>
+                <h3 class="text-sm font-black uppercase tracking-[0.2em] text-[#033958] mb-4">Ordering Customer Details</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="md:col-span-1">
+                    <CoreAnimatedInput v-model="orderingCustomer.firstName" label="First Name *" required :has-error="!orderingCustomer.firstName && submitting" />
+                  </div>
+                  <div class="md:col-span-1">
+                    <CoreAnimatedInput v-model="orderingCustomer.surname" label="Surname *" required :has-error="!orderingCustomer.surname && submitting" />
+                  </div>
+                  <div class="md:col-span-2">
+                    <CoreAnimatedInput v-model="orderingCustomer.address" label="Contact Address *" required :has-error="!orderingCustomer.address && submitting" />
+                  </div>
+                  <div class="md:col-span-1">
+                    <CoreAnimatedInput v-model="orderingCustomer.whatsapp" type="tel" label="WhatsApp Number *" required :has-error="!orderingCustomer.whatsapp && submitting" />
+                  </div>
+                  <div class="md:col-span-1">
+                    <CoreAnimatedInput v-model="orderingCustomer.alternativePhone" type="tel" label="Alternative Number" />
+                  </div>
+                  <div class="md:col-span-2">
+                    <CoreAnimatedInput v-model="orderingCustomer.email" type="email" label="Email Address *" required :has-error="!orderingCustomer.email && submitting" />
+                  </div>
+                  <div class="md:col-span-1">
+                    <CoreAnimatedInput v-model="orderingCustomer.city" label="City *" required :has-error="!orderingCustomer.city && submitting" />
+                  </div>
+                  <div class="md:col-span-1">
+                    <CoreSelectInput v-model="orderingCustomer.country" label="Country *" :options="['Nigeria', 'UK', 'US', 'Canada', 'Ghana', 'South Africa']" />
                   </div>
                 </div>
               </div>
-              <!-- Recipient Alternative Phone (Optional) -->
-              <div class="space-y-2">
-                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Optional</label>
-                <CoreAnimatedInput 
-                  v-model="address.alternativePhone" 
-                  type="tel" 
-                  label="Recipient Alternative Number" 
-                />
-              </div>
 
-              <!-- Recipient Email (Optional) -->
-              <div class="md:col-span-2">
-                <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Optional</label>
-                <CoreAnimatedInput 
-                  v-model="guestAuth.email" 
-                  type="email" 
-                  label="Recipient Email Address" 
-                />
-              </div>
-
-              <!-- Factory Address for Pickup -->
-              <div v-if="deliveryMethod === 'pickup'" class="md:col-span-2 p-6 bg-amber-50 rounded-3xl border border-amber-100 flex items-start gap-4 mt-2">
-                <Icon name="lucide:store" class="text-amber-600 shrink-0 mt-1" size="24" />
-                <div>
-                  <h3 class="text-xs font-black text-amber-900 uppercase tracking-widest mb-1">Factory Pickup Location</h3>
-                  <p class="text-sm font-bold text-amber-800">13, Sonubi street, off Bakare street ketu, Lagos</p>
-                  <!-- <p class="text-xs font-medium text-amber-700/80 mt-2">Please ensure you bring your order ID and the WhatsApp phone number used above.</p> -->
+              <!-- Recipient (Shipping Address) -->
+              <div v-if="deliveryMethod !== 'pickup'" class="pt-6 border-t border-gray-200/60">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-sm font-black uppercase tracking-[0.2em] text-[#033958]">Recipient (Shipping Address)</h3>
+                  <button type="button" @click="copyCustomerToRecipient" class="text-[10px] font-black uppercase text-amber-600 tracking-widest bg-amber-50 px-3 py-1 rounded-full border border-amber-100/50 hover:bg-amber-100 transition-colors">
+                    Same as Ordering
+                  </button>
                 </div>
-              </div>
-
-
-              <!-- Physical Address - Only if not Pickup -->
-              <template v-if="deliveryMethod !== 'pickup'">
-                <div class="md:col-span-2 mt-4 pt-4 border-t border-gray-200/60">
-                  <div v-if="!isEditingAddress && address.address" class="p-6 bg-white rounded-3xl border border-gray-100 flex items-start justify-between gap-4">
-                    <div class="flex items-start gap-3">
-                      <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 shrink-0">
-                        <Icon name="lucide:map-pin" size="20" />
-                      </div>
-                      <div class="space-y-1">
-                        <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Delivery Address</p>
-                        <p class="text-sm font-bold text-[#033958] leading-tight">{{ address.address }}</p>
-                        <p class="text-xs text-gray-400 font-medium">{{ address.city }}, {{ address.state }}, {{ address.country }}</p>
-                      </div>
-                    </div>
-                    <button 
-                      type="button"
-                      @click="isEditingAddress = true"
-                      class="px-4 py-2 bg-gray-50 text-[#033958] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-gray-100 transition-all shrink-0"
-                    >
-                      Edit
-                    </button>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="md:col-span-2">
+                    <CoreAnimatedInput v-model="recipientDetails.firstName" label="Recipient First Name *" required :has-error="!recipientDetails.firstName && submitting" />
                   </div>
-                  <div v-else class="space-y-6">
-                    <div class="flex items-center justify-between mb-2">
-                       <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Delivery Street Address *</label>
-                       <button v-if="address.address" @click="isEditingAddress = false" type="button" class="text-[10px] font-black text-amber-600 uppercase tracking-widest">Cancel</button>
-                    </div>
-                    <CoreAddressAutocomplete 
-                      v-model="address.address" 
-                      label="Delivery Street Address *" 
-                      placeholder="Search for your exact location..." 
-                      @place-changed="(data: any) => {
-                        address.address = data.address;
-                        address.lat = data.lat;
-                        address.lng = data.lng;
-                        address.city = data.city;
-                        address.state = data.state;
-                        isEditingAddress = false;
-                        
-                        if (deliveryMethod === 'lagos_dispatch') {
-                          shippingFee = 0
-                        } else if (data.lat && data.lng) {
-                          calculateFee(data.lat, data.lng, deliveryMethod)
-                        }
-                      }"
-                    />
-                    <div class="flex items-center gap-2 mt-2">
-                        <button @click="detectLocation" type="button" class="flex items-center gap-2 text-[10px] font-black text-emerald-600 uppercase tracking-widest py-2 px-3 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-all">
-                           <Icon name="lucide:locate-fixed" size="14" />
-                           {{ detectingLocation ? 'Detecting...' : 'Use Current Location' }}
-                        </button>
-                    </div>
+                  <div class="md:col-span-2">
+                    <CoreAnimatedInput v-model="recipientDetails.address" label="Contact Address *" required :has-error="!recipientDetails.address && submitting" />
+                  </div>
+                  <div class="md:col-span-1">
+                    <CoreAnimatedInput v-model="recipientDetails.whatsapp" type="tel" label="Recipient WhatsApp Number *" required :has-error="!recipientDetails.whatsapp && submitting" />
+                  </div>
+                  <div class="md:col-span-1">
+                    <CoreAnimatedInput v-model="recipientDetails.alternativePhone" type="tel" label="Alternative Number" />
+                  </div>
+                  <div class="md:col-span-2">
+                    <CoreAnimatedInput v-model="recipientDetails.email" type="email" label="Recipient Email Address" />
+                  </div>
+                  <div class="md:col-span-1">
+                    <CoreAnimatedInput v-model="recipientDetails.city" label="City *" required :has-error="!recipientDetails.city && submitting" />
+                  </div>
+                  <div class="md:col-span-1">
+                    <CoreSelectInput v-model="recipientDetails.country" label="Country *" :options="['Nigeria', 'UK', 'US', 'Canada', 'Ghana', 'South Africa']" />
                   </div>
                 </div>
-                <div class="space-y-2">
-                  <CoreAnimatedInput v-model="address.city" label="City"  />
-                </div>
-                <div class="space-y-2">
-                  <CoreSelectInput 
-                    v-model="address.country" 
-                    label="Country" 
-                    :options="['Nigeria', 'UK', 'US', 'Canada']"
-                  />
-                </div>
 
-                <div v-if="address.country === 'Canada'" class="md:col-span-2 p-6 bg-emerald-50 rounded-[30px] border border-emerald-100 flex items-center justify-between gap-6">
+                <div v-if="recipientDetails.country === 'Canada'" class="mt-6 p-6 bg-emerald-50 rounded-[30px] border border-emerald-100 flex items-center justify-between gap-6">
                   <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-emerald-600 ">
+                    <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-emerald-600">
                       <Icon name="lucide:home" size="24" />
                     </div>
                     <div>
@@ -221,20 +157,25 @@
                       <p class="text-xs font-medium text-emerald-800/60">Apply $4/kg surcharge for direct delivery to your door.</p>
                     </div>
                   </div>
-                  <button 
-                    type="button"
-                    @click="isHomeDelivery = !isHomeDelivery"
-                    :class="['px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all', isHomeDelivery ? 'bg-emerald-600 text-white  shadow-emerald-600/20' : 'bg-white text-emerald-600 border border-emerald-100']"
-                  >
+                  <button type="button" @click="isHomeDelivery = !isHomeDelivery" :class="['px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all', isHomeDelivery ? 'bg-emerald-600 text-white shadow-emerald-600/20' : 'bg-white text-emerald-600 border border-emerald-100']">
                     {{ isHomeDelivery ? 'Enabled' : 'Select' }}
                   </button>
                 </div>
+              </div>
 
-                <div v-if="shippingErrorMessage" class="md:col-span-2 p-6 bg-red-50 rounded-[30px] border border-red-100 flex items-center gap-4">
-                  <Icon name="lucide:alert-circle" class="text-red-500" size="24" />
-                  <p class="text-xs font-bold text-red-900">{{ shippingErrorMessage }}</p>
+              <!-- Factory Address for Pickup -->
+              <div v-if="deliveryMethod === 'pickup'" class="p-6 bg-amber-50 rounded-3xl border border-amber-100 flex items-start gap-4 mt-2">
+                <Icon name="lucide:store" class="text-amber-600 shrink-0 mt-1" size="24" />
+                <div>
+                  <h3 class="text-xs font-black text-amber-900 uppercase tracking-widest mb-1">Factory Pickup Location</h3>
+                  <p class="text-sm font-bold text-amber-800">13, Sonubi street, off Bakare street ketu, Lagos</p>
                 </div>
-              </template>
+              </div>
+
+              <div v-if="shippingErrorMessage" class="p-6 bg-red-50 rounded-[30px] border border-red-100 flex items-center gap-4">
+                <Icon name="lucide:alert-circle" class="text-red-500" size="24" />
+                <p class="text-xs font-bold text-red-900">{{ shippingErrorMessage }}</p>
+              </div>
             </div>
           </div>
 
@@ -365,7 +306,7 @@
               <button 
                 @click="handleCheckout" 
                 class="w-full py-5 bg-gray-950 hover:bg-[#033958] text-white rounded-[32px] font-black text-xs uppercase tracking-[0.2em] transition-all active:scale-[0.95]  shadow-gray-950/20 flex items-center justify-center gap-3 disabled:opacity-50 disabled:bg-gray-400"
-                :disabled="submitting || items.length === 0 || !address.phone || !address.fullName"
+                :disabled="submitting || items.length === 0 || !orderingCustomer.whatsapp || !orderingCustomer.firstName"
               >
                 <Icon name="lucide:lock" class="w-4 h-4" />
                 {{ $t('common.complete_purchase') || 'Complete Purchase' }}
@@ -404,8 +345,6 @@ import { useCurrency } from '@/composables/useCurrency'
 import { useReferral } from '@/composables/useReferral'
 import { useCustomToast } from '@/composables/core/useCustomToast'
 
-declare const google: any
-
 import { GATEWAY_ENDPOINT } from "@/api_factory/axios.config"
 
 const { items, totalPrice, clearCart } = useCart()
@@ -430,13 +369,40 @@ const pickupLocations = ref<any[]>([])
 const bankDetails = ref({ accountName: '', accountNumber: '', bankName: '' })
 const guestAuth = ref({ email: '', password: '' })
 const showPassword = ref(false)
-const address = ref({ fullName: user.value?.fullName || '', phone: user.value?.phone || '', alternativePhone: '', address: '', city: '', state: '', country: 'Nigeria', zipCode: '', lat: 0, lng: 0 })
+const orderingCustomer = ref({
+  firstName: user.value?.fullName?.split(' ')[0] || '',
+  surname: user.value?.fullName?.split(' ')[1] || '',
+  address: '',
+  whatsapp: user.value?.phone || '',
+  alternativePhone: '',
+  email: user.value?.email || '',
+  city: '',
+  country: 'Nigeria'
+})
+
+const recipientDetails = ref({
+  firstName: '',
+  address: '',
+  whatsapp: '',
+  alternativePhone: '',
+  email: '',
+  city: '',
+  country: 'Nigeria'
+})
+
+const copyCustomerToRecipient = () => {
+  recipientDetails.value.firstName = `${orderingCustomer.value.firstName} ${orderingCustomer.value.surname}`.trim()
+  recipientDetails.value.address = orderingCustomer.value.address
+  recipientDetails.value.whatsapp = orderingCustomer.value.whatsapp
+  recipientDetails.value.alternativePhone = orderingCustomer.value.alternativePhone
+  recipientDetails.value.email = orderingCustomer.value.email
+  recipientDetails.value.city = orderingCustomer.value.city
+  recipientDetails.value.country = orderingCustomer.value.country
+}
 
 const isHomeDelivery = ref(false)
 const shippingErrorMessage = ref('')
 const showCancelButton = ref(false)
-const isEditingAddress = ref(false)
-const detectingLocation = ref(false)
 let submittingTimeout: any = null
 
 const cancelSubmitting = () => {
@@ -471,16 +437,16 @@ const totalWeight = computed(() => {
 
 // Debounce timer and state for shipping calculation
 let debounceTimer: any = null
-const lastQueryState = ref({ lat: 0, lng: 0, method: '', isHome: false, weight: 0 })
+const lastQueryState = ref({ country: '', method: '', isHome: false, weight: 0 })
 
 const refreshShippingFee = async () => {
-  // Avoid redundant calls if the core parameters haven't changed
+  const currentCountry = deliveryMethod.value === 'pickup' ? 'Nigeria' : recipientDetails.value.country || 'Nigeria'
+  
   if (
-    lastQueryState.value.lat === address.value.lat && 
-    lastQueryState.value.lng === address.value.lng &&
     lastQueryState.value.method === deliveryMethod.value &&
     lastQueryState.value.isHome === isHomeDelivery.value &&
-    lastQueryState.value.weight === totalWeight.value
+    lastQueryState.value.weight === totalWeight.value &&
+    lastQueryState.value.country === currentCountry
   ) {
     return 
   }
@@ -491,11 +457,10 @@ const refreshShippingFee = async () => {
   debounceTimer = setTimeout(async () => {
     // Update state to current values
     lastQueryState.value = { 
-      lat: address.value.lat, 
-      lng: address.value.lng, 
       method: deliveryMethod.value,
       isHome: isHomeDelivery.value,
-      weight: totalWeight.value
+      weight: totalWeight.value,
+      country: currentCountry
     }
 
     // Force zero for lagos_dispatch as per user request (Manual communication via WhatsApp)
@@ -506,10 +471,10 @@ const refreshShippingFee = async () => {
     }
 
     const res = await calculateFee(
-      address.value.lat, 
-      address.value.lng, 
+      0, 
+      0, 
       deliveryMethod.value,
-      address.value.country,
+      currentCountry,
       totalWeight.value,
       isHomeDelivery.value
     )
@@ -518,15 +483,13 @@ const refreshShippingFee = async () => {
       shippingErrorMessage.value = res.error
       shippingFee.value = 0
     }
-  }, 2000) // Increased to 2000ms for responsiveness vs credit conservation
+  }, 2000)
 }
 
 // Watch only relevant fields for shipping calculation
 watch(
   [
-    () => address.value.lat, 
-    () => address.value.lng, 
-    () => address.value.country, 
+    () => recipientDetails.value.country, 
     deliveryMethod, 
     isHomeDelivery,
     totalWeight
@@ -550,84 +513,7 @@ onMounted(async () => {
     console.error('Failed to load global settings', e)
     whatsappNumber.value = '2349060012295'
   }
-
-  // Auto-detect location for shipping calculation if not set
-  if (!address.value.address && deliveryMethod.value !== 'pickup') {
-    detectLocation()
-  }
 })
-
-async function detectLocation() {
-  if (!navigator.geolocation) {
-    showToast({ title: 'Geolocation Not Supported', message: 'Your browser does not support geolocation.', toastType: 'error' })
-    return
-  }
-
-  detectingLocation.value = true
-  navigator.geolocation.getCurrentPosition(
-    async (position) => {
-      const { latitude, longitude } = position.coords
-      address.value.lat = latitude
-      address.value.lng = longitude
-
-      // Try to reverse geocode using Google Maps Geocoder
-      try {
-        if (typeof google !== 'undefined' && google.maps && google.maps.Geocoder) {
-          const geocoder = new google.maps.Geocoder()
-          const latlng = { lat: latitude, lng: longitude }
-
-          geocoder.geocode({ location: latlng }, (results: any, status: any) => {
-            if (status === 'OK') {
-              if (results[0]) {
-                const place = results[0]
-                address.value.address = place.formatted_address
-                
-                // Parse address components
-                place.address_components.forEach((component: any) => {
-                  const types = component.types
-                  if (types.includes('locality')) {
-                    address.value.city = component.long_name
-                  } else if (types.includes('administrative_area_level_1')) {
-                    address.value.state = component.long_name
-                  } else if (types.includes('country')) {
-                    address.value.country = component.long_name
-                  }
-                })
-
-                showToast({ title: 'Location Detected', message: 'Your delivery address has been automatically populated.', toastType: 'success' })
-              } else {
-                showToast({ title: 'Location Found', message: 'Coordinates acquired, but no address found.', toastType: 'info' })
-              }
-            } else {
-              console.error('Geocoder failed due to: ' + status)
-              address.value.address = 'Detected Location (Coordinates Acquired)'
-            }
-          })
-        } else {
-          // Fallback if google maps is not loaded yet
-          address.value.address = 'Detected Location (Coordinates Acquired)'
-          showToast({ title: 'Location Detected', message: 'Coordinates acquired. Please confirm your address.', toastType: 'info' })
-        }
-        
-        if (deliveryMethod.value === 'lagos_dispatch') {
-            await calculateFee(latitude, longitude, 'lagos_dispatch')
-        }
-      } catch (err) {
-        console.error('Reverse Geocoding failed', err)
-      } finally {
-        detectingLocation.value = false
-      }
-    },
-    (error) => {
-      detectingLocation.value = false
-      console.warn('Geolocation error:', error)
-      showToast({ title: 'Location Access Denied', message: 'Please search for your address manually.', toastType: 'info' })
-    },
-    { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
-  )
-}
-
-
 
 // Watch delivery method to reset fee if pickup
 watch(deliveryMethod, (val) => {
@@ -636,8 +522,8 @@ watch(deliveryMethod, (val) => {
     distanceInfo.value = null
   } else if (val === 'waybill') {
     calculateFee(0, 0, 'waybill')
-  } else if (val === 'lagos_dispatch' && address.value.lat && address.value.lng) {
-    calculateFee(address.value.lat, address.value.lng, 'lagos_dispatch')
+  } else if (val === 'lagos_dispatch') {
+    calculateFee(0, 0, 'lagos_dispatch')
   }
 })
 
@@ -677,9 +563,11 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
         pointsToRedeem: pointsToRedeem.value,
         redeemPoints: redeemPoints.value,
         deliveryMethod: deliveryMethod.value,
-        address: JSON.parse(JSON.stringify(address.value))
+        orderingCustomer: JSON.parse(JSON.stringify(orderingCustomer.value)),
+        recipientDetails: JSON.parse(JSON.stringify(recipientDetails.value))
     }
-    const targetAddress = s.address || address.value
+    const oc = s.orderingCustomer || orderingCustomer.value
+    const rd = s.recipientDetails || recipientDetails.value
     const itemsList = s.items.map((i: any) => `⭐ ${i.name} x ${i.quantity} => ${formatPrice(i.price * i.quantity)}`).join('\n')
     const total = s.totalPrice + s.shippingFee - (s.redeemPoints ? s.pointsToRedeem : 0)
     const date = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
@@ -700,12 +588,18 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
       `🔆 Order Status  : 🟡 Pending\n` +
       `🗓 Date          : 📅 ${date}\n` +
       `💰 Total Amount  : *${formatPrice(total)}*\n\n` +
-      `👤 *RECIPIENT DETAILS*\n\n` +
-      `👤 Name: *${targetAddress.fullName || 'N/A'}*\n` +
-      `📱 WhatsApp: *${targetAddress.phone || 'N/A'}*\n` +
-      (targetAddress.alternativePhone ? `📞 Alt. Number: ${targetAddress.alternativePhone}\n` : '') +
-      ((guestAuth.value.email || user.value?.email) ? `📧 Email: ${guestAuth.value.email || user.value?.email}\n` : '') +
+      `👤 *ORDERING CUSTOMER*\n\n` +
+      `👤 Name: *${oc.firstName} ${oc.surname}*\n` +
+      `📱 WhatsApp: *${oc.whatsapp || 'N/A'}*\n` +
+      (oc.alternativePhone ? `📞 Alt. Number: ${oc.alternativePhone}\n` : '') +
+      ((guestAuth.value.email || oc.email || user.value?.email) ? `📧 Email: ${guestAuth.value.email || oc.email || user.value?.email}\n` : '') +
       `\n` +
+      (s.deliveryMethod !== 'pickup' ?
+      `👤 *RECIPIENT DETAILS*\n\n` +
+      `👤 Name: *${rd.firstName || 'N/A'}*\n` +
+      `📱 WhatsApp: *${rd.whatsapp || 'N/A'}*\n` +
+      (rd.alternativePhone ? `📞 Alt. Number: ${rd.alternativePhone}\n` : '') +
+      `\n` : '') +
       `📦 *ORDER ITEMS*\n\n` +
       `${itemsList}\n\n` +
       `🏷 Subtotal: ${formatPrice(s.totalPrice)}\n` +
@@ -722,9 +616,9 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
           `🏠 ${pickupLocations.value.find(l => l.isActive)?.address || '13, Sonubi street, off Bakare street ketu, Lagos'}\n` +
           `📞 ${pickupLocations.value.find(l => l.isActive)?.phone || '09060012295'}\n\n`
         : `🗺️ *Delivery Address*\n` +
-          `🏠 ${targetAddress.address || 'N/A'}\n` +
-          `🌇 ${targetAddress.city || 'N/A'}, ${targetAddress.state || 'N/A'}\n` +
-          `🇳🇬 ${targetAddress.country || 'Nigeria'}\n\n`
+          `🏠 ${rd.address || 'N/A'}\n` +
+          `🌇 ${rd.city || 'N/A'}\n` +
+          `🇳🇬 ${rd.country || 'Nigeria'}\n\n`
       ) +
       (s.deliveryMethod === 'pickup'
         ? `Thank you for choosing WiseKings. Your order has been received and is being processed for pick up.\n\nKindly proceed to make payment to the account details below:\n\n`
@@ -763,14 +657,14 @@ async function handleCheckout() {
   if (items.value.length === 0) return
 
   // 1. Mandatory Fields Validation
-  if (!address.value.fullName || !address.value.phone) {
-    showToast({ title: 'Mandatory Fields', message: 'Full Name and WhatsApp Phone Number are required.', toastType: 'error' })
+  if (!orderingCustomer.value.firstName || !orderingCustomer.value.whatsapp) {
+    showToast({ title: 'Mandatory Fields', message: 'First Name and WhatsApp Phone Number are required.', toastType: 'error' })
     return
   }
 
   // 1b. Auth Validation
   if (!isAuthenticated.value) {
-    if (!guestAuth.value.email) {
+    if (!guestAuth.value.email && !orderingCustomer.value.email) {
       showToast({ title: 'Email Required', message: 'Please provide your email to proceed.', toastType: 'error' })
       return
     }
@@ -789,9 +683,9 @@ async function handleCheckout() {
       }
 
       const authRes = await GATEWAY_ENDPOINT.post('/auth/checkout-auth', {
-        email: guestAuth.value.email,
-        fullName: address.value.fullName,
-        phone: address.value.phone
+        email: guestAuth.value.email || orderingCustomer.value.email,
+        fullName: `${orderingCustomer.value.firstName} ${orderingCustomer.value.surname}`,
+        phone: orderingCustomer.value.whatsapp
       }) as any
       
       const { setAuth } = useAuthState()
@@ -825,12 +719,9 @@ async function handleCheckout() {
       redeemPoints: redeemPoints.value,
       pointsToRedeem: pointsToRedeem.value,
       deliveryMethod: deliveryMethod.value,
-      deliveryLocation: (deliveryMethod.value === 'delivery' || deliveryMethod.value === 'lagos_dispatch') ? { lat: address.value.lat, lng: address.value.lng } : undefined,
-      shippingAddress: {
-        ...address.value,
-        phone: address.value.phone, // WhatsApp (Mandatory)
-        email: guestAuth.value.email || user.value?.email || undefined
-      },
+      deliveryLocation: undefined,
+      orderingCustomer: orderingCustomer.value,
+      recipientDetails: deliveryMethod.value === 'pickup' ? undefined : recipientDetails.value,
       referralCode: referralCode.value || undefined,
       isHomeDelivery: isHomeDelivery.value,
       paymentProvider: paymentMethod.value === 'direct_transfer' ? 'direct_transfer' : 'paystack'
@@ -859,7 +750,8 @@ async function handleCheckout() {
         pointsToRedeem: pointsToRedeem.value,
         redeemPoints: redeemPoints.value,
         deliveryMethod: deliveryMethod.value,
-        address: JSON.parse(JSON.stringify(address.value))
+        orderingCustomer: JSON.parse(JSON.stringify(orderingCustomer.value)),
+        recipientDetails: JSON.parse(JSON.stringify(recipientDetails.value))
     }
 
     if (paymentMethod.value === 'direct_transfer') {

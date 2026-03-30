@@ -15,9 +15,9 @@
 
           <!-- Main Typography Stack -->
           <div class="relative z-10 w-full text-center flex flex-col items-center pt-8 md:pt-2 pb-8">
-            <!-- Business Logo (Massive Focal Point) -->
-            <div class="mb-12 animate-fade-in-up">
-              <img src="@/assets/images/logo.jpg" alt="WiseKings Logo" class="h-48 md:h-64 lg:h-80 w-auto object-contain drop-shadow-2xl mx-auto" />
+            <!-- Business Logo (Focal Point) -->
+            <div class="mb-4 md:mb-8 animate-fade-in-up flex justify-center w-full px-4">
+              <img src="@/assets/images/logo.jpg" alt="WiseKings Logo" class="h-16 md:h-24 lg:h-32 w-auto object-contain mx-auto mix-blend-darken" />
             </div>
 
             <!-- Static Product Selection -->
@@ -29,8 +29,8 @@
               <span class="text-2xl md:text-4xl lg:text-5xl font-black tracking-tight uppercase text-blue-600">POPCORN</span>
             </div>
 
-            <p class="text-lg md:text-2xl font-black text-gray-900 animate-fade-in-up delay-200">
-              ...Taster, crunchy delight for everyone!
+            <p class="text-lg md:text-2xl font-black text-gray-900 animate-fade-in-up delay-200 italic">
+              .... Tasty , crunchy delight for everyone!
             </p>
           </div>
 

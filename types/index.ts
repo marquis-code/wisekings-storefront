@@ -166,7 +166,6 @@ export interface Product {
     sellPerUnit?: boolean
     unitPrice?: number
     unitDescription?: string
-    unitPrice?: number
     quantityPerPack?: number
     costPricePerPack?: number
     varietyType?: string
@@ -210,14 +209,24 @@ export interface Order {
     merchantId?: string | Merchant
     partnerId?: string | Partner
     referralCode?: string
-    shippingAddress?: {
-        fullName: string
-        phone: string
+    orderingCustomer?: {
+        firstName: string
+        surname: string
         address: string
+        whatsapp: string
+        alternativePhone?: string
+        email: string
         city: string
-        state: string
         country: string
-        zipCode: string
+    }
+    recipientDetails?: {
+        firstName: string
+        address: string
+        whatsapp: string
+        alternativePhone?: string
+        email?: string
+        city: string
+        country: string
     }
     notes?: string
     completedAt?: string

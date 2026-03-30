@@ -75,7 +75,7 @@
             </div>
           </div>
 
-          <div v-if="order.shippingAddress" class="p-8 bg-gray-50 rounded-[40px] border border-gray-100 flex flex-col justify-between">
+          <div v-if="order.recipientDetails || order.shippingAddress" class="p-8 bg-gray-50 rounded-[40px] border border-gray-100 flex flex-col justify-between">
             <div>
               <div class="flex items-center gap-3 mb-6">
                 <Icon name="lucide:truck" class="text-[#033958]" />
@@ -84,11 +84,11 @@
               <div class="space-y-4">
                 <div>
                   <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest">Recipient</p>
-                  <p class="text-sm font-black text-gray-900">{{ order.shippingAddress.fullName }}</p>
+                  <p class="text-sm font-black text-gray-900">{{ order.recipientDetails?.firstName || order.shippingAddress?.fullName }}</p>
                 </div>
                 <div>
                   <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest">Address</p>
-                  <p class="text-sm font-bold text-gray-600 leading-relaxed">{{ order.shippingAddress.address }}, {{ order.shippingAddress.city }}, {{ order.shippingAddress.state }}</p>
+                  <p class="text-sm font-bold text-gray-600 leading-relaxed">{{ order.recipientDetails?.address || order.shippingAddress?.address }}, {{ order.recipientDetails?.city || order.shippingAddress?.city }}, {{ order.recipientDetails?.country || order.shippingAddress?.state }}</p>
                 </div>
               </div>
             </div>
