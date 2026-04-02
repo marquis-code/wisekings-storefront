@@ -1,0 +1,1 @@
+import{j as t,k as s}from"./B3BDxXWm.js";function l(){const e=t("wk_referral",{maxAge:2592e3}),r=t("wk_staff_code",{maxAge:3600*24*30});function n(){const a=new URLSearchParams(window.location.search),o=a.get("ref");o&&(e.value=o);const f=a.get("staff");f&&(r.value=f)}return{referralCode:s(e),staffCode:s(r),captureFromUrl:n}}export{l as u};

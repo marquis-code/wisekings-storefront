@@ -75,22 +75,53 @@
             </div>
           </div>
 
-          <div v-if="order.recipientDetails || order.shippingAddress" class="p-8 bg-gray-50 rounded-[40px] border border-gray-100 flex flex-col justify-between">
+          <div v-if="order.orderingCustomer || order.recipientDetails || order.shippingAddress" class="p-8 bg-gray-50 rounded-[40px] border border-gray-100 flex flex-col justify-between">
             <div>
-              <div class="flex items-center gap-3 mb-6">
-                <Icon name="lucide:truck" class="text-[#033958]" />
-                <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-900">Destination</h3>
-              </div>
-              <div class="space-y-4">
-                <div>
-                  <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest">Recipient</p>
-                  <p class="text-sm font-black text-gray-900">{{ order.recipientDetails?.firstName || order.shippingAddress?.fullName }}</p>
+              <template v-if="order.orderingCustomer">
+                <div class="flex items-center gap-3 mb-6">
+                  <Icon name="lucide:user" class="text-[#033958]" />
+                  <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-900">Ordering Customer</h3>
                 </div>
-                <div>
-                  <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest">Address</p>
-                  <p class="text-sm font-bold text-gray-600 leading-relaxed">{{ order.recipientDetails?.address || order.shippingAddress?.address }}, {{ order.recipientDetails?.city || order.shippingAddress?.city }}, {{ order.recipientDetails?.country || order.shippingAddress?.state }}</p>
+                <div class="space-y-4 mb-8">
+                  <div>
+                    <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest">Name & Contact</p>
+                    <p class="text-sm font-black text-gray-900">{{ order.orderingCustomer.firstName }} {{ order.orderingCustomer.surname }} <span v-if="order.orderingCustomer.whatsapp" class="text-xs text-gray-500 font-bold ml-2">({{ order.orderingCustomer.whatsapp }})</span></p>
+                  </div>
+                  <div>
+                    <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest">Address</p>
+                    <p class="text-sm font-bold text-gray-600 leading-relaxed">{{ order.orderingCustomer.address }}, {{ order.orderingCustomer.city }}, {{ order.orderingCustomer.country }}</p>
+                  </div>
                 </div>
-              </div>
+              </template>
+
+              <template v-if="order.deliveryMethod !== 'pickup'">
+                <div class="flex items-center gap-3 mb-6 pt-6 border-t border-gray-200">
+                  <Icon name="lucide:truck" class="text-[#033958]" />
+                  <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-900">Destination Details</h3>
+                </div>
+                <div class="space-y-4">
+                  <div>
+                    <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest">Recipient</p>
+                    <p class="text-sm font-black text-gray-900">{{ order.recipientDetails?.firstName || order.shippingAddress?.fullName }}</p>
+                  </div>
+                  <div>
+                    <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest">Address</p>
+                    <p class="text-sm font-bold text-gray-600 leading-relaxed">{{ order.recipientDetails?.address || order.shippingAddress?.address }}, {{ order.recipientDetails?.city || order.shippingAddress?.city }}, {{ order.recipientDetails?.country || order.shippingAddress?.state }}</p>
+                  </div>
+                </div>
+              </template>
+              <template v-else>
+                <div class="flex items-center gap-3 mb-6 pt-6 border-t border-gray-200">
+                  <Icon name="lucide:store" class="text-[#033958]" />
+                  <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-900">Pickup Location</h3>
+                </div>
+                <div class="space-y-4">
+                  <div>
+                    <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest">Factory Location</p>
+                    <p class="text-sm font-bold text-gray-600 leading-relaxed">13, Sonubi street, off Bakare street ketu, Lagos</p>
+                  </div>
+                </div>
+              </template>
             </div>
           </div>
         </div>

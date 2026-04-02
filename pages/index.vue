@@ -45,15 +45,7 @@
           </div>
         </div>
 
-        <!-- CTA Buttons -->
-        <div class="flex flex-col items-center gap-6 mb-4 relative z-20">
-          <NuxtLink to="/products" 
-            class="bg-[#033958] text-white px-10 py-4 md:px-12 md:py-5 rounded-2xl font-black text-xs md:text-sm uppercase tracking-widest hover:scale-105 transition-all flex items-center gap-4 group/btn shadow-2xl shadow-[#033958]/20"
-          >
-            <span>Order now</span>
-            <Icon name="lucide:arrow-right" size="18" class="group-hover:translate-x-2 transition-transform" />
-          </NuxtLink>
-        </div>
+
 
       <!-- Background Accents -->
       <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0">
@@ -69,9 +61,6 @@
     <section class="max-w-7xl mx-auto px-4 lg:px-8 py-8">
       <div class="flex items-center justify-between mb-8">
         <h2 class="text-2xl font-extrabold text-gray-900">{{ $t('featured_snacks') }}</h2>
-        <NuxtLink to="/products" class="text-sm font-bold text-[#033958] hover:underline flex items-center gap-1">
-          {{ $t('view_all') }} <Icon name="lucide:arrow-right" size="14" />
-        </NuxtLink>
       </div>
       <!-- <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8"> -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
@@ -358,7 +347,6 @@
       <div class="max-w-7xl mx-auto px-6 mb-12 flex items-center justify-between">
         <h2 class="text-3xl md:text-5xl font-black text-gray-950 tracking-tighter">Our Artisan Collection</h2>
         <div class="h-px flex-1 bg-gray-100 mx-12 hidden md:block"></div>
-        <NuxtLink to="/products" class="text-sm font-black uppercase tracking-widest text-amber-500 hover:text-gray-950 transition-colors">Explore All</NuxtLink>
       </div>
 
       <div class="relative flex overflow-x-hidden group">

@@ -135,7 +135,6 @@
           <div>
             <h4 class="text-gray-950 font-black text-sm uppercase tracking-widest mb-6">{{ $t('common.discovery') }}</h4>
             <div class="space-y-4 text-sm font-bold">
-              <NuxtLink to="/products" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('featured_products') }}</NuxtLink>
               <NuxtLink to="/categories" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('categories') }}</NuxtLink>
               <NuxtLink to="/offers" class="block text-gray-500 hover:text-gray-950 transition-colors">{{ $t('common.special_offers') }}</NuxtLink>
             </div>
@@ -246,7 +245,6 @@ watch(() => route.fullPath, () => {
 })
 
 const navLinks = computed(() => [
-  { name: t('common.nav.shop'), path: '/products' },
   { name: t('common.nav.categories'), path: '/categories' },
   { name: t('common.nav.offers'), path: '/offers' },
   { name: t('common.nav.story'), path: '/about' },

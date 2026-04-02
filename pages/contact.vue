@@ -44,7 +44,7 @@
                 </div>
                 <div>
                   <p class="text-xs font-black text-[#033958]/80 uppercase tracking-widest mb-1">Call the Hub</p>
-                  <a href="tel:+2348023225019" class="text-lg font-black text-gray-900 hover:text-emerald-600 transition-colors">+234 802 322 5019</a>
+                  <a href="tel:09060012295" class="text-lg font-black text-gray-900 hover:text-emerald-600 transition-colors">090 600 12295</a>
                 </div>
               </div>
 

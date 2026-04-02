@@ -349,7 +349,7 @@ import { GATEWAY_ENDPOINT } from "@/api_factory/axios.config"
 
 const { items, totalPrice, clearCart } = useCart()
 const { isAuthenticated, user } = useAuthState()
-const { referralCode } = useReferral()
+const { referralCode, staffCode } = useReferral()
 const { locale, t } = useI18n()
 const { selectedCurrency, formatPrice } = useCurrency()
 const { createOrder } = useCreateOrder()
@@ -590,16 +590,12 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
       `💰 Total Amount  : *${formatPrice(total)}*\n\n` +
       `👤 *ORDERING CUSTOMER*\n\n` +
       `👤 Name: *${oc.firstName} ${oc.surname}*\n` +
+      `🏠 Address: *${oc.address || 'N/A'}*\n` +
+      `🏙️ City/Country: *${oc.city || 'N/A'}, ${oc.country || 'N/A'}*\n` +
       `📱 WhatsApp: *${oc.whatsapp || 'N/A'}*\n` +
       (oc.alternativePhone ? `📞 Alt. Number: ${oc.alternativePhone}\n` : '') +
       ((guestAuth.value.email || oc.email || user.value?.email) ? `📧 Email: ${guestAuth.value.email || oc.email || user.value?.email}\n` : '') +
       `\n` +
-      (s.deliveryMethod !== 'pickup' ?
-      `👤 *RECIPIENT DETAILS*\n\n` +
-      `👤 Name: *${rd.firstName || 'N/A'}*\n` +
-      `📱 WhatsApp: *${rd.whatsapp || 'N/A'}*\n` +
-      (rd.alternativePhone ? `📞 Alt. Number: ${rd.alternativePhone}\n` : '') +
-      `\n` : '') +
       `📦 *ORDER ITEMS*\n\n` +
       `${itemsList}\n\n` +
       `🏷 Subtotal: ${formatPrice(s.totalPrice)}\n` +
@@ -614,11 +610,16 @@ async function handleWhatsAppOrder(orderNumber?: string, manifestSnapshot?: any)
         ? `🏢 *Pickup Location*\n` +
           `📍 ${pickupLocations.value.find(l => l.isActive)?.name || 'WiseKings Factory'}\n` +
           `🏠 ${pickupLocations.value.find(l => l.isActive)?.address || '13, Sonubi street, off Bakare street ketu, Lagos'}\n` +
-          `📞 ${pickupLocations.value.find(l => l.isActive)?.phone || '09060012295'}\n\n`
-        : `🗺️ *Delivery Address*\n` +
+          `📞 09060012295\n\n`
+        : `👤 *RECIPIENT DETAILS*\n\n` +
+          `👤 Name: *${rd.firstName || 'N/A'}*\n` +
+          `📱 WhatsApp: *${rd.whatsapp || 'N/A'}*\n` +
+          (rd.alternativePhone ? `📞 Alt. Number: ${rd.alternativePhone}\n` : '') +
+          `\n🗺️ *Delivery Address*\n` +
           `🏠 ${rd.address || 'N/A'}\n` +
           `🌇 ${rd.city || 'N/A'}\n` +
-          `🇳🇬 ${rd.country || 'Nigeria'}\n\n`
+          `🇳🇬 ${rd.country || 'Nigeria'}\n` +
+          (s.deliveryMethod === 'waybill' ? `⏳ Estimated Delivery: *Between 2 to 5 days*\n\n` : '\n')
       ) +
       (s.deliveryMethod === 'pickup'
         ? `Thank you for choosing WiseKings. Your order has been received and is being processed for pick up.\n\nKindly proceed to make payment to the account details below:\n\n`
@@ -723,6 +724,7 @@ async function handleCheckout() {
       orderingCustomer: orderingCustomer.value,
       recipientDetails: deliveryMethod.value === 'pickup' ? undefined : recipientDetails.value,
       referralCode: referralCode.value || undefined,
+      staffCode: staffCode.value || undefined,
       isHomeDelivery: isHomeDelivery.value,
       paymentProvider: paymentMethod.value === 'direct_transfer' ? 'direct_transfer' : 'paystack'
     }
